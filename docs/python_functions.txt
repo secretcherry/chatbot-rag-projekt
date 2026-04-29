@@ -1,0 +1,10 @@
+Python Functions
+
+A function is defined using the def keyword.
+
+Example:
+
+def my_function():
+    print("Hello")
+
+You can pass parameters into functions.
