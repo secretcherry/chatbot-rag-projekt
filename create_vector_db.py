@@ -1,23 +1,26 @@
 from langchain_community.document_loaders import TextLoader
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 import os
 
-documents = []
+#ucitavanje dokumenta
+loader = TextLoader("docs/python_docs.txt", encoding="utf-8")
+documents = loader.load()
 
-docs_folder = "docs"
+#podijela teksta u manje dijelove
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=700,
+    chunk_overlap=50
+)
 
-for file in os.listdir(docs_folder):
+docs = text_splitter.split_documents(documents)
 
-    if file.endswith(".txt"):
-
-        loader = TextLoader(os.path.join(docs_folder, file))
-
-        documents.extend(loader.load())
-
+#embedding
 embeddings = HuggingFaceEmbeddings()
 
-db = FAISS.from_documents(documents, embeddings)
+#vector baza
+db = FAISS.from_documents(docs, embeddings)
 
 db.save_local("vector_db")
 

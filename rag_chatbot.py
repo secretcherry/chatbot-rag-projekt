@@ -21,18 +21,30 @@ while True:
     if question.lower() == "exit":
         break
 
-    docs = db.similarity_search(question)
+    docs = db.similarity_search(question, k=3)
 
-    context = docs[0].page_content
+    context = "\n\n".join([doc.page_content for doc in docs])
 
     prompt = f"""
-Use this documentation to answer the question.
+You are a strict programming assistant.
+
+You MUST answer ONLY using the provided documentation.
+
+DO NOT use your own knowledge.
+DO NOT make up answers.
+
+If the answer is not clearly in the documentation, respond ONLY with:
+"I don't know based on the provided documentation."
 
 Documentation:
+----------------
 {context}
+----------------
 
 Question:
 {question}
+
+Answer:
 """
 
     response = ollama.chat(
@@ -50,3 +62,4 @@ Question:
     print("\nBot:")
     print(answer)
     print()
+
