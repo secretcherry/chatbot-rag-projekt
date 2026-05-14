@@ -61,5 +61,24 @@ Answer:
 
     print("\nBot:")
     print(answer)
+    
+    if "I don't know based on the provided documentation." not in answer:
+
+        print("\n---- SOURCES ----\n")
+
+        for i, doc in enumerate(docs):
+
+            source = doc.metadata.get("source", "Unknown source")
+
+            print(f"[Source {i+1}]")
+
+            print(f"File: {source}")
+
+            preview = doc.page_content[:300].replace("\n", " ")
+
+            print(f"Text preview: {preview}")
+
+            print()
+
     print()
 
