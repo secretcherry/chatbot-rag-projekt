@@ -1,0 +1,201 @@
+SECTION: library
+TITLE: zipimport— Import modules from Zip archives
+SOURCE: library\zipimport.html
+--------------------------------------------------
+
+# zipimport — Import modules from Zip archives
+
+zipimport
+Source code: Lib/zipimport.py
+This module adds the ability to import Python modules ( *.py , *.pyc ) and packages from ZIP-format archives. It is usually not
+needed to use the zipimport module explicitly; it is automatically used
+by the built-in import mechanism for sys.path items that are paths
+to ZIP archives.
+*.py
+*.pyc
+zipimport
+import
+sys.path
+Typically, sys.path is a list of directory names as strings.  This module
+also allows an item of sys.path to be a string naming a ZIP file archive.
+The ZIP archive can contain a subdirectory structure to support package imports,
+and a path within the archive can be specified to only import from a
+subdirectory.  For example, the path example.zip/lib/ would only
+import from the lib/ subdirectory within the archive.
+sys.path
+sys.path
+example.zip/lib/
+lib/
+Any files may be present in the ZIP archive, but importers are only invoked for .py and .pyc files.  ZIP import of dynamic modules
+( .pyd , .so ) is disallowed. Note that if an archive only contains .py files, Python will not attempt to modify the archive by adding the
+corresponding .pyc file, meaning that if a ZIP archive
+doesn’t contain .pyc files, importing may be rather slow.
+.py
+.pyc
+.pyd
+.so
+.py
+.pyc
+.pyc
+Changed in version 3.13: ZIP64 is supported
+Changed in version 3.8: Previously, ZIP archives with an archive comment were not supported.
+See also
+PKZIP Application Note
+Documentation on the ZIP file format by Phil Katz, the creator of the format and
+algorithms used.
+Documentation on the ZIP file format by Phil Katz, the creator of the format and
+algorithms used.
+PEP 273 - Import Modules from Zip Archives
+Written by James C. Ahlstrom, who also provided an implementation. Python 2.3
+follows the specification in PEP 273 , but uses an implementation written by Just
+van Rossum that uses the import hooks described in PEP 302 .
+Written by James C. Ahlstrom, who also provided an implementation. Python 2.3
+follows the specification in PEP 273 , but uses an implementation written by Just
+van Rossum that uses the import hooks described in PEP 302 .
+importlib - The implementation of the import machinery
+importlib
+Package providing the relevant protocols for all importers to
+implement.
+Package providing the relevant protocols for all importers to
+implement.
+This module defines an exception:
+exception zipimport. ZipImportError
+Exception raised by zipimporter objects. It’s a subclass of ImportError ,
+so it can be caught as ImportError , too.
+Exception raised by zipimporter objects. It’s a subclass of ImportError ,
+so it can be caught as ImportError , too.
+ImportError
+ImportError
+
+## zipimporter Objects
+
+zipimporter is the class for importing ZIP files.
+zipimporter
+class zipimport. zipimporter ( archivepath )
+Create a new zipimporter instance. archivepath must be a path to a ZIP
+file, or to a specific path within a ZIP file.  For example, an archivepath of foo/bar.zip/lib will look for modules in the lib directory
+inside the ZIP file foo/bar.zip (provided that it exists). ZipImportError is raised if archivepath doesn’t point to a valid ZIP
+archive. Changed in version 3.12: Methods find_loader() and find_module() , deprecated in 3.10 are
+now removed.  Use find_spec() instead. create_module ( spec ) Implementation of importlib.abc.Loader.create_module() that returns None to explicitly request the default semantics. Added in version 3.10. exec_module ( module ) Implementation of importlib.abc.Loader.exec_module() . Added in version 3.10. find_spec ( fullname , target = None ) An implementation of importlib.abc.PathEntryFinder.find_spec() . Added in version 3.10. get_code ( fullname ) Return the code object for the specified module. Raise ZipImportError if the module couldn’t be imported. get_data ( pathname ) Return the data associated with pathname . Raise OSError if the
+file wasn’t found. Changed in version 3.3: IOError used to be raised, it is now an alias of OSError . get_filename ( fullname ) Return the value __file__ would be set to if the specified module
+was imported. Raise ZipImportError if the module couldn’t be
+imported. Added in version 3.1. get_source ( fullname ) Return the source code for the specified module. Raise ZipImportError if the module couldn’t be found, return None if the archive does contain the module, but has no source
+for it. is_package ( fullname ) Return True if the module specified by fullname is a package. Raise ZipImportError if the module couldn’t be found. load_module ( fullname ) Load the module specified by fullname . fullname must be the fully
+qualified (dotted) module name. Returns the imported module on success,
+raises ZipImportError on failure. Deprecated since version 3.10, will be removed in version 3.15: Use exec_module() instead. invalidate_caches ( ) Clear out the internal cache of information about files found within
+the ZIP archive. Added in version 3.10. archive The file name of the importer’s associated ZIP file, without a possible
+subpath. prefix The subpath within the ZIP file where modules are searched.  This is the
+empty string for zipimporter objects which point to the root of the ZIP
+file. The archive and prefix attributes, when combined with a
+slash, equal the original archivepath argument given to the zipimporter constructor.
+Create a new zipimporter instance. archivepath must be a path to a ZIP
+file, or to a specific path within a ZIP file.  For example, an archivepath of foo/bar.zip/lib will look for modules in the lib directory
+inside the ZIP file foo/bar.zip (provided that it exists).
+foo/bar.zip/lib
+lib
+foo/bar.zip
+ZipImportError is raised if archivepath doesn’t point to a valid ZIP
+archive.
+ZipImportError
+Changed in version 3.12: Methods find_loader() and find_module() , deprecated in 3.10 are
+now removed.  Use find_spec() instead.
+find_loader()
+find_module()
+find_spec()
+create_module ( spec )
+Implementation of importlib.abc.Loader.create_module() that returns None to explicitly request the default semantics. Added in version 3.10.
+Implementation of importlib.abc.Loader.create_module() that returns None to explicitly request the default semantics.
+importlib.abc.Loader.create_module()
+None
+Added in version 3.10.
+exec_module ( module )
+Implementation of importlib.abc.Loader.exec_module() . Added in version 3.10.
+Implementation of importlib.abc.Loader.exec_module() .
+importlib.abc.Loader.exec_module()
+Added in version 3.10.
+find_spec ( fullname , target = None )
+An implementation of importlib.abc.PathEntryFinder.find_spec() . Added in version 3.10.
+An implementation of importlib.abc.PathEntryFinder.find_spec() .
+importlib.abc.PathEntryFinder.find_spec()
+Added in version 3.10.
+get_code ( fullname )
+Return the code object for the specified module. Raise ZipImportError if the module couldn’t be imported.
+Return the code object for the specified module. Raise ZipImportError if the module couldn’t be imported.
+ZipImportError
+get_data ( pathname )
+Return the data associated with pathname . Raise OSError if the
+file wasn’t found. Changed in version 3.3: IOError used to be raised, it is now an alias of OSError .
+Return the data associated with pathname . Raise OSError if the
+file wasn’t found.
+OSError
+Changed in version 3.3: IOError used to be raised, it is now an alias of OSError .
+IOError
+OSError
+get_filename ( fullname )
+Return the value __file__ would be set to if the specified module
+was imported. Raise ZipImportError if the module couldn’t be
+imported. Added in version 3.1.
+Return the value __file__ would be set to if the specified module
+was imported. Raise ZipImportError if the module couldn’t be
+imported.
+__file__
+ZipImportError
+Added in version 3.1.
+get_source ( fullname )
+Return the source code for the specified module. Raise ZipImportError if the module couldn’t be found, return None if the archive does contain the module, but has no source
+for it.
+Return the source code for the specified module. Raise ZipImportError if the module couldn’t be found, return None if the archive does contain the module, but has no source
+for it.
+ZipImportError
+None
+is_package ( fullname )
+Return True if the module specified by fullname is a package. Raise ZipImportError if the module couldn’t be found.
+Return True if the module specified by fullname is a package. Raise ZipImportError if the module couldn’t be found.
+True
+ZipImportError
+load_module ( fullname )
+Load the module specified by fullname . fullname must be the fully
+qualified (dotted) module name. Returns the imported module on success,
+raises ZipImportError on failure. Deprecated since version 3.10, will be removed in version 3.15: Use exec_module() instead.
+Load the module specified by fullname . fullname must be the fully
+qualified (dotted) module name. Returns the imported module on success,
+raises ZipImportError on failure.
+ZipImportError
+Deprecated since version 3.10, will be removed in version 3.15: Use exec_module() instead.
+exec_module()
+invalidate_caches ( )
+Clear out the internal cache of information about files found within
+the ZIP archive. Added in version 3.10.
+Clear out the internal cache of information about files found within
+the ZIP archive.
+Added in version 3.10.
+archive
+The file name of the importer’s associated ZIP file, without a possible
+subpath.
+The file name of the importer’s associated ZIP file, without a possible
+subpath.
+prefix
+The subpath within the ZIP file where modules are searched.  This is the
+empty string for zipimporter objects which point to the root of the ZIP
+file.
+The subpath within the ZIP file where modules are searched.  This is the
+empty string for zipimporter objects which point to the root of the ZIP
+file.
+The archive and prefix attributes, when combined with a
+slash, equal the original archivepath argument given to the zipimporter constructor.
+archive
+prefix
+zipimporter
+
+## Examples
+
+Here is an example that imports a module from a ZIP archive - note that the zipimport module is not explicitly used.
+zipimport
+
+[CODE]
+$ unzip -l example_archive.zip Archive:  example_archive.zip Length     Date   Time    Name --------    ----   ----    ---- 8467  01-01-00 12:30   example.py --------                   ------- 8467                   1 file
+[/CODE]
+
+[CODE]
+>>> import sys >>> # Add the archive to the front of the module search path >>> sys . path . insert ( 0 , 'example_archive.zip' ) >>> import example >>> example . __file__ 'example_archive.zip/example.py'
+[/CODE]

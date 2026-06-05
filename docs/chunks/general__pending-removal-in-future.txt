@@ -1,0 +1,345 @@
+SECTION: general
+TITLE: Pending removal in future versions
+SOURCE: deprecations\pending-removal-in-future.html
+--------------------------------------------------
+
+# Pending removal in future versions
+
+The following APIs will be removed in the future,
+although there is currently no date scheduled for their removal.
+argparse : Nesting argument groups and nesting mutually exclusive
+groups are deprecated. Passing the undocumented keyword argument prefix_chars to add_argument_group() is now
+deprecated. The argparse.FileType type converter is deprecated.
+argparse :
+argparse
+Nesting argument groups and nesting mutually exclusive
+groups are deprecated.
+Nesting argument groups and nesting mutually exclusive
+groups are deprecated.
+Passing the undocumented keyword argument prefix_chars to add_argument_group() is now
+deprecated.
+Passing the undocumented keyword argument prefix_chars to add_argument_group() is now
+deprecated.
+add_argument_group()
+The argparse.FileType type converter is deprecated.
+The argparse.FileType type converter is deprecated.
+argparse.FileType
+builtins : Generators: throw(type, exc, tb) and athrow(type, exc, tb) signature is deprecated: use throw(exc) and athrow(exc) instead,
+the single argument signature. Currently Python accepts numeric literals immediately followed by keywords,
+for example 0in x , 1or x , 0if 1else 2 .  It allows confusing and
+ambiguous expressions like [0x1for x in y] (which can be interpreted as [0x1 for x in y] or [0x1f or x in y] ).  A syntax warning is raised
+if the numeric literal is immediately followed by one of keywords and , else , for , if , in , is and or .  In a future release it
+will be changed to a syntax error. ( gh-87999 ) Support for __index__() and __int__() method returning non-int type:
+these methods will be required to return an instance of a strict subclass of int . Support for __float__() method returning a strict subclass of float : these methods will be required to return an instance of float . Support for __complex__() method returning a strict subclass of complex : these methods will be required to return an instance of complex . Passing a complex number as the real or imag argument in the complex() constructor is now deprecated; it should only be passed
+as a single positional argument.
+(Contributed by Serhiy Storchaka in gh-109218 .)
+builtins :
+builtins
+Generators: throw(type, exc, tb) and athrow(type, exc, tb) signature is deprecated: use throw(exc) and athrow(exc) instead,
+the single argument signature.
+Generators: throw(type, exc, tb) and athrow(type, exc, tb) signature is deprecated: use throw(exc) and athrow(exc) instead,
+the single argument signature.
+throw(type, exc, tb)
+athrow(type, exc, tb)
+throw(exc)
+athrow(exc)
+Currently Python accepts numeric literals immediately followed by keywords,
+for example 0in x , 1or x , 0if 1else 2 .  It allows confusing and
+ambiguous expressions like [0x1for x in y] (which can be interpreted as [0x1 for x in y] or [0x1f or x in y] ).  A syntax warning is raised
+if the numeric literal is immediately followed by one of keywords and , else , for , if , in , is and or .  In a future release it
+will be changed to a syntax error. ( gh-87999 )
+Currently Python accepts numeric literals immediately followed by keywords,
+for example 0in x , 1or x , 0if 1else 2 .  It allows confusing and
+ambiguous expressions like [0x1for x in y] (which can be interpreted as [0x1 for x in y] or [0x1f or x in y] ).  A syntax warning is raised
+if the numeric literal is immediately followed by one of keywords and , else , for , if , in , is and or .  In a future release it
+will be changed to a syntax error. ( gh-87999 )
+0in x
+1or x
+0if 1else 2
+[0x1for x in y]
+[0x1 for x in y]
+[0x1f or x in y]
+and
+else
+for
+Support for __index__() and __int__() method returning non-int type:
+these methods will be required to return an instance of a strict subclass of int .
+Support for __index__() and __int__() method returning non-int type:
+these methods will be required to return an instance of a strict subclass of int .
+__index__()
+__int__()
+int
+Support for __float__() method returning a strict subclass of float : these methods will be required to return an instance of float .
+Support for __float__() method returning a strict subclass of float : these methods will be required to return an instance of float .
+__float__()
+float
+float
+Support for __complex__() method returning a strict subclass of complex : these methods will be required to return an instance of complex .
+Support for __complex__() method returning a strict subclass of complex : these methods will be required to return an instance of complex .
+__complex__()
+complex
+complex
+Passing a complex number as the real or imag argument in the complex() constructor is now deprecated; it should only be passed
+as a single positional argument.
+(Contributed by Serhiy Storchaka in gh-109218 .)
+Passing a complex number as the real or imag argument in the complex() constructor is now deprecated; it should only be passed
+as a single positional argument.
+(Contributed by Serhiy Storchaka in gh-109218 .)
+complex()
+calendar : calendar.January and calendar.February constants are
+deprecated and replaced by calendar.JANUARY and calendar.FEBRUARY .
+(Contributed by Prince Roshan in gh-103636 .)
+calendar : calendar.January and calendar.February constants are
+deprecated and replaced by calendar.JANUARY and calendar.FEBRUARY .
+(Contributed by Prince Roshan in gh-103636 .)
+calendar
+calendar.January
+calendar.February
+calendar.JANUARY
+calendar.FEBRUARY
+codecs : use open() instead of codecs.open() . ( gh-133038 )
+codecs : use open() instead of codecs.open() . ( gh-133038 )
+codecs
+open()
+codecs.open()
+codeobject.co_lnotab : use the codeobject.co_lines() method
+instead.
+codeobject.co_lnotab : use the codeobject.co_lines() method
+instead.
+codeobject.co_lnotab
+codeobject.co_lines()
+datetime : utcnow() :
+use datetime.datetime.now(tz=datetime.UTC) . utcfromtimestamp() :
+use datetime.datetime.fromtimestamp(timestamp, tz=datetime.UTC) .
+datetime :
+datetime
+utcnow() :
+use datetime.datetime.now(tz=datetime.UTC) .
+utcnow() :
+use datetime.datetime.now(tz=datetime.UTC) .
+utcnow()
+datetime.datetime.now(tz=datetime.UTC)
+utcfromtimestamp() :
+use datetime.datetime.fromtimestamp(timestamp, tz=datetime.UTC) .
+utcfromtimestamp() :
+use datetime.datetime.fromtimestamp(timestamp, tz=datetime.UTC) .
+utcfromtimestamp()
+datetime.datetime.fromtimestamp(timestamp, tz=datetime.UTC)
+gettext : Plural value must be an integer.
+gettext : Plural value must be an integer.
+gettext
+importlib : cache_from_source() debug_override parameter is
+deprecated: use the optimization parameter instead.
+importlib :
+importlib
+cache_from_source() debug_override parameter is
+deprecated: use the optimization parameter instead.
+cache_from_source() debug_override parameter is
+deprecated: use the optimization parameter instead.
+cache_from_source()
+importlib.metadata : EntryPoints tuple interface. Implicit None on return values.
+importlib.metadata :
+importlib.metadata
+EntryPoints tuple interface.
+EntryPoints tuple interface.
+EntryPoints
+Implicit None on return values.
+Implicit None on return values.
+None
+logging : the warn() method has been deprecated
+since Python 3.3, use warning() instead.
+logging : the warn() method has been deprecated
+since Python 3.3, use warning() instead.
+logging
+warn()
+warning()
+mailbox : Use of StringIO input and text mode is deprecated, use
+BytesIO and binary mode instead.
+mailbox : Use of StringIO input and text mode is deprecated, use
+BytesIO and binary mode instead.
+mailbox
+os : Calling os.register_at_fork() in multi-threaded process.
+os : Calling os.register_at_fork() in multi-threaded process.
+os.register_at_fork()
+pydoc.ErrorDuringImport : A tuple value for exc_info parameter is
+deprecated, use an exception instance.
+pydoc.ErrorDuringImport : A tuple value for exc_info parameter is
+deprecated, use an exception instance.
+pydoc.ErrorDuringImport
+re : More strict rules are now applied for numerical group references
+and group names in regular expressions.  Only sequence of ASCII digits is now
+accepted as a numerical reference.  The group name in bytes patterns and
+replacement strings can now only contain ASCII letters and digits and
+underscore.
+(Contributed by Serhiy Storchaka in gh-91760 .)
+re : More strict rules are now applied for numerical group references
+and group names in regular expressions.  Only sequence of ASCII digits is now
+accepted as a numerical reference.  The group name in bytes patterns and
+replacement strings can now only contain ASCII letters and digits and
+underscore.
+(Contributed by Serhiy Storchaka in gh-91760 .)
+sre_compile , sre_constants and sre_parse modules.
+sre_compile , sre_constants and sre_parse modules.
+sre_compile
+sre_constants
+sre_parse
+shutil : rmtree() ’s onerror parameter is deprecated in
+Python 3.12; use the onexc parameter instead.
+shutil : rmtree() ’s onerror parameter is deprecated in
+Python 3.12; use the onexc parameter instead.
+shutil
+rmtree()
+ssl options and protocols: ssl.SSLContext without protocol argument is deprecated. ssl.SSLContext : set_npn_protocols() and selected_npn_protocol() are deprecated: use ALPN
+instead. ssl.OP_NO_SSL* options ssl.OP_NO_TLS* options ssl.PROTOCOL_SSLv3 ssl.PROTOCOL_TLS ssl.PROTOCOL_TLSv1 ssl.PROTOCOL_TLSv1_1 ssl.PROTOCOL_TLSv1_2 ssl.TLSVersion.SSLv3 ssl.TLSVersion.TLSv1 ssl.TLSVersion.TLSv1_1
+ssl options and protocols:
+ssl
+ssl.SSLContext without protocol argument is deprecated.
+ssl.SSLContext without protocol argument is deprecated.
+ssl.SSLContext
+ssl.SSLContext : set_npn_protocols() and selected_npn_protocol() are deprecated: use ALPN
+instead.
+ssl.SSLContext : set_npn_protocols() and selected_npn_protocol() are deprecated: use ALPN
+instead.
+ssl.SSLContext
+set_npn_protocols()
+selected_npn_protocol()
+ssl.OP_NO_SSL* options
+ssl.OP_NO_SSL* options
+ssl.OP_NO_SSL*
+ssl.OP_NO_TLS* options
+ssl.OP_NO_TLS* options
+ssl.OP_NO_TLS*
+ssl.PROTOCOL_SSLv3
+ssl.PROTOCOL_SSLv3
+ssl.PROTOCOL_SSLv3
+ssl.PROTOCOL_TLS
+ssl.PROTOCOL_TLS
+ssl.PROTOCOL_TLS
+ssl.PROTOCOL_TLSv1
+ssl.PROTOCOL_TLSv1
+ssl.PROTOCOL_TLSv1
+ssl.PROTOCOL_TLSv1_1
+ssl.PROTOCOL_TLSv1_1
+ssl.PROTOCOL_TLSv1_1
+ssl.PROTOCOL_TLSv1_2
+ssl.PROTOCOL_TLSv1_2
+ssl.PROTOCOL_TLSv1_2
+ssl.TLSVersion.SSLv3
+ssl.TLSVersion.SSLv3
+ssl.TLSVersion.SSLv3
+ssl.TLSVersion.TLSv1
+ssl.TLSVersion.TLSv1
+ssl.TLSVersion.TLSv1
+ssl.TLSVersion.TLSv1_1
+ssl.TLSVersion.TLSv1_1
+ssl.TLSVersion.TLSv1_1
+threading methods: threading.Condition.notifyAll() : use notify_all() . threading.Event.isSet() : use is_set() . threading.Thread.isDaemon() , threading.Thread.setDaemon() :
+use threading.Thread.daemon attribute. threading.Thread.getName() , threading.Thread.setName() :
+use threading.Thread.name attribute. threading.currentThread() : use threading.current_thread() . threading.activeCount() : use threading.active_count() .
+threading methods:
+threading
+threading.Condition.notifyAll() : use notify_all() .
+threading.Condition.notifyAll() : use notify_all() .
+threading.Condition.notifyAll()
+notify_all()
+threading.Event.isSet() : use is_set() .
+threading.Event.isSet() : use is_set() .
+threading.Event.isSet()
+is_set()
+threading.Thread.isDaemon() , threading.Thread.setDaemon() :
+use threading.Thread.daemon attribute.
+threading.Thread.isDaemon() , threading.Thread.setDaemon() :
+use threading.Thread.daemon attribute.
+threading.Thread.isDaemon()
+threading.Thread.setDaemon()
+threading.Thread.daemon
+threading.Thread.getName() , threading.Thread.setName() :
+use threading.Thread.name attribute.
+threading.Thread.getName() , threading.Thread.setName() :
+use threading.Thread.name attribute.
+threading.Thread.getName()
+threading.Thread.setName()
+threading.Thread.name
+threading.currentThread() : use threading.current_thread() .
+threading.currentThread() : use threading.current_thread() .
+threading.currentThread()
+threading.current_thread()
+threading.activeCount() : use threading.active_count() .
+threading.activeCount() : use threading.active_count() .
+threading.activeCount()
+threading.active_count()
+typing.Text ( gh-92332 ).
+typing.Text ( gh-92332 ).
+typing.Text
+The internal class typing._UnionGenericAlias is no longer used to implement typing.Union . To preserve compatibility with users using this private
+class, a compatibility shim will be provided until at least Python 3.17. (Contributed by
+Jelle Zijlstra in gh-105499 .)
+The internal class typing._UnionGenericAlias is no longer used to implement typing.Union . To preserve compatibility with users using this private
+class, a compatibility shim will be provided until at least Python 3.17. (Contributed by
+Jelle Zijlstra in gh-105499 .)
+typing._UnionGenericAlias
+typing.Union
+unittest.IsolatedAsyncioTestCase : it is deprecated to return a value
+that is not None from a test case.
+unittest.IsolatedAsyncioTestCase : it is deprecated to return a value
+that is not None from a test case.
+unittest.IsolatedAsyncioTestCase
+None
+urllib.parse deprecated functions: urlparse() instead splitattr() splithost() splitnport() splitpasswd() splitport() splitquery() splittag() splittype() splituser() splitvalue() to_bytes()
+urllib.parse deprecated functions: urlparse() instead
+urllib.parse
+urlparse()
+splitattr()
+splitattr()
+splitattr()
+splithost()
+splithost()
+splithost()
+splitnport()
+splitnport()
+splitnport()
+splitpasswd()
+splitpasswd()
+splitpasswd()
+splitport()
+splitport()
+splitport()
+splitquery()
+splitquery()
+splitquery()
+splittag()
+splittag()
+splittag()
+splittype()
+splittype()
+splittype()
+splituser()
+splituser()
+splituser()
+splitvalue()
+splitvalue()
+splitvalue()
+to_bytes()
+to_bytes()
+to_bytes()
+wsgiref : SimpleHandler.stdout.write() should not do partial
+writes.
+wsgiref : SimpleHandler.stdout.write() should not do partial
+writes.
+wsgiref
+SimpleHandler.stdout.write()
+xml.etree.ElementTree : Testing the truth value of an Element is deprecated. In a future release it
+will always return True . Prefer explicit len(elem) or elem is not None tests instead.
+xml.etree.ElementTree : Testing the truth value of an Element is deprecated. In a future release it
+will always return True . Prefer explicit len(elem) or elem is not None tests instead.
+xml.etree.ElementTree
+Element
+True
+len(elem)
+elem is not None
+sys._clear_type_cache() is deprecated:
+use sys._clear_internal_caches() instead.
+sys._clear_type_cache() is deprecated:
+use sys._clear_internal_caches() instead.
+sys._clear_type_cache()
+sys._clear_internal_caches()

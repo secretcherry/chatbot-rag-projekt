@@ -1,0 +1,15 @@
+SECTION: library
+TITLE: Theconcurrentpackage
+SOURCE: library\concurrent.html
+--------------------------------------------------
+
+# The concurrent package
+
+concurrent
+This package contains the following modules:
+concurrent.futures – Launching parallel tasks
+concurrent.futures – Launching parallel tasks
+concurrent.futures
+concurrent.interpreters – Multiple interpreters in the same process
+concurrent.interpreters – Multiple interpreters in the same process
+concurrent.interpreters

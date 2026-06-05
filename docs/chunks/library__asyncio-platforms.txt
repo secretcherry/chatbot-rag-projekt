@@ -1,0 +1,91 @@
+SECTION: library
+TITLE: Platform Support
+SOURCE: library\asyncio-platforms.html
+--------------------------------------------------
+
+# Platform Support
+
+The asyncio module is designed to be portable,
+but some platforms have subtle differences and limitations
+due to the platforms’ underlying architecture and capabilities.
+asyncio
+
+## All Platforms
+
+loop.add_reader() and loop.add_writer() cannot be used to monitor file I/O.
+loop.add_reader() and loop.add_writer() cannot be used to monitor file I/O.
+loop.add_reader()
+loop.add_writer()
+
+## Windows
+
+Source code: Lib/asyncio/proactor_events.py , Lib/asyncio/windows_events.py , Lib/asyncio/windows_utils.py
+Changed in version 3.8: On Windows, ProactorEventLoop is now the default event loop.
+ProactorEventLoop
+All event loops on Windows do not support the following methods:
+loop.create_unix_connection() and loop.create_unix_server() are not supported.
+The socket.AF_UNIX socket family is specific to Unix.
+loop.create_unix_connection() and loop.create_unix_server() are not supported.
+The socket.AF_UNIX socket family is specific to Unix.
+loop.create_unix_connection()
+loop.create_unix_server()
+socket.AF_UNIX
+loop.add_signal_handler() and loop.remove_signal_handler() are not supported.
+loop.add_signal_handler() and loop.remove_signal_handler() are not supported.
+loop.add_signal_handler()
+loop.remove_signal_handler()
+SelectorEventLoop has the following limitations:
+SelectorEventLoop
+SelectSelector is used to wait on socket events:
+it supports sockets and is limited to 512 sockets.
+SelectSelector is used to wait on socket events:
+it supports sockets and is limited to 512 sockets.
+SelectSelector
+loop.add_reader() and loop.add_writer() only accept
+socket handles (e.g. pipe file descriptors are not supported).
+loop.add_reader() and loop.add_writer() only accept
+socket handles (e.g. pipe file descriptors are not supported).
+loop.add_reader()
+loop.add_writer()
+Pipes are not supported, so the loop.connect_read_pipe() and loop.connect_write_pipe() methods are not implemented.
+Pipes are not supported, so the loop.connect_read_pipe() and loop.connect_write_pipe() methods are not implemented.
+loop.connect_read_pipe()
+loop.connect_write_pipe()
+Subprocesses are not supported, i.e. loop.subprocess_exec() and loop.subprocess_shell() methods are not implemented.
+Subprocesses are not supported, i.e. loop.subprocess_exec() and loop.subprocess_shell() methods are not implemented.
+loop.subprocess_exec()
+loop.subprocess_shell()
+ProactorEventLoop has the following limitations:
+ProactorEventLoop
+The loop.add_reader() and loop.add_writer() methods are not supported.
+The loop.add_reader() and loop.add_writer() methods are not supported.
+loop.add_reader()
+loop.add_writer()
+The resolution of the monotonic clock on Windows is usually around 15.6
+milliseconds.  The best resolution is 0.5 milliseconds. The resolution depends on the
+hardware (availability of HPET ) and on the
+Windows configuration.
+
+### Subprocess Support on Windows
+
+On Windows, the default event loop ProactorEventLoop supports
+subprocesses, whereas SelectorEventLoop does not.
+ProactorEventLoop
+SelectorEventLoop
+
+## macOS
+
+Modern macOS versions are fully supported.
+macOS <= 10.8
+On macOS 10.6, 10.7 and 10.8, the default event loop
+uses selectors.KqueueSelector , which does not support
+character devices on these versions.  The SelectorEventLoop can be manually configured to use SelectSelector or PollSelector to support character devices on
+these older versions of macOS.  Example:
+selectors.KqueueSelector
+SelectorEventLoop
+SelectSelector
+PollSelector
+
+[CODE]
+import asyncio import selectors selector = selectors . SelectSelector () loop = asyncio . SelectorEventLoop ( selector ) asyncio . set_event_loop ( loop )
+[/CODE]

@@ -1,0 +1,64 @@
+SECTION: library
+TITLE: Security Considerations
+SOURCE: library\security_warnings.html
+--------------------------------------------------
+
+# Security Considerations
+
+The following modules have specific security considerations:
+base64 : base64 security considerations in RFC 4648
+base64 : base64 security considerations in RFC 4648
+base64
+hashlib : all constructors take a “usedforsecurity” keyword-only
+argument disabling known insecure and blocked algorithms
+hashlib : all constructors take a “usedforsecurity” keyword-only
+argument disabling known insecure and blocked algorithms
+hashlib
+http.server is not suitable for production use, only implementing
+basic security checks. See the security considerations .
+http.server is not suitable for production use, only implementing
+basic security checks. See the security considerations .
+http.server
+logging : Logging configuration uses eval()
+logging : Logging configuration uses eval()
+logging
+multiprocessing : Connection.recv() uses pickle
+multiprocessing : Connection.recv() uses pickle
+multiprocessing
+pickle : Restricting globals in pickle
+pickle : Restricting globals in pickle
+pickle
+random shouldn’t be used for security purposes, use secrets instead
+random shouldn’t be used for security purposes, use secrets instead
+random
+secrets
+shelve : shelve is based on pickle and thus unsuitable for
+dealing with untrusted sources
+shelve : shelve is based on pickle and thus unsuitable for
+dealing with untrusted sources
+shelve
+ssl : SSL/TLS security considerations
+ssl : SSL/TLS security considerations
+ssl
+subprocess : Subprocess security considerations
+subprocess : Subprocess security considerations
+subprocess
+tempfile : mktemp is deprecated due to vulnerability to race
+conditions
+tempfile : mktemp is deprecated due to vulnerability to race
+conditions
+tempfile
+xml : XML security
+xml : XML security
+xml
+zipfile : maliciously prepared .zip files can cause disk volume
+exhaustion
+zipfile : maliciously prepared .zip files can cause disk volume
+exhaustion
+zipfile
+The -I command line option can be used to run Python in isolated
+mode. When it cannot be used, the -P option or the PYTHONSAFEPATH environment variable can be used to not prepend a
+potentially unsafe path to sys.path such as the current directory, the
+script’s directory or an empty string.
+PYTHONSAFEPATH
+sys.path

@@ -1,0 +1,14 @@
+SECTION: general
+TITLE: Pending removal in Python 3.19
+SOURCE: deprecations\pending-removal-in-3.19.html
+--------------------------------------------------
+
+# Pending removal in Python 3.19
+
+ctypes : Implicitly switching to the MSVC-compatible struct layout by setting _pack_ but not _layout_ on non-Windows platforms.
+ctypes :
+ctypes
+Implicitly switching to the MSVC-compatible struct layout by setting _pack_ but not _layout_ on non-Windows platforms.
+Implicitly switching to the MSVC-compatible struct layout by setting _pack_ but not _layout_ on non-Windows platforms.
+_pack_
+_layout_

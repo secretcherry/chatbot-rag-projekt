@@ -1,0 +1,35 @@
+SECTION: library
+TITLE: Thecompressionpackage
+SOURCE: library\compression.html
+--------------------------------------------------
+
+# The compression package
+
+compression
+Added in version 3.14.
+The compression package contains the canonical compression modules
+containing interfaces to several different compression algorithms. Some of
+these modules have historically been available as separate modules; those will
+continue to be available under their original names for compatibility reasons,
+and will not be removed without a deprecation cycle. The use of modules in compression is encouraged where practical.
+compression
+compression
+compression.bz2 – Re-exports bz2
+compression.bz2 – Re-exports bz2
+compression.bz2
+bz2
+compression.gzip – Re-exports gzip
+compression.gzip – Re-exports gzip
+compression.gzip
+gzip
+compression.lzma – Re-exports lzma
+compression.lzma – Re-exports lzma
+compression.lzma
+lzma
+compression.zlib – Re-exports zlib
+compression.zlib – Re-exports zlib
+compression.zlib
+zlib
+compression.zstd – Wrapper for the Zstandard compression library
+compression.zstd – Wrapper for the Zstandard compression library
+compression.zstd

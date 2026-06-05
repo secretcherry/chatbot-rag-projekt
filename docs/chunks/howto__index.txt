@@ -1,0 +1,64 @@
+SECTION: howto
+TITLE: Python HOWTOs
+SOURCE: howto\index.html
+--------------------------------------------------
+
+# Python HOWTOs
+
+Python HOWTOs are documents that cover a specific topic in-depth.
+Modeled on the Linux Documentation Project’s HOWTO collection, this collection is an
+effort to foster documentation that’s more detailed than the
+Python Library Reference.
+General:
+A Conceptual Overview of asyncio
+A Conceptual Overview of asyncio
+Annotations Best Practices
+Annotations Best Practices
+Argparse Tutorial
+Argparse Tutorial
+Descriptor Guide
+Descriptor Guide
+Enum HOWTO
+Enum HOWTO
+Functional Programming HOWTO
+Functional Programming HOWTO
+An introduction to the ipaddress module
+An introduction to the ipaddress module
+Logging HOWTO
+Logging HOWTO
+Logging Cookbook
+Logging Cookbook
+Regular expression HOWTO
+Regular expression HOWTO
+Sorting Techniques
+Sorting Techniques
+Unicode HOWTO
+Unicode HOWTO
+HOWTO Fetch Internet Resources Using The urllib Package
+HOWTO Fetch Internet Resources Using The urllib Package
+Advanced development:
+Curses Programming with Python
+Curses Programming with Python
+Python support for free threading
+Python support for free threading
+C API Extension Support for Free Threading
+C API Extension Support for Free Threading
+Isolating Extension Modules
+Isolating Extension Modules
+The Python 2.3 Method Resolution Order
+The Python 2.3 Method Resolution Order
+Socket Programming HOWTO
+Socket Programming HOWTO
+timer file descriptor HOWTO
+timer file descriptor HOWTO
+Porting Extension Modules to Python 3
+Porting Extension Modules to Python 3
+Debugging and profiling:
+Debugging C API extensions and CPython Internals with GDB
+Debugging C API extensions and CPython Internals with GDB
+Instrumenting CPython with DTrace and SystemTap
+Instrumenting CPython with DTrace and SystemTap
+Python support for the Linux perf profiler
+Python support for the Linux perf profiler
+Remote debugging attachment protocol
+Remote debugging attachment protocol

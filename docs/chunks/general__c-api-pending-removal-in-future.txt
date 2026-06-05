@@ -1,0 +1,117 @@
+SECTION: general
+TITLE: Pending removal in future versions
+SOURCE: deprecations\c-api-pending-removal-in-future.html
+--------------------------------------------------
+
+# Pending removal in future versions
+
+The following APIs are deprecated and will be removed,
+although there is currently no date scheduled for their removal.
+Py_TPFLAGS_HAVE_FINALIZE :
+Unneeded since Python 3.8.
+Py_TPFLAGS_HAVE_FINALIZE :
+Unneeded since Python 3.8.
+Py_TPFLAGS_HAVE_FINALIZE
+PyErr_Fetch() :
+Use PyErr_GetRaisedException() instead.
+PyErr_Fetch() :
+Use PyErr_GetRaisedException() instead.
+PyErr_Fetch()
+PyErr_GetRaisedException()
+PyErr_NormalizeException() :
+Use PyErr_GetRaisedException() instead.
+PyErr_NormalizeException() :
+Use PyErr_GetRaisedException() instead.
+PyErr_NormalizeException()
+PyErr_GetRaisedException()
+PyErr_Restore() :
+Use PyErr_SetRaisedException() instead.
+PyErr_Restore() :
+Use PyErr_SetRaisedException() instead.
+PyErr_Restore()
+PyErr_SetRaisedException()
+PyModule_GetFilename() :
+Use PyModule_GetFilenameObject() instead.
+PyModule_GetFilename() :
+Use PyModule_GetFilenameObject() instead.
+PyModule_GetFilename()
+PyModule_GetFilenameObject()
+PyOS_AfterFork() :
+Use PyOS_AfterFork_Child() instead.
+PyOS_AfterFork() :
+Use PyOS_AfterFork_Child() instead.
+PyOS_AfterFork()
+PyOS_AfterFork_Child()
+PySlice_GetIndicesEx() :
+Use PySlice_Unpack() and PySlice_AdjustIndices() instead.
+PySlice_GetIndicesEx() :
+Use PySlice_Unpack() and PySlice_AdjustIndices() instead.
+PySlice_GetIndicesEx()
+PySlice_Unpack()
+PySlice_AdjustIndices()
+PyUnicode_READY() :
+Unneeded since Python 3.12
+PyUnicode_READY() :
+Unneeded since Python 3.12
+PyUnicode_READY()
+PyErr_Display() :
+Use PyErr_DisplayException() instead.
+PyErr_Display() :
+Use PyErr_DisplayException() instead.
+PyErr_Display()
+PyErr_DisplayException()
+_PyErr_ChainExceptions() :
+Use _PyErr_ChainExceptions1() instead.
+_PyErr_ChainExceptions() :
+Use _PyErr_ChainExceptions1() instead.
+_PyErr_ChainExceptions()
+_PyErr_ChainExceptions1()
+PyBytesObject.ob_shash member:
+call PyObject_Hash() instead.
+PyBytesObject.ob_shash member:
+call PyObject_Hash() instead.
+PyBytesObject.ob_shash
+PyObject_Hash()
+Thread Local Storage (TLS) API: PyThread_create_key() :
+Use PyThread_tss_alloc() instead. PyThread_delete_key() :
+Use PyThread_tss_free() instead. PyThread_set_key_value() :
+Use PyThread_tss_set() instead. PyThread_get_key_value() :
+Use PyThread_tss_get() instead. PyThread_delete_key_value() :
+Use PyThread_tss_delete() instead. PyThread_ReInitTLS() :
+Unneeded since Python 3.7.
+Thread Local Storage (TLS) API:
+PyThread_create_key() :
+Use PyThread_tss_alloc() instead.
+PyThread_create_key() :
+Use PyThread_tss_alloc() instead.
+PyThread_create_key()
+PyThread_tss_alloc()
+PyThread_delete_key() :
+Use PyThread_tss_free() instead.
+PyThread_delete_key() :
+Use PyThread_tss_free() instead.
+PyThread_delete_key()
+PyThread_tss_free()
+PyThread_set_key_value() :
+Use PyThread_tss_set() instead.
+PyThread_set_key_value() :
+Use PyThread_tss_set() instead.
+PyThread_set_key_value()
+PyThread_tss_set()
+PyThread_get_key_value() :
+Use PyThread_tss_get() instead.
+PyThread_get_key_value() :
+Use PyThread_tss_get() instead.
+PyThread_get_key_value()
+PyThread_tss_get()
+PyThread_delete_key_value() :
+Use PyThread_tss_delete() instead.
+PyThread_delete_key_value() :
+Use PyThread_tss_delete() instead.
+PyThread_delete_key_value()
+PyThread_tss_delete()
+PyThread_ReInitTLS() :
+Unneeded since Python 3.7.
+PyThread_ReInitTLS() :
+Unneeded since Python 3.7.
+PyThread_ReInitTLS()

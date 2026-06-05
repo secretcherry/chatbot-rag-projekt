@@ -1,0 +1,480 @@
+SECTION: library
+TITLE: http— HTTP modules
+SOURCE: library\http.html
+--------------------------------------------------
+
+# http — HTTP modules
+
+http
+Source code: Lib/http/__init__.py
+http is a package that collects several modules for working with the
+HyperText Transfer Protocol:
+http
+http.client is a low-level HTTP protocol client; for high-level URL
+opening use urllib.request
+http.client is a low-level HTTP protocol client; for high-level URL
+opening use urllib.request
+http.client
+urllib.request
+http.server contains basic HTTP server classes based on socketserver
+http.server contains basic HTTP server classes based on socketserver
+http.server
+socketserver
+http.cookies has utilities for implementing state management with cookies
+http.cookies has utilities for implementing state management with cookies
+http.cookies
+http.cookiejar provides persistence of cookies
+http.cookiejar provides persistence of cookies
+http.cookiejar
+The http module also defines the following enums that help you work with http related code:
+http
+class http. HTTPStatus
+Added in version 3.5. A subclass of enum.IntEnum that defines a set of HTTP status codes,
+reason phrases and long descriptions written in English. Usage: >>> from http import HTTPStatus >>> HTTPStatus . OK HTTPStatus.OK >>> HTTPStatus . OK == 200 True >>> HTTPStatus . OK . value 200 >>> HTTPStatus . OK . phrase 'OK' >>> HTTPStatus . OK . description 'Request fulfilled, document follows' >>> list ( HTTPStatus ) [HTTPStatus.CONTINUE, HTTPStatus.SWITCHING_PROTOCOLS, ...]
+Added in version 3.5.
+A subclass of enum.IntEnum that defines a set of HTTP status codes,
+reason phrases and long descriptions written in English.
+enum.IntEnum
+Usage:
+
+[CODE]
+>>> from http import HTTPStatus >>> HTTPStatus . OK HTTPStatus.OK >>> HTTPStatus . OK == 200 True >>> HTTPStatus . OK . value 200 >>> HTTPStatus . OK . phrase 'OK' >>> HTTPStatus . OK . description 'Request fulfilled, document follows' >>> list ( HTTPStatus ) [HTTPStatus.CONTINUE, HTTPStatus.SWITCHING_PROTOCOLS, ...]
+[/CODE]
+
+## HTTP status codes
+
+Supported, IANA-registered status codes available in http.HTTPStatus are:
+http.HTTPStatus
+Code
+Enum Name
+Details
+100
+100
+CONTINUE
+CONTINUE
+HTTP Semantics RFC 9110 , Section 15.2.1
+101
+101
+SWITCHING_PROTOCOLS
+SWITCHING_PROTOCOLS
+HTTP Semantics RFC 9110 , Section 15.2.2
+102
+102
+PROCESSING
+PROCESSING
+WebDAV RFC 2518 , Section 10.1
+103
+103
+EARLY_HINTS
+EARLY_HINTS
+An HTTP Status Code for Indicating Hints RFC 8297
+200
+200
+HTTP Semantics RFC 9110 , Section 15.3.1
+201
+201
+CREATED
+CREATED
+HTTP Semantics RFC 9110 , Section 15.3.2
+202
+202
+ACCEPTED
+ACCEPTED
+HTTP Semantics RFC 9110 , Section 15.3.3
+203
+203
+NON_AUTHORITATIVE_INFORMATION
+NON_AUTHORITATIVE_INFORMATION
+HTTP Semantics RFC 9110 , Section 15.3.4
+204
+204
+NO_CONTENT
+NO_CONTENT
+HTTP Semantics RFC 9110 , Section 15.3.5
+205
+205
+RESET_CONTENT
+RESET_CONTENT
+HTTP Semantics RFC 9110 , Section 15.3.6
+206
+206
+PARTIAL_CONTENT
+PARTIAL_CONTENT
+HTTP Semantics RFC 9110 , Section 15.3.7
+207
+207
+MULTI_STATUS
+MULTI_STATUS
+WebDAV RFC 4918 , Section 11.1
+208
+208
+ALREADY_REPORTED
+ALREADY_REPORTED
+WebDAV Binding Extensions RFC 5842 , Section 7.1 (Experimental)
+226
+226
+IM_USED
+IM_USED
+Delta Encoding in HTTP RFC 3229 , Section 10.4.1
+300
+300
+MULTIPLE_CHOICES
+MULTIPLE_CHOICES
+HTTP Semantics RFC 9110 , Section 15.4.1
+301
+301
+MOVED_PERMANENTLY
+MOVED_PERMANENTLY
+HTTP Semantics RFC 9110 , Section 15.4.2
+302
+302
+FOUND
+FOUND
+HTTP Semantics RFC 9110 , Section 15.4.3
+303
+303
+SEE_OTHER
+SEE_OTHER
+HTTP Semantics RFC 9110 , Section 15.4.4
+304
+304
+NOT_MODIFIED
+NOT_MODIFIED
+HTTP Semantics RFC 9110 , Section 15.4.5
+305
+305
+USE_PROXY
+USE_PROXY
+HTTP Semantics RFC 9110 , Section 15.4.6
+307
+307
+TEMPORARY_REDIRECT
+TEMPORARY_REDIRECT
+HTTP Semantics RFC 9110 , Section 15.4.8
+308
+308
+PERMANENT_REDIRECT
+PERMANENT_REDIRECT
+HTTP Semantics RFC 9110 , Section 15.4.9
+400
+400
+BAD_REQUEST
+BAD_REQUEST
+HTTP Semantics RFC 9110 , Section 15.5.1
+401
+401
+UNAUTHORIZED
+UNAUTHORIZED
+HTTP Semantics RFC 9110 , Section 15.5.2
+402
+402
+PAYMENT_REQUIRED
+PAYMENT_REQUIRED
+HTTP Semantics RFC 9110 , Section 15.5.3
+403
+403
+FORBIDDEN
+FORBIDDEN
+HTTP Semantics RFC 9110 , Section 15.5.4
+404
+404
+NOT_FOUND
+NOT_FOUND
+HTTP Semantics RFC 9110 , Section 15.5.5
+405
+405
+METHOD_NOT_ALLOWED
+METHOD_NOT_ALLOWED
+HTTP Semantics RFC 9110 , Section 15.5.6
+406
+406
+NOT_ACCEPTABLE
+NOT_ACCEPTABLE
+HTTP Semantics RFC 9110 , Section 15.5.7
+407
+407
+PROXY_AUTHENTICATION_REQUIRED
+PROXY_AUTHENTICATION_REQUIRED
+HTTP Semantics RFC 9110 , Section 15.5.8
+408
+408
+REQUEST_TIMEOUT
+REQUEST_TIMEOUT
+HTTP Semantics RFC 9110 , Section 15.5.9
+409
+409
+CONFLICT
+CONFLICT
+HTTP Semantics RFC 9110 , Section 15.5.10
+410
+410
+GONE
+GONE
+HTTP Semantics RFC 9110 , Section 15.5.11
+411
+411
+LENGTH_REQUIRED
+LENGTH_REQUIRED
+HTTP Semantics RFC 9110 , Section 15.5.12
+412
+412
+PRECONDITION_FAILED
+PRECONDITION_FAILED
+HTTP Semantics RFC 9110 , Section 15.5.13
+413
+413
+CONTENT_TOO_LARGE
+CONTENT_TOO_LARGE
+HTTP Semantics RFC 9110 , Section 15.5.14
+414
+414
+URI_TOO_LONG
+URI_TOO_LONG
+HTTP Semantics RFC 9110 , Section 15.5.15
+415
+415
+UNSUPPORTED_MEDIA_TYPE
+UNSUPPORTED_MEDIA_TYPE
+HTTP Semantics RFC 9110 , Section 15.5.16
+416
+416
+RANGE_NOT_SATISFIABLE
+RANGE_NOT_SATISFIABLE
+HTTP Semantics RFC 9110 , Section 15.5.17
+417
+417
+EXPECTATION_FAILED
+EXPECTATION_FAILED
+HTTP Semantics RFC 9110 , Section 15.5.18
+418
+418
+IM_A_TEAPOT
+IM_A_TEAPOT
+HTCPCP/1.0 RFC 2324 , Section 2.3.2
+421
+421
+MISDIRECTED_REQUEST
+MISDIRECTED_REQUEST
+HTTP Semantics RFC 9110 , Section 15.5.20
+422
+422
+UNPROCESSABLE_CONTENT
+UNPROCESSABLE_CONTENT
+HTTP Semantics RFC 9110 , Section 15.5.21
+423
+423
+LOCKED
+LOCKED
+WebDAV RFC 4918 , Section 11.3
+424
+424
+FAILED_DEPENDENCY
+FAILED_DEPENDENCY
+WebDAV RFC 4918 , Section 11.4
+425
+425
+TOO_EARLY
+TOO_EARLY
+Using Early Data in HTTP RFC 8470
+426
+426
+UPGRADE_REQUIRED
+UPGRADE_REQUIRED
+HTTP Semantics RFC 9110 , Section 15.5.22
+428
+428
+PRECONDITION_REQUIRED
+PRECONDITION_REQUIRED
+Additional HTTP Status Codes RFC 6585
+429
+429
+TOO_MANY_REQUESTS
+TOO_MANY_REQUESTS
+Additional HTTP Status Codes RFC 6585
+431
+431
+REQUEST_HEADER_FIELDS_TOO_LARGE
+REQUEST_HEADER_FIELDS_TOO_LARGE
+Additional HTTP Status Codes RFC 6585
+451
+451
+UNAVAILABLE_FOR_LEGAL_REASONS
+UNAVAILABLE_FOR_LEGAL_REASONS
+An HTTP Status Code to Report Legal Obstacles RFC 7725
+500
+500
+INTERNAL_SERVER_ERROR
+INTERNAL_SERVER_ERROR
+HTTP Semantics RFC 9110 , Section 15.6.1
+501
+501
+NOT_IMPLEMENTED
+NOT_IMPLEMENTED
+HTTP Semantics RFC 9110 , Section 15.6.2
+502
+502
+BAD_GATEWAY
+BAD_GATEWAY
+HTTP Semantics RFC 9110 , Section 15.6.3
+503
+503
+SERVICE_UNAVAILABLE
+SERVICE_UNAVAILABLE
+HTTP Semantics RFC 9110 , Section 15.6.4
+504
+504
+GATEWAY_TIMEOUT
+GATEWAY_TIMEOUT
+HTTP Semantics RFC 9110 , Section 15.6.5
+505
+505
+HTTP_VERSION_NOT_SUPPORTED
+HTTP_VERSION_NOT_SUPPORTED
+HTTP Semantics RFC 9110 , Section 15.6.6
+506
+506
+VARIANT_ALSO_NEGOTIATES
+VARIANT_ALSO_NEGOTIATES
+Transparent Content Negotiation in HTTP RFC 2295 , Section 8.1 (Experimental)
+507
+507
+INSUFFICIENT_STORAGE
+INSUFFICIENT_STORAGE
+WebDAV RFC 4918 , Section 11.5
+508
+508
+LOOP_DETECTED
+LOOP_DETECTED
+WebDAV Binding Extensions RFC 5842 , Section 7.2 (Experimental)
+510
+510
+NOT_EXTENDED
+NOT_EXTENDED
+An HTTP Extension Framework RFC 2774 , Section 7 (Experimental)
+511
+511
+NETWORK_AUTHENTICATION_REQUIRED
+NETWORK_AUTHENTICATION_REQUIRED
+Additional HTTP Status Codes RFC 6585 , Section 6
+In order to preserve backwards compatibility, enum values are also present
+in the http.client module in the form of constants. The enum name is
+equal to the constant name (i.e. http.HTTPStatus.OK is also available as http.client.OK ).
+http.client
+http.HTTPStatus.OK
+http.client.OK
+Changed in version 3.7: Added 421 MISDIRECTED_REQUEST status code.
+421 MISDIRECTED_REQUEST
+Added in version 3.8: Added 451 UNAVAILABLE_FOR_LEGAL_REASONS status code.
+451 UNAVAILABLE_FOR_LEGAL_REASONS
+Added in version 3.9: Added 103 EARLY_HINTS , 418 IM_A_TEAPOT and 425 TOO_EARLY status codes.
+103 EARLY_HINTS
+418 IM_A_TEAPOT
+425 TOO_EARLY
+Changed in version 3.13: Implemented RFC9110 naming for status constants. Old constant names are preserved for
+backwards compatibility: 413 REQUEST_ENTITY_TOO_LARGE , 414 REQUEST_URI_TOO_LONG , 416 REQUESTED_RANGE_NOT_SATISFIABLE and 422 UNPROCESSABLE_ENTITY .
+413 REQUEST_ENTITY_TOO_LARGE
+414 REQUEST_URI_TOO_LONG
+416 REQUESTED_RANGE_NOT_SATISFIABLE
+422 UNPROCESSABLE_ENTITY
+
+## HTTP status category
+
+Added in version 3.12.
+The enum values have several properties to indicate the HTTP status category:
+Property
+Indicates that
+Details
+is_informational
+is_informational
+100 <= status <= 199
+100 <= status <= 199
+HTTP Semantics RFC 9110 , Section 15
+is_success
+is_success
+200 <= status <= 299
+200 <= status <= 299
+HTTP Semantics RFC 9110 , Section 15
+is_redirection
+is_redirection
+300 <= status <= 399
+300 <= status <= 399
+HTTP Semantics RFC 9110 , Section 15
+is_client_error
+is_client_error
+400 <= status <= 499
+400 <= status <= 499
+HTTP Semantics RFC 9110 , Section 15
+is_server_error
+is_server_error
+500 <= status <= 599
+500 <= status <= 599
+HTTP Semantics RFC 9110 , Section 15
+Usage:
+
+[CODE]
+>>> from http import HTTPStatus >>> HTTPStatus . OK . is_success True >>> HTTPStatus . OK . is_client_error False
+[/CODE]
+
+class http. HTTPMethod
+Added in version 3.11. A subclass of enum.StrEnum that defines a set of HTTP methods and descriptions written in English. Usage: >>> from http import HTTPMethod >>> >>> HTTPMethod . GET <HTTPMethod.GET> >>> HTTPMethod . GET == 'GET' True >>> HTTPMethod . GET . value 'GET' >>> HTTPMethod . GET . description 'Retrieve the target.' >>> list ( HTTPMethod ) [<HTTPMethod.CONNECT>, <HTTPMethod.DELETE>, <HTTPMethod.GET>, <HTTPMethod.HEAD>, <HTTPMethod.OPTIONS>, <HTTPMethod.PATCH>, <HTTPMethod.POST>, <HTTPMethod.PUT>, <HTTPMethod.TRACE>]
+Added in version 3.11.
+A subclass of enum.StrEnum that defines a set of HTTP methods and descriptions written in English.
+enum.StrEnum
+Usage:
+
+[CODE]
+>>> from http import HTTPMethod >>> >>> HTTPMethod . GET <HTTPMethod.GET> >>> HTTPMethod . GET == 'GET' True >>> HTTPMethod . GET . value 'GET' >>> HTTPMethod . GET . description 'Retrieve the target.' >>> list ( HTTPMethod ) [<HTTPMethod.CONNECT>, <HTTPMethod.DELETE>, <HTTPMethod.GET>, <HTTPMethod.HEAD>, <HTTPMethod.OPTIONS>, <HTTPMethod.PATCH>, <HTTPMethod.POST>, <HTTPMethod.PUT>, <HTTPMethod.TRACE>]
+[/CODE]
+
+## HTTP methods
+
+Supported, IANA-registered methods available in http.HTTPMethod are:
+http.HTTPMethod
+Method
+Enum Name
+Details
+GET
+GET
+GET
+GET
+HTTP Semantics RFC 9110 , Section 9.3.1
+HEAD
+HEAD
+HEAD
+HEAD
+HTTP Semantics RFC 9110 , Section 9.3.2
+POST
+POST
+POST
+POST
+HTTP Semantics RFC 9110 , Section 9.3.3
+PUT
+PUT
+PUT
+PUT
+HTTP Semantics RFC 9110 , Section 9.3.4
+DELETE
+DELETE
+DELETE
+DELETE
+HTTP Semantics RFC 9110 , Section 9.3.5
+CONNECT
+CONNECT
+CONNECT
+CONNECT
+HTTP Semantics RFC 9110 , Section 9.3.6
+OPTIONS
+OPTIONS
+OPTIONS
+OPTIONS
+HTTP Semantics RFC 9110 , Section 9.3.7
+TRACE
+TRACE
+TRACE
+TRACE
+HTTP Semantics RFC 9110 , Section 9.3.8
+PATCH
+PATCH
+PATCH
+PATCH
+HTTP/1.1 RFC 5789

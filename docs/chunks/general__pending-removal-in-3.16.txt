@@ -1,0 +1,204 @@
+SECTION: general
+TITLE: Pending removal in Python 3.16
+SOURCE: deprecations\pending-removal-in-3.16.html
+--------------------------------------------------
+
+# Pending removal in Python 3.16
+
+The import system: Setting __loader__ on a module while
+failing to set __spec__.loader is deprecated. In Python 3.16, __loader__ will cease to be set or
+taken into consideration by the import system or the standard library.
+The import system:
+Setting __loader__ on a module while
+failing to set __spec__.loader is deprecated. In Python 3.16, __loader__ will cease to be set or
+taken into consideration by the import system or the standard library.
+Setting __loader__ on a module while
+failing to set __spec__.loader is deprecated. In Python 3.16, __loader__ will cease to be set or
+taken into consideration by the import system or the standard library.
+__loader__
+__spec__.loader
+__loader__
+array : The 'u' format code ( wchar_t )
+has been deprecated in documentation since Python 3.3
+and at runtime since Python 3.13.
+Use the 'w' format code ( Py_UCS4 )
+for Unicode characters instead.
+array :
+array
+The 'u' format code ( wchar_t )
+has been deprecated in documentation since Python 3.3
+and at runtime since Python 3.13.
+Use the 'w' format code ( Py_UCS4 )
+for Unicode characters instead.
+The 'u' format code ( wchar_t )
+has been deprecated in documentation since Python 3.3
+and at runtime since Python 3.13.
+Use the 'w' format code ( Py_UCS4 )
+for Unicode characters instead.
+'u'
+wchar_t
+'w'
+Py_UCS4
+asyncio : asyncio.iscoroutinefunction() is deprecated
+and will be removed in Python 3.16;
+use inspect.iscoroutinefunction() instead.
+(Contributed by Jiahao Li and Kumar Aditya in gh-122875 .) asyncio policy system is deprecated and will be removed in Python 3.16.
+In particular, the following classes and functions are deprecated: asyncio.AbstractEventLoopPolicy asyncio.DefaultEventLoopPolicy asyncio.WindowsSelectorEventLoopPolicy asyncio.WindowsProactorEventLoopPolicy asyncio.get_event_loop_policy() asyncio.set_event_loop_policy() Users should use asyncio.run() or asyncio.Runner with loop_factory to use the desired event loop implementation. For example, to use asyncio.SelectorEventLoop on Windows: import asyncio async def main (): ... asyncio . run ( main (), loop_factory = asyncio . SelectorEventLoop ) (Contributed by Kumar Aditya in gh-127949 .)
+asyncio :
+asyncio
+asyncio.iscoroutinefunction() is deprecated
+and will be removed in Python 3.16;
+use inspect.iscoroutinefunction() instead.
+(Contributed by Jiahao Li and Kumar Aditya in gh-122875 .)
+asyncio.iscoroutinefunction() is deprecated
+and will be removed in Python 3.16;
+use inspect.iscoroutinefunction() instead.
+(Contributed by Jiahao Li and Kumar Aditya in gh-122875 .)
+asyncio.iscoroutinefunction()
+inspect.iscoroutinefunction()
+asyncio policy system is deprecated and will be removed in Python 3.16.
+In particular, the following classes and functions are deprecated: asyncio.AbstractEventLoopPolicy asyncio.DefaultEventLoopPolicy asyncio.WindowsSelectorEventLoopPolicy asyncio.WindowsProactorEventLoopPolicy asyncio.get_event_loop_policy() asyncio.set_event_loop_policy() Users should use asyncio.run() or asyncio.Runner with loop_factory to use the desired event loop implementation. For example, to use asyncio.SelectorEventLoop on Windows: import asyncio async def main (): ... asyncio . run ( main (), loop_factory = asyncio . SelectorEventLoop ) (Contributed by Kumar Aditya in gh-127949 .)
+asyncio policy system is deprecated and will be removed in Python 3.16.
+In particular, the following classes and functions are deprecated:
+asyncio
+asyncio.AbstractEventLoopPolicy
+asyncio.AbstractEventLoopPolicy
+asyncio.AbstractEventLoopPolicy
+asyncio.DefaultEventLoopPolicy
+asyncio.DefaultEventLoopPolicy
+asyncio.DefaultEventLoopPolicy
+asyncio.WindowsSelectorEventLoopPolicy
+asyncio.WindowsSelectorEventLoopPolicy
+asyncio.WindowsSelectorEventLoopPolicy
+asyncio.WindowsProactorEventLoopPolicy
+asyncio.WindowsProactorEventLoopPolicy
+asyncio.WindowsProactorEventLoopPolicy
+asyncio.get_event_loop_policy()
+asyncio.get_event_loop_policy()
+asyncio.get_event_loop_policy()
+asyncio.set_event_loop_policy()
+asyncio.set_event_loop_policy()
+asyncio.set_event_loop_policy()
+Users should use asyncio.run() or asyncio.Runner with loop_factory to use the desired event loop implementation.
+asyncio.run()
+asyncio.Runner
+For example, to use asyncio.SelectorEventLoop on Windows:
+asyncio.SelectorEventLoop
+
+[CODE]
+import asyncio async def main (): ... asyncio . run ( main (), loop_factory = asyncio . SelectorEventLoop )
+[/CODE]
+
+(Contributed by Kumar Aditya in gh-127949 .)
+builtins : Bitwise inversion on boolean types, ~True or ~False has been deprecated since Python 3.12,
+as it produces surprising and unintuitive results ( -2 and -1 ).
+Use not x instead for the logical negation of a Boolean.
+In the rare case that you need the bitwise inversion of
+the underlying integer, convert to int explicitly ( ~int(x) ).
+builtins :
+builtins
+Bitwise inversion on boolean types, ~True or ~False has been deprecated since Python 3.12,
+as it produces surprising and unintuitive results ( -2 and -1 ).
+Use not x instead for the logical negation of a Boolean.
+In the rare case that you need the bitwise inversion of
+the underlying integer, convert to int explicitly ( ~int(x) ).
+Bitwise inversion on boolean types, ~True or ~False has been deprecated since Python 3.12,
+as it produces surprising and unintuitive results ( -2 and -1 ).
+Use not x instead for the logical negation of a Boolean.
+In the rare case that you need the bitwise inversion of
+the underlying integer, convert to int explicitly ( ~int(x) ).
+~True
+~False
+not x
+int
+~int(x)
+functools : Calling the Python implementation of functools.reduce() with function or sequence as keyword arguments has been deprecated since Python 3.14.
+functools :
+functools
+Calling the Python implementation of functools.reduce() with function or sequence as keyword arguments has been deprecated since Python 3.14.
+Calling the Python implementation of functools.reduce() with function or sequence as keyword arguments has been deprecated since Python 3.14.
+functools.reduce()
+logging : Support for custom logging handlers with the strm argument is deprecated
+and scheduled for removal in Python 3.16. Define handlers with the stream argument instead. (Contributed by Mariusz Felisiak in gh-115032 .)
+logging :
+logging
+Support for custom logging handlers with the strm argument is deprecated
+and scheduled for removal in Python 3.16. Define handlers with the stream argument instead. (Contributed by Mariusz Felisiak in gh-115032 .)
+mimetypes : Valid extensions start with a ‘.’ or are empty for mimetypes.MimeTypes.add_type() .
+Undotted extensions are deprecated and will
+raise a ValueError in Python 3.16.
+(Contributed by Hugo van Kemenade in gh-75223 .)
+mimetypes :
+mimetypes
+Valid extensions start with a ‘.’ or are empty for mimetypes.MimeTypes.add_type() .
+Undotted extensions are deprecated and will
+raise a ValueError in Python 3.16.
+(Contributed by Hugo van Kemenade in gh-75223 .)
+Valid extensions start with a ‘.’ or are empty for mimetypes.MimeTypes.add_type() .
+Undotted extensions are deprecated and will
+raise a ValueError in Python 3.16.
+(Contributed by Hugo van Kemenade in gh-75223 .)
+mimetypes.MimeTypes.add_type()
+ValueError
+shutil : The ExecError exception
+has been deprecated since Python 3.14.
+It has not been used by any function in shutil since Python 3.4,
+and is now an alias of RuntimeError .
+shutil :
+shutil
+The ExecError exception
+has been deprecated since Python 3.14.
+It has not been used by any function in shutil since Python 3.4,
+and is now an alias of RuntimeError .
+The ExecError exception
+has been deprecated since Python 3.14.
+It has not been used by any function in shutil since Python 3.4,
+and is now an alias of RuntimeError .
+ExecError
+shutil
+RuntimeError
+symtable : The Class.get_methods method
+has been deprecated since Python 3.14.
+symtable :
+symtable
+The Class.get_methods method
+has been deprecated since Python 3.14.
+The Class.get_methods method
+has been deprecated since Python 3.14.
+Class.get_methods
+sys : The _enablelegacywindowsfsencoding() function
+has been deprecated since Python 3.13.
+Use the PYTHONLEGACYWINDOWSFSENCODING environment variable instead.
+sys :
+sys
+The _enablelegacywindowsfsencoding() function
+has been deprecated since Python 3.13.
+Use the PYTHONLEGACYWINDOWSFSENCODING environment variable instead.
+The _enablelegacywindowsfsencoding() function
+has been deprecated since Python 3.13.
+Use the PYTHONLEGACYWINDOWSFSENCODING environment variable instead.
+_enablelegacywindowsfsencoding()
+PYTHONLEGACYWINDOWSFSENCODING
+sysconfig : The sysconfig.expand_makefile_vars() function
+has been deprecated since Python 3.14.
+Use the vars argument of sysconfig.get_paths() instead.
+sysconfig :
+sysconfig
+The sysconfig.expand_makefile_vars() function
+has been deprecated since Python 3.14.
+Use the vars argument of sysconfig.get_paths() instead.
+The sysconfig.expand_makefile_vars() function
+has been deprecated since Python 3.14.
+Use the vars argument of sysconfig.get_paths() instead.
+sysconfig.expand_makefile_vars()
+vars
+sysconfig.get_paths()
+tarfile : The undocumented and unused TarFile.tarfile attribute
+has been deprecated since Python 3.13.
+tarfile :
+tarfile
+The undocumented and unused TarFile.tarfile attribute
+has been deprecated since Python 3.13.
+The undocumented and unused TarFile.tarfile attribute
+has been deprecated since Python 3.13.
+TarFile.tarfile

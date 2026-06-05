@@ -1,0 +1,94 @@
+SECTION: general
+TITLE: Pending removal in Python 3.13
+SOURCE: deprecations\pending-removal-in-3.13.html
+--------------------------------------------------
+
+# Pending removal in Python 3.13
+
+Modules (see PEP 594 ):
+aifc
+aifc
+aifc
+audioop
+audioop
+audioop
+cgi
+cgi
+cgi
+cgitb
+cgitb
+cgitb
+chunk
+chunk
+chunk
+crypt
+crypt
+crypt
+imghdr
+imghdr
+imghdr
+mailcap
+mailcap
+mailcap
+msilib
+msilib
+msilib
+nis
+nis
+nis
+nntplib
+nntplib
+nntplib
+ossaudiodev
+ossaudiodev
+ossaudiodev
+pipes
+pipes
+pipes
+sndhdr
+sndhdr
+sndhdr
+spwd
+spwd
+spwd
+sunau
+sunau
+sunau
+telnetlib
+telnetlib
+telnetlib
+xdrlib
+xdrlib
+xdrlib
+Other modules:
+lib2to3 , and the 2to3 program ( gh-84540 )
+lib2to3 , and the 2to3 program ( gh-84540 )
+lib2to3
+APIs:
+configparser.LegacyInterpolation ( gh-90765 )
+configparser.LegacyInterpolation ( gh-90765 )
+configparser.LegacyInterpolation
+locale.resetlocale() ( gh-90817 )
+locale.resetlocale() ( gh-90817 )
+locale.resetlocale()
+turtle.RawTurtle.settiltangle() ( gh-50096 )
+turtle.RawTurtle.settiltangle() ( gh-50096 )
+turtle.RawTurtle.settiltangle()
+unittest.findTestCases() ( gh-50096 )
+unittest.findTestCases() ( gh-50096 )
+unittest.findTestCases()
+unittest.getTestCaseNames() ( gh-50096 )
+unittest.getTestCaseNames() ( gh-50096 )
+unittest.getTestCaseNames()
+unittest.makeSuite() ( gh-50096 )
+unittest.makeSuite() ( gh-50096 )
+unittest.makeSuite()
+unittest.TestProgram.usageExit() ( gh-67048 )
+unittest.TestProgram.usageExit() ( gh-67048 )
+unittest.TestProgram.usageExit()
+webbrowser.MacOSX ( gh-86421 )
+webbrowser.MacOSX ( gh-86421 )
+webbrowser.MacOSX
+classmethod descriptor chaining ( gh-89519 )
+classmethod descriptor chaining ( gh-89519 )
+classmethod

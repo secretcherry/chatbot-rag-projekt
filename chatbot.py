@@ -13,7 +13,7 @@ while True:
         print("Goodbye!")
         break
 
-    # slanje pitanja modelu
+    # slanje pitanja 
     response = ollama.chat(
         model="phi3",
         messages=[

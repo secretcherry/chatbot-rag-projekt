@@ -3,15 +3,22 @@ import ollama
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 
-embeddings = HuggingFaceEmbeddings()
+VECTOR_DB_PATH = "vector_db"
+MODEL_NAME     = "phi3"
+TOP_K          = 4   
+DOCS_URL       = "https://docs.python.org/3/"
+
+embeddings = HuggingFaceEmbeddings(
+    model_name="sentence-transformers/all-MiniLM-L6-v2"
+)
 
 db = FAISS.load_local(
-    "vector_db",
+    VECTOR_DB_PATH,
     embeddings,
     allow_dangerous_deserialization=True
 )
 
-print("Programming RAG Chatbot")
+print("Python RAG Chatbot")
 print("Type 'exit' to quit\n")
 
 while True:
@@ -21,64 +28,67 @@ while True:
     if question.lower() == "exit":
         break
 
-    docs = db.similarity_search(question, k=3)
+    results = db.similarity_search_with_score(question, k=TOP_K)
+    docs = [doc for doc, score in results]
 
-    context = "\n\n".join([doc.page_content for doc in docs])
+    context_parts = []
 
-    prompt = f"""
-You are a strict programming assistant.
+    for i, doc in enumerate(docs, start=1):
+        source_label = doc.metadata.get("title", "Unknown")
+        context_parts.append(f"[Source {i}: {source_label}]\n{doc.page_content}")
 
-You MUST answer ONLY using the provided documentation.
+    context = "\n\n---\n\n".join(context_parts)
 
-DO NOT use your own knowledge.
-DO NOT make up answers.
+    prompt = f"""You are an assistant that helps with Python programming.
 
-If the answer is not clearly in the documentation, respond ONLY with:
-"I don't know based on the provided documentation."
+Answer ONLY based on the provided documentation.
+Do NOT use your own knowledge.
+Do NOT make up answers.
+
+If the answer is not in the documentation, respond exactly with:
+"I don't have enough information in the documentation to answer this question."
+
+When answering, you can reference sources by their numbers in square brackets,
+e.g: "The os.path.join() function [Source 2] joins parts of a path..."
 
 Documentation:
-----------------
 {context}
-----------------
 
-Question:
-{question}
+Question: {question}
 
-Answer:
-"""
+Answer:"""
 
     response = ollama.chat(
-        model="phi3",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ]
+        model=MODEL_NAME,
+        messages=[{"role": "user", "content": prompt}]
     )
 
     answer = response["message"]["content"]
 
     print("\nBot:")
     print(answer)
-    
-    if "I don't know based on the provided documentation." not in answer:
 
-        print("\n---- SOURCES ----\n")
+    print("\n---- SOURCES ----\n")
 
-        for i, doc in enumerate(docs):
+    seen_sources = []
 
-            source = doc.metadata.get("source", "Unknown source")
+    for i, doc in enumerate(docs, start=1):
+        source = doc.metadata.get("source", "")
 
-            print(f"[Source {i+1}]")
+        if source in seen_sources:
+            continue
+        seen_sources.append(source)
 
-            print(f"File: {source}")
+        title   = doc.metadata.get("title", "No title")
+        section = doc.metadata.get("section", "general")
+        url     = DOCS_URL + source.replace("\\", "/")
+        preview = " ".join(doc.page_content.split())[:300]
 
-            preview = doc.page_content[:300].replace("\n", " ")
-
-            print(f"Text preview: {preview}")
-
-            print()
+        print(f"[Source {i}]")
+        print(f"Title:   {title}")
+        print(f"Section: {section}")
+        print(f"URL:     {url}")
+        print(f"Preview: {preview}...")
+        print()
 
     print()
-

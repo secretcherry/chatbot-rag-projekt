@@ -1,0 +1,927 @@
+SECTION: library
+TITLE: Audit events table
+SOURCE: library\audit_events.html
+--------------------------------------------------
+
+# Audit events table
+
+This table contains all events raised by sys.audit() or PySys_Audit() calls throughout the CPython runtime and the
+standard library.  These calls were added in 3.8 or later (see PEP 578 ).
+sys.audit()
+PySys_Audit()
+See sys.addaudithook() and PySys_AddAuditHook() for
+information on handling these events.
+sys.addaudithook()
+PySys_AddAuditHook()
+CPython implementation detail: This table is generated from the CPython documentation, and may not
+represent events raised by other implementations. See your runtime
+specific documentation for actual events raised.
+Audit event
+Arguments
+References
+_thread.start_new_thread
+function , args , kwargs
+function
+args
+kwargs
+[1]
+array.__new__
+typecode , initializer
+typecode
+initializer
+[1]
+builtins.breakpoint
+breakpointhook
+breakpointhook
+[1]
+builtins.id
+[1]
+builtins.input
+prompt
+prompt
+[1]
+builtins.input/result
+result
+result
+[1]
+code.__new__
+code , filename , name , argcount , posonlyargcount , kwonlyargcount , nlocals , stacksize , flags
+code
+filename
+name
+argcount
+posonlyargcount
+kwonlyargcount
+nlocals
+stacksize
+flags
+[1]
+compile
+source , filename
+source
+filename
+[1]
+cpython.PyConfig_Set
+name , value
+name
+value
+[1]
+cpython.PyInterpreterState_Clear
+[1]
+cpython.PyInterpreterState_New
+[1]
+cpython._PySys_ClearAuditHooks
+[1]
+cpython.remote_debugger_script
+script_path
+script_path
+[1]
+cpython.run_command
+command
+command
+[1]
+cpython.run_file
+filename
+filename
+[1]
+cpython.run_interactivehook
+hook
+hook
+[1]
+cpython.run_module
+module-name
+module-name
+[1]
+cpython.run_startup
+filename
+filename
+[1]
+cpython.run_stdin
+[1] [2] [3]
+ctypes.addressof
+obj
+obj
+[1]
+ctypes.call_function
+func_pointer , arguments
+func_pointer
+arguments
+[1]
+ctypes.cdata
+address
+address
+[1]
+ctypes.cdata/buffer
+pointer , size , offset
+pointer
+size
+offset
+[1] [2]
+ctypes.create_string_buffer
+init , size
+init
+size
+[1]
+ctypes.create_unicode_buffer
+init , size
+init
+size
+[1]
+ctypes.dlopen
+name
+name
+[1]
+ctypes.dlsym
+library , name
+library
+name
+[1]
+ctypes.dlsym/handle
+handle , name
+handle
+name
+[1]
+ctypes.get_errno
+[1]
+ctypes.get_last_error
+[1]
+ctypes.memoryview_at
+address , size , readonly
+address
+size
+readonly
+[1]
+ctypes.set_errno
+errno
+errno
+[1]
+ctypes.set_exception
+code
+code
+[1]
+ctypes.set_last_error
+error
+error
+[1]
+ctypes.string_at
+ptr , size
+ptr
+size
+[1]
+ctypes.wstring_at
+ptr , size
+ptr
+size
+[1]
+ensurepip.bootstrap
+root
+root
+[1]
+exec
+code_object
+code_object
+[1] [2]
+fcntl.fcntl
+fd , cmd , arg
+cmd
+arg
+[1]
+fcntl.flock
+fd , operation
+operation
+[1]
+fcntl.ioctl
+fd , request , arg
+request
+arg
+[1]
+fcntl.lockf
+fd , cmd , len , start , whence
+cmd
+len
+start
+whence
+[1]
+ftplib.connect
+self , host , port
+self
+host
+port
+[1]
+ftplib.sendcmd
+self , cmd
+self
+cmd
+[1] [2]
+function.__new__
+code
+code
+[1]
+gc.get_objects
+generation
+generation
+[1]
+gc.get_referents
+objs
+objs
+[1]
+gc.get_referrers
+objs
+objs
+[1]
+glob.glob
+pathname , recursive
+pathname
+recursive
+[1] [2]
+glob.glob/2
+pathname , recursive , root_dir , dir_fd
+pathname
+recursive
+root_dir
+dir_fd
+[1] [2]
+http.client.connect
+self , host , port
+self
+host
+port
+[1]
+http.client.send
+self , data
+self
+data
+[1]
+imaplib.open
+self , host , port
+self
+host
+port
+[1]
+imaplib.send
+self , data
+self
+data
+[1]
+import
+module , filename , sys.path , sys.meta_path , sys.path_hooks
+module
+filename
+sys.path
+sys.meta_path
+sys.path_hooks
+[1]
+marshal.dumps
+value , version
+value
+version
+[1]
+marshal.load
+[1]
+marshal.loads
+bytes
+bytes
+[1]
+mmap.__new__
+fileno , length , access , offset
+fileno
+length
+access
+offset
+[1]
+msvcrt.get_osfhandle
+[1]
+msvcrt.locking
+fd , mode , nbytes
+mode
+nbytes
+[1]
+msvcrt.open_osfhandle
+handle , flags
+handle
+flags
+[1]
+object.__delattr__
+obj , name
+obj
+name
+[1]
+object.__getattr__
+obj , name
+obj
+name
+[1]
+object.__setattr__
+obj , name , value
+obj
+name
+value
+[1]
+open
+path , mode , flags
+path
+mode
+flags
+[1] [2] [3]
+os.add_dll_directory
+path
+path
+[1]
+os.chdir
+path
+path
+[1] [2]
+os.chflags
+path , flags
+path
+flags
+[1] [2]
+os.chmod
+path , mode , dir_fd
+path
+mode
+dir_fd
+[1] [2] [3]
+os.chown
+path , uid , gid , dir_fd
+path
+uid
+gid
+dir_fd
+[1] [2] [3]
+os.exec
+path , args , env
+path
+args
+env
+[1]
+os.fork
+[1]
+os.forkpty
+[1]
+os.fwalk
+top , topdown , onerror , follow_symlinks , dir_fd
+top
+topdown
+onerror
+follow_symlinks
+dir_fd
+[1]
+os.getxattr
+path , attribute
+path
+attribute
+[1]
+os.kill
+pid , sig
+pid
+sig
+[1]
+os.killpg
+pgid , sig
+pgid
+sig
+[1]
+os.link
+src , dst , src_dir_fd , dst_dir_fd
+src
+dst
+src_dir_fd
+dst_dir_fd
+[1]
+os.listdir
+path
+path
+[1]
+os.listdrives
+[1]
+os.listmounts
+volume
+volume
+[1]
+os.listvolumes
+[1]
+os.listxattr
+path
+path
+[1]
+os.lockf
+fd , cmd , len
+cmd
+len
+[1]
+os.mkdir
+path , mode , dir_fd
+path
+mode
+dir_fd
+[1] [2]
+os.posix_spawn
+path , argv , env
+path
+argv
+env
+[1] [2]
+os.putenv
+key , value
+key
+value
+[1]
+os.remove
+path , dir_fd
+path
+dir_fd
+[1] [2] [3]
+os.removexattr
+path , attribute
+path
+attribute
+[1]
+os.rename
+src , dst , src_dir_fd , dst_dir_fd
+src
+dst
+src_dir_fd
+dst_dir_fd
+[1] [2] [3]
+os.rmdir
+path , dir_fd
+path
+dir_fd
+[1]
+os.scandir
+path
+path
+[1]
+os.setxattr
+path , attribute , value , flags
+path
+attribute
+value
+flags
+[1]
+os.spawn
+mode , path , args , env
+mode
+path
+args
+env
+[1]
+os.startfile
+path , operation
+path
+operation
+[1]
+os.startfile/2
+path , operation , arguments , cwd , show_cmd
+path
+operation
+arguments
+cwd
+show_cmd
+[1]
+os.symlink
+src , dst , dir_fd
+src
+dst
+dir_fd
+[1]
+os.system
+command
+command
+[1]
+os.truncate
+fd , length
+length
+[1] [2]
+os.unsetenv
+key
+key
+[1]
+os.utime
+path , times , ns , dir_fd
+path
+times
+dir_fd
+[1]
+os.walk
+top , topdown , onerror , followlinks
+top
+topdown
+onerror
+followlinks
+[1]
+pathlib.Path.glob
+self , pattern
+self
+pattern
+[1]
+pathlib.Path.rglob
+self , pattern
+self
+pattern
+[1]
+pdb.Pdb
+[1]
+pickle.find_class
+module , name
+module
+name
+[1]
+poplib.connect
+self , host , port
+self
+host
+port
+[1] [2]
+poplib.putline
+self , line
+self
+line
+[1] [2]
+pty.spawn
+argv
+argv
+[1]
+resource.prlimit
+pid , resource , limits
+pid
+resource
+limits
+[1]
+resource.setrlimit
+resource , limits
+resource
+limits
+[1]
+setopencodehook
+[1]
+shutil.chown
+path , user , group
+path
+user
+group
+[1]
+shutil.copyfile
+src , dst
+src
+dst
+[1] [2] [3]
+shutil.copymode
+src , dst
+src
+dst
+[1] [2]
+shutil.copystat
+src , dst
+src
+dst
+[1] [2]
+shutil.copytree
+src , dst
+src
+dst
+[1]
+shutil.make_archive
+base_name , format , root_dir , base_dir
+base_name
+format
+root_dir
+base_dir
+[1]
+shutil.move
+src , dst
+src
+dst
+[1]
+shutil.rmtree
+path , dir_fd
+path
+dir_fd
+[1]
+shutil.unpack_archive
+filename , extract_dir , format
+filename
+extract_dir
+format
+[1]
+signal.pthread_kill
+thread_id , signalnum
+thread_id
+signalnum
+[1]
+smtplib.connect
+self , host , port
+self
+host
+port
+[1]
+smtplib.send
+self , data
+self
+data
+[1]
+socket.__new__
+self , family , type , protocol
+self
+family
+type
+protocol
+[1]
+socket.bind
+self , address
+self
+address
+[1]
+socket.connect
+self , address
+self
+address
+[1] [2]
+socket.getaddrinfo
+host , port , family , type , protocol
+host
+port
+family
+type
+protocol
+[1]
+socket.gethostbyaddr
+ip_address
+ip_address
+[1]
+socket.gethostbyname
+hostname
+hostname
+[1] [2]
+socket.gethostname
+[1]
+socket.getnameinfo
+sockaddr
+sockaddr
+[1]
+socket.getservbyname
+servicename , protocolname
+servicename
+protocolname
+[1]
+socket.getservbyport
+port , protocolname
+port
+protocolname
+[1]
+socket.sendmsg
+self , address
+self
+address
+[1]
+socket.sendto
+self , address
+self
+address
+[1]
+socket.sethostname
+name
+name
+[1]
+sqlite3.connect
+database
+database
+[1]
+sqlite3.connect/handle
+connection_handle
+connection_handle
+[1]
+sqlite3.enable_load_extension
+connection , enabled
+connection
+enabled
+[1]
+sqlite3.load_extension
+connection , path
+connection
+path
+[1]
+subprocess.Popen
+executable , args , cwd , env
+executable
+args
+cwd
+env
+[1]
+sys._current_exceptions
+[1]
+sys._current_frames
+[1]
+sys._getframe
+frame
+frame
+[1]
+sys._getframemodulename
+depth
+depth
+[1]
+sys.addaudithook
+[1] [2]
+sys.excepthook
+hook , type , value , traceback
+hook
+type
+value
+traceback
+[1]
+sys.monitoring.register_callback
+func
+func
+[1]
+sys.remote_exec
+pid
+pid
+[1]
+sys.set_asyncgen_hooks_finalizer
+[1]
+sys.set_asyncgen_hooks_firstiter
+[1]
+sys.setprofile
+[1]
+sys.settrace
+[1]
+sys.unraisablehook
+hook , unraisable
+hook
+unraisable
+[1]
+syslog.closelog
+[1]
+syslog.openlog
+ident , logoption , facility
+ident
+logoption
+facility
+[1]
+syslog.setlogmask
+maskpri
+maskpri
+[1]
+syslog.syslog
+priority , message
+priority
+message
+[1]
+tempfile.mkdtemp
+fullpath
+fullpath
+[1] [2]
+tempfile.mkstemp
+fullpath
+fullpath
+[1] [2] [3]
+time.sleep
+secs
+secs
+[1]
+urllib.Request
+fullurl , data , headers , method
+fullurl
+data
+headers
+method
+[1]
+webbrowser.open
+url
+url
+[1]
+winreg.ConnectRegistry
+computer_name , key
+computer_name
+key
+[1]
+winreg.CreateKey
+key , sub_key , access
+key
+sub_key
+access
+[1] [2]
+winreg.DeleteKey
+key , sub_key , access
+key
+sub_key
+access
+[1] [2]
+winreg.DeleteValue
+key , value
+key
+value
+[1]
+winreg.DisableReflectionKey
+key
+key
+[1]
+winreg.EnableReflectionKey
+key
+key
+[1]
+winreg.EnumKey
+key , index
+key
+index
+[1]
+winreg.EnumValue
+key , index
+key
+index
+[1]
+winreg.ExpandEnvironmentStrings
+str
+str
+[1]
+winreg.LoadKey
+key , sub_key , file_name
+key
+sub_key
+file_name
+[1]
+winreg.OpenKey
+key , sub_key , access
+key
+sub_key
+access
+[1]
+winreg.OpenKey/result
+key
+key
+[1] [2] [3]
+winreg.PyHKEY.Detach
+key
+key
+[1]
+winreg.QueryInfoKey
+key
+key
+[1]
+winreg.QueryReflectionKey
+key
+key
+[1]
+winreg.QueryValue
+key , sub_key , value_name
+key
+sub_key
+value_name
+[1] [2]
+winreg.SaveKey
+key , file_name
+key
+file_name
+[1]
+winreg.SetValue
+key , sub_key , type , value
+key
+sub_key
+type
+value
+[1] [2]
+The following events are raised internally and do not correspond to any
+public API of CPython:
+Audit event
+Arguments
+_winapi.CreateFile
+file_name , desired_access , share_mode , creation_disposition , flags_and_attributes
+file_name
+desired_access
+share_mode
+creation_disposition
+flags_and_attributes
+_winapi.CreateJunction
+src_path , dst_path
+src_path
+dst_path
+_winapi.CreateNamedPipe
+name , open_mode , pipe_mode
+name
+open_mode
+pipe_mode
+_winapi.CreatePipe
+_winapi.CreateProcess
+application_name , command_line , current_directory
+application_name
+command_line
+current_directory
+_winapi.OpenProcess
+process_id , desired_access
+process_id
+desired_access
+_winapi.TerminateProcess
+handle , exit_code
+handle
+exit_code
+_posixsubprocess.fork_exec
+exec_list , args , env
+exec_list
+args
+env
+ctypes.PyObj_FromPtr
+obj
+obj
+Added in version 3.14: The _posixsubprocess.fork_exec internal audit event.
+_posixsubprocess.fork_exec

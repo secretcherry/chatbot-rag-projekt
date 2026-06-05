@@ -1,0 +1,101 @@
+SECTION: library
+TITLE: Internet Data Handling
+SOURCE: library\netdata.html
+--------------------------------------------------
+
+# Internet Data Handling
+
+This chapter describes modules which support handling data formats commonly used
+on the internet.
+email — An email and MIME handling package email.message : Representing an email message email.parser : Parsing email messages FeedParser API Parser API Additional notes email.generator : Generating MIME documents email.policy : Policy Objects email.errors : Exception and Defect classes email.headerregistry : Custom Header Objects email.contentmanager : Managing MIME Content Content Manager Instances email : Examples email.message.Message : Representing an email message using the compat32 API email.mime : Creating email and MIME objects from scratch email.header : Internationalized headers email.charset : Representing character sets email.encoders : Encoders email.utils : Miscellaneous utilities email.iterators : Iterators
+email
+email.message : Representing an email message
+email.message
+email.parser : Parsing email messages FeedParser API Parser API Additional notes
+email.parser
+FeedParser API
+Parser API
+Additional notes
+email.generator : Generating MIME documents
+email.generator
+email.policy : Policy Objects
+email.policy
+email.errors : Exception and Defect classes
+email.errors
+email.headerregistry : Custom Header Objects
+email.headerregistry
+email.contentmanager : Managing MIME Content Content Manager Instances
+email.contentmanager
+Content Manager Instances
+email : Examples
+email
+email.message.Message : Representing an email message using the compat32 API
+email.message.Message
+compat32
+email.mime : Creating email and MIME objects from scratch
+email.mime
+email.header : Internationalized headers
+email.header
+email.charset : Representing character sets
+email.charset
+email.encoders : Encoders
+email.encoders
+email.utils : Miscellaneous utilities
+email.utils
+email.iterators : Iterators
+email.iterators
+json — JSON encoder and decoder Basic Usage Encoders and Decoders Exceptions Standard Compliance and Interoperability Character Encodings Infinite and NaN Number Values Repeated Names Within an Object Top-level Non-Object, Non-Array Values Implementation Limitations Command-line interface Command-line options
+json
+Basic Usage
+Encoders and Decoders
+Exceptions
+Standard Compliance and Interoperability Character Encodings Infinite and NaN Number Values Repeated Names Within an Object Top-level Non-Object, Non-Array Values Implementation Limitations
+Character Encodings
+Infinite and NaN Number Values
+Repeated Names Within an Object
+Top-level Non-Object, Non-Array Values
+Implementation Limitations
+Command-line interface Command-line options
+Command-line options
+mailbox — Manipulate mailboxes in various formats Mailbox objects Maildir objects mbox objects MH objects Babyl objects MMDF objects Message objects MaildirMessage objects mboxMessage objects MHMessage objects BabylMessage objects MMDFMessage objects Exceptions Examples
+mailbox
+Mailbox objects Maildir objects mbox objects MH objects Babyl objects MMDF objects
+Mailbox
+Maildir objects
+Maildir
+mbox objects
+mbox
+MH objects
+Babyl objects
+Babyl
+MMDF objects
+MMDF
+Message objects MaildirMessage objects mboxMessage objects MHMessage objects BabylMessage objects MMDFMessage objects
+Message
+MaildirMessage objects
+MaildirMessage
+mboxMessage objects
+mboxMessage
+MHMessage objects
+MHMessage
+BabylMessage objects
+BabylMessage
+MMDFMessage objects
+MMDFMessage
+Exceptions
+Examples
+mimetypes — Map filenames to MIME types MimeTypes objects Command-line usage Command-line example
+mimetypes
+MimeTypes objects
+Command-line usage
+Command-line example
+base64 — Base16, Base32, Base64, Base85 Data Encodings RFC 4648 Encodings Base85 Encodings Legacy Interface Security Considerations
+base64
+RFC 4648 Encodings
+Base85 Encodings
+Legacy Interface
+Security Considerations
+binascii — Convert between binary and ASCII
+binascii
+quopri — Encode and decode MIME quoted-printable data
+quopri

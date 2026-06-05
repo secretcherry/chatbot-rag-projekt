@@ -1,0 +1,25 @@
+SECTION: library
+TITLE: urllib— URL handling modules
+SOURCE: library\urllib.html
+--------------------------------------------------
+
+# urllib — URL handling modules
+
+urllib
+Source code: Lib/urllib/
+urllib is a package that collects several modules for working with URLs:
+urllib
+urllib.request for opening and reading URLs
+urllib.request for opening and reading URLs
+urllib.request
+urllib.error containing the exceptions raised by urllib.request
+urllib.error containing the exceptions raised by urllib.request
+urllib.error
+urllib.request
+urllib.parse for parsing URLs
+urllib.parse for parsing URLs
+urllib.parse
+urllib.robotparser for parsing robots.txt files
+urllib.robotparser for parsing robots.txt files
+urllib.robotparser
+robots.txt
