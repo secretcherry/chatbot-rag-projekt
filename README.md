@@ -1,6 +1,6 @@
 # Python RAG Chatbot
 
-This is my final project for college. It's a chatbot that answers questions about Python 3 using the official Python documentation. The idea is that it only answers from the docs — it won't make stuff up or answer unrelated questions.
+This is my final project for college. It's a chatbot that answers questions about Python 3 using the official Python documentation. The idea is that it only answers from the docs. It won't make stuff up or answer unrelated questions.
 
 ---
 
@@ -89,10 +89,10 @@ python rag_chatbot.py
 1. The question goes through a keyword filter first to catch obvious off-topic stuff (like "what is a cat" or "what time is it")
 2. If there's chat history, the question gets rewritten into a standalone search query so it makes sense without context
 3. The rewritten query is used to search the FAISS vector database
-4. The distance score of the best result is checked — if it's too far from anything in the docs, it gives up early
+4. The distance score of the best result is checked, if it's too far from anything in the docs, it gives up early
 5. The retrieved documents get reranked using a CrossEncoder model to make sure the most relevant ones end up on top
 6. The top 3 documents are passed to the LLM as context
-7. The LLM answers based only on that context — if the answer isn't there, it says it doesn't know
+7. The LLM answers based only on that context, if the answer isn't there, it says it doesn't know
 
 ---
 
