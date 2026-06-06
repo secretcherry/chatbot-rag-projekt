@@ -10,8 +10,8 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 CHUNKS_FOLDER   = "docs/chunks"
 VECTOR_DB_PATH  = "vector_db"
 CHECKPOINT_FILE = "docs/checkpoint.json"
-CHUNK_SIZE    = 700
-CHUNK_OVERLAP = 80   
+CHUNK_SIZE = 1200
+CHUNK_OVERLAP = 200
 
 BATCH_SIZE = 50
 
@@ -56,7 +56,7 @@ splitter = RecursiveCharacterTextSplitter(
 
 print("Loading embedding model (may take a while the first time)...")
 embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
+    model_name="BAAI/bge-base-en-v1.5"
 )
 print("Model ready!\n")
 

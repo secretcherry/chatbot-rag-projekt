@@ -44,11 +44,9 @@ Close the event loop.
 loop.is_running()
 loop.is_running()
 Return True if the event loop is running.
-True
 loop.is_closed()
 loop.is_closed()
 Return True if the event loop is closed.
-True
 await loop.shutdown_asyncgens()
 await
 loop.shutdown_asyncgens()
@@ -93,7 +91,6 @@ Future
 loop.create_task()
 loop.create_task()
 Schedule coroutine as a Task .
-Task
 loop.set_task_factory()
 loop.set_task_factory()
 Set a factory used by loop.create_task() to
@@ -106,7 +103,6 @@ Get the factory loop.create_task() uses
 to create Tasks .
 loop.create_task()
 Tasks
-DNS
 await loop.getaddrinfo()
 await
 loop.getaddrinfo()
@@ -276,7 +272,6 @@ Close the transport.
 transport.is_closing()
 transport.is_closing()
 Return True if the transport is closing or is closed.
-True
 transport.get_extra_info()
 transport.get_extra_info()
 Request for information about the transport.
@@ -295,7 +290,6 @@ Read Transports
 transport.is_reading()
 transport.is_reading()
 Return True if the transport is receiving.
-True
 transport.pause_reading()
 transport.pause_reading()
 Pause receiving.
@@ -317,7 +311,6 @@ Write buffers to the transport.
 transport.can_write_eof()
 transport.can_write_eof()
 Return True if the transport supports sending EOF.
-True
 transport.write_eof()
 transport.write_eof()
 Close and send EOF after flushing buffered data.

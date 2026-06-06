@@ -27,23 +27,6 @@ logging.config
 logging
 logging
 logging.handlers
-logging.config. dictConfig ( config )
-Takes the logging configuration from a dictionary.  The contents of
-this dictionary are described in Configuration dictionary schema below. If an error is encountered during configuration, this function will
-raise a ValueError , TypeError , AttributeError or ImportError with a suitably descriptive message.  The
-following is a (possibly incomplete) list of conditions which will
-raise an error: A level which is not a string or which is a string not
-corresponding to an actual logging level. A propagate value which is not a boolean. An id which does not have a corresponding destination. A non-existent handler id found during an incremental call. An invalid logger name. Inability to resolve to an internal or external object. Parsing is performed by the DictConfigurator class, whose
-constructor is passed the dictionary used for configuration, and
-has a configure() method.  The logging.config module
-has a callable attribute dictConfigClass which is initially set to DictConfigurator .
-You can replace the value of dictConfigClass with a
-suitable implementation of your own. dictConfig() calls dictConfigClass passing
-the specified dictionary, and then calls the configure() method on
-the returned object to put the configuration into effect: def dictConfig ( config ): dictConfigClass ( config ) . configure () For example, a subclass of DictConfigurator could call DictConfigurator.__init__() in its own __init__() , then
-set up custom prefixes which would be usable in the subsequent configure() call. dictConfigClass would be bound to
-this new subclass, and then dictConfig() could be called exactly as
-in the default, uncustomized state. Added in version 3.2.
 Takes the logging configuration from a dictionary.  The contents of
 this dictionary are described in Configuration dictionary schema below.
 If an error is encountered during configuration, this function will
@@ -104,33 +87,6 @@ configure()
 dictConfigClass
 dictConfig()
 Added in version 3.2.
-logging.config. fileConfig ( fname , defaults = None , disable_existing_loggers = True , encoding = None )
-Reads the logging configuration from a configparser -format file. The
-format of the file should be as described in Configuration file format .
-This function can be called several times from an application, allowing an
-end user to select from various pre-canned configurations (if the developer
-provides a mechanism to present the choices and load the chosen
-configuration). It will raise FileNotFoundError if the file
-doesn’t exist and RuntimeError if the file is invalid or
-empty. Parameters : fname – A filename, or a file-like object, or an instance derived
-from RawConfigParser . If a RawConfigParser -derived instance is passed, it is used as
-is. Otherwise, a ConfigParser is
-instantiated, and the configuration read by it from the
-object passed in fname . If that has a readline() method, it is assumed to be a file-like object and read using read_file() ; otherwise,
-it is assumed to be a filename and passed to read() . defaults – Defaults to be passed to the ConfigParser can be specified
-in this argument. disable_existing_loggers – If specified as False , loggers which
-exist when this call is made are left
-enabled. The default is True because this
-enables old behaviour in a
-backward-compatible way. This behaviour is to
-disable any existing non-root loggers unless
-they or their ancestors are explicitly named
-in the logging configuration. encoding – The encoding used to open file when fname is filename. Changed in version 3.4: An instance of a subclass of RawConfigParser is
-  now accepted as a value for fname . This facilitates: Use of a configuration file where logging configuration is just part
-of the overall application configuration. Use of a configuration read from a file, and then modified by the using
-application (e.g. based on command-line parameters or other aspects
-of the runtime environment) before being passed to fileConfig . Changed in version 3.10: Added the encoding parameter. Changed in version 3.12: An exception will be thrown if the provided file
-doesn’t exist or is invalid or empty.
 Reads the logging configuration from a configparser -format file. The
 format of the file should be as described in Configuration file format .
 This function can be called several times from an application, allowing an
@@ -143,21 +99,6 @@ doesn’t exist and RuntimeError if the file is invalid or
 empty.
 FileNotFoundError
 RuntimeError
-Parameters :
-fname – A filename, or a file-like object, or an instance derived
-from RawConfigParser . If a RawConfigParser -derived instance is passed, it is used as
-is. Otherwise, a ConfigParser is
-instantiated, and the configuration read by it from the
-object passed in fname . If that has a readline() method, it is assumed to be a file-like object and read using read_file() ; otherwise,
-it is assumed to be a filename and passed to read() . defaults – Defaults to be passed to the ConfigParser can be specified
-in this argument. disable_existing_loggers – If specified as False , loggers which
-exist when this call is made are left
-enabled. The default is True because this
-enables old behaviour in a
-backward-compatible way. This behaviour is to
-disable any existing non-root loggers unless
-they or their ancestors are explicitly named
-in the logging configuration. encoding – The encoding used to open file when fname is filename.
 fname – A filename, or a file-like object, or an instance derived
 from RawConfigParser . If a RawConfigParser -derived instance is passed, it is used as
 is. Otherwise, a ConfigParser is
@@ -199,7 +140,6 @@ disable any existing non-root loggers unless
 they or their ancestors are explicitly named
 in the logging configuration.
 False
-True
 encoding – The encoding used to open file when fname is filename.
 encoding – The encoding used to open file when fname is filename.
 Changed in version 3.4: An instance of a subclass of RawConfigParser is
@@ -220,37 +160,6 @@ fileConfig
 Changed in version 3.10: Added the encoding parameter.
 Changed in version 3.12: An exception will be thrown if the provided file
 doesn’t exist or is invalid or empty.
-logging.config. listen ( port = DEFAULT_LOGGING_CONFIG_PORT , verify = None )
-Starts up a socket server on the specified port, and listens for new
-configurations. If no port is specified, the module’s default DEFAULT_LOGGING_CONFIG_PORT is used. Logging configurations will be
-sent as a file suitable for processing by dictConfig() or fileConfig() . Returns a Thread instance on which
-you can call start() to start the server, and which
-you can join() when appropriate. To stop the server,
-call stopListening() . The verify argument, if specified, should be a callable which should
-verify whether bytes received across the socket are valid and should be
-processed. This could be done by encrypting and/or signing what is sent
-across the socket, such that the verify callable can perform
-signature verification and/or decryption. The verify callable is called
-with a single argument - the bytes received across the socket - and should
-return the bytes to be processed, or None to indicate that the bytes should
-be discarded. The returned bytes could be the same as the passed in bytes
-(e.g. when only verification is done), or they could be completely different
-(perhaps if decryption were performed). To send a configuration to the socket, read in the configuration file and
-send it to the socket as a sequence of bytes preceded by a four-byte length
-string packed in binary using struct.pack('>L', n) . Note Because portions of the configuration are passed through eval() , use of this function may open its users to a security risk.
-While the function only binds to a socket on localhost , and so does
-not accept connections from remote machines, there are scenarios where
-untrusted code could be run under the account of the process which calls listen() . Specifically, if the process calling listen() runs
-on a multi-user machine where users cannot trust each other, then a
-malicious user could arrange to run essentially arbitrary code in a
-victim user’s process, simply by connecting to the victim’s listen() socket and sending a configuration which runs whatever
-code the attacker wants to have executed in the victim’s process. This is
-especially easy to do if the default port is used, but not hard even if a
-different port is used. To avoid the risk of this happening, use the verify argument to listen() to prevent unrecognised
-configurations from being applied. Changed in version 3.4: The verify argument was added. Note If you want to send configurations to the listener which don’t
-disable existing loggers, you will need to use a JSON format for
-the configuration, which will use dictConfig() for configuration.
-This method allows you to specify disable_existing_loggers as False in the configuration you send.
 Starts up a socket server on the specified port, and listens for new
 configurations. If no port is specified, the module’s default DEFAULT_LOGGING_CONFIG_PORT is used. Logging configurations will be
 sent as a file suitable for processing by dictConfig() or fileConfig() . Returns a Thread instance on which
@@ -277,12 +186,10 @@ be discarded. The returned bytes could be the same as the passed in bytes
 verify
 verify
 verify
-None
 To send a configuration to the socket, read in the configuration file and
 send it to the socket as a sequence of bytes preceded by a four-byte length
 string packed in binary using struct.pack('>L', n) .
 struct.pack('>L', n)
-Note
 Because portions of the configuration are passed through eval() , use of this function may open its users to a security risk.
 While the function only binds to a socket on localhost , and so does
 not accept connections from remote machines, there are scenarios where
@@ -303,7 +210,6 @@ verify
 listen()
 Changed in version 3.4: The verify argument was added.
 verify
-Note
 If you want to send configurations to the listener which don’t
 disable existing loggers, you will need to use a JSON format for
 the configuration, which will use dictConfig() for configuration.
@@ -311,9 +217,6 @@ This method allows you to specify disable_existing_loggers as False in the confi
 dictConfig()
 disable_existing_loggers
 False
-logging.config. stopListening ( )
-Stops the listening server which was created with a call to listen() .
-This is typically called before calling join() on the return value from listen() .
 Stops the listening server which was created with a call to listen() .
 This is typically called before calling join() on the return value from listen() .
 listen()
@@ -362,7 +265,6 @@ as described below.  In all cases below where a ‘configuring dict’ is
 mentioned, it will be checked for the special '()' key to see if a
 custom instantiation is required.  If so, the mechanism described in User-defined objects below is used to create an instance;
 otherwise, the context is used to determine what to instantiate.
-'()'
 formatters - the corresponding value will be a dict in which each
 key is a formatter id and each value is a dict describing how to
 configure the corresponding Formatter instance. The configuring dict is searched for the following optional keys
@@ -414,7 +316,6 @@ is a filter id and each value is a dict describing how to configure
 the corresponding Filter instance.
 The configuring dict is searched for the key name (defaulting to the
 empty string) and this is used to construct a logging.Filter instance.
-name
 logging.Filter
 handlers - the corresponding value will be a dict in which each
 key is a handler id and each value is a dict describing how to
@@ -460,7 +361,6 @@ stream.  The handler with id file is instantiated as a logging.handlers.Rotating
 console
 logging.StreamHandler
 sys.stdout
-file
 logging.handlers.RotatingFileHandler
 filename='logconfig.log', maxBytes=1024, backupCount=3
 loggers - the corresponding value will be a dict in which each key
@@ -513,7 +413,6 @@ False
 fileConfig()
 If the specified value is True , the configuration is processed
 as described in the section on Incremental Configuration .
-True
 disable_existing_loggers - whether any existing non-root loggers are
 to be disabled. This setting mirrors the parameter of the same name in fileConfig() . If absent, this parameter defaults to True .
 This value is ignored if incremental is True .
@@ -521,8 +420,6 @@ disable_existing_loggers - whether any existing non-root loggers are
 to be disabled. This setting mirrors the parameter of the same name in fileConfig() . If absent, this parameter defaults to True .
 This value is ignored if incremental is True .
 fileConfig()
-True
-True
 
 ### Incremental Configuration
 
@@ -542,7 +439,6 @@ implementation.
 Thus, when the incremental key of a configuration dict is present
 and is True , the system will completely ignore any formatters and filters entries, and process only the level settings in the handlers entries, and the level and propagate settings in the loggers and root entries.
 incremental
-True
 formatters
 filters
 level
@@ -550,7 +446,6 @@ handlers
 level
 propagate
 loggers
-root
 Using a value in the configuration dict lets configurations to be sent
 over the wire as pickled dicts to a socket listener. Thus, the logging
 verbosity of a long-running application can be altered over time with
@@ -612,7 +507,6 @@ configuration dictionary and which returns the instantiated object.
 This is signalled by an absolute import path to the factory being
 made available under the special key '()' .  Here’s a concrete
 example:
-'()'
 
 [CODE]
 formatters : brief : format : '%(message)s' default : format : '%(asctime)s %(levelname)-8s %(name)-15s %(message)s' datefmt : '%Y-%m-%d %H:%M:%S' custom : () : my.package.customFormatterFactory bar : baz spam : 99.9 answer : 42
@@ -634,8 +528,6 @@ default
 { 'format' : ' %(message)s ' }
 [/CODE]
 
-and:
-
 [CODE]
 { 'format' : ' %(asctime)s %(levelname)-8s %(name)-15s %(message)s ' , 'datefmt' : '%Y-%m- %d %H:%M:%S' }
 [/CODE]
@@ -643,7 +535,6 @@ and:
 respectively, and as these dictionaries do not contain the special key '()' , the instantiation is inferred from the context: as a result,
 standard logging.Formatter instances are created.  The
 configuration sub-dictionary for the third formatter, with id custom , is:
-'()'
 logging.Formatter
 custom
 
@@ -660,7 +551,6 @@ The callable will be called with the remaining items in the
 configuration sub-dictionary as keyword arguments.  In the above
 example, the formatter with id custom will be assumed to be
 returned by the call:
-'()'
 custom
 
 [CODE]
@@ -672,8 +562,6 @@ The values for keys such as bar , spam and answer in
 the above example should not be configuration dictionaries or references such
 as cfg://foo or ext://bar , because they will not be processed by the
 configuration machinery, but passed to the callable as-is.
-bar
-spam
 answer
 cfg://foo
 ext://bar
@@ -681,8 +569,6 @@ The key '()' has been used as the special key because it is not a
 valid keyword parameter name, and so will not clash with the names of
 the keyword arguments used in the call.  The '()' also serves as a
 mnemonic that the corresponding value is a callable.
-'()'
-'()'
 Changed in version 3.11: The filters member of handlers and loggers can take
 filter instances in addition to ids.
 filters
@@ -692,7 +578,6 @@ You can also specify a special key '.' whose value is a
 mapping of attribute names to values. If found, the specified attributes will
 be set on the user-defined object before it is returned. Thus, with the
 following configuration:
-'.'
 
 [CODE]
 { '()' : 'my.package.customFormatterFactory' , 'bar' : 'baz' , 'spam' : 99.9 , 'answer' : 42 , '.' { 'foo' : 'bar' , 'baz' : 'bozz' } }
@@ -700,17 +585,13 @@ following configuration:
 
 the returned formatter will have attribute foo set to 'bar' and
 attribute baz set to 'bozz' .
-foo
 'bar'
-baz
 'bozz'
 Warning
 The values for attributes such as foo and baz in
 the above example should not be configuration dictionaries or references such
 as cfg://foo or ext://bar , because they will not be processed by the
 configuration machinery, but set as attribute values as-is.
-foo
-baz
 cfg://foo
 ext://bar
 
@@ -733,18 +614,10 @@ configured handler foo , and not its configuration dictionary.
 handlers
 cfg://handlers.foo
 handlers['foo']
-foo
 cfg://handlers.foo
 cfg://handlers.foo
-foo
-bar
-bar
-foo
-foo
 foobar
-foo
 cfg://handlers.foo
-foo
 
 ### Access to external objects
 
@@ -929,7 +802,6 @@ queue.Queue
 my.module.queue_factory()
 A dict with a '()' key which is constructed in the usual way as discussed in User-defined objects . The result of this construction should be a queue.Queue instance.
 A dict with a '()' key which is constructed in the usual way as discussed in User-defined objects . The result of this construction should be a queue.Queue instance.
-'()'
 queue.Queue
 If the queue key is absent, a standard unbounded queue.Queue instance is
 created and used.
@@ -952,7 +824,6 @@ A dict with a '()' key which is constructed in the usual way as discussed in Use
 callable with the same signature as the QueueListener initializer.
 A dict with a '()' key which is constructed in the usual way as discussed in User-defined objects . The result of this construction should be a
 callable with the same signature as the QueueListener initializer.
-'()'
 QueueListener
 If the listener key is absent, logging.handlers.QueueListener is used.
 listener
@@ -994,7 +865,6 @@ form01
 [formatters]
 [formatter_form01]
 [logger_root]
-Note
 The fileConfig() API is older than the dictConfig() API and does
 not provide functionality to cover certain aspects of logging. For example,
 you cannot configure Filter objects, which provide for
@@ -1079,7 +949,6 @@ The args entry, when evaluated in the context of the logging package’s namespa
 class. Refer to the constructors for the relevant handlers, or to the examples
 below, to see how typical entries are constructed. If not provided, it defaults
 to () .
-args
 logging
 The optional kwargs entry, when evaluated in the context of the logging package’s namespace, is the keyword argument dict to the constructor
 for the handler class. If not provided, it defaults to {} .
@@ -1103,8 +972,6 @@ the logging package’s namespace, is a dictionary of default values for
 custom formatting fields. If not provided, it defaults to None .
 defaults
 logging
-None
-Note
 Due to the use of eval() as described above, there are
 potential security risks which result from using the listen() to send
 and receive configurations via sockets. The risks are limited to where
@@ -1113,11 +980,7 @@ eval()
 listen()
 listen()
 See also
-Module logging
 logging
 API reference for the logging module.
-API reference for the logging module.
-Module logging.handlers
 logging.handlers
-Useful handlers included with the logging module.
 Useful handlers included with the logging module.

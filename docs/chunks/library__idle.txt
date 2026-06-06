@@ -51,175 +51,74 @@ described below are moved around to conform to Apple guidelines.
 
 ### File menu (Shell and Editor)
 
-New File
 Create a new file editing window.
-Create a new file editing window.
-Open…
 Open an existing file with an Open dialog.
-Open an existing file with an Open dialog.
-Open Module…
 Open an existing module (searches sys.path).
-Open an existing module (searches sys.path).
-Recent Files
 Open a list of recent files.  Click one to open it.
-Open a list of recent files.  Click one to open it.
-Module Browser
 Show functions, classes, and methods in the current Editor file in a
 tree structure.  In the shell, open a module first.
-Show functions, classes, and methods in the current Editor file in a
-tree structure.  In the shell, open a module first.
-Path Browser
 Show sys.path directories, modules, functions, classes and methods in a
 tree structure.
-Show sys.path directories, modules, functions, classes and methods in a
-tree structure.
-Save
 Save the current window to the associated file, if there is one.  Windows
 that have been changed since being opened or last saved have a * before
 and after the window title.  If there is no associated file,
 do Save As instead.
-Save the current window to the associated file, if there is one.  Windows
-that have been changed since being opened or last saved have a * before
-and after the window title.  If there is no associated file,
-do Save As instead.
-Save As…
 Save the current window with a Save As dialog.  The file saved becomes the
 new associated file for the window. (If your file manager is set to hide
 extensions, the current extension will be omitted in the file name box.
 If the new filename has no ‘.’, ‘.py’ and ‘.txt’ will be added for Python
 and text files, except that on macOS Aqua,’.py’ is added for all files.)
-Save the current window with a Save As dialog.  The file saved becomes the
-new associated file for the window. (If your file manager is set to hide
-extensions, the current extension will be omitted in the file name box.
-If the new filename has no ‘.’, ‘.py’ and ‘.txt’ will be added for Python
-and text files, except that on macOS Aqua,’.py’ is added for all files.)
-Save Copy As…
 Save the current window to different file without changing the associated
 file.  (See Save As note above about filename extensions.)
-Save the current window to different file without changing the associated
-file.  (See Save As note above about filename extensions.)
-Print Window
 Print the current window to the default printer.
-Print the current window to the default printer.
-Close Window
-Close the current window (if an unsaved editor, ask to save; if an unsaved
-Shell, ask to quit execution).  Calling exit() or close() in the Shell
-window also closes Shell.  If this is the only window, also exit IDLE.
 Close the current window (if an unsaved editor, ask to save; if an unsaved
 Shell, ask to quit execution).  Calling exit() or close() in the Shell
 window also closes Shell.  If this is the only window, also exit IDLE.
 exit()
 close()
-Exit IDLE
-Close all windows and quit IDLE (ask to save unsaved edit windows).
 Close all windows and quit IDLE (ask to save unsaved edit windows).
 
 ### Edit menu (Shell and Editor)
 
-Undo
 Undo the last change to the current window.  A maximum of 1000 changes may
 be undone.
-Undo the last change to the current window.  A maximum of 1000 changes may
-be undone.
-Redo
 Redo the last undone change to the current window.
-Redo the last undone change to the current window.
-Select All
 Select the entire contents of the current window.
-Select the entire contents of the current window.
-Cut
 Copy selection into the system-wide clipboard; then delete the selection.
-Copy selection into the system-wide clipboard; then delete the selection.
-Copy
 Copy selection into the system-wide clipboard.
-Copy selection into the system-wide clipboard.
-Paste
-Insert contents of the system-wide clipboard into the current window.
 Insert contents of the system-wide clipboard into the current window.
 The clipboard functions are also available in context menus.
-Find…
 Open a search dialog with many options
-Open a search dialog with many options
-Find Again
 Repeat the last search, if there is one.
-Repeat the last search, if there is one.
-Find Selection
 Search for the currently selected string, if there is one.
-Search for the currently selected string, if there is one.
-Find in Files…
 Open a file search dialog.  Put results in a new output window.
-Open a file search dialog.  Put results in a new output window.
-Replace…
 Open a search-and-replace dialog.
-Open a search-and-replace dialog.
-Go to Line
 Move the cursor to the beginning of the line requested and make that
 line visible.  A request past the end of the file goes to the end.
 Clear any selection and update the line and column status.
-Move the cursor to the beginning of the line requested and make that
-line visible.  A request past the end of the file goes to the end.
-Clear any selection and update the line and column status.
-Show Completions
 Open a scrollable list allowing selection of existing names. See Completions in the Editing and Navigation section below.
-Open a scrollable list allowing selection of existing names. See Completions in the Editing and Navigation section below.
-Expand Word
 Expand a prefix you have typed to match a full word in the same window;
 repeat to get a different expansion.
-Expand a prefix you have typed to match a full word in the same window;
-repeat to get a different expansion.
-Show Call Tip
 After an unclosed parenthesis for a function, open a small window with
 function parameter hints.  See Calltips in the
 Editing and Navigation section below.
-After an unclosed parenthesis for a function, open a small window with
-function parameter hints.  See Calltips in the
-Editing and Navigation section below.
-Show Surrounding Parens
-Highlight the surrounding parenthesis.
 Highlight the surrounding parenthesis.
 
 ### Format menu (Editor window only)
 
-Format Paragraph
 Rewrap the text block containing the text insert cursor.
 Avoid code lines.  See Format block in the
 Editing and Navigation section below.
-Rewrap the text block containing the text insert cursor.
-Avoid code lines.  See Format block in the
-Editing and Navigation section below.
-Indent Region
 Shift selected lines right by the indent width (default 4 spaces).
-Shift selected lines right by the indent width (default 4 spaces).
-Dedent Region
 Shift selected lines left by the indent width (default 4 spaces).
-Shift selected lines left by the indent width (default 4 spaces).
-Comment Out Region
 Insert ## in front of selected lines.
-Insert ## in front of selected lines.
-Uncomment Region
 Remove leading # or ## from selected lines.
-Remove leading # or ## from selected lines.
-Tabify Region
 Turn leading stretches of spaces into tabs. (Note: We recommend using
 4 space blocks to indent Python code.)
-Turn leading stretches of spaces into tabs. (Note: We recommend using
-4 space blocks to indent Python code.)
-Untabify Region
 Turn all tabs into the correct number of spaces.
-Turn all tabs into the correct number of spaces.
-Toggle Tabs
 Open a dialog to switch between indenting with spaces and tabs.
-Open a dialog to switch between indenting with spaces and tabs.
-New Indent Width
 Open a dialog to change indent width. The accepted default by the Python
 community is 4 spaces.
-Open a dialog to change indent width. The accepted default by the Python
-community is 4 spaces.
-Strip Trailing Whitespace
-Remove trailing space and other whitespace characters after the last
-non-whitespace character of a line by applying str.rstrip() to each line,
-including lines within multiline strings.  Except for Shell windows,
-remove extra newlines at the end of the file.
 Remove trailing space and other whitespace characters after the last
 non-whitespace character of a line by applying str.rstrip() to each line,
 including lines within multiline strings.  Except for Shell windows,
@@ -228,14 +127,6 @@ str.rstrip()
 
 ### Run menu (Editor window only)
 
-Run Module
-Do Check Module .  If no error, restart the shell to clean the
-environment, then execute the module.  Output is displayed in the Shell
-window.  Note that output requires use of print or write .
-When execution is complete, the Shell retains focus and displays a prompt.
-At this point, one may interactively explore the result of execution.
-This is similar to executing a file with python -i file at a command
-line.
 Do Check Module .  If no error, restart the shell to clean the
 environment, then execute the module.  Output is displayed in the Shell
 window.  Note that output requires use of print or write .
@@ -246,84 +137,41 @@ line.
 print
 write
 python -i file
-Run… Customized
-Same as Run Module , but run the module with customized
-settings. Command Line Arguments extend sys.argv as if passed
-on a command line. The module can be run in the Shell without restarting.
 Same as Run Module , but run the module with customized
 settings. Command Line Arguments extend sys.argv as if passed
 on a command line. The module can be run in the Shell without restarting.
 sys.argv
-Check Module
 Check the syntax of the module currently open in the Editor window. If the
 module has not been saved IDLE will either prompt the user to save or
 autosave, as selected in the General tab of the Idle Settings dialog.  If
 there is a syntax error, the approximate location is indicated in the
 Editor window.
-Check the syntax of the module currently open in the Editor window. If the
-module has not been saved IDLE will either prompt the user to save or
-autosave, as selected in the General tab of the Idle Settings dialog.  If
-there is a syntax error, the approximate location is indicated in the
-Editor window.
-Python Shell
-Open or wake up the Python Shell window.
 Open or wake up the Python Shell window.
 
 ### Shell menu (Shell window only)
 
-View Last Restart
 Scroll the shell window to the last Shell restart.
-Scroll the shell window to the last Shell restart.
-Restart Shell
 Restart the shell to clean the environment and reset display and exception handling.
-Restart the shell to clean the environment and reset display and exception handling.
-Previous History
 Cycle through earlier commands in history which match the current entry.
-Cycle through earlier commands in history which match the current entry.
-Next History
 Cycle through later commands in history which match the current entry.
-Cycle through later commands in history which match the current entry.
-Interrupt Execution
-Stop a running program.
 Stop a running program.
 
 ### Debug menu (Shell window only)
 
-Go to File/Line
 Look on the current line. with the cursor, and the line above for a filename
 and line number.  If found, open the file if not already open, and show the
 line.  Use this to view source lines referenced in an exception traceback
 and lines found by Find in Files. Also available in the context menu of
 the Shell window and Output windows.
-Look on the current line. with the cursor, and the line above for a filename
-and line number.  If found, open the file if not already open, and show the
-line.  Use this to view source lines referenced in an exception traceback
-and lines found by Find in Files. Also available in the context menu of
-the Shell window and Output windows.
-Debugger (toggle)
 When activated, code entered in the Shell or run from an Editor will run
 under the debugger.  In the Editor, breakpoints can be set with the context
 menu.  This feature is still incomplete and somewhat experimental.
-When activated, code entered in the Shell or run from an Editor will run
-under the debugger.  In the Editor, breakpoints can be set with the context
-menu.  This feature is still incomplete and somewhat experimental.
-Stack Viewer
 Show the stack traceback of the last exception in a tree widget, with
 access to locals and globals.
-Show the stack traceback of the last exception in a tree widget, with
-access to locals and globals.
-Auto-open Stack Viewer
-Toggle automatically opening the stack viewer on an unhandled exception.
 Toggle automatically opening the stack viewer on an unhandled exception.
 
 ### Options menu (Shell and Editor)
 
-Configure IDLE
-Open a configuration dialog and change preferences for the following:
-fonts, indentation, keybindings, text color themes, startup windows and
-size, additional help sources, and extensions.  On macOS, open the
-configuration dialog by selecting Preferences in the application
-menu. For more details, see Setting preferences under Help and preferences.
 Open a configuration dialog and change preferences for the following:
 fonts, indentation, keybindings, text color themes, startup windows and
 size, additional help sources, and extensions.  On macOS, open the
@@ -331,27 +179,12 @@ configuration dialog by selecting Preferences in the application
 menu. For more details, see Setting preferences under Help and preferences.
 Most configuration options apply to all windows or all future windows.
 The option items below only apply to the active window.
-Show/Hide Code Context (Editor Window only)
 Open a pane at the top of the edit window which shows the block context
 of the code which has scrolled above the top of the window.  See Code Context in the Editing and Navigation section
 below.
-Open a pane at the top of the edit window which shows the block context
-of the code which has scrolled above the top of the window.  See Code Context in the Editing and Navigation section
-below.
-Show/Hide Line Numbers (Editor Window only)
 Open a column to the left of the edit window which shows the number
 of each line of text.  The default is off, which may be changed in the
 preferences (see Setting preferences ).
-Open a column to the left of the edit window which shows the number
-of each line of text.  The default is off, which may be changed in the
-preferences (see Setting preferences ).
-Zoom/Restore Height
-Toggles the window between normal size and maximum height. The initial size
-defaults to 40 lines by 80 chars unless changed on the General tab of the
-Configure IDLE dialog.  The maximum height for a screen is determined by
-momentarily maximizing a window the first time one is zoomed on the screen.
-Changing screen settings may invalidate the saved height.  This toggle has
-no effect when a window is maximized.
 Toggles the window between normal size and maximum height. The initial size
 defaults to 40 lines by 80 chars unless changed on the General tab of the
 Configure IDLE dialog.  The maximum height for a screen is determined by
@@ -366,21 +199,11 @@ Lists the names of all open windows; select one to bring it to the foreground
 
 ### Help menu (Shell and Editor)
 
-About IDLE
 Display version, copyright, license, credits, and more.
-Display version, copyright, license, credits, and more.
-IDLE Help
 Display this IDLE document, detailing the menu options, basic editing and
 navigation, and other tips.
-Display this IDLE document, detailing the menu options, basic editing and
-navigation, and other tips.
-Python Docs
 Access local Python documentation, if installed, or start a web browser
 and open docs.python.org showing the latest Python documentation.
-Access local Python documentation, if installed, or start a web browser
-and open docs.python.org showing the latest Python documentation.
-Turtle Demo
-Run the turtledemo module with example Python code and turtle drawings.
 Run the turtledemo module with example Python code and turtle drawings.
 Additional help sources may be added here with the Configure IDLE dialog under
 the General tab. See the Help sources subsection below
@@ -390,34 +213,19 @@ for more on Help menu choices.
 
 Open a context menu by right-clicking in a window (Control-click on macOS).
 Context menus have the standard clipboard functions also on the Edit menu.
-Cut
 Copy selection into the system-wide clipboard; then delete the selection.
-Copy selection into the system-wide clipboard; then delete the selection.
-Copy
 Copy selection into the system-wide clipboard.
-Copy selection into the system-wide clipboard.
-Paste
-Insert contents of the system-wide clipboard into the current window.
 Insert contents of the system-wide clipboard into the current window.
 Editor windows also have breakpoint functions.  Lines with a breakpoint set are
 specially marked.  Breakpoints only have an effect when running under the
 debugger.  Breakpoints for a file are saved in the user’s .idlerc directory.
 .idlerc
-Set Breakpoint
 Set a breakpoint on the current line.
-Set a breakpoint on the current line.
-Clear Breakpoint
-Clear the breakpoint on that line.
 Clear the breakpoint on that line.
 Shell and Output windows also have the following.
-Go to file/line
-Same as in Debug menu.
 Same as in Debug menu.
 The Shell window also has an output squeezing facility explained in the Python
 Shell window subsection below.
-Squeeze
-If the cursor is over an output line, squeeze all the output between
-the code above and the prompt below down to a ‘Squeezed text’ label.
 If the cursor is over an output line, squeeze all the output between
 the code above and the prompt below down to a ‘Squeezed text’ label.
 
@@ -581,7 +389,6 @@ are no current context lines and the feature is toggled on, a single blank
 line will display.  Clicking on a line in the context pane will move that
 line to the top of the editor.
 class
-def
 The text and background colors for the context pane can be configured under
 the Highlights tab in the Configure IDLE dialog.
 
@@ -609,7 +416,6 @@ C - c attempts to interrupt statement execution (but may fail).
 C - c attempts to interrupt statement execution (but may fail).
 C - d closes Shell if typed at a >>> prompt.
 C - d closes Shell if typed at a >>> prompt.
->>>
 Alt - p and Alt - n ( C - p and C - n on macOS)
 retrieve to the current prompt the previous or next previously
 entered statement that matches anything already typed.
@@ -629,13 +435,10 @@ user error.  For Python code, at the shell prompt or in an editor, these are
 keywords, builtin class and function names, names following class and def , strings, and comments. For any text window, these are the cursor (when
 present), found text (when possible), and selected text.
 class
-def
 IDLE also highlights the soft keywords match , case , and _ in
 pattern-matching statements. However, this highlighting is not perfect and
 will be incorrect in some rare cases, including some _ -s in case patterns.
 match
-case
-case
 Text coloring is done in the background, so uncolorized text is occasionally
 visible.  To change the color scheme, use the Configure IDLE dialog
 Highlighting tab.  The marking of debugger breakpoint lines in the editor and
@@ -671,33 +474,19 @@ python -m idlelib [ options ] [ file ... ]
 [/CODE]
 
 The following options are available:
--c <command>
-Run the specified Python command in the shell window.
-For example, pass -c "print('Hello, World!')" .
-On Windows, the outer quotes must be double quotes as shown.
 Run the specified Python command in the shell window.
 For example, pass -c "print('Hello, World!')" .
 On Windows, the outer quotes must be double quotes as shown.
 -c "print('Hello, World!')"
 Enable the debugger and open the shell window.
-Enable the debugger and open the shell window.
-Open an editor window.
 Open an editor window.
 Print a help message with legal combinations of options and exit.
-Print a help message with legal combinations of options and exit.
 Open a shell window.
-Open a shell window.
--r <file>
 Run the specified file in the shell window.
-Run the specified file in the shell window.
-Run the startup file (as defined by the environment variables IDLESTARTUP or PYTHONSTARTUP ) before opening the shell window.
 Run the startup file (as defined by the environment variables IDLESTARTUP or PYTHONSTARTUP ) before opening the shell window.
 IDLESTARTUP
 PYTHONSTARTUP
--t <title>
 Set the title of the shell window.
-Set the title of the shell window.
-Read and execute standard input in the shell window. This option must be the last one before any arguments.
 Read and execute standard input in the shell window. This option must be the last one before any arguments.
 If arguments are provided:
 If - , -c , or -r is used, all arguments are placed in sys.argv[1:] ,
@@ -708,8 +497,6 @@ and sys.argv[0] is set to '' , '-c' , or '-r' respectively.
 No editor window is opened, even if that is the default set in the Options dialog.
 sys.argv[1:]
 sys.argv[0]
-'-c'
-'-r'
 Otherwise, arguments are treated as files to be opened for editing, and sys.argv reflects the arguments passed to IDLE itself.
 Otherwise, arguments are treated as files to be opened for editing, and sys.argv reflects the arguments passed to IDLE itself.
 sys.argv
@@ -792,7 +579,6 @@ sys.stderr
 sys.__stdin__
 sys.__stdout__
 sys.__stderr__
-None
 Sending print output from one process to a text widget in another is
 slower than printing to a system terminal in the same process.
 This has the most effect when printing multiple arguments, as the string
@@ -815,11 +601,9 @@ print
 write
 python
 pythonw
-pyw
 If sys is reset by user code, such as with importlib.reload(sys) ,
 IDLE’s changes are lost and input from the keyboard and output to the screen
 will not work correctly.
-sys
 importlib.reload(sys)
 When Shell has the focus, it controls the keyboard and screen.  This is
 normally transparent, but functions that directly access the keyboard
@@ -866,7 +650,6 @@ values.  It returns an altered version of the input string in which
 control codes, some BMP codepoints, and all non-BMP codepoints are
 replaced with escape codes. As demonstrated above, it allows one to
 identify the characters in a string, regardless of how they are displayed.
-repr
 Normal and error output are generally kept separate (on separate lines)
 from code input and each other.  They each get different highlight colors.
 For SyntaxError tracebacks, the normal ‘^’ marking where the error was
@@ -903,7 +686,6 @@ appear until mainloop() returns, at which time there is nothing left
 to interact with.
 root.mainloop()
 python -i
->>>
 mainloop()
 When running a tkinter program from an IDLE editor, one can comment out
 the mainloop call.  One then gets a shell prompt immediately and can

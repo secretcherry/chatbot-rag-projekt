@@ -159,7 +159,6 @@ the dotted path to a submodule, e.g. foo.bar.baz .  In this case, Python
 first tries to import foo , then foo.bar , and finally foo.bar.baz .
 If any of the intermediate imports fail, a ModuleNotFoundError is raised.
 foo.bar.baz
-foo
 foo.bar
 foo.bar.baz
 ModuleNotFoundError
@@ -175,7 +174,6 @@ object.
 sys.modules
 foo.bar.baz
 sys.modules
-foo
 foo.bar
 foo.bar.baz
 During import, the module name is looked up in sys.modules and if
@@ -183,7 +181,6 @@ present, the associated value is the module satisfying the import, and the
 process completes.  However, if the value is None , then a ModuleNotFoundError is raised.  If the module name is missing, Python will
 continue searching for the module.
 sys.modules
-None
 ModuleNotFoundError
 sys.modules is writable.  Deleting a key may not destroy the
 associated module (as other modules may hold references to it),
@@ -192,7 +189,6 @@ Python to search anew for the named module upon its next
 import. The key can also be assigned to None , forcing the next import
 of the module to result in a ModuleNotFoundError .
 sys.modules
-None
 ModuleNotFoundError
 Beware though, as if you keep a reference to the module object,
 invalidate its cache entry in sys.modules , and then re-import the
@@ -263,7 +259,6 @@ If the meta path finder knows how to handle the named module, it returns a
 spec object.  If it cannot handle the named module, it returns None .  If sys.meta_path processing reaches the end of its list without returning
 a spec, then a ModuleNotFoundError is raised.  Any other exceptions
 raised are simply propagated up, aborting the import process.
-None
 sys.meta_path
 ModuleNotFoundError
 The find_spec() method of meta path
@@ -277,7 +272,6 @@ is an existing module object that will be the target of loading later.
 The import system passes in a target module only during reload.
 find_spec()
 foo.bar.baz
-None
 __path__
 __path__
 ModuleNotFoundError
@@ -288,8 +282,6 @@ meta path a second time, calling mpf.find_spec("foo.bar", foo.__path__, None) . 
 imported, the final traversal will call mpf.find_spec("foo.bar.baz", foo.bar.__path__, None) .
 foo.bar.baz
 mpf.find_spec("foo", None, None)
-mpf
-foo
 foo.bar
 mpf.find_spec("foo.bar", foo.__path__, None)
 foo.bar
@@ -297,8 +289,6 @@ mpf.find_spec("foo.bar.baz", foo.bar.__path__, None)
 Some meta path finders only support top level imports. These importers will
 always return None when anything other than None is passed as the
 second argument.
-None
-None
 Python’s default sys.meta_path has three meta path finders, one that
 knows how to import built-in modules, one that knows how to import frozen
 modules, and one that knows how to import modules from an import path (i.e. the path based finder ).
@@ -396,7 +386,6 @@ exec_module()
 In many cases, the finder and loader can be the same object; in such cases the find_spec() method would just return a
 spec with the loader set to self .
 find_spec()
-self
 Module loaders may opt in to creating the module object during loading
 by implementing a create_module() method.
 It takes one argument, the module spec, and returns the new module object
@@ -405,7 +394,6 @@ on the module object.  If the method returns None , the
 import machinery will create the new module itself.
 create_module()
 create_module()
-None
 Added in version 3.4: The create_module() method of loaders.
 create_module()
 Changed in version 3.4: The load_module() method was replaced by exec_module() and the import
@@ -474,11 +462,7 @@ importlib
 import
 import-from
 __import__()
-spam
-foo
 spam.foo
-spam
-foo
 
 [CODE]
 spam / __init__ . py foo . py
@@ -492,9 +476,6 @@ from .foo import Foo
 [/CODE]
 
 then executing the following puts name bindings for foo and Foo in the spam module:
-foo
-Foo
-spam
 
 [CODE]
 >>> import spam >>> spam . foo <module 'spam.foo' from '/tmp/imports/spam/foo.py'> >>> spam . Foo <class 'spam.foo.Foo'>
@@ -506,7 +487,6 @@ holding is that if you have sys.modules['spam'] and sys.modules['spam.foo'] (as 
 must appear as the foo attribute of the former.
 sys.modules['spam']
 sys.modules['spam.foo']
-foo
 
 ### 5.4.3. Module specs
 
@@ -591,7 +571,6 @@ If the module has no __file__ but does have a __loader__ that is not None , then
 If the module has no __file__ but does have a __loader__ that is not None , then the loader’s repr is used as part of the module’s repr.
 __file__
 __loader__
-None
 Otherwise, just use the module’s __name__ in the repr.
 Otherwise, just use the module’s __name__ in the repr.
 __name__
@@ -608,8 +587,6 @@ by storing the source’s last-modified timestamp and size in the cache file whe
 writing it. At runtime, the import system then validates the cache file by
 checking the stored metadata in the cache file against the source’s
 metadata.
-.pyc
-.py
 Python also supports “hash-based” cache files, which store a hash of the source
 file’s contents rather than its metadata. There are two variants of hash-based .pyc files: checked and unchecked. For checked hash-based .pyc files,
 Python validates the cache file by hashing the source file and comparing the
@@ -618,14 +595,9 @@ file is found to be invalid, Python regenerates it and writes a new checked
 hash-based cache file. For unchecked hash-based .pyc files, Python simply
 assumes the cache file is valid if it exists. Hash-based .pyc files
 validation behavior may be overridden with the --check-hash-based-pycs flag.
-.pyc
-.pyc
-.pyc
-.pyc
 --check-hash-based-pycs
 Changed in version 3.7: Added hash-based .pyc files. Previously, Python only supported
 timestamp-based invalidation of bytecode caches.
-.pyc
 
 ## 5.5. The Path Based Finder
 
@@ -642,9 +614,6 @@ modules on the file system, handling special file types such as Python source
 code ( .py files), Python byte code ( .pyc files) and
 shared libraries (e.g. .so files). When supported by the zipimport module in the standard library, the default path entry finders also handle
 loading all of these file types (other than shared libraries) from zipfiles.
-.py
-.pyc
-.so
 zipimport
 Path entries need not be limited to file system locations.  They can refer to
 URLs, database queries, or any other location that can be specified as a
@@ -693,7 +662,6 @@ URLs, or database queries.  Only strings should be present on sys.path ; all oth
 sys.path
 PYTHONPATH
 sys.path
-site
 sys.path
 The path based finder is a meta path finder , so the import
 machinery begins the import path search by calling the path
@@ -701,11 +669,8 @@ based finder’s find_spec() method as
 described previously.  When the path argument to find_spec() is given, it will be a
 list of string paths to traverse - typically a package’s __path__ attribute for an import within that package.  If the path argument is None , this indicates a top level import and sys.path is used.
 find_spec()
-path
 find_spec()
 __path__
-path
-None
 sys.path
 The path based finder iterates over every entry in the search path, and
 for each of these, looks for an appropriate path entry finder ( PathEntryFinder ) for the
@@ -738,9 +703,7 @@ If sys.path_hooks iteration ends with no path entry finder being returned, then 
 this path entry) and return None , indicating that this meta path finder could not find the module.
 sys.path_hooks
 find_spec()
-None
 sys.path_importer_cache
-None
 If a path entry finder is returned by one of the path entry
 hook callables on sys.path_hooks , then the following protocol is used
 to ask the finder for a module spec, which is then used when loading the
@@ -798,7 +761,6 @@ with a path argument (they are expected to record the appropriate
 path information from the initial call to the path hook).
 find_module()
 find_module()
-path
 The find_module() method on path entry finders is deprecated,
 as it does not allow the path entry finder to contribute portions to
 namespace packages.  If both find_loader() and find_module() exist on a path entry finder, the import system will always call find_loader() in preference to find_module() .
@@ -832,7 +794,6 @@ it is sufficient to raise ModuleNotFoundError directly from find_spec() instead 
 while raising an exception terminates it immediately.
 ModuleNotFoundError
 find_spec()
-None
 
 ## 5.7. Package Relative Imports
 
@@ -876,7 +837,6 @@ qualify as a built-in module.  This is because the manner in which __main__ is i
 which the interpreter is invoked.
 __main__
 __main__
-sys
 builtins
 __main__
 
@@ -885,7 +845,6 @@ __main__
 Depending on how __main__ is initialized, __main__.__spec__ gets set appropriately or to None .
 __main__
 __main__.__spec__
-None
 When Python is started with the -m option, __spec__ is set
 to the module spec of the corresponding module or package. __spec__ is
 also populated when the __main__ module is loaded as part of executing a
@@ -896,7 +855,6 @@ __main__
 sys.path
 In the remaining cases __main__.__spec__ is set to None , as the code used to populate the __main__ does not correspond directly with an importable module:
 __main__.__spec__
-None
 __main__
 interactive prompt
 interactive prompt
@@ -910,7 +868,6 @@ Note that __main__.__spec__ is always None in the last case, even if the file co
 instead. Use the -m switch if valid module metadata is desired
 in __main__ .
 __main__.__spec__
-None
 __main__
 Note also that even when __main__ corresponds with an importable module
 and __main__.__spec__ is set accordingly, they’re still considered distinct modules. This is due to the fact that blocks guarded by if __name__ == "__main__": checks only execute when the module is used

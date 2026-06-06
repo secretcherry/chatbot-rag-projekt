@@ -5,8 +5,6 @@ SOURCE: whatsnew\3.10.html
 
 # What’s New In Python 3.10
 
-Editor :
-Pablo Galindo Salgado
 Pablo Galindo Salgado
 This article explains the new features in Python 3.10, compared to 3.9.
 Python 3.10 was released on October 4, 2021.
@@ -167,7 +165,6 @@ Missing : and values in dictionary literals:
 (Contributed by Pablo Galindo in bpo-43823 .)
 try blocks without except or finally blocks: >>> try : ... x = 2 ... something = 3 File "<stdin>" , line 3 something = 3 ^^^^^^^^^ SyntaxError : expected 'except' or 'finally' block (Contributed by Pablo Galindo in bpo-44305 .)
 try blocks without except or finally blocks:
-try
 except
 finally
 
@@ -283,7 +280,6 @@ comparing the subject with each pattern in a case statement
 from top to bottom until a match is confirmed.
 comparing the subject with each pattern in a case statement
 from top to bottom until a match is confirmed.
-case
 executing the action associated with the pattern of the confirmed
 match
 executing the action associated with the pattern of the confirmed
@@ -388,7 +384,6 @@ position for attributes in patterns by setting the __match_args__ special
 attribute in your classes. If it’s set to (“x”, “y”), the following patterns
 are all equivalent (and all bind the y attribute to the var variable):
 __match_args__
-var
 
 [CODE]
 Point ( 1 , var ) Point ( 1 , y = var ) Point ( x = 1 , y = var ) Point ( y = var , x = 1 )
@@ -461,7 +456,6 @@ supported.  (But **_ would be redundant, so is not allowed.)
 "bandwidth"
 "latency"
 **rest
-**_
 Subpatterns may be captured using the as keyword: case ( Point ( x1 , y1 ), Point ( x2 , y2 ) as p2 ): ... This binds x1, y1, x2, y2 like you would expect without the as clause,
 and p2 to the entire second item of the subject.
 Subpatterns may be captured using the as keyword:
@@ -474,9 +468,7 @@ This binds x1, y1, x2, y2 like you would expect without the as clause,
 and p2 to the entire second item of the subject.
 Most literals are compared by equality. However, the singletons True , False and None are compared by identity.
 Most literals are compared by equality. However, the singletons True , False and None are compared by identity.
-True
 False
-None
 Named constants may be used in patterns.  These named constants must be
 dotted names to prevent the constant from being interpreted as a capture
 variable: from enum import Enum class Color ( Enum ): RED = 0 GREEN = 1 BLUE = 2 color = Color . GREEN match color : case Color . RED : print ( "I see red!" ) case Color . GREEN : print ( "Grass is green" ) case Color . BLUE : print ( "I'm feeling the blues :(" )
@@ -622,7 +614,6 @@ as the population count. (Contributed by Niklas Fiekas in bpo-29882 .)
 The int type has a new method int.bit_count() , returning the
 number of ones in the binary expansion of a given integer, also known
 as the population count. (Contributed by Niklas Fiekas in bpo-29882 .)
-int
 int.bit_count()
 The views returned by dict.keys() , dict.values() and dict.items() now all have a mapping attribute that gives a types.MappingProxyType object wrapping the original
 dictionary. (Contributed by Dennis Sweeney in bpo-40890 .)
@@ -772,7 +763,6 @@ SyntaxError exceptions now have end_lineno and end_offset attributes.  They will
 SyntaxError
 end_lineno
 end_offset
-None
 
 ## New Modules
 
@@ -813,9 +803,6 @@ Add base64.b32hexencode() and base64.b32hexdecode() to support the
 Base32 Encoding with Extended Hex Alphabet.
 base64.b32hexencode()
 base64.b32hexdecode()
-
-### bdb
-
 Add clearBreakpoints() to reset all set breakpoints.
 (Contributed by Irit Katriel in bpo-24160 .)
 clearBreakpoints()
@@ -905,7 +892,6 @@ from dataclasses import dataclass @dataclass ( kw_only = True ) class Birthday :
 
 Both name and birthday are keyword-only parameters to the
 generated __init__ method.
-name
 birthday
 You can specify keyword-only on a per-field basis:
 
@@ -965,13 +951,9 @@ __spec__.loader
 encodings.normalize_encoding() now ignores non-ASCII characters.
 (Contributed by Hai Shi in bpo-39337 .)
 encodings.normalize_encoding()
-
-### enum
-
 Enum __repr__() now returns enum_name.member_name and __str__() now returns member_name .  Stdlib enums available as
 module constants have a repr() of module_name.member_name .
 (Contributed by Ethan Furman in bpo-40066 .)
-Enum
 __repr__()
 enum_name.member_name
 __str__()
@@ -1004,9 +986,6 @@ Add audit hooks for gc.get_objects() , gc.get_referrers() and gc.get_referents()
 gc.get_objects()
 gc.get_referrers()
 gc.get_referents()
-
-### glob
-
 Add the root_dir and dir_fd parameters in glob() and iglob() which allow to specify the root directory for searching.
 (Contributed by Serhiy Storchaka in bpo-38144 .)
 glob()
@@ -1023,9 +1002,6 @@ the future PBKDF2-HMAC will only be available when Python has been built with
 OpenSSL support.
 (Contributed by Christian Heimes in bpo-43880 .)
 pbkdf2_hmac()
-
-### hmac
-
 The hmac module now uses OpenSSL’s HMAC implementation internally.
 (Contributed by Christian Heimes in bpo-40645 .)
 
@@ -1057,12 +1033,9 @@ Highlight the new soft keywords match , case , and _ in
 pattern-matching statements. However, this highlighting is not perfect
 and will be incorrect in some rare cases, including some _ -s in case patterns.  (Contributed by Tal Einat in bpo-44010 .)
 match
-case
-case
 New in 3.10 maintenance releases.
 Apply syntax highlighting to .pyi files. (Contributed by Alex
 Waygood and Terry Jan Reedy in bpo-45447 .)
-.pyi
 Include prompts when saving Shell with inputs and outputs.
 (Contributed by Terry Jan Reedy in gh-95191 .)
 
@@ -1140,7 +1113,6 @@ to True , OSError is raised if a path doesn’t exist or a symlink loop
 is encountered.
 (Contributed by Barney Gale in bpo-43757 .)
 os.path.realpath()
-True
 OSError
 
 ### pathlib
@@ -1216,9 +1188,6 @@ Add covariance() , Pearson’s correlation() , and simple linear_regression() fu
 covariance()
 correlation()
 linear_regression()
-
-### site
-
 When a module does not define __loader__ , fall back to __spec__.loader .
 (Contributed by Brett Cannon in bpo-42133 .)
 __loader__
@@ -1235,9 +1204,6 @@ IPPROTO_MPTCP
 Add IP_RECVTOS option to receive the type of service (ToS) or DSCP/ECN fields
 (Contributed by Georg Sauthoff in bpo-44077 .)
 IP_RECVTOS
-
-### ssl
-
 The ssl module requires OpenSSL 1.1.1 or newer.
 (Contributed by Christian Heimes in PEP 644 and bpo-43669 .)
 The ssl module has preliminary support for OpenSSL 3.0.0 and new option OP_IGNORE_UNEXPECTED_EOF .
@@ -1278,9 +1244,6 @@ Add audit events for connect() , enable_load_extension() , and load_extension() 
 connect()
 enable_load_extension()
 load_extension()
-
-### sys
-
 Add sys.orig_argv attribute: the list of the original command line
 arguments passed to the Python executable.
 (Contributed by Victor Stinner in bpo-23427 .)
@@ -1351,7 +1314,6 @@ now False .  To support this change, the internally used type cache now
 supports differentiating types.
 Literal
 Literal[0] == Literal[False]
-True
 False
 Literal objects will now raise a TypeError exception during
 equality comparisons if any of their parameters are not hashable .
@@ -1424,9 +1386,6 @@ URL by the parser in urllib.parse preventing such attacks. The removal
 characters are controlled by a new module level variable urllib.parse._UNSAFE_URL_BYTES_TO_REMOVE . (See gh-88048 )
 urllib.parse
 urllib.parse._UNSAFE_URL_BYTES_TO_REMOVE
-
-### xml
-
 Add a LexicalHandler class to the xml.sax.handler module.
 (Contributed by Jonathan Gossage and Zackery Spytz in bpo-35018 .)
 LexicalHandler
@@ -1485,16 +1444,12 @@ This speeds builds of the Python interpreter created with --enable-shared with g
 --enable-optimizations
 -fno-semantic-interposition
 --enable-shared
-gcc
 Use a new output buffer management code for bz2 / lzma / zlib modules, and add .readall() function to _compression.DecompressReader class. bz2 decompression is now 1.09x ~ 1.17x
 faster, lzma decompression 1.20x ~ 1.32x faster, GzipFile.read(-1) 1.11x
 ~ 1.18x faster. (Contributed by Ma Lin, reviewed by Gregory P. Smith, in bpo-41486 )
 Use a new output buffer management code for bz2 / lzma / zlib modules, and add .readall() function to _compression.DecompressReader class. bz2 decompression is now 1.09x ~ 1.17x
 faster, lzma decompression 1.20x ~ 1.32x faster, GzipFile.read(-1) 1.11x
 ~ 1.18x faster. (Contributed by Ma Lin, reviewed by Gregory P. Smith, in bpo-41486 )
-bz2
-lzma
-zlib
 .readall()
 _compression.DecompressReader
 GzipFile.read(-1)
@@ -1543,8 +1498,6 @@ readers or writers, just like its equivalent classes in gzip and lzma have alway
 BZ2File
 RLock
 BZ2File
-gzip
-lzma
 
 ## Deprecated
 
@@ -1572,9 +1525,6 @@ syntax error.
 [0x1for x in y]
 [0x1 for x in y]
 [0x1f or x in y]
-and
-else
-for
 Starting in this release, there will be a concerted effort to begin
 cleaning up old import semantics that were kept for Python 2.7
 compatibility. Specifically, find_loader() / find_module() (superseded by find_spec() ), load_module() (superseded by exec_module() ), module_repr() (which the import system
@@ -1712,7 +1662,6 @@ The deprecations of imp , importlib.find_loader() , importlib.util.set_package_w
 slated version of removal (they began raising DeprecationWarning in
 previous versions of Python).
 (Contributed by Brett Cannon in bpo-43720 .)
-imp
 importlib.find_loader()
 importlib.util.set_package_wrapper()
 importlib.util.set_loader_wrapper()
@@ -1750,7 +1699,6 @@ sqlite3.OptimizedUnicode has been undocumented and obsolete since Python
 scheduled for removal in Python 3.12.
 (Contributed by Erlend E. Aasland in bpo-42264 .)
 sqlite3.OptimizedUnicode
-str
 The undocumented built-in function sqlite3.enable_shared_cache is now
 deprecated, scheduled for removal in Python 3.12.  Its use is strongly
 discouraged by the SQLite3 documentation.  See the SQLite3 docs for more details.
@@ -1816,7 +1764,6 @@ The following ssl features have been deprecated since Python 3.6,
 Python 3.7, or OpenSSL 1.1.0 and will be removed in 3.11: OP_NO_SSLv2 , OP_NO_SSLv3 , OP_NO_TLSv1 , OP_NO_TLSv1_1 , OP_NO_TLSv1_2 , and OP_NO_TLSv1_3 are replaced by minimum_version and maximum_version . PROTOCOL_SSLv2 , PROTOCOL_SSLv3 , PROTOCOL_SSLv23 , PROTOCOL_TLSv1 , PROTOCOL_TLSv1_1 , PROTOCOL_TLSv1_2 , and PROTOCOL_TLS are deprecated in favor of PROTOCOL_TLS_CLIENT and PROTOCOL_TLS_SERVER wrap_socket() is replaced by ssl.SSLContext.wrap_socket() match_hostname() RAND_pseudo_bytes() , RAND_egd() NPN features like ssl.SSLSocket.selected_npn_protocol() and ssl.SSLContext.set_npn_protocols() are replaced by ALPN.
 The following ssl features have been deprecated since Python 3.6,
 Python 3.7, or OpenSSL 1.1.0 and will be removed in 3.11:
-ssl
 OP_NO_SSLv2 , OP_NO_SSLv3 , OP_NO_TLSv1 , OP_NO_TLSv1_1 , OP_NO_TLSv1_2 , and OP_NO_TLSv1_3 are replaced by minimum_version and maximum_version .
 OP_NO_SSLv2 , OP_NO_SSLv3 , OP_NO_TLSv1 , OP_NO_TLSv1_1 , OP_NO_TLSv1_2 , and OP_NO_TLSv1_3 are replaced by minimum_version and maximum_version .
 OP_NO_SSLv2
@@ -1968,7 +1915,6 @@ See Changes in the Python API for examples of how to replace existing code. (Con
 in bpo-42392 .)
 The loop parameter has been removed from most of asyncio ‘s high-level API following deprecation
 in Python 3.8.  The motivation behind this change is multifold:
-loop
 asyncio
 This simplifies the high-level API.
 This simplifies the high-level API.
@@ -1984,7 +1930,6 @@ Event loop passing is error-prone especially when dealing with loops
 running in different threads.
 Note that the low-level API will still accept loop .
 See Changes in the Python API for examples of how to replace existing code.
-loop
 (Contributed by Yurii Karabas, Andrew Svetlov, Yury Selivanov and Kyle Stanley
 in bpo-42392 .)
 
@@ -2074,7 +2019,6 @@ using asyncio.run_coroutine_threadsafe() instead. (Contributed by Yurii Karabas,
 in bpo-42392 .)
 The loop parameter has been removed from most of asyncio ‘s high-level API following deprecation
 in Python 3.8.
-loop
 asyncio
 A coroutine that currently looks like this:
 
@@ -2241,7 +2185,6 @@ are used instead of ensurepip bundled wheel packages.
 ./configure
 ensurepip
 setuptools
-pip
 Some Linux distribution packaging policies recommend against bundling
 dependencies. For example, Fedora installs wheel packages in the /usr/share/python-wheels/ directory and don’t install the ensurepip._bundled package.
 /usr/share/python-wheels/
@@ -2293,8 +2236,6 @@ The result of PyNumber_Index() now always has exact type int .
 Previously, the result could have been an instance of a subclass of int .
 (Contributed by Serhiy Storchaka in bpo-40792 .)
 PyNumber_Index()
-int
-int
 Add a new orig_argv member to the PyConfig structure: the list of the original command line arguments passed to the
 Python executable.
 (Contributed by Victor Stinner in bpo-23427 .)
@@ -2374,7 +2315,6 @@ Add a new PySet_CheckExact() function to the C-API to check if an
 object is an instance of set but not an instance of a subtype.
 (Contributed by Pablo Galindo in bpo-43277 .)
 PySet_CheckExact()
-set
 Add PyErr_SetInterruptEx() which allows passing a signal number
 to simulate.
 (Contributed by Antoine Pitrou in bpo-43356 .)
@@ -2420,8 +2360,6 @@ x is y
 Py_IsNone()
 Py_IsTrue()
 Py_IsFalse()
-None
-True
 False
 Add new functions to control the garbage collector from C code: PyGC_Enable() , PyGC_Disable() , PyGC_IsEnabled() .
 These functions allow to activate, deactivate and query the state of the garbage collector from C code without
@@ -2458,8 +2396,6 @@ See Parsing arguments and building values and PEP 353 .
 PY_SSIZE_T_CLEAN
 PyArg_ParseTuple()
 Py_BuildValue()
-es#
-et#
 Since Py_REFCNT() is changed to the inline static function, Py_REFCNT(obj) = new_refcnt must be replaced with Py_SET_REFCNT(obj, new_refcnt) :
 see Py_SET_REFCNT() (available since Python 3.9). For backward
 compatibility, this macro can be used: #if PY_VERSION_HEX < 0x030900A4 #  define Py_SET_REFCNT(obj, refcnt) ((Py_REFCNT(obj) = (refcnt)), (void)0) #endif (Contributed by Victor Stinner in bpo-39573 .)
@@ -2509,7 +2445,6 @@ Py_GetExecPrefix()
 Py_GetProgramFullPath()
 Py_GetPythonHome()
 Py_GetProgramName()
-NULL
 Py_Initialize()
 PyList_SET_ITEM() , PyTuple_SET_ITEM() and PyCell_SET() macros can no longer be used as l-value or r-value.
 For example, x = PyList_SET_ITEM(a, b, c) and PyList_SET_ITEM(a, b, c) = x now fail with a compiler error. It prevents
@@ -2726,7 +2661,6 @@ Python-ast.h
 Yield
 Yield
 <winbase.h>
-ast
 Remove the compiler and parser functions using struct _mod type, because
 the public AST C API was removed: PyAST_Compile() PyAST_CompileEx() PyAST_CompileObject() PyFuture_FromAST() PyFuture_FromASTObject() PyParser_ASTFromFile() PyParser_ASTFromFileObject() PyParser_ASTFromFilename() PyParser_ASTFromString() PyParser_ASTFromStringObject() These functions were undocumented and excluded from the limited C API.
 (Contributed by Victor Stinner in bpo-43244 .)
@@ -2802,10 +2736,7 @@ This limit can be configured or disabled by environment variable, command
 line flag, or sys APIs. See the integer string conversion
 length limitation documentation.  The default limit
 is 4300 digits in string form.
-int
-str
 ValueError
-sys
 
 ## Notable security feature in 3.10.8
 

@@ -35,7 +35,6 @@ File integrity information (checksum, size, sigstore signature, etc) for each fi
 on the release download page. Installer packages and their contents are signed and notarized
 with Python Software Foundation Apple Developer ID certificates
 to meet macOS Gatekeeper requirements .
-.pkg
 Python Software Foundation
 For a default installation, double-click on the downloaded installer package file.
 This should launch the standard macOS Installer app and display the first of several
@@ -93,7 +92,6 @@ path. To uninstall Python, you can remove these three things.
 Symlinks to the Python executable are placed in /usr/local/bin/ .
 /Library/Frameworks/Python.framework
 /usr/local/bin/
-Note
 Recent versions of macOS include a python3 command in /usr/bin/python3 that links to a usually older and incomplete version of Python provided by and for use by
 the Apple development tools, Xcode or the Command Line Tools for Xcode .
 You should never modify or attempt to delete this installation, as it is
@@ -135,7 +133,6 @@ Select Python Launcher as the default application to open your
 script (or any .py script) through the Finder Info window and double-click it. Python Launcher has various preferences to control how your script is
 launched. Option-dragging allows you to change these for one invocation, or use
 its Preferences menu to change things globally.
-.py
 Preferences
 Be aware that running the script directly from the macOS Finder might
 produce different results than when running from a terminal window as
@@ -150,22 +147,11 @@ Besides the standard python.org for macOS installer, there are third-party
 distributions for macOS that may include additional functionality.
 Some popular distributions and their key features:
 python.org
-ActivePython
 Installer with multi-platform compatibility, documentation
-Installer with multi-platform compatibility, documentation
-Anaconda
-Popular scientific modules (such as numpy, scipy, and pandas) and the conda package manager.
 Popular scientific modules (such as numpy, scipy, and pandas) and the conda package manager.
 conda
-Homebrew
 Package manager for macOS including multiple versions of Python and many
 third-party Python-based packages (including numpy, scipy, and pandas).
-Package manager for macOS including multiple versions of Python and many
-third-party Python-based packages (including numpy, scipy, and pandas).
-MacPorts
-Another package manager for macOS including multiple versions of Python and many
-third-party Python-based packages. May include pre-built versions of Python and
-many packages for older versions of macOS.
 Another package manager for macOS including multiple versions of Python and many
 third-party Python-based packages. May include pre-built versions of Python and
 many packages for older versions of macOS.
@@ -251,8 +237,6 @@ be needed to use python3.14t .
 python3.14t
 python3.14t-config
 /usr/local/bin
-PATH
-PATH
 python3.14t
 For this release, the Shell profile updater package and the Update Shell Profile.command in /Applications/Python 3.14/ do not support the free-threaded package.
 For this release, the Shell profile updater package and the Update Shell Profile.command in /Applications/Python 3.14/ do not support the free-threaded package.
@@ -327,9 +311,7 @@ include the PythonT framework bin directory:
 /usr/local/bin
 python.org
 python3.14t
-PATH
 PythonT
-bin
 
 [CODE]
 export PATH="/Library/Frameworks/PythonT.framework/Versions/3.14/bin":"$PATH"
@@ -342,10 +324,7 @@ they appear in PATH . The which python3.x or which python3.xt commands can show 
 can help avoid such ambiguities. Another option might be to create
 a shell alias to the desired interpreter, like:
 Python.framework
-bin
-PATH
 python3.14
-PATH
 which python3.x
 which python3.xt
 
@@ -412,7 +391,6 @@ $ python3.14 -VV
 Python 3.14.0b2 (v3.14.0b2:3a83b172af, Jun  5 2024, 12:50:24) [Clang 15.0.0 (clang-1500.3.9.4)]
 [/CODE]
 
-Note
 Current python.org installers only install to fixed locations like /Library/Frameworks/ , /Applications , and /usr/local/bin .
 You cannot use the installer -domain option to install to
 other locations.
@@ -428,14 +406,12 @@ A range of tools exist for converting your Python code into a standalone
 distributable application:
 py2app : Supports creating macOS .app bundles from a Python project.
 py2app : Supports creating macOS .app bundles from a Python project.
-.app
 Briefcase : Part of the BeeWare Project ; a cross-platform packaging tool that supports
 creation of .app bundles on macOS, as well as managing signing and
 notarization.
 Briefcase : Part of the BeeWare Project ; a cross-platform packaging tool that supports
 creation of .app bundles on macOS, as well as managing signing and
 notarization.
-.app
 PyInstaller : A cross-platform packaging tool that creates
 a single file or folder as a distributable artifact.
 PyInstaller : A cross-platform packaging tool that creates

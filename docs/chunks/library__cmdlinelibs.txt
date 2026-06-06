@@ -25,4 +25,3 @@ curses.ascii
 curses.panel — A panel stack extension for curses
 curses.panel
 cmd — Support for line-oriented command interpreters
-cmd

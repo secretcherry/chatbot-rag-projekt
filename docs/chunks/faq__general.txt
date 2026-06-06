@@ -274,7 +274,6 @@ changes while minimizing disruption for users.
 
 ### Is Python a good language for beginning programmers?
 
-Yes.
 It is still common to start students with a procedural and statically typed
 language such as Pascal, C, or a subset of C++ or Java.  Students may be better
 served by learning Python as their first language.  Python has a very simple and

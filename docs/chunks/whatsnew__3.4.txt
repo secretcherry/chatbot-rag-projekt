@@ -5,8 +5,6 @@ SOURCE: whatsnew\3.4.html
 
 # What’s New In Python 3.4
 
-Author :
-R. David Murray < rdmurray @ bitdance . com > (Editor)
 R. David Murray < rdmurray @ bitdance . com > (Editor)
 This article explains the new features in Python 3.4, compared to 3.3.
 Python 3.4 was released on March 16, 2014.  For full details, see the changelog .
@@ -43,7 +41,6 @@ ensurepip : Bootstrapping the pip installer ( PEP 453 ).
 ensurepip
 enum : Support for enumeration types ( PEP 435 ).
 enum : Support for enumeration types ( PEP 435 ).
-enum
 pathlib : Object-oriented filesystem paths ( PEP 428 ).
 pathlib : Object-oriented filesystem paths ( PEP 428 ).
 pathlib
@@ -123,13 +120,10 @@ the PKCS#5 password-based key derivation function 2 .
 hashlib.pbkdf2_hmac()
 TLSv1.1 and TLSv1.2 support for ssl .
 TLSv1.1 and TLSv1.2 support for ssl .
-ssl
 Retrieving certificates from the Windows system cert store support for ssl .
 Retrieving certificates from the Windows system cert store support for ssl .
-ssl
 Server-side SNI (Server Name Indication) support for ssl .
 Server-side SNI (Server Name Indication) support for ssl .
-ssl
 The ssl.SSLContext class has a lot of improvements .
 The ssl.SSLContext class has a lot of improvements .
 ssl.SSLContext
@@ -169,63 +163,42 @@ with Python 3.4.0 is pip 1.5.4, and future 3.4.x maintenance releases
 will update the bundled version to the latest version of pip that is
 available at the time of creating the release candidate.
 ensurepip
-pip
-pip
-pip
 By default, the commands pipX and pipX.Y will be installed on all
 platforms (where X.Y stands for the version of the Python installation),
 along with the pip Python package and its dependencies. On Windows and
 in virtual environments on all platforms, the unversioned pip command
 will also be installed. On other platforms, the system wide unversioned pip command typically refers to the separately installed Python 2
 version.
-pipX
 pipX.Y
-pip
-pip
-pip
 The pyvenv command line utility and the venv module make use of the ensurepip module to make pip readily
 available in virtual environments. When using the command line utility, pip is installed by default, while when using the venv module API installation of pip must be requested explicitly.
 pyvenv
-venv
 ensurepip
-pip
-pip
-venv
-pip
 For CPython source builds on POSIX systems ,
 the make install and make altinstall commands bootstrap pip by
 default.  This behaviour can be controlled through configure options, and
 overridden through Makefile options.
 make install
 make altinstall
-pip
 On Windows and Mac OS X, the CPython installers now default to installing pip along with CPython itself (users may opt out of installing it
 during the installation process). Window users will need to opt in to the
 automatic PATH modifications to have pip available from the command
 line by default, otherwise it can still be accessed through the Python
 launcher for Windows as py -m pip .
-pip
-PATH
-pip
 py -m pip
 As discussed in the PEP platform packagers may choose not to install
 these commands by default, as long as, when invoked, they provide clear and
 simple directions on how to install them on that platform (usually using
 the system package manager).
-Note
 To avoid conflicts between parallel Python 2 and Python 3 installations,
 only the versioned pip3 and pip3.4 commands are bootstrapped by
 default when ensurepip is invoked directly - the --default-pip option is needed to also request the unversioned pip command. pyvenv and the Windows installer ensure that the unqualified pip command is made available in those environments, and pip can always be
 invoked via the -m switch rather than directly to avoid ambiguity on
 systems with multiple Python installations.
-pip3
 pip3.4
 ensurepip
 --default-pip
-pip
 pyvenv
-pip
-pip
 
 #### Documentation Changes
 
@@ -237,9 +210,6 @@ projects.
 However, as this migration is currently still incomplete, the legacy
 versions of those guides remaining available as Building C and C++ Extensions with setuptools and Building C and C++ Extensions with setuptools .
 See also
-PEP 453 – Explicit bootstrapping of pip in Python installations
-PEP written by Donald Stufft and Nick Coghlan, implemented by
-Donald Stufft, Nick Coghlan, Martin von Löwis and Ned Deily.
 PEP written by Donald Stufft and Nick Coghlan, implemented by
 Donald Stufft, Nick Coghlan, Martin von Löwis and Ned Deily.
 
@@ -264,8 +234,6 @@ socket.socket.get_inheritable() , socket.socket.set_inheritable()
 socket.socket.get_inheritable()
 socket.socket.set_inheritable()
 See also
-PEP 446 – Make newly created file descriptors non-inheritable
-PEP written and implemented by Victor Stinner.
 PEP written and implemented by Victor Stinner.
 
 ### Improvements to Codec Handling
@@ -276,7 +244,6 @@ system. However, its close coupling with the Python text model, especially
 the type restricted convenience methods on the builtin str , bytes and bytearray types, has historically obscured that
 fact.
 codecs
-str
 bytes
 bytearray
 As a key step in clarifying the situation, the codecs.encode() and codecs.decode() convenience functions are now properly documented in
@@ -289,7 +256,6 @@ Unlike the convenience methods on str , bytes and bytearray , the codecs conveni
 codecs in both Python 2 and Python 3, rather than being limited to Unicode text
 encodings (in Python 3) or basestring <-> basestring conversions (in
 Python 2).
-str
 bytes
 bytearray
 codecs
@@ -392,7 +358,6 @@ bytes
 bytearray
 The int constructor now accepts any object that has an __index__ method for its base argument.  (Contributed by Mark Dickinson in bpo-16772 .)
 The int constructor now accepts any object that has an __index__ method for its base argument.  (Contributed by Mark Dickinson in bpo-16772 .)
-int
 __index__
 Frame objects now have a clear() method that clears all
 references to local variables from the frame.  (Contributed by Antoine Pitrou
@@ -436,8 +401,6 @@ implementations to interoperate with the standard library and each other.
 asyncio
 For Python 3.4, this module is considered a provisional API .
 See also
-PEP 3156 – Asynchronous IO Support Rebooted: the “asyncio” Module
-PEP written and implementation led by Guido van Rossum.
 PEP written and implementation led by Guido van Rossum.
 
 ### ensurepip
@@ -446,7 +409,6 @@ The new ensurepip module is the primary infrastructure for the PEP 453 implement
 need to interact with this module, but it can be used to manually bootstrap pip if the automated bootstrapping into an installation or virtual
 environment was declined.
 ensurepip
-pip
 ensurepip includes a bundled copy of pip , up-to-date as of the first
 release candidate of the release of CPython with which it ships (this applies
 to both maintenance releases and feature releases). ensurepip does not
@@ -455,33 +417,19 @@ more recent release than the bundled one.  (Note that such an upgraded version
 of pip is considered to be a separately installed package and will not be
 removed if Python is uninstalled.)
 ensurepip
-pip
 ensurepip
 ensurepip
-pip
-pip
-pip
 The module is named ensure pip because if called when pip is already
 installed, it does nothing.  It also has an --upgrade option that will
 cause it to install the bundled copy of pip if the existing installed
 version of pip is older than the bundled copy.
-pip
 --upgrade
-pip
-pip
-
-### enum
-
 The new enum module (defined in PEP 435 ) provides a standard
 implementation of enumeration types, allowing other modules (such as socket ) to provide more informative error messages and better
 debugging support by replacing opaque integer constants with backwards
 compatible enumeration values.
-enum
 socket
 See also
-PEP 435 – Adding an Enum type to the Python standard library
-PEP written by Barry Warsaw, Eli Bendersky and Ethan Furman,
-implemented by Ethan Furman.
 PEP written by Barry Warsaw, Eli Bendersky and Ethan Furman,
 implemented by Ethan Furman.
 
@@ -495,8 +443,6 @@ provide I/O operations.
 pathlib
 For Python 3.4, this module is considered a provisional API .
 See also
-PEP 428 – The pathlib module – object-oriented filesystem paths
-PEP written and implemented by Antoine Pitrou.
 PEP written and implemented by Antoine Pitrou.
 
 ### selectors
@@ -514,8 +460,6 @@ supports calculation of the mean, median, mode, variance and standard
 deviation of a data series.
 statistics
 See also
-PEP 450 – Adding A Statistics Module To The Standard Library
-PEP written and implemented by Steven D’Aprano
 PEP written and implemented by Steven D’Aprano
 
 ### tracemalloc
@@ -532,13 +476,9 @@ total size, number and average size of allocated memory blocks
 Compute the differences between two snapshots to detect memory leaks
 Compute the differences between two snapshots to detect memory leaks
 See also
-PEP 454 – Add a new tracemalloc module to trace Python memory allocations
-PEP written and implemented by Victor Stinner
 PEP written and implemented by Victor Stinner
 
 ## Improved Modules
-
-### abc
 
 New function abc.get_cache_token() can be used to know when to invalidate
 caches that are affected by changes in the object graph.  (Contributed
@@ -547,13 +487,8 @@ abc.get_cache_token()
 New class ABC has ABCMeta as its meta class.
 Using ABC as a base class has essentially the same effect as specifying metaclass=abc.ABCMeta , but is simpler to type and easier to read.
 (Contributed by Bruno Dupuis in bpo-16049 .)
-ABC
 ABCMeta
-ABC
 metaclass=abc.ABCMeta
-
-### aifc
-
 The getparams() method now returns a namedtuple rather than a
 plain tuple.  (Contributed by Claudiu Popa in bpo-17818 .)
 getparams()
@@ -561,7 +496,6 @@ aifc.open() now supports the context management protocol: when used in a with bl
 object will be called automatically at the end of the block.  (Contributed by
 Serhiy Storchacha in bpo-16486 .)
 aifc.open()
-with
 close()
 The writeframesraw() and writeframes() methods now accept any bytes-like object .  (Contributed by Serhiy
 Storchaka in bpo-8311 .)
@@ -605,7 +539,6 @@ b85encode()
 b85decode()
 Ascii85
 Base85
-a85
 Ascii85
 
 ### collections
@@ -646,19 +579,12 @@ sys.stdout
 The contextlib documentation has also been updated to include a discussion of the
 differences between single use, reusable and reentrant context managers.
 contextlib
-
-### dbm
-
 dbm.open() objects now support the context management protocol.  When
 used in a with statement, the close method of the database
 object will be called automatically at the end of the block.  (Contributed by
 Claudiu Popa and Nick Coghlan in bpo-19282 .)
 dbm.open()
-with
 close
-
-### dis
-
 Functions show_code() , dis() , distb() , and disassemble() now accept a keyword-only file argument that
 controls where they write their output.
 show_code()
@@ -668,7 +594,6 @@ disassemble()
 The dis module is now built around an Instruction class
 that provides object oriented access to the details of each individual bytecode
 operation.
-dis
 Instruction
 A new method, get_instructions() , provides an iterator that emits
 the Instruction stream for a given piece of Python code.  Thus it is now
@@ -676,7 +601,6 @@ possible to write a program that inspects and manipulates a bytecode
 object in ways different from those provided by the dis module
 itself.  For example:
 get_instructions()
-dis
 
 [CODE]
 >>> import dis >>> for instr in dis . get_instructions ( lambda x : x + 1 ): ... print ( instr . opname ) LOAD_FAST LOAD_CONST BINARY_ADD RETURN_VALUE
@@ -684,7 +608,6 @@ dis
 
 The various display tools in the dis module have been rewritten to use
 these new components.
-dis
 In addition, a new application-friendly class Bytecode provides
 an object-oriented API for inspecting bytecode in both in human-readable form
 and for iterating over instructions.  The Bytecode constructor
@@ -695,8 +618,6 @@ Bytecode
 Bytecode
 get_instructions()
 Instruction
-dis
-dis
 
 [CODE]
 >>> bytecode = dis . Bytecode ( lambda x : x + 1 , current_offset = 3 ) >>> for instr in bytecode : ... print ( ' {} ( {} )' . format ( instr . opname , instr . opcode )) LOAD_FAST (124) LOAD_CONST (100) BINARY_ADD (23) RETURN_VALUE (83) >>> bytecode . dis () . splitlines () ['  1           0 LOAD_FAST                0 (x)', '      -->     3 LOAD_CONST               1 (1)', '              6 BINARY_ADD', '              7 RETURN_VALUE']
@@ -813,8 +734,6 @@ common set of data into a class, a generic function focuses on grouping
 multiple implementations of an operation that allows it to work with different kinds of data.
 singledispatch()
 See also
-PEP 443 – Single-dispatch generic functions
-PEP written and implemented by Łukasz Langa.
 PEP written and implemented by Łukasz Langa.
 total_ordering() now supports a return value of NotImplemented from the underlying comparison function.  (Contributed
 by Katie Miller in bpo-10042 .)
@@ -828,9 +747,6 @@ New function get_stats() returns a list of three per-generation
 dictionaries containing the collections statistics since interpreter startup.
 (Contributed by Antoine Pitrou in bpo-16351 .)
 get_stats()
-
-### glob
-
 A new function escape() provides a way to escape special characters
 in a filename so that they do not become part of the globbing expansion but are
 instead matched literally.  (Contributed by Serhiy Storchaka in bpo-8402 .)
@@ -847,16 +763,11 @@ a formally supported interface.  It has always existed in CPython’s hashlib (a
 hashes), but it was not a public interface and so some other Python
 implementations have not previously supported it.  (Contributed by Jason R.
 Coombs in bpo-18532 .)
-name
 hashlib
 hashlib
-
-### hmac
-
 hmac now accepts bytearray as well as bytes for the key argument to the new() function, and the msg parameter to both the new() function and the update() method now
 accepts any type supported by the hashlib module.  (Contributed
 by Jonas Borgström in bpo-18240 .)
-hmac
 bytearray
 bytes
 new()
@@ -870,16 +781,10 @@ future version of Python there will be no default value.  (Contributed by
 Christian Heimes in bpo-17276 .)
 hmac.new()
 hashlib
-MD5
 With the addition of block_size and name attributes (and the formal documentation of the digest_size attribute), the hmac module now conforms fully to the PEP 247 API.
 (Contributed by Christian Heimes in bpo-18775 .)
 block_size
-name
 digest_size
-hmac
-
-### html
-
 New function unescape() function converts HTML5 character references to
 the corresponding Unicode characters.  (Contributed by Ezio Melotti in bpo-2927 .)
 unescape()
@@ -889,15 +794,10 @@ it will change to True in a future version of Python, so you are invited to
 set it explicitly and update your code to use this new feature.  (Contributed
 by Ezio Melotti in bpo-13633 .)
 HTMLParser
-True
 False
-True
 The strict argument of HTMLParser is now deprecated.
 (Contributed by Ezio Melotti in bpo-15114 .)
 HTMLParser
-
-### http
-
 send_error() now accepts an
 optional additional explain parameter which can be used to provide an
 extended error description, overriding the hardcoded default if there is one.
@@ -938,22 +838,18 @@ get_code()
 The reload() function has been moved from imp to importlib as part of the imp module deprecation.  (Contributed by
 Berker Peksag in bpo-18193 .)
 reload()
-imp
 importlib
-imp
 importlib.util now has a MAGIC_NUMBER attribute
 providing access to the bytecode version number.  This replaces the get_magic() function in the deprecated imp module.
 (Contributed by Brett Cannon in bpo-18192 .)
 importlib.util
 MAGIC_NUMBER
 get_magic()
-imp
 New importlib.util functions cache_from_source() and source_from_cache() replace the same-named functions
 in the deprecated imp module.  (Contributed by Brett Cannon in bpo-18194 .)
 importlib.util
 cache_from_source()
 source_from_cache()
-imp
 The importlib bootstrap NamespaceLoader now conforms to
 the InspectLoader ABC, which means that runpy and python -m can now be used with namespace packages.  (Contributed
 by Brett Cannon in bpo-18058 .)
@@ -987,7 +883,6 @@ functools.wraps()
 __wrapped__
 As part of the implementation of the new enum module, the inspect module now has substantially better support for custom __dir__ methods and dynamic class attributes provided through
 metaclasses.  (Contributed by Ethan Furman in bpo-18929 and bpo-19030 .)
-enum
 inspect
 __dir__
 getfullargspec() and getargspec() now use the signature() API. This allows them to
@@ -1019,7 +914,6 @@ ipaddress
 A new is_global property is True if
 an address is globally routeable.  (Contributed by Peter Moody in bpo-17400 .)
 is_global
-True
 
 ### logging
 
@@ -1031,7 +925,6 @@ setting port to None ).  (Contributed by Vinay Sajip in commit
 ce46195b56a9.)
 SocketHandler
 DatagramHandler
-None
 fileConfig() now accepts a configparser.RawConfigParser subclass instance for the fname parameter.  This facilitates using a configuration file when logging
 configuration is just a part of the overall application configuration, or where
 the application modifies the configuration before passing it to fileConfig() .  (Contributed by Vinay Sajip in bpo-16110 .)
@@ -1052,12 +945,6 @@ references).  This reduces both the size of .pyc files and the amount of
 memory a module occupies in memory when it is loaded from a .pyc (or .pyo ) file.  (Contributed by Kristján Valur Jónsson in bpo-16475 ,
 with additional speedups by Antoine Pitrou in bpo-19219 .)
 marshal
-.pyc
-.pyc
-.pyo
-
-### mmap
-
 mmap objects are now weakly referenceable .
 (Contributed by Valerie Lambert in bpo-4885 .)
 
@@ -1087,7 +974,6 @@ multiprocessing
 context
 get_context()
 multiprocessing
-Pool
 Except when using the old fork start method, child processes no longer
 inherit unneeded handles/file descriptors from their parents (part of bpo-8713 ).
 multiprocessing now relies on runpy (which implements the -m switch) to initialise __main__ appropriately in child processes
@@ -1125,7 +1011,6 @@ determined).  The multiprocessing.cpu_count() function is now implemented
 in terms of this function).  (Contributed by Trent Nelson, Yogesh Chaudhari,
 Victor Stinner, and Charles-François Natali in bpo-17914 .)
 cpu_count()
-None
 multiprocessing.cpu_count()
 os.path.samestat() is now available on the Windows platform (and the os.path.samefile() implementation is now shared between Unix and
 Windows).  (Contributed by Brian Curtin in bpo-11939 .)
@@ -1140,13 +1025,9 @@ by Christian Heimes in bpo-18673 and Benjamin Peterson, respectively.)
 os.open()
 O_PATH
 O_TMPFILE
-
-### pdb
-
 pdb has been enhanced to handle generators, yield , and yield from in a more useful fashion.  This is especially helpful when
 debugging asyncio based programs.  (Contributed by Andrew Svetlov and
 Xavier de Gaye in bpo-16596 .)
-pdb
 yield
 yield from
 asyncio
@@ -1157,19 +1038,14 @@ pdb p command. p , however, prints the repr of its argument,
 not the str like the Python2 print command did.  Worse, the Python3 pdb print command shadowed the Python3 print function, making it
 inaccessible at the pdb prompt.  (Contributed by Connor Osborn in bpo-18764 .)
 print
-pdb
 print()
-pdb
 print
 print
 print
 print
-repr
-str
 print
 pdb print
 print
-pdb
 
 ### pickle
 
@@ -1181,8 +1057,6 @@ keyword-only arguments.  It also provides some efficiency improvements.
 pickle
 __new__()
 See also
-PEP 3154 – Pickle protocol 4
-PEP written by Antoine Pitrou and implemented by Alexandre Vassalotti.
 PEP written by Antoine Pitrou and implemented by Alexandre Vassalotti.
 
 ### plistlib
@@ -1221,17 +1095,12 @@ pprint
 PrettyPrinter
 pformat()
 pprint()
-True
 Long strings are now wrapped using Python’s normal line continuation
 syntax.  (Contributed by Antoine Pitrou in bpo-17150 .)
-
-### pty
-
 pty.spawn() now returns the status value from os.waitpid() on
 the child process, instead of None .  (Contributed by Gregory P. Smith.)
 pty.spawn()
 os.waitpid()
-None
 
 ### pydoc
 
@@ -1245,7 +1114,6 @@ The pydoc module no longer displays the self parameter for
 already bound methods. Instead, it aims to always display the exact current
 signature of the supplied callable.  (Contributed by Larry Hastings in bpo-20710 .)
 pydoc
-self
 In addition to the changes that have been made to pydoc directly,
 its handling of custom __dir__ methods and various descriptor
 behaviours has also been improved substantially by the underlying changes in
@@ -1295,7 +1163,6 @@ epoll objects now support the context management protocol.
 When used in a with statement, the close() method will be called automatically at the end of the block.  (Contributed
 by Serhiy Storchaka in bpo-16488 .)
 epoll
-with
 close()
 devpoll objects now have fileno() and close() methods, as well as a new attribute closed .  (Contributed by Victor Stinner in bpo-18794 .)
 devpoll
@@ -1309,8 +1176,6 @@ Shelf instances may now be used in with statements,
 and will be automatically closed at the end of the with block.
 (Contributed by Filip Gruszczyński in bpo-13896 .)
 Shelf
-with
-with
 
 ### shutil
 
@@ -1352,7 +1217,6 @@ using the new enum module.  This allows meaningful names to be printed
 during debugging, instead of integer “magic numbers”.
 socket.AF_*
 socket.SOCK_*
-enum
 The AF_LINK constant is now available on BSD and OSX.
 AF_LINK
 inet_pton() and inet_ntop() are now supported
@@ -1366,10 +1230,6 @@ A new boolean parameter to the connect() function, uri , can be
 used to indicate that the database parameter is a uri (see the SQLite
 URI documentation ).  (Contributed by poq in bpo-13773 .)
 connect()
-uri
-
-### ssl
-
 PROTOCOL_TLSv1_1 and PROTOCOL_TLSv1_2 (TLSv1.1 and
 TLSv1.2 support) have been added; support for these protocols is only available if
 Python is linked with OpenSSL 1.0.1 or later.  (Contributed by Michele Orrù and
@@ -1411,7 +1271,6 @@ SSLContext
 cert_store_stats()
 X.509
 X.509 CA
-crl
 get_ca_certs()
 If OpenSSL 0.9.8 or later is available, SSLContext has a new
 attribute verify_flags that can be used to control the
@@ -1451,14 +1310,9 @@ SSLSocket.getpeercert()
 X509v3
 crlDistributionPoints
 calIssuers
-OCSP
-
-### stat
-
 The stat module is now backed by a C implementation in _stat . A C
 implementation is required as most of the values aren’t standardized and
 are platform-dependent.  (Contributed by Christian Heimes in bpo-11016 .)
-stat
 _stat
 The module supports new ST_MODE flags, S_IFDOOR , S_IFPORT , and S_IFWHT .  (Contributed by
 Christian Hiemes in bpo-11016 .)
@@ -1497,7 +1351,6 @@ sunau.open() now supports the context management protocol: when used in a with b
 called automatically at the end of the block.  (Contributed by Serhiy Storchaka
 in bpo-18878 .)
 sunau.open()
-with
 close
 AU_write.setsampwidth() now supports 24 bit samples, thus adding
 support for writing 24 sample using the module.  (Contributed by
@@ -1507,9 +1360,6 @@ The writeframesraw() and writeframes() methods now accept any bytes-like
 object .  (Contributed by Serhiy Storchaka in bpo-8311 .)
 writeframesraw()
 writeframes()
-
-### sys
-
 New function sys.getallocatedblocks() returns the current number of
 blocks allocated by the interpreter.  (In CPython with the default --with-pymalloc setting, this is allocations made through the PyObject_Malloc() API.)  This can be useful for tracking memory leaks,
 especially if automated via a test suite.  (Contributed by Antoine Pitrou
@@ -1525,15 +1375,12 @@ supports readline .  If you do not want this (new) behavior, you can
 override it in PYTHONSTARTUP , sitecustomize , or usercustomize by deleting this attribute from sys (or setting it
 to some other callable).  (Contributed by Éric Araujo and Antoine Pitrou in bpo-5845 .)
 __interactivehook__
-sys
 PYTHONSTARTUP
-site
 ~/.python-history
 readline
 PYTHONSTARTUP
 sitecustomize
 usercustomize
-sys
 
 ### tarfile
 
@@ -1585,7 +1432,6 @@ attributes on the class with the same name (see enum for an example).
 (Contributed by Ethan Furman in bpo-19030 .)
 DynamicClassAttribute()
 __getattr__
-enum
 
 ### urllib
 
@@ -1607,11 +1453,9 @@ Kachayev in bpo-16464 , Daniel Wozniak in bpo-17485 , and Damien Brecht
 and Senthil Kumaran in bpo-17272 .)
 Request
 full_url
-data
 Request
 OpenerDirector.open()
 Request
-url
 remove_header()
 Request
 HTTPError objects now have a headers attribute that provides access to the
@@ -1628,7 +1472,6 @@ indefinite number of separately identified and separately counted tests, all of
 which will run even if one or more of them fail.  For example:
 TestCase
 subTest()
-with
 subTest
 
 [CODE]
@@ -1639,8 +1482,6 @@ will result in six subtests, each identified in the unittest verbose output
 with a label consisting of the variable name i and a particular value for
 that variable ( i=0 , i=1 , etc).  See Distinguishing test iterations using subtests for the full
 version of this example.  (Contributed by Antoine Pitrou in bpo-16997 .)
-i=0
-i=1
 unittest.main() now accepts an iterable of test names for defaultTest , where previously it only accepted a single test name as a
 string.  (Contributed by Jyrki Pulliainen in bpo-15132 .)
 unittest.main()
@@ -1669,7 +1510,6 @@ context manager can be queried for the LogRecord s and/or
 formatted messages that were logged.  (Contributed by Antoine Pitrou in bpo-18937 .)
 assertLogs()
 logging
-INFO
 LogRecord
 Test discovery now works with namespace packages (Contributed by Claudiu Popa
 in bpo-17457 .)
@@ -1681,13 +1521,7 @@ mock_open() objects now have readline and readlines methods.  (Contributed by To
 mock_open()
 readline
 readlines
-
-### venv
-
 venv now includes activation scripts for the csh and fish shells.  (Contributed by Andrew Svetlov in bpo-15417 .)
-venv
-csh
-fish
 EnvBuilder and the create() convenience function
 take a new keyword argument with_pip , which defaults to False , that
 controls whether or not EnvBuilder ensures that pip is
@@ -1696,10 +1530,6 @@ EnvBuilder
 create()
 False
 EnvBuilder
-pip
-
-### wave
-
 The getparams() method now returns a namedtuple rather
 than a plain tuple.  (Contributed by Claudiu Popa in bpo-17487 .)
 getparams()
@@ -1708,7 +1538,6 @@ by Claudiu Popa in bpo-17616 .)
 wave.open()
 wave can now write output to unseekable files .  (Contributed by David Jones, Guilherme Polo, and Serhiy
 Storchaka in bpo-5202 .)
-wave
 The writeframesraw() and writeframes() methods now accept any bytes-like
 object .  (Contributed by Serhiy Storchaka in bpo-8311 .)
 writeframesraw()
@@ -1727,7 +1556,6 @@ finalize
 The callback, if any, associated with a ref is now
 exposed via the __callback__ attribute.  (Contributed
 by Mark Dickinson in bpo-17643 .)
-ref
 __callback__
 
 ### xml.etree
@@ -1760,7 +1588,6 @@ The allowZip64 parameter to ZipFile and PyZipFile is now True by default.  (Cont
 William Mallard in bpo-17201 .)
 ZipFile
 PyZipFile
-True
 
 ## CPython Implementation Changes
 
@@ -1769,8 +1596,6 @@ True
 PEP 445 adds new C level interfaces to customize memory allocation in
 the CPython interpreter.
 See also
-PEP 445 – Add new APIs to customize Python memory allocators
-PEP written and implemented by Victor Stinner.
 PEP written and implemented by Victor Stinner.
 
 ### PEP 442: Safe Object Finalization
@@ -1785,11 +1610,8 @@ As part of this change, module globals are no longer forcibly set to None during
 on the normal operation of the cyclic garbage collector.  This avoids a
 whole class of interpreter-shutdown-time errors, usually involving __del__ methods, that have plagued Python since the cyclic GC
 was first introduced.
-None
 __del__
 See also
-PEP 442 – Safe object finalization
-PEP written and implemented by Antoine Pitrou.
 PEP written and implemented by Antoine Pitrou.
 
 ### PEP 456: Secure and Interchangeable Hash Algorithm
@@ -1821,14 +1643,11 @@ inspect
 It is expected that signature metadata for programmatic introspection will
 be added to additional callables implemented in C as part of Python 3.4
 maintenance releases.
-Note
 The Argument Clinic PEP is not fully up to date with the state of the
 implementation. This has been deemed acceptable by the release manager
 and core development team in this case, as Argument Clinic will not
 be made available as a public API for third party use in Python 3.4.
 See also
-PEP 436 – The Argument Clinic DSL
-PEP written and implemented by Larry Hastings.
 PEP written and implemented by Larry Hastings.
 
 ### Other Build and C API Changes
@@ -1941,15 +1760,11 @@ The CPython Windows installer now adds .py to the PATHEXT variable when extensio
 script at the windows command prompt by just typing its name without the .py extension.  (Contributed by Paul Moore in bpo-18569 .)
 The CPython Windows installer now adds .py to the PATHEXT variable when extensions are registered, allowing users to run a python
 script at the windows command prompt by just typing its name without the .py extension.  (Contributed by Paul Moore in bpo-18569 .)
-.py
 PATHEXT
-.py
 A new make target coverage-report will build python, run the test suite, and generate an HTML coverage report
 for the C codebase using gcov and lcov .
 A new make target coverage-report will build python, run the test suite, and generate an HTML coverage report
 for the C codebase using gcov and lcov .
-make
-gcov
 The -R option to the python regression test suite now
 also checks for memory allocation leaks, using sys.getallocatedblocks() .  (Contributed by Antoine Pitrou in bpo-13390 .)
 The -R option to the python regression test suite now
@@ -1964,15 +1779,12 @@ values hard-coded in the python module as was previously the case.
 The stat module is now implemented in C, which means it gets the
 values for its constants from the C header files, instead of having the
 values hard-coded in the python module as was previously the case.
-stat
 Loading multiple python modules from a single OS module ( .so , .dll )
 now works correctly (previously it silently returned the first python
 module in the file).  (Contributed by Václav Šmilauer in bpo-16421 .)
 Loading multiple python modules from a single OS module ( .so , .dll )
 now works correctly (previously it silently returned the first python
 module in the file).  (Contributed by Václav Šmilauer in bpo-16421 .)
-.so
-.dll
 A new opcode, LOAD_CLASSDEREF , has been added to fix a bug in the
 loading of free variables in class bodies that could be triggered by certain
 uses of __prepare__ .  (Contributed by Benjamin Peterson in bpo-17853 .)
@@ -2012,10 +1824,6 @@ Vajrasky Kok in bpo-19201 , bpo-19222 , and bpo-19223 .)
 The bz2 , lzma , and gzip module open functions now
 support x (exclusive creation) mode.  (Contributed by Tim Heaney and
 Vajrasky Kok in bpo-19201 , bpo-19222 , and bpo-19223 .)
-bz2
-lzma
-gzip
-open
 
 ### Significant Optimizations
 
@@ -2107,7 +1915,6 @@ in Python 3.4, and will be removed in Python 3.5 or later.  In most (but not
 all) cases, using the deprecated APIs will produce a DeprecationWarning when the interpreter is run with deprecation warnings enabled (for example, by
 using -Wd ).
 DeprecationWarning
--Wd
 
 ### Deprecations in the Python API
 
@@ -2153,7 +1960,6 @@ The imp module is pending deprecation. To keep compatibility with
 Python 2/3 code bases, the module’s removal is currently not scheduled.
 The imp module is pending deprecation. To keep compatibility with
 Python 2/3 code bases, the module’s removal is currently not scheduled.
-imp
 The formatter module is pending deprecation and is slated for removal
 in Python 3.6.
 The formatter module is pending deprecation and is slated for removal
@@ -2163,7 +1969,6 @@ MD5 as the default digestmod for the hmac.new() function is
 deprecated.  Python 3.6 will require an explicit digest name or constructor as digestmod argument.
 MD5 as the default digestmod for the hmac.new() function is
 deprecated.  Python 3.6 will require an explicit digest name or constructor as digestmod argument.
-MD5
 hmac.new()
 The internal Netrc class in the ftplib module has been documented
 as deprecated in its docstring for quite some time.  It now emits a DeprecationWarning and will be removed completely in Python 3.5.
@@ -2207,7 +2012,6 @@ appropriate uses of io.TextIOWrapper (if needed) and its newline argument.
 The U mode accepted by various open functions is deprecated.
 In Python3 it does not do anything useful, and should be replaced by
 appropriate uses of io.TextIOWrapper (if needed) and its newline argument.
-open
 io.TextIOWrapper
 The parser argument of xml.etree.ElementTree.iterparse() has
 been deprecated, as has the html argument of XMLParser() .  To prepare for the removal of the
@@ -2321,7 +2125,6 @@ background.
 object.__format__()
 TypeError
 TypeError
-'s'
 difflib.SequenceMatcher.isbjunk() and difflib.SequenceMatcher.isbpopular() were deprecated in 3.2, and have
 now been removed: use x in sm.bjunk and x in sm.bpopular , where sm is a SequenceMatcher object
 ( bpo-13248 ).
@@ -2357,7 +2160,6 @@ The hardcoded copies of certain stat constants that were included in
 the tarfile module namespace have been removed.
 The hardcoded copies of certain stat constants that were included in
 the tarfile module namespace have been removed.
-stat
 tarfile
 
 ## Porting to Python 3.4
@@ -2379,11 +2181,8 @@ at all: setting PYTHONPATH to an empty value was equivalent to
 setting it to . , which leads to confusion when reasoning by analogy to
 how PATH works.  The behavior now conforms to the posix convention
 for PATH .
-PATH
 PYTHONPATH
 PYTHONPATH
-PATH
-PATH
 The [X refs, Y blocks] output of a debug ( --with-pydebug ) build of the
 CPython interpreter is now off by default.  It can be re-enabled using the -X showrefcount option.  (Contributed by Ezio Melotti in bpo-17323 .)
 The [X refs, Y blocks] output of a debug ( --with-pydebug ) build of the
@@ -2419,7 +2218,6 @@ The module type now initializes the __package__ and __loader__ attributes to Non
 in a backwards-compatible fashion, use e.g. getattr(module, '__loader__', None) is not None .  ( bpo-17115 .)
 __package__
 __loader__
-None
 getattr(module, '__loader__', None) is not None
 importlib.util.module_for_loader() now sets __loader__ and __package__ unconditionally to properly support reloading. If this is not
 desired then you will need to set these attributes manually. You can use importlib.util.module_to_load() for module management.
@@ -2609,7 +2407,6 @@ the creating cgi.FieldStorage instance is garbage collected. If you
 were pulling the file object out separately from the cgi.FieldStorage instance and not keeping the instance alive, then you should either store the
 entire cgi.FieldStorage instance or read the contents of the file
 before the cgi.FieldStorage instance is garbage collected.
-file
 cgi.FieldStorage
 cgi.FieldStorage
 cgi.FieldStorage
@@ -2618,7 +2415,6 @@ Calling read or write on a closed SSL socket now raises an
 informative ValueError rather than the previous more mysterious AttributeError ( bpo-9177 ).
 Calling read or write on a closed SSL socket now raises an
 informative ValueError rather than the previous more mysterious AttributeError ( bpo-9177 ).
-read
 write
 ValueError
 AttributeError
@@ -2647,7 +2443,6 @@ The int constructor in 3.2 and 3.3 erroneously accepts float values for the base
 if so, it will now raise a TypeError ( bpo-16772 ).
 The int constructor in 3.2 and 3.3 erroneously accepts float values for the base parameter.  It is unlikely anyone was doing this, but
 if so, it will now raise a TypeError ( bpo-16772 ).
-int
 float
 TypeError
 Defaults for keyword-only arguments are now evaluated after defaults for
@@ -2740,7 +2535,6 @@ eventually be changed to default to True .  It is recommended that you add
 this keyword, with the appropriate value, to any HTMLParser calls in your code ( bpo-13633 ).
 HTMLParser
 False
-True
 HTMLParser
 Since the digestmod argument to the hmac.new() function will in the
 future have no default, all calls to hmac.new() should be changed to
@@ -2766,7 +2560,6 @@ Depending on the function, the equivalent of its old Python2 behavior can be
 achieved using either a newline argument, or if necessary by wrapping the
 stream in TextIOWrapper to use its newline argument
 ( bpo-15204 ).
-open
 TextIOWrapper
 If you use pyvenv in a script and desire that pip not be installed, you must add --without-pip to your command
 invocation.
@@ -2838,7 +2631,6 @@ PyErr_SetImportError() now sets TypeError when its msg argument is not set. Prev
 set.
 PyErr_SetImportError()
 TypeError
-NULL
 The result of the PyOS_ReadlineFunctionPointer callback must
 now be a string allocated by PyMem_RawMalloc() or PyMem_RawRealloc() , or NULL if an error occurred, instead of a
 string allocated by PyMem_Malloc() or PyMem_Realloc() ( bpo-16742 )
@@ -2848,7 +2640,6 @@ string allocated by PyMem_Malloc() or PyMem_Realloc() ( bpo-16742 )
 PyOS_ReadlineFunctionPointer
 PyMem_RawMalloc()
 PyMem_RawRealloc()
-NULL
 PyMem_Malloc()
 PyMem_Realloc()
 PyThread_set_key_value() now always set the value. In Python
@@ -2858,7 +2649,6 @@ PyThread_set_key_value() now always set the value. In Python
 3.3, the function did nothing if the key already exists (if the current
 value is a non- NULL pointer).
 PyThread_set_key_value()
-NULL
 The f_tstate (thread state) field of the PyFrameObject structure has been removed to fix a bug: see bpo-14432 for the
 rationale.
 The f_tstate (thread state) field of the PyFrameObject structure has been removed to fix a bug: see bpo-14432 for the

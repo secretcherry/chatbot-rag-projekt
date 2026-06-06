@@ -18,16 +18,12 @@ posix
 Large File Support
 Notable Module Contents
 pwd — The password database
-pwd
 grp — The group database
-grp
 termios — POSIX style tty control Example
 termios
 Example
 tty — Terminal control functions
-tty
 pty — Pseudo-terminal utilities Example
-pty
 Example
 fcntl — The fcntl and ioctl system calls
 fcntl

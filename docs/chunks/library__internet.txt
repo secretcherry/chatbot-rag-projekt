@@ -73,7 +73,6 @@ urllib.error
 urllib.robotparser —  Parser for robots.txt
 urllib.robotparser
 http — HTTP modules HTTP status codes HTTP status category HTTP methods
-http
 HTTP status codes
 HTTP status category
 HTTP methods
@@ -102,7 +101,6 @@ smtplib
 SMTP Objects
 SMTP Example
 uuid — UUID objects according to RFC 9562 Command-Line Usage Example Command-Line Example
-uuid
 Command-Line Usage
 Example
 Command-Line Example

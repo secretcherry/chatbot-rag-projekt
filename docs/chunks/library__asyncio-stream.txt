@@ -20,9 +20,6 @@ See also the Examples section below.
 Stream Functions
 The following top-level asyncio functions can be used to create
 and work with streams:
-async asyncio. open_connection ( host = None , port = None , * , limit = None , ssl = None , family = 0 , proto = 0 , flags = 0 , sock = None , local_addr = None , server_hostname = None , ssl_handshake_timeout = None , ssl_shutdown_timeout = None , happy_eyeballs_delay = None , interleave = None )
-Establish a network connection and return a pair of (reader, writer) objects. The returned reader and writer objects are instances of StreamReader and StreamWriter classes. limit determines the buffer size limit used by the
-returned StreamReader instance.  By default the limit is set to 64 KiB. The rest of the arguments are passed directly to loop.create_connection() . Note The sock argument transfers ownership of the socket to the StreamWriter created. To close the socket, call its close() method. Changed in version 3.7: Added the ssl_handshake_timeout parameter. Changed in version 3.8: Added the happy_eyeballs_delay and interleave parameters. Changed in version 3.10: Removed the loop parameter. Changed in version 3.11: Added the ssl_shutdown_timeout parameter.
 Establish a network connection and return a pair of (reader, writer) objects.
 (reader, writer)
 The returned reader and writer objects are instances of StreamReader and StreamWriter classes.
@@ -33,7 +30,6 @@ returned StreamReader instance.  By default the limit is set to 64 KiB.
 StreamReader
 The rest of the arguments are passed directly to loop.create_connection() .
 loop.create_connection()
-Note
 The sock argument transfers ownership of the socket to the StreamWriter created. To close the socket, call its close() method.
 StreamWriter
 close()
@@ -41,13 +37,6 @@ Changed in version 3.7: Added the ssl_handshake_timeout parameter.
 Changed in version 3.8: Added the happy_eyeballs_delay and interleave parameters.
 Changed in version 3.10: Removed the loop parameter.
 Changed in version 3.11: Added the ssl_shutdown_timeout parameter.
-async asyncio. start_server ( client_connected_cb , host = None , port = None , * , limit = None , family = socket.AF_UNSPEC , flags = socket.AI_PASSIVE , sock = None , backlog = 100 , ssl = None , reuse_address = None , reuse_port = None , keep_alive = None , ssl_handshake_timeout = None , ssl_shutdown_timeout = None , start_serving = True )
-Start a socket server. The client_connected_cb callback is called whenever a new client
-connection is established.  It receives a (reader, writer) pair
-as two arguments, instances of the StreamReader and StreamWriter classes. client_connected_cb can be a plain callable or a coroutine function ; if it is a coroutine function,
-it will be automatically scheduled as a Task . limit determines the buffer size limit used by the
-returned StreamReader instance.  By default the limit is set to 64 KiB. The rest of the arguments are passed directly to loop.create_server() . Note The sock argument transfers ownership of the socket to the
-server created. To close the socket, call the server’s close() method. Changed in version 3.7: Added the ssl_handshake_timeout and start_serving parameters. Changed in version 3.10: Removed the loop parameter. Changed in version 3.11: Added the ssl_shutdown_timeout parameter. Changed in version 3.13: Added the keep_alive parameter.
 Start a socket server.
 The client_connected_cb callback is called whenever a new client
 connection is established.  It receives a (reader, writer) pair
@@ -57,13 +46,11 @@ StreamReader
 StreamWriter
 client_connected_cb can be a plain callable or a coroutine function ; if it is a coroutine function,
 it will be automatically scheduled as a Task .
-Task
 limit determines the buffer size limit used by the
 returned StreamReader instance.  By default the limit is set to 64 KiB.
 StreamReader
 The rest of the arguments are passed directly to loop.create_server() .
 loop.create_server()
-Note
 The sock argument transfers ownership of the socket to the
 server created. To close the socket, call the server’s close() method.
 close()
@@ -72,16 +59,12 @@ Changed in version 3.10: Removed the loop parameter.
 Changed in version 3.11: Added the ssl_shutdown_timeout parameter.
 Changed in version 3.13: Added the keep_alive parameter.
 Unix Sockets
-async asyncio. open_unix_connection ( path = None , * , limit = None , ssl = None , sock = None , server_hostname = None , ssl_handshake_timeout = None , ssl_shutdown_timeout = None )
-Establish a Unix socket connection and return a pair of (reader, writer) . Similar to open_connection() but operates on Unix sockets. See also the documentation of loop.create_unix_connection() . Note The sock argument transfers ownership of the socket to the StreamWriter created. To close the socket, call its close() method. Availability : Unix. Changed in version 3.7: Added the ssl_handshake_timeout parameter.
-The path parameter can now be a path-like object Changed in version 3.10: Removed the loop parameter. Changed in version 3.11: Added the ssl_shutdown_timeout parameter.
 Establish a Unix socket connection and return a pair of (reader, writer) .
 (reader, writer)
 Similar to open_connection() but operates on Unix sockets.
 open_connection()
 See also the documentation of loop.create_unix_connection() .
 loop.create_unix_connection()
-Note
 The sock argument transfers ownership of the socket to the StreamWriter created. To close the socket, call its close() method.
 StreamWriter
 close()
@@ -90,12 +73,6 @@ Changed in version 3.7: Added the ssl_handshake_timeout parameter.
 The path parameter can now be a path-like object
 Changed in version 3.10: Removed the loop parameter.
 Changed in version 3.11: Added the ssl_shutdown_timeout parameter.
-async asyncio. start_unix_server ( client_connected_cb , path = None , * , limit = None , sock = None , backlog = 100 , ssl = None , ssl_handshake_timeout = None , ssl_shutdown_timeout = None , start_serving = True , cleanup_socket = True )
-Start a Unix socket server. Similar to start_server() but works with Unix sockets. If cleanup_socket is true then the Unix socket will automatically
-be removed from the filesystem when the server is closed, unless the
-socket has been replaced after the server has been created. See also the documentation of loop.create_unix_server() . Note The sock argument transfers ownership of the socket to the
-server created. To close the socket, call the server’s close() method. Availability : Unix. Changed in version 3.7: Added the ssl_handshake_timeout and start_serving parameters.
-The path parameter can now be a path-like object . Changed in version 3.10: Removed the loop parameter. Changed in version 3.11: Added the ssl_shutdown_timeout parameter. Changed in version 3.13: Added the cleanup_socket parameter.
 Start a Unix socket server.
 Similar to start_server() but works with Unix sockets.
 start_server()
@@ -104,7 +81,6 @@ be removed from the filesystem when the server is closed, unless the
 socket has been replaced after the server has been created.
 See also the documentation of loop.create_unix_server() .
 loop.create_unix_server()
-Note
 The sock argument transfers ownership of the socket to the
 server created. To close the socket, call the server’s close() method.
 close()
@@ -117,29 +93,6 @@ Changed in version 3.13: Added the cleanup_socket parameter.
 
 ## StreamReader
 
-class asyncio. StreamReader
-Represents a reader object that provides APIs to read data
-from the IO stream. As an asynchronous iterable , the
-object supports the async for statement. It is not recommended to instantiate StreamReader objects
-directly; use open_connection() and start_server() instead. feed_eof ( ) Acknowledge the EOF. async read ( n = -1 ) Read up to n bytes from the stream. If n is not provided or set to -1 ,
-read until EOF, then return all read bytes .
-If EOF was received and the internal buffer is empty,
-return an empty bytes object. If n is 0 , return an empty bytes object immediately. If n is positive, return at most n available bytes as soon as at least 1 byte is available in the internal buffer.
-If EOF is received before any byte is read, return an empty bytes object. async readline ( ) Read one line, where “line” is a sequence of bytes
-ending with \n . If EOF is received and \n was not found, the method
-returns partially read data. If EOF is received and the internal buffer is empty,
-return an empty bytes object. async readexactly ( n ) Read exactly n bytes. Raise an IncompleteReadError if EOF is reached before n can be read.  Use the IncompleteReadError.partial attribute to get the partially read data. async readuntil ( separator = b'\n' ) Read data from the stream until separator is found. On success, the data and separator will be removed from the
-internal buffer (consumed). Returned data will include the
-separator at the end. If the amount of data read exceeds the configured stream limit, a LimitOverrunError exception is raised, and the data
-is left in the internal buffer and can be read again. If EOF is reached before the complete separator is found,
-an IncompleteReadError exception is raised, and the internal
-buffer is reset.  The IncompleteReadError.partial attribute
-may contain a portion of the separator. The separator may also be a tuple of separators. In this
-case the return value will be the shortest possible that has any
-separator as the suffix. For the purposes of LimitOverrunError ,
-the shortest possible separator is considered to be the one that
-matched. Added in version 3.5.2. Changed in version 3.13: The separator parameter may now be a tuple of
-separators. at_eof ( ) Return True if the buffer is empty and feed_eof() was called.
 Represents a reader object that provides APIs to read data
 from the IO stream. As an asynchronous iterable , the
 object supports the async for statement.
@@ -148,15 +101,7 @@ It is not recommended to instantiate StreamReader objects
 directly; use open_connection() and start_server() instead.
 open_connection()
 start_server()
-feed_eof ( )
 Acknowledge the EOF.
-Acknowledge the EOF.
-async read ( n = -1 )
-Read up to n bytes from the stream. If n is not provided or set to -1 ,
-read until EOF, then return all read bytes .
-If EOF was received and the internal buffer is empty,
-return an empty bytes object. If n is 0 , return an empty bytes object immediately. If n is positive, return at most n available bytes as soon as at least 1 byte is available in the internal buffer.
-If EOF is received before any byte is read, return an empty bytes object.
 Read up to n bytes from the stream.
 If n is not provided or set to -1 ,
 read until EOF, then return all read bytes .
@@ -170,11 +115,6 @@ If n is positive, return at most n available bytes as soon as at least 1 byte is
 If EOF is received before any byte is read, return an empty bytes object.
 bytes
 bytes
-async readline ( )
-Read one line, where “line” is a sequence of bytes
-ending with \n . If EOF is received and \n was not found, the method
-returns partially read data. If EOF is received and the internal buffer is empty,
-return an empty bytes object.
 Read one line, where “line” is a sequence of bytes
 ending with \n .
 If EOF is received and \n was not found, the method
@@ -182,25 +122,10 @@ returns partially read data.
 If EOF is received and the internal buffer is empty,
 return an empty bytes object.
 bytes
-async readexactly ( n )
-Read exactly n bytes. Raise an IncompleteReadError if EOF is reached before n can be read.  Use the IncompleteReadError.partial attribute to get the partially read data.
 Read exactly n bytes.
 Raise an IncompleteReadError if EOF is reached before n can be read.  Use the IncompleteReadError.partial attribute to get the partially read data.
 IncompleteReadError
 IncompleteReadError.partial
-async readuntil ( separator = b'\n' )
-Read data from the stream until separator is found. On success, the data and separator will be removed from the
-internal buffer (consumed). Returned data will include the
-separator at the end. If the amount of data read exceeds the configured stream limit, a LimitOverrunError exception is raised, and the data
-is left in the internal buffer and can be read again. If EOF is reached before the complete separator is found,
-an IncompleteReadError exception is raised, and the internal
-buffer is reset.  The IncompleteReadError.partial attribute
-may contain a portion of the separator. The separator may also be a tuple of separators. In this
-case the return value will be the shortest possible that has any
-separator as the suffix. For the purposes of LimitOverrunError ,
-the shortest possible separator is considered to be the one that
-matched. Added in version 3.5.2. Changed in version 3.13: The separator parameter may now be a tuple of
-separators.
 Read data from the stream until separator is found.
 On success, the data and separator will be removed from the
 internal buffer (consumed). Returned data will include the
@@ -224,50 +149,17 @@ Added in version 3.5.2.
 Changed in version 3.13: The separator parameter may now be a tuple of
 separators.
 tuple
-at_eof ( )
 Return True if the buffer is empty and feed_eof() was called.
-Return True if the buffer is empty and feed_eof() was called.
-True
 feed_eof()
 
 ## StreamWriter
 
-class asyncio. StreamWriter
-Represents a writer object that provides APIs to write data
-to the IO stream. It is not recommended to instantiate StreamWriter objects
-directly; use open_connection() and start_server() instead. write ( data ) The method attempts to write the data to the underlying socket immediately.
-If that fails, the data is queued in an internal write buffer until it can be
-sent. The data buffer should be a bytes, bytearray, or C-contiguous one-dimensional
-memoryview object. The method should be used along with the drain() method: stream . write ( data ) await stream . drain () writelines ( data ) The method writes a list (or any iterable) of bytes to the underlying socket
-immediately.
-If that fails, the data is queued in an internal write buffer until it can be
-sent. The method should be used along with the drain() method: stream . writelines ( lines ) await stream . drain () close ( ) The method closes the stream and the underlying socket. The method should be used, though not mandatory,
-along with the wait_closed() method: stream . close () await stream . wait_closed () can_write_eof ( ) Return True if the underlying transport supports
-the write_eof() method, False otherwise. write_eof ( ) Close the write end of the stream after the buffered write
-data is flushed. transport Return the underlying asyncio transport. get_extra_info ( name , default = None ) Access optional transport information; see BaseTransport.get_extra_info() for details. async drain ( ) Wait until it is appropriate to resume writing to the stream.
-Example: writer . write ( data ) await writer . drain () This is a flow control method that interacts with the underlying
-IO write buffer.  When the size of the buffer reaches
-the high watermark, drain() blocks until the size of the
-buffer is drained down to the low watermark and writing can
-be resumed.  When there is nothing to wait for, the drain() returns immediately. async start_tls ( sslcontext , * , server_hostname = None , ssl_handshake_timeout = None , ssl_shutdown_timeout = None ) Upgrade an existing stream-based connection to TLS. Parameters: sslcontext : a configured instance of SSLContext . server_hostname : sets or overrides the host name that the target
-server’s certificate will be matched against. ssl_handshake_timeout is the time in seconds to wait for the TLS
-handshake to complete before aborting the connection. 60.0 seconds
-if None (default). ssl_shutdown_timeout is the time in seconds to wait for the SSL shutdown
-to complete before aborting the connection. 30.0 seconds if None (default). Added in version 3.11. Changed in version 3.12: Added the ssl_shutdown_timeout parameter. is_closing ( ) Return True if the stream is closed or in the process of
-being closed. Added in version 3.7. async wait_closed ( ) Wait until the stream is closed. Should be called after close() to wait until the underlying
-connection is closed, ensuring that all data has been flushed
-before e.g. exiting the program. Added in version 3.7.
 Represents a writer object that provides APIs to write data
 to the IO stream.
 It is not recommended to instantiate StreamWriter objects
 directly; use open_connection() and start_server() instead.
 open_connection()
 start_server()
-write ( data )
-The method attempts to write the data to the underlying socket immediately.
-If that fails, the data is queued in an internal write buffer until it can be
-sent. The data buffer should be a bytes, bytearray, or C-contiguous one-dimensional
-memoryview object. The method should be used along with the drain() method: stream . write ( data ) await stream . drain ()
 The method attempts to write the data to the underlying socket immediately.
 If that fails, the data is queued in an internal write buffer until it can be
 sent.
@@ -280,11 +172,6 @@ drain()
 stream . write ( data ) await stream . drain ()
 [/CODE]
 
-writelines ( data )
-The method writes a list (or any iterable) of bytes to the underlying socket
-immediately.
-If that fails, the data is queued in an internal write buffer until it can be
-sent. The method should be used along with the drain() method: stream . writelines ( lines ) await stream . drain ()
 The method writes a list (or any iterable) of bytes to the underlying socket
 immediately.
 If that fails, the data is queued in an internal write buffer until it can be
@@ -296,9 +183,6 @@ drain()
 stream . writelines ( lines ) await stream . drain ()
 [/CODE]
 
-close ( )
-The method closes the stream and the underlying socket. The method should be used, though not mandatory,
-along with the wait_closed() method: stream . close () await stream . wait_closed ()
 The method closes the stream and the underlying socket.
 The method should be used, though not mandatory,
 along with the wait_closed() method:
@@ -308,33 +192,15 @@ wait_closed()
 stream . close () await stream . wait_closed ()
 [/CODE]
 
-can_write_eof ( )
 Return True if the underlying transport supports
 the write_eof() method, False otherwise.
-Return True if the underlying transport supports
-the write_eof() method, False otherwise.
-True
 write_eof()
 False
-write_eof ( )
 Close the write end of the stream after the buffered write
 data is flushed.
-Close the write end of the stream after the buffered write
-data is flushed.
-transport
 Return the underlying asyncio transport.
-Return the underlying asyncio transport.
-get_extra_info ( name , default = None )
-Access optional transport information; see BaseTransport.get_extra_info() for details.
 Access optional transport information; see BaseTransport.get_extra_info() for details.
 BaseTransport.get_extra_info()
-async drain ( )
-Wait until it is appropriate to resume writing to the stream.
-Example: writer . write ( data ) await writer . drain () This is a flow control method that interacts with the underlying
-IO write buffer.  When the size of the buffer reaches
-the high watermark, drain() blocks until the size of the
-buffer is drained down to the low watermark and writing can
-be resumed.  When there is nothing to wait for, the drain() returns immediately.
 Wait until it is appropriate to resume writing to the stream.
 Example:
 
@@ -348,12 +214,6 @@ the high watermark, drain() blocks until the size of the
 buffer is drained down to the low watermark and writing can
 be resumed.  When there is nothing to wait for, the drain() returns immediately.
 drain()
-async start_tls ( sslcontext , * , server_hostname = None , ssl_handshake_timeout = None , ssl_shutdown_timeout = None )
-Upgrade an existing stream-based connection to TLS. Parameters: sslcontext : a configured instance of SSLContext . server_hostname : sets or overrides the host name that the target
-server’s certificate will be matched against. ssl_handshake_timeout is the time in seconds to wait for the TLS
-handshake to complete before aborting the connection. 60.0 seconds
-if None (default). ssl_shutdown_timeout is the time in seconds to wait for the SSL shutdown
-to complete before aborting the connection. 30.0 seconds if None (default). Added in version 3.11. Changed in version 3.12: Added the ssl_shutdown_timeout parameter.
 Upgrade an existing stream-based connection to TLS.
 Parameters:
 sslcontext : a configured instance of SSLContext .
@@ -369,27 +229,15 @@ if None (default).
 ssl_handshake_timeout is the time in seconds to wait for the TLS
 handshake to complete before aborting the connection. 60.0 seconds
 if None (default).
-60.0
-None
 ssl_shutdown_timeout is the time in seconds to wait for the SSL shutdown
 to complete before aborting the connection. 30.0 seconds if None (default).
 ssl_shutdown_timeout is the time in seconds to wait for the SSL shutdown
 to complete before aborting the connection. 30.0 seconds if None (default).
-30.0
-None
 Added in version 3.11.
 Changed in version 3.12: Added the ssl_shutdown_timeout parameter.
-is_closing ( )
-Return True if the stream is closed or in the process of
-being closed. Added in version 3.7.
 Return True if the stream is closed or in the process of
 being closed.
-True
 Added in version 3.7.
-async wait_closed ( )
-Wait until the stream is closed. Should be called after close() to wait until the underlying
-connection is closed, ensuring that all data has been flushed
-before e.g. exiting the program. Added in version 3.7.
 Wait until the stream is closed.
 Should be called after close() to wait until the underlying
 connection is closed, ensuring that all data has been flushed

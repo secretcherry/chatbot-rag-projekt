@@ -56,7 +56,6 @@ interpreter is installed on your platform.
 If you would like the script to be independent of where the Python interpreter
 lives, you can use the env program.  Almost all Unix variants support
 the following, assuming the Python interpreter is in a directory on the user’s PATH :
-PATH
 
 [CODE]
 #!/usr/bin/env python
@@ -65,7 +64,6 @@ PATH
 Don’t do this for CGI scripts.  The PATH variable for CGI scripts is
 often very minimal, so you need to use the actual absolute pathname of the
 interpreter.
-PATH
 Occasionally, a user’s environment is so full that the /usr/bin/env program fails; or there’s no env program at all.  In that case, you can try the
 following hack (due to Alex Rezinsky):
 
@@ -318,7 +316,6 @@ Judicious use of C extensions will also help; if you use a C extension to
 perform a time-consuming task, the extension can release the GIL while the
 thread of execution is in the C code and allow other threads to get some work
 done.  Some standard library modules such as zlib and hashlib already do this.
-zlib
 hashlib
 An alternative approach to reducing the impact of the GIL is
 to make the GIL a per-interpreter-state lock rather than truly global.
@@ -345,7 +342,6 @@ contents, use shutil.rmtree() .
 os.rmdir()
 os.mkdir()
 os.makedirs(path)
-path
 os.removedirs(path)
 shutil.rmtree()
 To rename a file, use os.rename(old_path, new_path) .
@@ -390,15 +386,11 @@ string.
 For data that is more regular (e.g. a homogeneous list of ints or floats),
 you can also use the array module.
 array
-Note
 To read and write binary data, it is mandatory to open the file in
 binary mode (here, passing "rb" to open() ).  If you use "r" instead (the default), the file will be open in text mode
 and f.read() will return str objects rather than bytes objects.
-"rb"
 open()
-"r"
 f.read()
-str
 bytes
 
 ### I can’t seem to use os.read() on a pipe created with os.popen(); why?
@@ -504,7 +496,6 @@ connect_ex()
 connect_ex()
 errno.EISCONN
 select.select()
-Note
 The asyncio module provides a general purpose single-threaded and
 concurrent asynchronous library, which can be used for writing non-blocking
 network code.
@@ -516,11 +507,8 @@ asyncio
 
 ### Are there any interfaces to database packages in Python?
 
-Yes.
 Interfaces to disk-based hashes such as DBM and GDBM are also included with standard Python.  There is also the sqlite3 module, which provides a lightweight disk-based relational
 database.
-DBM
-GDBM
 sqlite3
 Support for most relational databases is available.  See the DatabaseProgramming wiki page for details.
 

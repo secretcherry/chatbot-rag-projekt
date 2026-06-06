@@ -19,14 +19,6 @@ provided here; these have the same name as their counterparts in C.  Please
 refer to your system documentation for more information on using these terminal
 control interfaces.
 The module defines the following functions:
-termios. tcgetattr ( fd )
-Return a list containing the tty attributes for file descriptor fd , as
-follows: [iflag, oflag, cflag, lflag, ispeed, ospeed, cc] where cc is a
-list of the tty special characters (each a string of length 1, except the
-items with indices VMIN and VTIME , which are integers when
-these fields are defined).  The interpretation of the flags and the speeds as
-well as the indexing in the cc array must be done using the symbolic
-constants defined in the termios module.
 Return a list containing the tty attributes for file descriptor fd , as
 follows: [iflag, oflag, cflag, lflag, ispeed, ospeed, cc] where cc is a
 list of the tty special characters (each a string of length 1, except the
@@ -35,70 +27,37 @@ these fields are defined).  The interpretation of the flags and the speeds as
 well as the indexing in the cc array must be done using the symbolic
 constants defined in the termios module.
 [iflag, oflag, cflag, lflag, ispeed, ospeed, cc]
-VMIN
 VTIME
 termios
-termios. tcsetattr ( fd , when , attributes )
-Set the tty attributes for file descriptor fd from the attributes , which is
-a list like the one returned by tcgetattr() .  The when argument
-determines when the attributes are changed: termios. TCSANOW Change attributes immediately. termios. TCSADRAIN Change attributes after transmitting all queued output. termios. TCSAFLUSH Change attributes after transmitting all queued output and
-discarding all queued input.
 Set the tty attributes for file descriptor fd from the attributes , which is
 a list like the one returned by tcgetattr() .  The when argument
 determines when the attributes are changed:
 tcgetattr()
-termios. TCSANOW
 Change attributes immediately.
-Change attributes immediately.
-termios. TCSADRAIN
 Change attributes after transmitting all queued output.
-Change attributes after transmitting all queued output.
-termios. TCSAFLUSH
 Change attributes after transmitting all queued output and
 discarding all queued input.
-Change attributes after transmitting all queued output and
-discarding all queued input.
-termios. tcsendbreak ( fd , duration )
 Send a break on file descriptor fd .  A zero duration sends a break for
 0.25–0.5 seconds; a nonzero duration has a system dependent meaning.
-Send a break on file descriptor fd .  A zero duration sends a break for
-0.25–0.5 seconds; a nonzero duration has a system dependent meaning.
-termios. tcdrain ( fd )
 Wait until all output written to file descriptor fd has been transmitted.
-Wait until all output written to file descriptor fd has been transmitted.
-termios. tcflush ( fd , queue )
-Discard queued data on file descriptor fd .  The queue selector specifies
-which queue: TCIFLUSH for the input queue, TCOFLUSH for the
-output queue, or TCIOFLUSH for both queues.
 Discard queued data on file descriptor fd .  The queue selector specifies
 which queue: TCIFLUSH for the input queue, TCOFLUSH for the
 output queue, or TCIOFLUSH for both queues.
 TCIFLUSH
 TCOFLUSH
 TCIOFLUSH
-termios. tcflow ( fd , action )
-Suspend or resume input or output on file descriptor fd .  The action argument can be TCOOFF to suspend output, TCOON to restart
-output, TCIOFF to suspend input, or TCION to restart input.
 Suspend or resume input or output on file descriptor fd .  The action argument can be TCOOFF to suspend output, TCOON to restart
 output, TCIOFF to suspend input, or TCION to restart input.
 TCOOFF
 TCOON
 TCIOFF
 TCION
-termios. tcgetwinsize ( fd )
-Return a tuple (ws_row, ws_col) containing the tty window size for file
-descriptor fd . Requires termios.TIOCGWINSZ or termios.TIOCGSIZE . Added in version 3.11.
 Return a tuple (ws_row, ws_col) containing the tty window size for file
 descriptor fd . Requires termios.TIOCGWINSZ or termios.TIOCGSIZE .
 (ws_row, ws_col)
 termios.TIOCGWINSZ
 termios.TIOCGSIZE
 Added in version 3.11.
-termios. tcsetwinsize ( fd , winsize )
-Set the tty window size for file descriptor fd from winsize , which is
-a two-item tuple (ws_row, ws_col) like the one returned by tcgetwinsize() . Requires at least one of the pairs
-( termios.TIOCGWINSZ , termios.TIOCSWINSZ );
-( termios.TIOCGSIZE , termios.TIOCSSIZE ) to be defined. Added in version 3.11.
 Set the tty window size for file descriptor fd from winsize , which is
 a two-item tuple (ws_row, ws_col) like the one returned by tcgetwinsize() . Requires at least one of the pairs
 ( termios.TIOCGWINSZ , termios.TIOCSWINSZ );
@@ -111,9 +70,6 @@ termios.TIOCGSIZE
 termios.TIOCSSIZE
 Added in version 3.11.
 See also
-Module tty
-tty
-Convenience functions for common terminal control operations.
 Convenience functions for common terminal control operations.
 
 ## Example
@@ -122,7 +78,6 @@ Here’s a function that prompts for a password with echoing turned off.  Note t
 technique using a separate tcgetattr() call and a try … finally statement to ensure that the old tty attributes are restored
 exactly no matter what happens:
 tcgetattr()
-try
 finally
 
 [CODE]

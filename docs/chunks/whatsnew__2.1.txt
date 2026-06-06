@@ -5,8 +5,6 @@ SOURCE: whatsnew\2.1.html
 
 # What’s New in Python 2.1
 
-Author :
-A.M. Kuchling
 A.M. Kuchling
 
 ## Introduction
@@ -45,7 +43,6 @@ you recursively define interior functions like this?), but this also made using
 the lambda expression clumsier, and this was a problem in practice.
 In code which uses lambda you can often find local variables being
 copied by passing them as the default values of arguments.
-g()
 NameError
 lambda
 lambda
@@ -64,7 +61,6 @@ references to the variable will be looked up in the local namespace of the
 enclosing scope.  A more detailed explanation of the rules, and a dissection of
 the implementation, can be found in the PEP.
 name=name
-def
 class
 import
 This change may cause some compatibility problems for code where the same
@@ -82,10 +78,8 @@ unknowable at compile time. Therefore, if a function contains function
 definitions or lambda expressions with free variables, the compiler
 will flag this by raising a SyntaxError exception.
 from module import *
-exec
 from module import *
 from module import *
-exec
 lambda
 SyntaxError
 To make the preceding explanation a bit clearer, here’s an example:
@@ -96,13 +90,9 @@ x = 1 def f (): # The next line is a syntax error exec 'x=2' def g (): return x
 
 Line 4 containing the exec statement is a syntax error, since exec would define a new local variable named x whose value should
 be accessed by g() .
-exec
-exec
-g()
 This shouldn’t be much of a limitation, since exec is rarely used in
 most Python code (and when it is used, it’s often a sign of a poor design
 anyway).
-exec
 Compatibility concerns have led to nested scopes being introduced gradually; in
 Python 2.1, they aren’t enabled by default, but can be turned on within a module
 by using a future statement as described in PEP 236 .  (See the following section
@@ -110,8 +100,6 @@ for further discussion of PEP 236 .)  In Python 2.2, nested scopes will become
 the default and there will be no way to turn them off, but users will have had
 all of 2.1’s lifetime to fix any breakage resulting from their introduction.
 See also
-PEP 227 - Statically Nested Scopes
-Written and implemented by Jeremy Hylton.
 Written and implemented by Jeremy Hylton.
 
 ## PEP 236: __future__ Directives
@@ -137,9 +125,7 @@ precede any statement that will result in bytecodes being produced.
 import
 import
 See also
-PEP 236 - Back to the __future__
 __future__
-Written by Tim Peters, and primarily implemented by Jeremy Hylton.
 Written by Tim Peters, and primarily implemented by Jeremy Hylton.
 
 ## PEP 207: Rich Comparisons
@@ -173,12 +159,9 @@ __ne__()
 __ne__()
 (The magic methods are named after the corresponding Fortran operators .LT. . .LE. , &c.  Numeric programmers are almost certainly quite familiar with
 these names and will find them easy to remember.)
-.LT.
-.LE.
 Each of these magic methods is of the form method(self, other) , where self will be the object on the left-hand side of the operator, while other will be the object on the right-hand side.  For example, the
 expression A < B will cause A.__lt__(B) to be called.
 method(self, other)
-self
 other
 A < B
 A.__lt__(B)
@@ -190,12 +173,6 @@ and now accepts an optional argument specifying which comparison operation to
 use; this is given as one of the strings "<" , "<=" , ">" , ">=" , "==" , or "!=" .  If called without the optional third argument, cmp() will only return -1, 0, or +1 as in previous versions of Python;
 otherwise it will call the appropriate method and can return any Python object.
 cmp(A,B)
-"<"
-"<="
-">"
-">="
-"=="
-"!="
 cmp()
 There are also corresponding changes of interest to C programmers; there’s a new
 slot tp_richcmp in type objects and an API for performing a given rich
@@ -203,9 +180,6 @@ comparison.  I won’t cover the C API here, but will refer you to PEP 207 , or 
 2.1’s C API documentation, for the full list of related functions.
 tp_richcmp
 See also
-PEP 207 - Rich Comparisons
-Written by Guido van Rossum, heavily based on earlier work by David Ascher, and
-implemented by Guido van Rossum.
 Written by Guido van Rossum, heavily based on earlier work by David Ascher, and
 implemented by Guido van Rossum.
 
@@ -265,17 +239,10 @@ regex
 Functions were also added to Python’s C API for issuing warnings; refer to PEP
 230 or to Python’s API documentation for the details.
 See also
-PEP 5 - Guidelines for Language Evolution
 Written by Paul Prescod, to specify procedures to be followed when removing old
 features from Python.  The policy described in this PEP hasn’t been officially
 adopted, but the eventual policy probably won’t be too different from Prescod’s
 proposal.
-Written by Paul Prescod, to specify procedures to be followed when removing old
-features from Python.  The policy described in this PEP hasn’t been officially
-adopted, but the eventual policy probably won’t be too different from Prescod’s
-proposal.
-PEP 230 - Warning Framework
-Written and implemented by Guido van Rossum.
 Written and implemented by Guido van Rossum.
 
 ## PEP 229: New Build System
@@ -313,8 +280,6 @@ Parser/
 Objects/
 Modules/
 See also
-PEP 229 - Using Distutils to Build Python
-Written and implemented by A.M. Kuchling.
 Written and implemented by A.M. Kuchling.
 
 ## PEP 205: Weak References
@@ -329,7 +294,6 @@ and another being circular references in data structures such as trees.
 For example, consider a memoizing function that caches the results of another
 function f(x) by storing the function’s argument and its result in a
 dictionary:
-f(x)
 
 [CODE]
 _cache = {} def memoize ( x ): if _cache . has_key ( x ): return _cache [ x ] retval = f ( x ) # Cache the returned object _cache [ x ] = retval return retval
@@ -341,7 +305,6 @@ never be deallocated until the Python process exits and cleans up. This isn’t
 very noticeable for integers, but if f() returns an object, or a data
 structure that takes up a lot of memory, this can be a problem.
 _cache
-f()
 Weak references provide a way to implement a cache that won’t keep objects alive
 beyond their time.  If an object is only accessible through weak references, the
 object will be deallocated and the weak references will now indicate that the
@@ -350,8 +313,6 @@ created by calling wr = weakref.ref(obj) .  The object being referred to is
 returned by calling the weak reference as if it were a function: wr() .  It
 will return the referenced object, or None if the object no longer exists.
 wr = weakref.ref(obj)
-wr()
-None
 This makes it possible to write a memoize() function whose cache doesn’t
 keep objects alive, by storing weak references in the cache.
 memoize()
@@ -373,8 +334,6 @@ proxy = weakref . proxy ( obj ) proxy . attr # Equivalent to obj.attr proxy . me
 [/CODE]
 
 See also
-PEP 205 - Weak References
-Written and implemented by Fred L. Drake, Jr.
 Written and implemented by Fred L. Drake, Jr.
 
 ## PEP 232: Function Attributes
@@ -407,8 +366,6 @@ __dict__
 __dict__
 UserDict
 See also
-PEP 232 - Function Attributes
-Written and implemented by Barry Warsaw.
 Written and implemented by Barry Warsaw.
 
 ## PEP 235: Importing Modules on Case-Insensitive Platforms
@@ -445,8 +402,6 @@ repr()
 [/CODE]
 
 See also
-PEP 217 - Display Hook for Interactive Use
-Written and implemented by Moshe Zadka.
 Written and implemented by Moshe Zadka.
 
 ## PEP 208: New Coercion Model
@@ -474,10 +429,6 @@ TypeError
 Py_NotImplemented
 TypeError
 See also
-PEP 208 - Reworking the Coercion Model
-Written and implemented by Neil Schemenauer, heavily based upon earlier work by
-Marc-André Lemburg.  Read this to understand the fine points of how numeric
-operations will now be processed at the C level.
 Written and implemented by Neil Schemenauer, heavily based upon earlier work by
 Marc-André Lemburg.  Read this to understand the fine points of how numeric
 operations will now be processed at the C level.
@@ -511,12 +462,7 @@ described in PEP 241 , as well as various bugfixes and enhancements.  It will be
 available from the Distutils SIG at https://www.python.org/community/sigs/current/distutils-sig/ .
 PKG-INFO
 See also
-PEP 241 - Metadata for Python Software Packages
 Written and implemented by A.M. Kuchling.
-Written and implemented by A.M. Kuchling.
-PEP 243 - Module Repository Upload Mechanism
-Written by Sean Reifschneider, this draft PEP describes a proposed mechanism for
-uploading  Python packages to a central server.
 Written by Sean Reifschneider, this draft PEP describes a proposed mechanism for
 uploading  Python packages to a central server.
 
@@ -590,7 +536,6 @@ The PyXML package has gone through a few releases since Python 2.0, and Python
 noteworthy changes include support for Expat 1.2 and later versions, the ability
 for Expat parsers to handle files in any encoding supported by Python, and
 various bugfixes for SAX, DOM, and the minidom module.
-xml
 minidom
 Ping also contributed another hook for handling uncaught exceptions. sys.excepthook() can be set to a callable object.  When an exception isn’t
 caught by any try … except blocks, the exception will be
@@ -605,7 +550,6 @@ Ninth Python Conference, Ping demonstrated an application for this hook:
 printing an extended traceback that not only lists the stack frames, but also
 lists the function arguments and the local variables for each frame.
 sys.excepthook()
-try
 except
 sys.excepthook()
 Various functions in the time module, such as asctime() and localtime() , require a floating-point argument containing the time in
@@ -618,7 +562,6 @@ seconds since the epoch.  The most common use of these functions is to work with
 the current time, so the floating-point argument has been made optional; when a
 value isn’t provided, the current time will be used.  For example, log file
 entries usually need a string containing the current time; in Python 2.1, time.asctime() can be used, instead of the lengthier time.asctime(time.localtime(time.time())) that was previously required.
-time
 asctime()
 localtime()
 time.asctime()
@@ -791,7 +734,6 @@ them to the importing module’s namespace.  To fix this, simply list the public
 names in __all__ :
 from module import *
 __all__
-sys
 string
 from module import *
 __all__

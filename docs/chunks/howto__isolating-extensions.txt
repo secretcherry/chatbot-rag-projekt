@@ -149,9 +149,7 @@ and settings (e.g. csv ’s field_size_limit )
 which the C code needs to function.
 PyModuleDef.m_size
 struct
-csv
 field_size_limit
-Note
 Another option is to store state in the module’s __dict__ ,
 but you must avoid crashing when users modify __dict__ from
 Python code. This usually means error- and type-checking at the C level,
@@ -207,13 +205,11 @@ PyModule_GetState
 static PyObject * func ( PyObject * module , PyObject * args ) { my_struct * state = ( my_struct * ) PyModule_GetState ( module ); if ( state == NULL ) { return NULL ; } // ... rest of logic }
 [/CODE]
 
-Note
 PyModule_GetState may return NULL without setting an
 exception if there is no module state, i.e. PyModuleDef.m_size was
 zero. In your own module, you’re in control of m_size , so this is
 easy to prevent.
 PyModule_GetState
-NULL
 PyModuleDef.m_size
 m_size
 
@@ -273,7 +269,6 @@ Heap types can be created by filling a PyType_Spec structure, a
 description or “blueprint” of a class, and calling PyType_FromModuleAndSpec() to construct a new class object.
 PyType_Spec
 PyType_FromModuleAndSpec()
-Note
 Other functions, like PyType_FromSpec() , can also create
 heap types, but PyType_FromModuleAndSpec() associates the module
 with the class, allowing access to the module state from methods.
@@ -348,7 +343,6 @@ base -> tp_traverse ( self , visit , arg )
 [/CODE]
 
 …and base may be a static type, then it should also include:
-base
 
 [CODE]
 if ( base -> tp_flags & Py_TPFLAGS_HEAPTYPE ) { // a heap type's tp_traverse already visited Py_TYPE(self) } else { if ( Py_Version >= 0x03090000 ) { Py_VISIT ( Py_TYPE ( self )); } }
@@ -453,11 +447,9 @@ is called on a subclass of your type, Py_TYPE(self) will refer to
 that subclass, which may be defined in different module than yours.
 Py_TYPE(self)
 Py_TYPE(self)
-Note
 The following Python code can illustrate the concept. Base.get_defining_class returns Base even
 if type(self) == Sub :
 Base.get_defining_class
-Base
 type(self) == Sub
 
 [CODE]
@@ -483,7 +475,6 @@ static PyObject * example_method ( PyObject * self , PyTypeObject * defining_cla
 
 ### Module State Access from Slot Methods, Getters and Setters
 
-Note
 This is new in Python 3.11.
 Slot methods—the fast C equivalents for special methods, such as nb_add for __add__ or tp_new for initialization—have a very simple API that
 doesn’t allow passing in the defining class, unlike with PyCMethod .
@@ -505,7 +496,6 @@ PyObject * module = PyType_GetModuleByDef ( Py_TYPE ( self ), & module_def ); my
 PyType_GetModuleByDef() works by searching the method resolution order (i.e. all superclasses) for the first
 superclass that has a corresponding module.
 PyType_GetModuleByDef()
-Note
 In very exotic cases (inheritance chains spanning multiple modules
 created from the same definition), PyType_GetModuleByDef() might not
 return the module of the true defining class. However, it will always

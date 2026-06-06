@@ -18,13 +18,11 @@ action, you can make assertions about which methods / attributes were used
 and arguments they were called with. You can also specify return values and
 set needed attributes in the normal way.
 unittest.mock
-Mock
 Additionally, mock provides a patch() decorator that handles patching
 module and class level attributes within the scope of a test, along with sentinel for creating unique objects. See the quick guide for
 some examples of how to use Mock , MagicMock and patch() .
 patch()
 sentinel
-Mock
 MagicMock
 patch()
 Mock is designed for use with unittest and
@@ -41,7 +39,6 @@ Mock and MagicMock objects create all attributes and
 methods as you access them and store details of how they have been used. You
 can configure them, to specify return values or limit what attributes are
 available, and then make assertions about how they have been used:
-Mock
 MagicMock
 
 [CODE]
@@ -74,7 +71,6 @@ patch()
 >>> from unittest.mock import patch >>> @patch ( 'module.ClassName2' ) ... @patch ( 'module.ClassName1' ) ... def test ( MockClass1 , MockClass2 ): ... module . ClassName1 () ... module . ClassName2 () ... assert MockClass1 is module . ClassName1 ... assert MockClass2 is module . ClassName2 ... assert MockClass1 . called ... assert MockClass2 . called ... >>> test ()
 [/CODE]
 
-Note
 When you nest patch decorators the mocks are passed in to the decorated
 function in the same order they applied (the normal Python order that
 decorators are applied). This means from the bottom up, so in the example
@@ -150,12 +146,10 @@ test doubles throughout your code. Mocks are callable and create attributes as
 new mocks when you access them [ 1 ] . Accessing the same attribute will always
 return the same mock. Mocks record how you use them, allowing you to make
 assertions about what your code has done to them.
-Mock
 MagicMock is a subclass of Mock with all the magic methods
 pre-created and ready to use. There are also non-callable variants, useful
 when you are mocking out objects that aren’t callable: NonCallableMock and NonCallableMagicMock
 MagicMock
-Mock
 NonCallableMock
 NonCallableMagicMock
 The patch() decorators makes it easy to temporarily replace classes
@@ -163,94 +157,11 @@ in a particular module with a Mock object. By default patch() will create
 a MagicMock for you. You can specify an alternative class of Mock using
 the new_callable argument to patch() .
 patch()
-Mock
 patch()
 MagicMock
-Mock
 patch()
-class unittest.mock. Mock ( spec = None , side_effect = None , return_value = DEFAULT , wraps = None , name = None , spec_set = None , unsafe = False , ** kwargs )
-Create a new Mock object. Mock takes several optional arguments
-that specify the behaviour of the Mock object: spec : This can be either a list of strings or an existing object (a
-class or instance) that acts as the specification for the mock object. If
-you pass in an object then a list of strings is formed by calling dir on
-the object (excluding unsupported magic attributes and methods).
-Accessing any attribute not in this list will raise an AttributeError . If spec is an object (rather than a list of strings) then __class__ returns the class of the spec object. This
-allows mocks to pass isinstance() tests. spec_set : A stricter variant of spec . If used, attempting to set or get an attribute on the mock that isn’t on the object passed as spec_set will raise an AttributeError . side_effect : A function to be called whenever the Mock is called. See
-the side_effect attribute. Useful for raising exceptions or
-dynamically changing return values. The function is called with the same
-arguments as the mock, and unless it returns DEFAULT , the return
-value of this function is used as the return value. Alternatively side_effect can be an exception class or instance. In
-this case the exception will be raised when the mock is called. If side_effect is an iterable then each call to the mock will return
-the next value from the iterable. A side_effect can be cleared by setting it to None . return_value : The value returned when the mock is called. By default
-this is a new Mock (created on first access). See the return_value attribute. unsafe : By default, accessing any attribute whose name starts with assert , assret , asert , aseert or assrt will raise an AttributeError . Passing unsafe=True will allow access to
-these attributes. Added in version 3.5. wraps : Item for the mock object to wrap. If wraps is not None then
-calling the Mock will pass the call through to the wrapped object
-(returning the real result). Attribute access on the mock will return a
-Mock object that wraps the corresponding attribute of the wrapped
-object (so attempting to access an attribute that doesn’t exist will
-raise an AttributeError ). If the mock has an explicit return_value set then calls are not passed
-to the wrapped object and the return_value is returned instead. name : If the mock has a name then it will be used in the repr of the
-mock. This can be useful for debugging. The name is propagated to child
-mocks. Mocks can also be called with arbitrary keyword arguments. These will be
-used to set attributes on the mock after it is created. See the configure_mock() method for details. assert_called ( ) Assert that the mock was called at least once. >>> mock = Mock () >>> mock . method () <Mock name='mock.method()' id='...'> >>> mock . method . assert_called () Added in version 3.6. assert_called_once ( ) Assert that the mock was called exactly once. >>> mock = Mock () >>> mock . method () <Mock name='mock.method()' id='...'> >>> mock . method . assert_called_once () >>> mock . method () <Mock name='mock.method()' id='...'> >>> mock . method . assert_called_once () Traceback (most recent call last): ... AssertionError : Expected 'method' to have been called once. Called 2 times. Calls: [call(), call()]. Added in version 3.6. assert_called_with ( * args , ** kwargs ) This method is a convenient way of asserting that the last call has been
-made in a particular way: >>> mock = Mock () >>> mock . method ( 1 , 2 , 3 , test = 'wow' ) <Mock name='mock.method()' id='...'> >>> mock . method . assert_called_with ( 1 , 2 , 3 , test = 'wow' ) assert_called_once_with ( * args , ** kwargs ) Assert that the mock was called exactly once and that call was with the
-specified arguments. >>> mock = Mock ( return_value = None ) >>> mock ( 'foo' , bar = 'baz' ) >>> mock . assert_called_once_with ( 'foo' , bar = 'baz' ) >>> mock ( 'other' , bar = 'values' ) >>> mock . assert_called_once_with ( 'other' , bar = 'values' ) Traceback (most recent call last): ... AssertionError : Expected 'mock' to be called once. Called 2 times. Calls: [call('foo', bar='baz'), call('other', bar='values')]. assert_any_call ( * args , ** kwargs ) assert the mock has been called with the specified arguments. The assert passes if the mock has ever been called, unlike assert_called_with() and assert_called_once_with() that
-only pass if the call is the most recent one, and in the case of assert_called_once_with() it must also be the only call. >>> mock = Mock ( return_value = None ) >>> mock ( 1 , 2 , arg = 'thing' ) >>> mock ( 'some' , 'thing' , 'else' ) >>> mock . assert_any_call ( 1 , 2 , arg = 'thing' ) assert_has_calls ( calls , any_order = False ) assert the mock has been called with the specified calls.
-The mock_calls list is checked for the calls. If any_order is false then the calls must be
-sequential. There can be extra calls before or after the
-specified calls. If any_order is true then the calls can be in any order, but
-they must all appear in mock_calls . >>> mock = Mock ( return_value = None ) >>> mock ( 1 ) >>> mock ( 2 ) >>> mock ( 3 ) >>> mock ( 4 ) >>> calls = [ call ( 2 ), call ( 3 )] >>> mock . assert_has_calls ( calls ) >>> calls = [ call ( 4 ), call ( 2 ), call ( 3 )] >>> mock . assert_has_calls ( calls , any_order = True ) assert_not_called ( ) Assert the mock was never called. >>> m = Mock () >>> m . hello . assert_not_called () >>> obj = m . hello () >>> m . hello . assert_not_called () Traceback (most recent call last): ... AssertionError : Expected 'hello' to not have been called. Called 1 times. Calls: [call()]. Added in version 3.5. reset_mock ( * , return_value = False , side_effect = False ) The reset_mock method resets all the call attributes on a mock object: >>> mock = Mock ( return_value = None ) >>> mock ( 'hello' ) >>> mock . called True >>> mock . reset_mock () >>> mock . called False This can be useful where you want to make a series of assertions that
-reuse the same object. return_value parameter when set to True resets return_value : >>> mock = Mock ( return_value = 5 ) >>> mock ( 'hello' ) 5 >>> mock . reset_mock ( return_value = True ) >>> mock ( 'hello' ) <Mock name='mock()' id='...'> side_effect parameter when set to True resets side_effect : >>> mock = Mock ( side_effect = ValueError ) >>> mock ( 'hello' ) Traceback (most recent call last): ... ValueError >>> mock . reset_mock ( side_effect = True ) >>> mock ( 'hello' ) <Mock name='mock()' id='...'> Note that reset_mock() doesn’t clear the return_value , side_effect or any child attributes you have
-set using normal assignment by default. Child mocks are reset as well. Changed in version 3.6: Added two keyword-only arguments to the reset_mock function. mock_add_spec ( spec , spec_set = False ) Add a spec to a mock. spec can either be an object or a
-list of strings. Only attributes on the spec can be fetched as
-attributes from the mock. If spec_set is true then only attributes on the spec can be set. attach_mock ( mock , attribute ) Attach a mock as an attribute of this one, replacing its name and
-parent. Calls to the attached mock will be recorded in the method_calls and mock_calls attributes of this one. configure_mock ( ** kwargs ) Set attributes on the mock through keyword arguments. Attributes plus return values and side effects can be set on child
-mocks using standard dot notation and unpacking a dictionary in the
-method call: >>> mock = Mock () >>> attrs = { 'method.return_value' : 3 , 'other.side_effect' : KeyError } >>> mock . configure_mock ( ** attrs ) >>> mock . method () 3 >>> mock . other () Traceback (most recent call last): ... KeyError The same thing can be achieved in the constructor call to mocks: >>> attrs = { 'method.return_value' : 3 , 'other.side_effect' : KeyError } >>> mock = Mock ( some_attribute = 'eggs' , ** attrs ) >>> mock . some_attribute 'eggs' >>> mock . method () 3 >>> mock . other () Traceback (most recent call last): ... KeyError configure_mock() exists to make it easier to do configuration
-after the mock has been created. __dir__ ( ) Mock objects limit the results of dir(some_mock) to useful results.
-For mocks with a spec this includes all the permitted attributes
-for the mock. See FILTER_DIR for what this filtering does, and how to
-switch it off. _get_child_mock ( ** kw ) Create the child mocks for attributes and return value.
-By default child mocks will be the same type as the parent.
-Subclasses of Mock may want to override this to customize the way
-child mocks are made. For non-callable mocks the callable variant will be used (rather than
-any custom subclass). called A boolean representing whether or not the mock object has been called: >>> mock = Mock ( return_value = None ) >>> mock . called False >>> mock () >>> mock . called True call_count An integer telling you how many times the mock object has been called: >>> mock = Mock ( return_value = None ) >>> mock . call_count 0 >>> mock () >>> mock () >>> mock . call_count 2 return_value Set this to configure the value returned by calling the mock: >>> mock = Mock () >>> mock . return_value = 'fish' >>> mock () 'fish' The default return value is a mock object and you can configure it in
-the normal way: >>> mock = Mock () >>> mock . return_value . attribute = sentinel . Attribute >>> mock . return_value () <Mock name='mock()()' id='...'> >>> mock . return_value . assert_called_with () return_value can also be set in the constructor: >>> mock = Mock ( return_value = 3 ) >>> mock . return_value 3 >>> mock () 3 side_effect This can either be a function to be called when the mock is called,
-an iterable or an exception (class or instance) to be raised. If you pass in a function it will be called with same arguments as the
-mock and unless the function returns the DEFAULT singleton the
-call to the mock will then return whatever the function returns. If the
-function returns DEFAULT then the mock will return its normal
-value (from the return_value ). If you pass in an iterable, it is used to retrieve an iterator which
-must yield a value on every call.  This value can either be an exception
-instance to be raised, or a value to be returned from the call to the
-mock ( DEFAULT handling is identical to the function case). An example of a mock that raises an exception (to test exception
-handling of an API): >>> mock = Mock () >>> mock . side_effect = Exception ( 'Boom!' ) >>> mock () Traceback (most recent call last): ... Exception : Boom! Using side_effect to return a sequence of values: >>> mock = Mock () >>> mock . side_effect = [ 3 , 2 , 1 ] >>> mock (), mock (), mock () (3, 2, 1) Using a callable: >>> mock = Mock ( return_value = 3 ) >>> def side_effect ( * args , ** kwargs ): ... return DEFAULT ... >>> mock . side_effect = side_effect >>> mock () 3 side_effect can be set in the constructor. Here’s an example that
-adds one to the value the mock is called with and returns it: >>> side_effect = lambda value : value + 1 >>> mock = Mock ( side_effect = side_effect ) >>> mock ( 3 ) 4 >>> mock ( - 8 ) -7 Setting side_effect to None clears it: >>> m = Mock ( side_effect = KeyError , return_value = 3 ) >>> m () Traceback (most recent call last): ... KeyError >>> m . side_effect = None >>> m () 3 call_args This is either None (if the mock hasn’t been called), or the
-arguments that the mock was last called with. This will be in the
-form of a tuple: the first member, which can also be accessed through
-the args property, is any positional arguments the mock was
-called with (or an empty tuple) and the second member, which can
-also be accessed through the kwargs property, is any keyword
-arguments (or an empty dictionary). >>> mock = Mock ( return_value = None ) >>> print ( mock . call_args ) None >>> mock () >>> mock . call_args call() >>> mock . call_args == () True >>> mock ( 3 , 4 ) >>> mock . call_args call(3, 4) >>> mock . call_args == (( 3 , 4 ),) True >>> mock . call_args . args (3, 4) >>> mock . call_args . kwargs {} >>> mock ( 3 , 4 , 5 , key = 'fish' , next = 'w00t!' ) >>> mock . call_args call(3, 4, 5, key='fish', next='w00t!') >>> mock . call_args . args (3, 4, 5) >>> mock . call_args . kwargs {'key': 'fish', 'next': 'w00t!'} call_args , along with members of the lists call_args_list , method_calls and mock_calls are call objects.
-These are tuples, so they can be unpacked to get at the individual
-arguments and make more complex assertions. See calls as tuples . Changed in version 3.8: Added args and kwargs properties. call_args_list This is a list of all the calls made to the mock object in sequence
-(so the length of the list is the number of times it has been
-called). Before any calls have been made it is an empty list. The call object can be used for conveniently constructing lists of
-calls to compare with call_args_list . >>> mock = Mock ( return_value = None ) >>> mock () >>> mock ( 3 , 4 ) >>> mock ( key = 'fish' , next = 'w00t!' ) >>> mock . call_args_list [call(), call(3, 4), call(key='fish', next='w00t!')] >>> expected = [(), (( 3 , 4 ),), ({ 'key' : 'fish' , 'next' : 'w00t!' },)] >>> mock . call_args_list == expected True Members of call_args_list are call objects. These can be
-unpacked as tuples to get at the individual arguments. See calls as tuples . method_calls As well as tracking calls to themselves, mocks also track calls to
-methods and attributes, and their methods and attributes: >>> mock = Mock () >>> mock . method () <Mock name='mock.method()' id='...'> >>> mock . property . method . attribute () <Mock name='mock.property.method.attribute()' id='...'> >>> mock . method_calls [call.method(), call.property.method.attribute()] Members of method_calls are call objects. These can be
-unpacked as tuples to get at the individual arguments. See calls as tuples . mock_calls mock_calls records all calls to the mock object, its methods,
-magic methods and return value mocks. >>> mock = MagicMock () >>> result = mock ( 1 , 2 , 3 ) >>> mock . first ( a = 3 ) <MagicMock name='mock.first()' id='...'> >>> mock . second () <MagicMock name='mock.second()' id='...'> >>> int ( mock ) 1 >>> result ( 1 ) <MagicMock name='mock()()' id='...'> >>> expected = [ call ( 1 , 2 , 3 ), call . first ( a = 3 ), call . second (), ... call . __int__ (), call ()( 1 )] >>> mock . mock_calls == expected True Members of mock_calls are call objects. These can be
-unpacked as tuples to get at the individual arguments. See calls as tuples . Note The way mock_calls are recorded means that where nested
-calls are made, the parameters of ancestor calls are not recorded
-and so will always compare equal: >>> mock = MagicMock () >>> mock . top ( a = 3 ) . bottom () <MagicMock name='mock.top().bottom()' id='...'> >>> mock . mock_calls [call.top(a=3), call.top().bottom()] >>> mock . mock_calls [ - 1 ] == call . top ( a =- 1 ) . bottom () True __class__ Normally the __class__ attribute of an object will return its type.
-For a mock object with a spec , __class__ returns the spec class
-instead. This allows mock objects to pass isinstance() tests for the
-object they are replacing / masquerading as: >>> mock = Mock ( spec = 3 ) >>> isinstance ( mock , int ) True __class__ is assignable to, this allows a mock to pass an isinstance() check without forcing you to use a spec: >>> mock = Mock () >>> mock . __class__ = dict >>> isinstance ( mock , dict ) True
 Create a new Mock object. Mock takes several optional arguments
 that specify the behaviour of the Mock object:
-Mock
-Mock
 spec : This can be either a list of strings or an existing object (a
 class or instance) that acts as the specification for the mock object. If
 you pass in an object then a list of strings is formed by calling dir on
@@ -289,7 +200,6 @@ this case the exception will be raised when the mock is called.
 If side_effect is an iterable then each call to the mock will return
 the next value from the iterable.
 A side_effect can be cleared by setting it to None .
-None
 return_value : The value returned when the mock is called. By default
 this is a new Mock (created on first access). See the return_value attribute.
 return_value : The value returned when the mock is called. By default
@@ -315,7 +225,6 @@ calling the Mock will pass the call through to the wrapped object
 Mock object that wraps the corresponding attribute of the wrapped
 object (so attempting to access an attribute that doesn’t exist will
 raise an AttributeError ).
-None
 AttributeError
 If the mock has an explicit return_value set then calls are not passed
 to the wrapped object and the return_value is returned instead.
@@ -328,8 +237,6 @@ mocks.
 Mocks can also be called with arbitrary keyword arguments. These will be
 used to set attributes on the mock after it is created. See the configure_mock() method for details.
 configure_mock()
-assert_called ( )
-Assert that the mock was called at least once. >>> mock = Mock () >>> mock . method () <Mock name='mock.method()' id='...'> >>> mock . method . assert_called () Added in version 3.6.
 Assert that the mock was called at least once.
 
 [CODE]
@@ -337,8 +244,6 @@ Assert that the mock was called at least once.
 [/CODE]
 
 Added in version 3.6.
-assert_called_once ( )
-Assert that the mock was called exactly once. >>> mock = Mock () >>> mock . method () <Mock name='mock.method()' id='...'> >>> mock . method . assert_called_once () >>> mock . method () <Mock name='mock.method()' id='...'> >>> mock . method . assert_called_once () Traceback (most recent call last): ... AssertionError : Expected 'method' to have been called once. Called 2 times. Calls: [call(), call()]. Added in version 3.6.
 Assert that the mock was called exactly once.
 
 [CODE]
@@ -346,9 +251,6 @@ Assert that the mock was called exactly once.
 [/CODE]
 
 Added in version 3.6.
-assert_called_with ( * args , ** kwargs )
-This method is a convenient way of asserting that the last call has been
-made in a particular way: >>> mock = Mock () >>> mock . method ( 1 , 2 , 3 , test = 'wow' ) <Mock name='mock.method()' id='...'> >>> mock . method . assert_called_with ( 1 , 2 , 3 , test = 'wow' )
 This method is a convenient way of asserting that the last call has been
 made in a particular way:
 
@@ -356,9 +258,6 @@ made in a particular way:
 >>> mock = Mock () >>> mock . method ( 1 , 2 , 3 , test = 'wow' ) <Mock name='mock.method()' id='...'> >>> mock . method . assert_called_with ( 1 , 2 , 3 , test = 'wow' )
 [/CODE]
 
-assert_called_once_with ( * args , ** kwargs )
-Assert that the mock was called exactly once and that call was with the
-specified arguments. >>> mock = Mock ( return_value = None ) >>> mock ( 'foo' , bar = 'baz' ) >>> mock . assert_called_once_with ( 'foo' , bar = 'baz' ) >>> mock ( 'other' , bar = 'values' ) >>> mock . assert_called_once_with ( 'other' , bar = 'values' ) Traceback (most recent call last): ... AssertionError : Expected 'mock' to be called once. Called 2 times. Calls: [call('foo', bar='baz'), call('other', bar='values')].
 Assert that the mock was called exactly once and that call was with the
 specified arguments.
 
@@ -366,9 +265,6 @@ specified arguments.
 >>> mock = Mock ( return_value = None ) >>> mock ( 'foo' , bar = 'baz' ) >>> mock . assert_called_once_with ( 'foo' , bar = 'baz' ) >>> mock ( 'other' , bar = 'values' ) >>> mock . assert_called_once_with ( 'other' , bar = 'values' ) Traceback (most recent call last): ... AssertionError : Expected 'mock' to be called once. Called 2 times. Calls: [call('foo', bar='baz'), call('other', bar='values')].
 [/CODE]
 
-assert_any_call ( * args , ** kwargs )
-assert the mock has been called with the specified arguments. The assert passes if the mock has ever been called, unlike assert_called_with() and assert_called_once_with() that
-only pass if the call is the most recent one, and in the case of assert_called_once_with() it must also be the only call. >>> mock = Mock ( return_value = None ) >>> mock ( 1 , 2 , arg = 'thing' ) >>> mock ( 'some' , 'thing' , 'else' ) >>> mock . assert_any_call ( 1 , 2 , arg = 'thing' )
 assert the mock has been called with the specified arguments.
 The assert passes if the mock has ever been called, unlike assert_called_with() and assert_called_once_with() that
 only pass if the call is the most recent one, and in the case of assert_called_once_with() it must also be the only call.
@@ -380,12 +276,6 @@ assert_called_once_with()
 >>> mock = Mock ( return_value = None ) >>> mock ( 1 , 2 , arg = 'thing' ) >>> mock ( 'some' , 'thing' , 'else' ) >>> mock . assert_any_call ( 1 , 2 , arg = 'thing' )
 [/CODE]
 
-assert_has_calls ( calls , any_order = False )
-assert the mock has been called with the specified calls.
-The mock_calls list is checked for the calls. If any_order is false then the calls must be
-sequential. There can be extra calls before or after the
-specified calls. If any_order is true then the calls can be in any order, but
-they must all appear in mock_calls . >>> mock = Mock ( return_value = None ) >>> mock ( 1 ) >>> mock ( 2 ) >>> mock ( 3 ) >>> mock ( 4 ) >>> calls = [ call ( 2 ), call ( 3 )] >>> mock . assert_has_calls ( calls ) >>> calls = [ call ( 4 ), call ( 2 ), call ( 3 )] >>> mock . assert_has_calls ( calls , any_order = True )
 assert the mock has been called with the specified calls.
 The mock_calls list is checked for the calls.
 mock_calls
@@ -400,8 +290,6 @@ mock_calls
 >>> mock = Mock ( return_value = None ) >>> mock ( 1 ) >>> mock ( 2 ) >>> mock ( 3 ) >>> mock ( 4 ) >>> calls = [ call ( 2 ), call ( 3 )] >>> mock . assert_has_calls ( calls ) >>> calls = [ call ( 4 ), call ( 2 ), call ( 3 )] >>> mock . assert_has_calls ( calls , any_order = True )
 [/CODE]
 
-assert_not_called ( )
-Assert the mock was never called. >>> m = Mock () >>> m . hello . assert_not_called () >>> obj = m . hello () >>> m . hello . assert_not_called () Traceback (most recent call last): ... AssertionError : Expected 'hello' to not have been called. Called 1 times. Calls: [call()]. Added in version 3.5.
 Assert the mock was never called.
 
 [CODE]
@@ -409,10 +297,6 @@ Assert the mock was never called.
 [/CODE]
 
 Added in version 3.5.
-reset_mock ( * , return_value = False , side_effect = False )
-The reset_mock method resets all the call attributes on a mock object: >>> mock = Mock ( return_value = None ) >>> mock ( 'hello' ) >>> mock . called True >>> mock . reset_mock () >>> mock . called False This can be useful where you want to make a series of assertions that
-reuse the same object. return_value parameter when set to True resets return_value : >>> mock = Mock ( return_value = 5 ) >>> mock ( 'hello' ) 5 >>> mock . reset_mock ( return_value = True ) >>> mock ( 'hello' ) <Mock name='mock()' id='...'> side_effect parameter when set to True resets side_effect : >>> mock = Mock ( side_effect = ValueError ) >>> mock ( 'hello' ) Traceback (most recent call last): ... ValueError >>> mock . reset_mock ( side_effect = True ) >>> mock ( 'hello' ) <Mock name='mock()' id='...'> Note that reset_mock() doesn’t clear the return_value , side_effect or any child attributes you have
-set using normal assignment by default. Child mocks are reset as well. Changed in version 3.6: Added two keyword-only arguments to the reset_mock function.
 The reset_mock method resets all the call attributes on a mock object:
 
 [CODE]
@@ -422,7 +306,6 @@ The reset_mock method resets all the call attributes on a mock object:
 This can be useful where you want to make a series of assertions that
 reuse the same object.
 return_value parameter when set to True resets return_value :
-True
 return_value
 
 [CODE]
@@ -430,7 +313,6 @@ return_value
 [/CODE]
 
 side_effect parameter when set to True resets side_effect :
-True
 side_effect
 
 [CODE]
@@ -444,26 +326,14 @@ return_value
 side_effect
 Child mocks are reset as well.
 Changed in version 3.6: Added two keyword-only arguments to the reset_mock function.
-mock_add_spec ( spec , spec_set = False )
-Add a spec to a mock. spec can either be an object or a
-list of strings. Only attributes on the spec can be fetched as
-attributes from the mock. If spec_set is true then only attributes on the spec can be set.
 Add a spec to a mock. spec can either be an object or a
 list of strings. Only attributes on the spec can be fetched as
 attributes from the mock.
 If spec_set is true then only attributes on the spec can be set.
-attach_mock ( mock , attribute )
-Attach a mock as an attribute of this one, replacing its name and
-parent. Calls to the attached mock will be recorded in the method_calls and mock_calls attributes of this one.
 Attach a mock as an attribute of this one, replacing its name and
 parent. Calls to the attached mock will be recorded in the method_calls and mock_calls attributes of this one.
 method_calls
 mock_calls
-configure_mock ( ** kwargs )
-Set attributes on the mock through keyword arguments. Attributes plus return values and side effects can be set on child
-mocks using standard dot notation and unpacking a dictionary in the
-method call: >>> mock = Mock () >>> attrs = { 'method.return_value' : 3 , 'other.side_effect' : KeyError } >>> mock . configure_mock ( ** attrs ) >>> mock . method () 3 >>> mock . other () Traceback (most recent call last): ... KeyError The same thing can be achieved in the constructor call to mocks: >>> attrs = { 'method.return_value' : 3 , 'other.side_effect' : KeyError } >>> mock = Mock ( some_attribute = 'eggs' , ** attrs ) >>> mock . some_attribute 'eggs' >>> mock . method () 3 >>> mock . other () Traceback (most recent call last): ... KeyError configure_mock() exists to make it easier to do configuration
-after the mock has been created.
 Set attributes on the mock through keyword arguments.
 Attributes plus return values and side effects can be set on child
 mocks using standard dot notation and unpacking a dictionary in the
@@ -482,50 +352,31 @@ The same thing can be achieved in the constructor call to mocks:
 configure_mock() exists to make it easier to do configuration
 after the mock has been created.
 configure_mock()
-__dir__ ( )
-Mock objects limit the results of dir(some_mock) to useful results.
-For mocks with a spec this includes all the permitted attributes
-for the mock. See FILTER_DIR for what this filtering does, and how to
-switch it off.
 Mock objects limit the results of dir(some_mock) to useful results.
 For mocks with a spec this includes all the permitted attributes
 for the mock.
-Mock
 dir(some_mock)
 See FILTER_DIR for what this filtering does, and how to
 switch it off.
 FILTER_DIR
-_get_child_mock ( ** kw )
-Create the child mocks for attributes and return value.
-By default child mocks will be the same type as the parent.
-Subclasses of Mock may want to override this to customize the way
-child mocks are made. For non-callable mocks the callable variant will be used (rather than
-any custom subclass).
 Create the child mocks for attributes and return value.
 By default child mocks will be the same type as the parent.
 Subclasses of Mock may want to override this to customize the way
 child mocks are made.
 For non-callable mocks the callable variant will be used (rather than
 any custom subclass).
-called
-A boolean representing whether or not the mock object has been called: >>> mock = Mock ( return_value = None ) >>> mock . called False >>> mock () >>> mock . called True
 A boolean representing whether or not the mock object has been called:
 
 [CODE]
 >>> mock = Mock ( return_value = None ) >>> mock . called False >>> mock () >>> mock . called True
 [/CODE]
 
-call_count
-An integer telling you how many times the mock object has been called: >>> mock = Mock ( return_value = None ) >>> mock . call_count 0 >>> mock () >>> mock () >>> mock . call_count 2
 An integer telling you how many times the mock object has been called:
 
 [CODE]
 >>> mock = Mock ( return_value = None ) >>> mock . call_count 0 >>> mock () >>> mock () >>> mock . call_count 2
 [/CODE]
 
-return_value
-Set this to configure the value returned by calling the mock: >>> mock = Mock () >>> mock . return_value = 'fish' >>> mock () 'fish' The default return value is a mock object and you can configure it in
-the normal way: >>> mock = Mock () >>> mock . return_value . attribute = sentinel . Attribute >>> mock . return_value () <Mock name='mock()()' id='...'> >>> mock . return_value . assert_called_with () return_value can also be set in the constructor: >>> mock = Mock ( return_value = 3 ) >>> mock . return_value 3 >>> mock () 3
 Set this to configure the value returned by calling the mock:
 
 [CODE]
@@ -546,18 +397,6 @@ return_value
 >>> mock = Mock ( return_value = 3 ) >>> mock . return_value 3 >>> mock () 3
 [/CODE]
 
-side_effect
-This can either be a function to be called when the mock is called,
-an iterable or an exception (class or instance) to be raised. If you pass in a function it will be called with same arguments as the
-mock and unless the function returns the DEFAULT singleton the
-call to the mock will then return whatever the function returns. If the
-function returns DEFAULT then the mock will return its normal
-value (from the return_value ). If you pass in an iterable, it is used to retrieve an iterator which
-must yield a value on every call.  This value can either be an exception
-instance to be raised, or a value to be returned from the call to the
-mock ( DEFAULT handling is identical to the function case). An example of a mock that raises an exception (to test exception
-handling of an API): >>> mock = Mock () >>> mock . side_effect = Exception ( 'Boom!' ) >>> mock () Traceback (most recent call last): ... Exception : Boom! Using side_effect to return a sequence of values: >>> mock = Mock () >>> mock . side_effect = [ 3 , 2 , 1 ] >>> mock (), mock (), mock () (3, 2, 1) Using a callable: >>> mock = Mock ( return_value = 3 ) >>> def side_effect ( * args , ** kwargs ): ... return DEFAULT ... >>> mock . side_effect = side_effect >>> mock () 3 side_effect can be set in the constructor. Here’s an example that
-adds one to the value the mock is called with and returns it: >>> side_effect = lambda value : value + 1 >>> mock = Mock ( side_effect = side_effect ) >>> mock ( 3 ) 4 >>> mock ( - 8 ) -7 Setting side_effect to None clears it: >>> m = Mock ( side_effect = KeyError , return_value = 3 ) >>> m () Traceback (most recent call last): ... KeyError >>> m . side_effect = None >>> m () 3
 This can either be a function to be called when the mock is called,
 an iterable or an exception (class or instance) to be raised.
 If you pass in a function it will be called with same arguments as the
@@ -603,22 +442,11 @@ side_effect
 
 Setting side_effect to None clears it:
 side_effect
-None
 
 [CODE]
 >>> m = Mock ( side_effect = KeyError , return_value = 3 ) >>> m () Traceback (most recent call last): ... KeyError >>> m . side_effect = None >>> m () 3
 [/CODE]
 
-call_args
-This is either None (if the mock hasn’t been called), or the
-arguments that the mock was last called with. This will be in the
-form of a tuple: the first member, which can also be accessed through
-the args property, is any positional arguments the mock was
-called with (or an empty tuple) and the second member, which can
-also be accessed through the kwargs property, is any keyword
-arguments (or an empty dictionary). >>> mock = Mock ( return_value = None ) >>> print ( mock . call_args ) None >>> mock () >>> mock . call_args call() >>> mock . call_args == () True >>> mock ( 3 , 4 ) >>> mock . call_args call(3, 4) >>> mock . call_args == (( 3 , 4 ),) True >>> mock . call_args . args (3, 4) >>> mock . call_args . kwargs {} >>> mock ( 3 , 4 , 5 , key = 'fish' , next = 'w00t!' ) >>> mock . call_args call(3, 4, 5, key='fish', next='w00t!') >>> mock . call_args . args (3, 4, 5) >>> mock . call_args . kwargs {'key': 'fish', 'next': 'w00t!'} call_args , along with members of the lists call_args_list , method_calls and mock_calls are call objects.
-These are tuples, so they can be unpacked to get at the individual
-arguments and make more complex assertions. See calls as tuples . Changed in version 3.8: Added args and kwargs properties.
 This is either None (if the mock hasn’t been called), or the
 arguments that the mock was last called with. This will be in the
 form of a tuple: the first member, which can also be accessed through
@@ -626,8 +454,6 @@ the args property, is any positional arguments the mock was
 called with (or an empty tuple) and the second member, which can
 also be accessed through the kwargs property, is any keyword
 arguments (or an empty dictionary).
-None
-args
 kwargs
 
 [CODE]
@@ -641,21 +467,12 @@ call_args
 call_args_list
 method_calls
 mock_calls
-call
 Changed in version 3.8: Added args and kwargs properties.
-args
 kwargs
-call_args_list
-This is a list of all the calls made to the mock object in sequence
-(so the length of the list is the number of times it has been
-called). Before any calls have been made it is an empty list. The call object can be used for conveniently constructing lists of
-calls to compare with call_args_list . >>> mock = Mock ( return_value = None ) >>> mock () >>> mock ( 3 , 4 ) >>> mock ( key = 'fish' , next = 'w00t!' ) >>> mock . call_args_list [call(), call(3, 4), call(key='fish', next='w00t!')] >>> expected = [(), (( 3 , 4 ),), ({ 'key' : 'fish' , 'next' : 'w00t!' },)] >>> mock . call_args_list == expected True Members of call_args_list are call objects. These can be
-unpacked as tuples to get at the individual arguments. See calls as tuples .
 This is a list of all the calls made to the mock object in sequence
 (so the length of the list is the number of times it has been
 called). Before any calls have been made it is an empty list. The call object can be used for conveniently constructing lists of
 calls to compare with call_args_list .
-call
 call_args_list
 
 [CODE]
@@ -665,11 +482,6 @@ call_args_list
 Members of call_args_list are call objects. These can be
 unpacked as tuples to get at the individual arguments. See calls as tuples .
 call_args_list
-call
-method_calls
-As well as tracking calls to themselves, mocks also track calls to
-methods and attributes, and their methods and attributes: >>> mock = Mock () >>> mock . method () <Mock name='mock.method()' id='...'> >>> mock . property . method . attribute () <Mock name='mock.property.method.attribute()' id='...'> >>> mock . method_calls [call.method(), call.property.method.attribute()] Members of method_calls are call objects. These can be
-unpacked as tuples to get at the individual arguments. See calls as tuples .
 As well as tracking calls to themselves, mocks also track calls to
 methods and attributes, and their methods and attributes:
 
@@ -680,13 +492,6 @@ methods and attributes, and their methods and attributes:
 Members of method_calls are call objects. These can be
 unpacked as tuples to get at the individual arguments. See calls as tuples .
 method_calls
-call
-mock_calls
-mock_calls records all calls to the mock object, its methods,
-magic methods and return value mocks. >>> mock = MagicMock () >>> result = mock ( 1 , 2 , 3 ) >>> mock . first ( a = 3 ) <MagicMock name='mock.first()' id='...'> >>> mock . second () <MagicMock name='mock.second()' id='...'> >>> int ( mock ) 1 >>> result ( 1 ) <MagicMock name='mock()()' id='...'> >>> expected = [ call ( 1 , 2 , 3 ), call . first ( a = 3 ), call . second (), ... call . __int__ (), call ()( 1 )] >>> mock . mock_calls == expected True Members of mock_calls are call objects. These can be
-unpacked as tuples to get at the individual arguments. See calls as tuples . Note The way mock_calls are recorded means that where nested
-calls are made, the parameters of ancestor calls are not recorded
-and so will always compare equal: >>> mock = MagicMock () >>> mock . top ( a = 3 ) . bottom () <MagicMock name='mock.top().bottom()' id='...'> >>> mock . mock_calls [call.top(a=3), call.top().bottom()] >>> mock . mock_calls [ - 1 ] == call . top ( a =- 1 ) . bottom () True
 mock_calls records all calls to the mock object, its methods,
 magic methods and return value mocks.
 mock_calls
@@ -698,8 +503,6 @@ mock_calls
 Members of mock_calls are call objects. These can be
 unpacked as tuples to get at the individual arguments. See calls as tuples .
 mock_calls
-call
-Note
 The way mock_calls are recorded means that where nested
 calls are made, the parameters of ancestor calls are not recorded
 and so will always compare equal:
@@ -709,17 +512,11 @@ mock_calls
 >>> mock = MagicMock () >>> mock . top ( a = 3 ) . bottom () <MagicMock name='mock.top().bottom()' id='...'> >>> mock . mock_calls [call.top(a=3), call.top().bottom()] >>> mock . mock_calls [ - 1 ] == call . top ( a =- 1 ) . bottom () True
 [/CODE]
 
-__class__
-Normally the __class__ attribute of an object will return its type.
-For a mock object with a spec , __class__ returns the spec class
-instead. This allows mock objects to pass isinstance() tests for the
-object they are replacing / masquerading as: >>> mock = Mock ( spec = 3 ) >>> isinstance ( mock , int ) True __class__ is assignable to, this allows a mock to pass an isinstance() check without forcing you to use a spec: >>> mock = Mock () >>> mock . __class__ = dict >>> isinstance ( mock , dict ) True
 Normally the __class__ attribute of an object will return its type.
 For a mock object with a spec , __class__ returns the spec class
 instead. This allows mock objects to pass isinstance() tests for the
 object they are replacing / masquerading as:
 __class__
-spec
 __class__
 isinstance()
 
@@ -735,15 +532,9 @@ isinstance()
 >>> mock = Mock () >>> mock . __class__ = dict >>> isinstance ( mock , dict ) True
 [/CODE]
 
-class unittest.mock. NonCallableMock ( spec = None , wraps = None , name = None , spec_set = None , ** kwargs )
 A non-callable version of Mock . The constructor parameters have the same
 meaning of Mock , with the exception of return_value and side_effect which have no meaning on a non-callable mock.
-A non-callable version of Mock . The constructor parameters have the same
-meaning of Mock , with the exception of return_value and side_effect which have no meaning on a non-callable mock.
-Mock
-Mock
 Mock objects that use a class or an instance as a spec or spec_set are able to pass isinstance() tests:
-spec
 spec_set
 isinstance()
 
@@ -753,7 +544,6 @@ isinstance()
 
 The Mock classes have support for mocking magic methods. See magic
 methods for the full details.
-Mock
 The mock classes and the patch() decorators all take arbitrary keyword
 arguments for configuration. For the patch() decorators the keywords are
 passed to the constructor of the mock being created. The keyword arguments
@@ -789,10 +579,6 @@ assert_called_once_with()
 assert_has_calls()
 assert_any_call()
 Changed in version 3.4: Added signature introspection on specced and autospecced mock objects.
-class unittest.mock. PropertyMock ( * args , ** kwargs )
-A mock intended to be used as a property , or other descriptor , on a class. PropertyMock provides __get__() and __set__() methods
-so you can specify a return value when it is fetched. Fetching a PropertyMock instance from an object calls the mock, with
-no args. Setting it calls the mock with the value being set. >>> class Foo : ... @property ... def foo ( self ): ... return 'something' ... @foo . setter ... def foo ( self , value ): ... pass ... >>> with patch ( '__main__.Foo.foo' , new_callable = PropertyMock ) as mock_foo : ... mock_foo . return_value = 'mockity-mock' ... this_foo = Foo () ... print ( this_foo . foo ) ... this_foo . foo = 6 ... mockity-mock >>> mock_foo . mock_calls [call(), call(6)]
 A mock intended to be used as a property , or other descriptor , on a class. PropertyMock provides __get__() and __set__() methods
 so you can specify a return value when it is fetched.
 property
@@ -828,30 +614,6 @@ __getattr__()
 
 See __getattr__() for details.
 __getattr__()
-class unittest.mock. AsyncMock ( spec = None , side_effect = None , return_value = DEFAULT , wraps = None , name = None , spec_set = None , unsafe = False , ** kwargs )
-An asynchronous version of MagicMock . The AsyncMock object will
-behave so the object is recognized as an async function, and the result of a
-call is an awaitable. >>> mock = AsyncMock () >>> inspect . iscoroutinefunction ( mock ) True >>> inspect . isawaitable ( mock ()) True The result of mock() is an async function which will have the outcome
-of side_effect or return_value after it has been awaited: if side_effect is a function, the async function will return the
-result of that function, if side_effect is an exception, the async function will raise the
-exception, if side_effect is an iterable, the async function will return the
-next value of the iterable, however, if the sequence of result is
-exhausted, StopAsyncIteration is raised immediately, if side_effect is not defined, the async function will return the
-value defined by return_value , hence, by default, the async function
-returns a new AsyncMock object. Setting the spec of a Mock or MagicMock to an async function
-will result in a coroutine object being returned after calling. >>> async def async_func (): pass ... >>> mock = MagicMock ( async_func ) >>> mock <MagicMock spec='function' id='...'> >>> mock () <coroutine object AsyncMockMixin._mock_call at ...> Setting the spec of a Mock , MagicMock , or AsyncMock to a class with asynchronous and synchronous functions will automatically
-detect the synchronous functions and set them as MagicMock (if the
-parent mock is AsyncMock or MagicMock ) or Mock (if
-the parent mock is Mock ). All asynchronous functions will be AsyncMock . >>> class ExampleClass : ... def sync_foo (): ... pass ... async def async_foo (): ... pass ... >>> a_mock = AsyncMock ( ExampleClass ) >>> a_mock . sync_foo <MagicMock name='mock.sync_foo' id='...'> >>> a_mock . async_foo <AsyncMock name='mock.async_foo' id='...'> >>> mock = Mock ( ExampleClass ) >>> mock . sync_foo <Mock name='mock.sync_foo' id='...'> >>> mock . async_foo <AsyncMock name='mock.async_foo' id='...'> Added in version 3.8. assert_awaited ( ) Assert that the mock was awaited at least once. Note that this is separate
-from the object having been called, the await keyword must be used: >>> mock = AsyncMock () >>> async def main ( coroutine_mock ): ... await coroutine_mock ... >>> coroutine_mock = mock () >>> mock . called True >>> mock . assert_awaited () Traceback (most recent call last): ... AssertionError : Expected mock to have been awaited. >>> asyncio . run ( main ( coroutine_mock )) >>> mock . assert_awaited () assert_awaited_once ( ) Assert that the mock was awaited exactly once. >>> mock = AsyncMock () >>> async def main (): ... await mock () ... >>> asyncio . run ( main ()) >>> mock . assert_awaited_once () >>> asyncio . run ( main ()) >>> mock . assert_awaited_once () Traceback (most recent call last): ... AssertionError : Expected mock to have been awaited once. Awaited 2 times. assert_awaited_with ( * args , ** kwargs ) Assert that the last await was with the specified arguments. >>> mock = AsyncMock () >>> async def main ( * args , ** kwargs ): ... await mock ( * args , ** kwargs ) ... >>> asyncio . run ( main ( 'foo' , bar = 'bar' )) >>> mock . assert_awaited_with ( 'foo' , bar = 'bar' ) >>> mock . assert_awaited_with ( 'other' ) Traceback (most recent call last): ... AssertionError : expected await not found. Expected: mock('other') Actual: mock('foo', bar='bar') assert_awaited_once_with ( * args , ** kwargs ) Assert that the mock was awaited exactly once and with the specified
-arguments. >>> mock = AsyncMock () >>> async def main ( * args , ** kwargs ): ... await mock ( * args , ** kwargs ) ... >>> asyncio . run ( main ( 'foo' , bar = 'bar' )) >>> mock . assert_awaited_once_with ( 'foo' , bar = 'bar' ) >>> asyncio . run ( main ( 'foo' , bar = 'bar' )) >>> mock . assert_awaited_once_with ( 'foo' , bar = 'bar' ) Traceback (most recent call last): ... AssertionError : Expected mock to have been awaited once. Awaited 2 times. assert_any_await ( * args , ** kwargs ) Assert the mock has ever been awaited with the specified arguments. >>> mock = AsyncMock () >>> async def main ( * args , ** kwargs ): ... await mock ( * args , ** kwargs ) ... >>> asyncio . run ( main ( 'foo' , bar = 'bar' )) >>> asyncio . run ( main ( 'hello' )) >>> mock . assert_any_await ( 'foo' , bar = 'bar' ) >>> mock . assert_any_await ( 'other' ) Traceback (most recent call last): ... AssertionError : mock('other') await not found assert_has_awaits ( calls , any_order = False ) Assert the mock has been awaited with the specified calls.
-The await_args_list list is checked for the awaits. If any_order is false then the awaits must be
-sequential. There can be extra calls before or after the
-specified awaits. If any_order is true then the awaits can be in any order, but
-they must all appear in await_args_list . >>> mock = AsyncMock () >>> async def main ( * args , ** kwargs ): ... await mock ( * args , ** kwargs ) ... >>> calls = [ call ( "foo" ), call ( "bar" )] >>> mock . assert_has_awaits ( calls ) Traceback (most recent call last): ... AssertionError : Awaits not found. Expected: [call('foo'), call('bar')] Actual: [] >>> asyncio . run ( main ( 'foo' )) >>> asyncio . run ( main ( 'bar' )) >>> mock . assert_has_awaits ( calls ) assert_not_awaited ( ) Assert that the mock was never awaited. >>> mock = AsyncMock () >>> mock . assert_not_awaited () reset_mock ( * args , ** kwargs ) See Mock.reset_mock() . Also sets await_count to 0, await_args to None, and clears the await_args_list . await_count An integer keeping track of how many times the mock object has been awaited. >>> mock = AsyncMock () >>> async def main (): ... await mock () ... >>> asyncio . run ( main ()) >>> mock . await_count 1 >>> asyncio . run ( main ()) >>> mock . await_count 2 await_args This is either None (if the mock hasn’t been awaited), or the arguments that
-the mock was last awaited with. Functions the same as Mock.call_args . >>> mock = AsyncMock () >>> async def main ( * args ): ... await mock ( * args ) ... >>> mock . await_args >>> asyncio . run ( main ( 'foo' )) >>> mock . await_args call('foo') >>> asyncio . run ( main ( 'bar' )) >>> mock . await_args call('bar') await_args_list This is a list of all the awaits made to the mock object in sequence (so the
-length of the list is the number of times it has been awaited). Before any
-awaits have been made it is an empty list. >>> mock = AsyncMock () >>> async def main ( * args ): ... await mock ( * args ) ... >>> mock . await_args_list [] >>> asyncio . run ( main ( 'foo' )) >>> mock . await_args_list [call('foo')] >>> asyncio . run ( main ( 'bar' )) >>> mock . await_args_list [call('foo'), call('bar')]
 An asynchronous version of MagicMock . The AsyncMock object will
 behave so the object is recognized as an async function, and the result of a
 call is an awaitable.
@@ -896,7 +658,6 @@ return_value
 AsyncMock
 Setting the spec of a Mock or MagicMock to an async function
 will result in a coroutine object being returned after calling.
-Mock
 MagicMock
 
 [CODE]
@@ -907,14 +668,11 @@ Setting the spec of a Mock , MagicMock , or AsyncMock to a class with asynchrono
 detect the synchronous functions and set them as MagicMock (if the
 parent mock is AsyncMock or MagicMock ) or Mock (if
 the parent mock is Mock ). All asynchronous functions will be AsyncMock .
-Mock
 MagicMock
 AsyncMock
 MagicMock
 AsyncMock
 MagicMock
-Mock
-Mock
 AsyncMock
 
 [CODE]
@@ -922,9 +680,6 @@ AsyncMock
 [/CODE]
 
 Added in version 3.8.
-assert_awaited ( )
-Assert that the mock was awaited at least once. Note that this is separate
-from the object having been called, the await keyword must be used: >>> mock = AsyncMock () >>> async def main ( coroutine_mock ): ... await coroutine_mock ... >>> coroutine_mock = mock () >>> mock . called True >>> mock . assert_awaited () Traceback (most recent call last): ... AssertionError : Expected mock to have been awaited. >>> asyncio . run ( main ( coroutine_mock )) >>> mock . assert_awaited ()
 Assert that the mock was awaited at least once. Note that this is separate
 from the object having been called, the await keyword must be used:
 await
@@ -933,25 +688,18 @@ await
 >>> mock = AsyncMock () >>> async def main ( coroutine_mock ): ... await coroutine_mock ... >>> coroutine_mock = mock () >>> mock . called True >>> mock . assert_awaited () Traceback (most recent call last): ... AssertionError : Expected mock to have been awaited. >>> asyncio . run ( main ( coroutine_mock )) >>> mock . assert_awaited ()
 [/CODE]
 
-assert_awaited_once ( )
-Assert that the mock was awaited exactly once. >>> mock = AsyncMock () >>> async def main (): ... await mock () ... >>> asyncio . run ( main ()) >>> mock . assert_awaited_once () >>> asyncio . run ( main ()) >>> mock . assert_awaited_once () Traceback (most recent call last): ... AssertionError : Expected mock to have been awaited once. Awaited 2 times.
 Assert that the mock was awaited exactly once.
 
 [CODE]
 >>> mock = AsyncMock () >>> async def main (): ... await mock () ... >>> asyncio . run ( main ()) >>> mock . assert_awaited_once () >>> asyncio . run ( main ()) >>> mock . assert_awaited_once () Traceback (most recent call last): ... AssertionError : Expected mock to have been awaited once. Awaited 2 times.
 [/CODE]
 
-assert_awaited_with ( * args , ** kwargs )
-Assert that the last await was with the specified arguments. >>> mock = AsyncMock () >>> async def main ( * args , ** kwargs ): ... await mock ( * args , ** kwargs ) ... >>> asyncio . run ( main ( 'foo' , bar = 'bar' )) >>> mock . assert_awaited_with ( 'foo' , bar = 'bar' ) >>> mock . assert_awaited_with ( 'other' ) Traceback (most recent call last): ... AssertionError : expected await not found. Expected: mock('other') Actual: mock('foo', bar='bar')
 Assert that the last await was with the specified arguments.
 
 [CODE]
 >>> mock = AsyncMock () >>> async def main ( * args , ** kwargs ): ... await mock ( * args , ** kwargs ) ... >>> asyncio . run ( main ( 'foo' , bar = 'bar' )) >>> mock . assert_awaited_with ( 'foo' , bar = 'bar' ) >>> mock . assert_awaited_with ( 'other' ) Traceback (most recent call last): ... AssertionError : expected await not found. Expected: mock('other') Actual: mock('foo', bar='bar')
 [/CODE]
 
-assert_awaited_once_with ( * args , ** kwargs )
-Assert that the mock was awaited exactly once and with the specified
-arguments. >>> mock = AsyncMock () >>> async def main ( * args , ** kwargs ): ... await mock ( * args , ** kwargs ) ... >>> asyncio . run ( main ( 'foo' , bar = 'bar' )) >>> mock . assert_awaited_once_with ( 'foo' , bar = 'bar' ) >>> asyncio . run ( main ( 'foo' , bar = 'bar' )) >>> mock . assert_awaited_once_with ( 'foo' , bar = 'bar' ) Traceback (most recent call last): ... AssertionError : Expected mock to have been awaited once. Awaited 2 times.
 Assert that the mock was awaited exactly once and with the specified
 arguments.
 
@@ -959,20 +707,12 @@ arguments.
 >>> mock = AsyncMock () >>> async def main ( * args , ** kwargs ): ... await mock ( * args , ** kwargs ) ... >>> asyncio . run ( main ( 'foo' , bar = 'bar' )) >>> mock . assert_awaited_once_with ( 'foo' , bar = 'bar' ) >>> asyncio . run ( main ( 'foo' , bar = 'bar' )) >>> mock . assert_awaited_once_with ( 'foo' , bar = 'bar' ) Traceback (most recent call last): ... AssertionError : Expected mock to have been awaited once. Awaited 2 times.
 [/CODE]
 
-assert_any_await ( * args , ** kwargs )
-Assert the mock has ever been awaited with the specified arguments. >>> mock = AsyncMock () >>> async def main ( * args , ** kwargs ): ... await mock ( * args , ** kwargs ) ... >>> asyncio . run ( main ( 'foo' , bar = 'bar' )) >>> asyncio . run ( main ( 'hello' )) >>> mock . assert_any_await ( 'foo' , bar = 'bar' ) >>> mock . assert_any_await ( 'other' ) Traceback (most recent call last): ... AssertionError : mock('other') await not found
 Assert the mock has ever been awaited with the specified arguments.
 
 [CODE]
 >>> mock = AsyncMock () >>> async def main ( * args , ** kwargs ): ... await mock ( * args , ** kwargs ) ... >>> asyncio . run ( main ( 'foo' , bar = 'bar' )) >>> asyncio . run ( main ( 'hello' )) >>> mock . assert_any_await ( 'foo' , bar = 'bar' ) >>> mock . assert_any_await ( 'other' ) Traceback (most recent call last): ... AssertionError : mock('other') await not found
 [/CODE]
 
-assert_has_awaits ( calls , any_order = False )
-Assert the mock has been awaited with the specified calls.
-The await_args_list list is checked for the awaits. If any_order is false then the awaits must be
-sequential. There can be extra calls before or after the
-specified awaits. If any_order is true then the awaits can be in any order, but
-they must all appear in await_args_list . >>> mock = AsyncMock () >>> async def main ( * args , ** kwargs ): ... await mock ( * args , ** kwargs ) ... >>> calls = [ call ( "foo" ), call ( "bar" )] >>> mock . assert_has_awaits ( calls ) Traceback (most recent call last): ... AssertionError : Awaits not found. Expected: [call('foo'), call('bar')] Actual: [] >>> asyncio . run ( main ( 'foo' )) >>> asyncio . run ( main ( 'bar' )) >>> mock . assert_has_awaits ( calls )
 Assert the mock has been awaited with the specified calls.
 The await_args_list list is checked for the awaits.
 await_args_list
@@ -987,45 +727,31 @@ await_args_list
 >>> mock = AsyncMock () >>> async def main ( * args , ** kwargs ): ... await mock ( * args , ** kwargs ) ... >>> calls = [ call ( "foo" ), call ( "bar" )] >>> mock . assert_has_awaits ( calls ) Traceback (most recent call last): ... AssertionError : Awaits not found. Expected: [call('foo'), call('bar')] Actual: [] >>> asyncio . run ( main ( 'foo' )) >>> asyncio . run ( main ( 'bar' )) >>> mock . assert_has_awaits ( calls )
 [/CODE]
 
-assert_not_awaited ( )
-Assert that the mock was never awaited. >>> mock = AsyncMock () >>> mock . assert_not_awaited ()
 Assert that the mock was never awaited.
 
 [CODE]
 >>> mock = AsyncMock () >>> mock . assert_not_awaited ()
 [/CODE]
 
-reset_mock ( * args , ** kwargs )
-See Mock.reset_mock() . Also sets await_count to 0, await_args to None, and clears the await_args_list .
 See Mock.reset_mock() . Also sets await_count to 0, await_args to None, and clears the await_args_list .
 Mock.reset_mock()
 await_count
 await_args
 await_args_list
-await_count
-An integer keeping track of how many times the mock object has been awaited. >>> mock = AsyncMock () >>> async def main (): ... await mock () ... >>> asyncio . run ( main ()) >>> mock . await_count 1 >>> asyncio . run ( main ()) >>> mock . await_count 2
 An integer keeping track of how many times the mock object has been awaited.
 
 [CODE]
 >>> mock = AsyncMock () >>> async def main (): ... await mock () ... >>> asyncio . run ( main ()) >>> mock . await_count 1 >>> asyncio . run ( main ()) >>> mock . await_count 2
 [/CODE]
 
-await_args
-This is either None (if the mock hasn’t been awaited), or the arguments that
-the mock was last awaited with. Functions the same as Mock.call_args . >>> mock = AsyncMock () >>> async def main ( * args ): ... await mock ( * args ) ... >>> mock . await_args >>> asyncio . run ( main ( 'foo' )) >>> mock . await_args call('foo') >>> asyncio . run ( main ( 'bar' )) >>> mock . await_args call('bar')
 This is either None (if the mock hasn’t been awaited), or the arguments that
 the mock was last awaited with. Functions the same as Mock.call_args .
-None
 Mock.call_args
 
 [CODE]
 >>> mock = AsyncMock () >>> async def main ( * args ): ... await mock ( * args ) ... >>> mock . await_args >>> asyncio . run ( main ( 'foo' )) >>> mock . await_args call('foo') >>> asyncio . run ( main ( 'bar' )) >>> mock . await_args call('bar')
 [/CODE]
 
-await_args_list
-This is a list of all the awaits made to the mock object in sequence (so the
-length of the list is the number of times it has been awaited). Before any
-awaits have been made it is an empty list. >>> mock = AsyncMock () >>> async def main ( * args ): ... await mock ( * args ) ... >>> mock . await_args_list [] >>> asyncio . run ( main ( 'foo' )) >>> mock . await_args_list [call('foo')] >>> asyncio . run ( main ( 'bar' )) >>> mock . await_args_list [call('foo'), call('bar')]
 This is a list of all the awaits made to the mock object in sequence (so the
 length of the list is the number of times it has been awaited). Before any
 awaits have been made it is an empty list.
@@ -1034,11 +760,6 @@ awaits have been made it is an empty list.
 >>> mock = AsyncMock () >>> async def main ( * args ): ... await mock ( * args ) ... >>> mock . await_args_list [] >>> asyncio . run ( main ( 'foo' )) >>> mock . await_args_list [call('foo')] >>> asyncio . run ( main ( 'bar' )) >>> mock . await_args_list [call('foo'), call('bar')]
 [/CODE]
 
-class unittest.mock. ThreadingMock ( spec = None , side_effect = None , return_value = DEFAULT , wraps = None , name = None , spec_set = None , unsafe = False , * , timeout = UNSET , ** kwargs )
-A version of MagicMock for multithreading tests. The ThreadingMock object provides extra methods to wait for a call to
-be invoked, rather than assert on it immediately. The default timeout is specified by the timeout argument, or if unset by the ThreadingMock.DEFAULT_TIMEOUT attribute, which defaults to blocking ( None ). You can configure the global default timeout by setting ThreadingMock.DEFAULT_TIMEOUT . wait_until_called ( * , timeout = UNSET ) Waits until the mock is called. If a timeout was passed at the creation of the mock or if a timeout
-argument is passed to this function, the function raises an AssertionError if the call is not performed in time. >>> mock = ThreadingMock () >>> thread = threading . Thread ( target = mock ) >>> thread . start () >>> mock . wait_until_called ( timeout = 1 ) >>> thread . join () wait_until_any_call_with ( * args , ** kwargs ) Waits until the mock is called with the specified arguments. If a timeout was passed at the creation of the mock
-the function raises an AssertionError if the call is not performed in time. >>> mock = ThreadingMock () >>> thread = threading . Thread ( target = mock , args = ( "arg1" , "arg2" ,), kwargs = { "arg" : "thing" }) >>> thread . start () >>> mock . wait_until_any_call_with ( "arg1" , "arg2" , arg = "thing" ) >>> thread . join () DEFAULT_TIMEOUT Global default timeout in seconds to create instances of ThreadingMock . Added in version 3.13.
 A version of MagicMock for multithreading tests. The ThreadingMock object provides extra methods to wait for a call to
 be invoked, rather than assert on it immediately.
 MagicMock
@@ -1046,12 +767,8 @@ ThreadingMock
 The default timeout is specified by the timeout argument, or if unset by the ThreadingMock.DEFAULT_TIMEOUT attribute, which defaults to blocking ( None ).
 timeout
 ThreadingMock.DEFAULT_TIMEOUT
-None
 You can configure the global default timeout by setting ThreadingMock.DEFAULT_TIMEOUT .
 ThreadingMock.DEFAULT_TIMEOUT
-wait_until_called ( * , timeout = UNSET )
-Waits until the mock is called. If a timeout was passed at the creation of the mock or if a timeout
-argument is passed to this function, the function raises an AssertionError if the call is not performed in time. >>> mock = ThreadingMock () >>> thread = threading . Thread ( target = mock ) >>> thread . start () >>> mock . wait_until_called ( timeout = 1 ) >>> thread . join ()
 Waits until the mock is called.
 If a timeout was passed at the creation of the mock or if a timeout
 argument is passed to this function, the function raises an AssertionError if the call is not performed in time.
@@ -1061,9 +778,6 @@ AssertionError
 >>> mock = ThreadingMock () >>> thread = threading . Thread ( target = mock ) >>> thread . start () >>> mock . wait_until_called ( timeout = 1 ) >>> thread . join ()
 [/CODE]
 
-wait_until_any_call_with ( * args , ** kwargs )
-Waits until the mock is called with the specified arguments. If a timeout was passed at the creation of the mock
-the function raises an AssertionError if the call is not performed in time. >>> mock = ThreadingMock () >>> thread = threading . Thread ( target = mock , args = ( "arg1" , "arg2" ,), kwargs = { "arg" : "thing" }) >>> thread . start () >>> mock . wait_until_any_call_with ( "arg1" , "arg2" , arg = "thing" ) >>> thread . join ()
 Waits until the mock is called with the specified arguments.
 If a timeout was passed at the creation of the mock
 the function raises an AssertionError if the call is not performed in time.
@@ -1073,8 +787,6 @@ AssertionError
 >>> mock = ThreadingMock () >>> thread = threading . Thread ( target = mock , args = ( "arg1" , "arg2" ,), kwargs = { "arg" : "thing" }) >>> thread . start () >>> mock . wait_until_any_call_with ( "arg1" , "arg2" , arg = "thing" ) >>> thread . join ()
 [/CODE]
 
-DEFAULT_TIMEOUT
-Global default timeout in seconds to create instances of ThreadingMock .
 Global default timeout in seconds to create instances of ThreadingMock .
 ThreadingMock
 Added in version 3.13.
@@ -1126,7 +838,6 @@ DEFAULT
 To remove a side_effect , and return to the default behaviour, set the side_effect to None :
 side_effect
 side_effect
-None
 
 [CODE]
 >>> m = MagicMock ( return_value = 6 ) >>> def side_effect ( * args , ** kwargs ): ... return 3 ... >>> m . side_effect = side_effect >>> m () 3 >>> m . side_effect = None >>> m () 6
@@ -1158,7 +869,6 @@ an object as a spec for a mock, but that isn’t always convenient.
 False
 hasattr()
 AttributeError
-spec
 You “block” attributes by deleting them. Once deleted, accessing an attribute
 will raise an AttributeError .
 AttributeError
@@ -1172,7 +882,6 @@ AttributeError
 Since “name” is an argument to the Mock constructor, if you want your
 mock object to have a “name” attribute you can’t just pass it in at creation
 time. There are two alternatives. One option is to use configure_mock() :
-Mock
 configure_mock()
 
 [CODE]
@@ -1234,44 +943,7 @@ statements or as class decorators.
 
 ### patch
 
-Note
 The key is to do the patching in the right namespace. See the section where to patch .
-unittest.mock. patch ( target , new = DEFAULT , spec = None , create = False , spec_set = None , autospec = None , new_callable = None , ** kwargs )
-patch() acts as a function decorator, class decorator or a context
-manager. Inside the body of the function or with statement, the target is patched with a new object. When the function/with statement exits
-the patch is undone. If new is omitted, then the target is replaced with an AsyncMock if the patched object is an async function or
-a MagicMock otherwise.
-If patch() is used as a decorator and new is
-omitted, the created mock is passed in as an extra argument to the
-decorated function. If patch() is used as a context manager the created
-mock is returned by the context manager. target should be a string in the form 'package.module.ClassName' . The target is imported and the specified object replaced with the new object, so the target must be importable from the environment you are
-calling patch() from. The target is imported when the decorated function
-is executed, not at decoration time. The spec and spec_set keyword arguments are passed to the MagicMock if patch is creating one for you. In addition you can pass spec=True or spec_set=True , which causes
-patch to pass in the object being mocked as the spec/spec_set object. new_callable allows you to specify a different class, or callable object,
-that will be called to create the new object. By default AsyncMock is used for async functions and MagicMock for the rest. A more powerful form of spec is autospec . If you set autospec=True then the mock will be created with a spec from the object being replaced.
-All attributes of the mock will also have the spec of the corresponding
-attribute of the object being replaced. Methods and functions being mocked
-will have their arguments checked and will raise a TypeError if they are
-called with the wrong signature. For mocks
-replacing a class, their return value (the ‘instance’) will have the same
-spec as the class. See the create_autospec() function and Autospeccing . Instead of autospec=True you can pass autospec=some_object to use an
-arbitrary object as the spec instead of the one being replaced. By default patch() will fail to replace attributes that don’t exist.
-If you pass in create=True , and the attribute doesn’t exist, patch will
-create the attribute for you when the patched function is called, and delete
-it again after the patched function has exited. This is useful for writing
-tests against attributes that your production code creates at runtime. It is
-off by default because it can be dangerous. With it switched on you can
-write passing tests against APIs that don’t actually exist! Note Changed in version 3.5: If you are patching builtins in a module then you don’t
-need to pass create=True , it will be added by default. Patch can be used as a TestCase class decorator. It works by
-decorating each test method in the class. This reduces the boilerplate
-code when your test methods share a common patchings set. patch() finds
-tests by looking for method names that start with patch.TEST_PREFIX .
-By default this is 'test' , which matches the way unittest finds tests.
-You can specify an alternative prefix by setting patch.TEST_PREFIX . Patch can be used as a context manager, with the with statement. Here the
-patching applies to the indented block after the with statement. If you
-use “as” then the patched object will be bound to the name after the
-“as”; very useful if patch() is creating a mock object for you. patch() takes arbitrary keyword arguments. These will be passed to AsyncMock if the patched object is asynchronous, to MagicMock otherwise or to new_callable if specified. patch.dict(...) , patch.multiple(...) and patch.object(...) are
-available for alternate use-cases.
 patch() acts as a function decorator, class decorator or a context
 manager. Inside the body of the function or with statement, the target is patched with a new object. When the function/with statement exits
 the patch is undone.
@@ -1324,7 +996,6 @@ off by default because it can be dangerous. With it switched on you can
 write passing tests against APIs that don’t actually exist!
 patch()
 create=True
-Note
 Changed in version 3.5: If you are patching builtins in a module then you don’t
 need to pass create=True , it will be added by default.
 create=True
@@ -1447,11 +1118,6 @@ AsyncMock
 
 ### patch.object
 
-patch. object ( target , attribute , new = DEFAULT , spec = None , create = False , spec_set = None , autospec = None , new_callable = None , ** kwargs )
-patch the named member ( attribute ) on an object ( target ) with a mock
-object. patch.object() can be used as a decorator, class decorator or a context
-manager. Arguments new , spec , create , spec_set , autospec and new_callable have the same meaning as for patch() . Like patch() , patch.object() takes arbitrary keyword arguments for configuring the mock
-object it creates. When used as a class decorator patch.object() honours patch.TEST_PREFIX for choosing which methods to wrap.
 patch the named member ( attribute ) on an object ( target ) with a mock
 object.
 patch.object() can be used as a decorator, class decorator or a context
@@ -1483,16 +1149,6 @@ patch()
 
 ### patch.dict
 
-patch. dict ( in_dict , values = () , clear = False , ** kwargs )
-Patch a dictionary, or dictionary like object, and restore the dictionary
-to its original state after the test, where the restored dictionary is a
-copy of the dictionary as it was before the test. in_dict can be a dictionary or a mapping like container. If it is a
-mapping then it must at least support getting, setting and deleting items
-plus iterating over keys. in_dict can also be a string specifying the name of the dictionary, which
-will then be fetched by importing it. values can be a dictionary of values to set in the dictionary. values can also be an iterable of (key, value) pairs. If clear is true then the dictionary will be cleared before the new
-values are set. patch.dict() can also be called with arbitrary keyword arguments to set
-values in the dictionary. Changed in version 3.8: patch.dict() now returns the patched dictionary when used as a context
-manager.
 Patch a dictionary, or dictionary like object, and restore the dictionary
 to its original state after the test, where the restored dictionary is a
 copy of the dictionary as it was before the test.
@@ -1569,15 +1225,6 @@ __contains__()
 
 ### patch.multiple
 
-patch. multiple ( target , spec = None , create = False , spec_set = None , autospec = None , new_callable = None , ** kwargs )
-Perform multiple patches in a single call. It takes the object to be
-patched (either as an object or a string to fetch the object by importing)
-and keyword arguments for the patches: with patch . multiple ( settings , FIRST_PATCH = 'one' , SECOND_PATCH = 'two' ): ... Use DEFAULT as the value if you want patch.multiple() to create
-mocks for you. In this case the created mocks are passed into a decorated
-function by keyword, and a dictionary is returned when patch.multiple() is
-used as a context manager. patch.multiple() can be used as a decorator, class decorator or a context
-manager. The arguments spec , spec_set , create , autospec and new_callable have the same meaning as for patch() . These arguments will
-be applied to all patches done by patch.multiple() . When used as a class decorator patch.multiple() honours patch.TEST_PREFIX for choosing which methods to wrap.
 Perform multiple patches in a single call. It takes the object to be
 patched (either as an object or a string to fetch the object by importing)
 and keyword arguments for the patches:
@@ -1668,7 +1315,6 @@ Caution
 If you use this technique you must ensure that the patching is “undone” by
 calling stop . This can be fiddlier than you might think, because if an
 exception is raised in the setUp then tearDown is not called. unittest.TestCase.addCleanup() makes this easier:
-stop
 setUp
 tearDown
 unittest.TestCase.addCleanup()
@@ -1681,8 +1327,6 @@ As an added bonus you no longer need to keep a reference to the patcher object.
 patcher
 It is also possible to stop all patches which have been started by using patch.stopall() .
 patch.stopall()
-patch. stopall ( )
-Stop all active patches. Only stops patches started with start .
 Stop all active patches. Only stops patches started with start .
 start
 
@@ -1788,7 +1432,6 @@ that proxy attribute access, like the django settings object .
 
 Mock supports mocking the Python protocol methods, also known as “magic methods” . This allows mock objects to replace
 containers or other objects that implement Python protocols.
-Mock
 Because magic methods are looked up differently from normal methods [ 2 ] , this
 support has been specially implemented. This means that only specific magic
 methods are supported. The supported list includes almost all of them. If
@@ -1796,7 +1439,6 @@ there are any missing that you need please let us know.
 You mock magic methods by setting the method you are interested in to a function
 or a mock instance. If you are using a function then it must take self as
 the first argument [ 3 ] .
-self
 
 [CODE]
 >>> def __str__ ( self ): ... return 'fooble' ... >>> mock = Mock () >>> mock . __str__ = __str__ >>> str ( mock ) 'fooble'
@@ -1811,7 +1453,6 @@ self
 [/CODE]
 
 One use case for this is for mocking objects used as context managers in a with statement:
-with
 
 [CODE]
 >>> mock = Mock () >>> mock . __enter__ = Mock ( return_value = 'foo' ) >>> mock . __exit__ = Mock ( return_value = False ) >>> with mock as m : ... assert m == 'foo' ... >>> mock . __enter__ . assert_called_with () >>> mock . __exit__ . assert_called_with ( None , None , None )
@@ -1821,7 +1462,6 @@ Calls to magic methods do not appear in method_calls , but they
 are recorded in mock_calls .
 method_calls
 mock_calls
-Note
 If you use the spec keyword argument to create a mock then attempting to
 set a magic method that isn’t in the spec will raise an AttributeError .
 AttributeError
@@ -1942,21 +1582,13 @@ There are two MagicMock variants: MagicMock and NonCallableMagicMock .
 MagicMock
 MagicMock
 NonCallableMagicMock
-class unittest.mock. MagicMock ( * args , ** kw )
-MagicMock is a subclass of Mock with default implementations
-of most of the magic methods . You can use MagicMock without having to configure the magic methods yourself. The constructor parameters have the same meaning as for Mock . If you use the spec or spec_set arguments then only magic methods
-that exist in the spec will be created.
 MagicMock is a subclass of Mock with default implementations
 of most of the magic methods . You can use MagicMock without having to configure the magic methods yourself.
 MagicMock
-Mock
 MagicMock
 The constructor parameters have the same meaning as for Mock .
-Mock
 If you use the spec or spec_set arguments then only magic methods
 that exist in the spec will be created.
-class unittest.mock. NonCallableMagicMock ( * args , ** kw )
-A non-callable version of MagicMock . The constructor parameters have the same meaning as for MagicMock , with the exception of return_value and side_effect which have no meaning on a non-callable mock.
 A non-callable version of MagicMock .
 MagicMock
 The constructor parameters have the same meaning as for MagicMock , with the exception of return_value and side_effect which have no meaning on a non-callable mock.
@@ -2019,11 +1651,9 @@ __complex__
 __float__ : 1.0
 __float__ : 1.0
 __float__
-1.0
 __bool__ : True
 __bool__ : True
 __bool__
-True
 __index__ : 1
 __index__ : 1
 __index__
@@ -2107,17 +1737,11 @@ instance. Different versions of Python are inconsistent about applying this
 rule. The supported protocol methods should work with all supported versions
 of Python.
 The function is basically hooked up to the class, but each Mock instance is kept isolated from the others.
-Mock
 
 ## Helpers
 
 ### sentinel
 
-unittest.mock. sentinel
-The sentinel object provides a convenient way of providing unique
-objects for your tests. Attributes are created on demand when you access them by name. Accessing
-the same attribute will always return the same object. The objects
-returned have a sensible repr so that test failure messages are readable. Changed in version 3.7: The sentinel attributes now preserve their identity when they are copied or pickled .
 The sentinel object provides a convenient way of providing unique
 objects for your tests.
 sentinel
@@ -2143,18 +1767,10 @@ sentinel.some_object
 
 ### DEFAULT
 
-unittest.mock. DEFAULT
-The DEFAULT object is a pre-created sentinel (actually sentinel.DEFAULT ). It can be used by side_effect functions to indicate that the normal return value should be used.
 The DEFAULT object is a pre-created sentinel (actually sentinel.DEFAULT ). It can be used by side_effect functions to indicate that the normal return value should be used.
 DEFAULT
 sentinel.DEFAULT
 side_effect
-
-### call
-
-unittest.mock. call ( * args , ** kwargs )
-call() is a helper object for making simpler assertions, for comparing with call_args , call_args_list , mock_calls and method_calls . call() can also be
-used with assert_has_calls() . >>> m = MagicMock ( return_value = None ) >>> m ( 1 , 2 , a = 'foo' , b = 'bar' ) >>> m () >>> m . call_args_list == [ call ( 1 , 2 , a = 'foo' , b = 'bar' ), call ()] True
 call() is a helper object for making simpler assertions, for comparing with call_args , call_args_list , mock_calls and method_calls . call() can also be
 used with assert_has_calls() .
 call()
@@ -2169,9 +1785,6 @@ assert_has_calls()
 >>> m = MagicMock ( return_value = None ) >>> m ( 1 , 2 , a = 'foo' , b = 'bar' ) >>> m () >>> m . call_args_list == [ call ( 1 , 2 , a = 'foo' , b = 'bar' ), call ()] True
 [/CODE]
 
-call. call_list ( )
-For a call object that represents multiple calls, call_list() returns a list of all the intermediate calls as well as the
-final call.
 For a call object that represents multiple calls, call_list() returns a list of all the intermediate calls as well as the
 final call.
 call_list()
@@ -2193,18 +1806,14 @@ A call object is either a tuple of (positional args, keyword args) or
 (name, positional args, keyword args) depending on how it was constructed. When
 you construct them yourself this isn’t particularly interesting, but the call objects that are in the Mock.call_args , Mock.call_args_list and Mock.mock_calls attributes can be introspected to get at the individual
 arguments they contain.
-call
-call
 Mock.call_args
 Mock.call_args_list
 Mock.mock_calls
 The call objects in Mock.call_args and Mock.call_args_list are two-tuples of (positional args, keyword args) whereas the call objects
 in Mock.mock_calls , along with ones you construct yourself, are
 three-tuples of (name, positional args, keyword args).
-call
 Mock.call_args
 Mock.call_args_list
-call
 Mock.mock_calls
 You can use their “tupleness” to pull out the individual arguments for more
 complex introspection and assertions. The positional arguments are a tuple
@@ -2221,16 +1830,6 @@ arguments are a dictionary:
 
 ### create_autospec
 
-unittest.mock. create_autospec ( spec , spec_set = False , instance = False , ** kwargs )
-Create a mock object using another object as a spec. Attributes on the
-mock will use the corresponding attribute on the spec object as their
-spec. Functions or methods being mocked will have their arguments checked to
-ensure that they are called with the correct signature. If spec_set is True then attempting to set attributes that don’t exist
-on the spec object will raise an AttributeError . If a class is used as a spec then the return value of the mock (the
-instance of the class) will have the same spec. You can use a class as the
-spec for an instance object by passing instance=True . The returned mock
-will only be callable if instances of the mock are callable. create_autospec() also takes arbitrary keyword arguments that are passed to
-the constructor of the created mock.
 Create a mock object using another object as a spec. Attributes on the
 mock will use the corresponding attribute on the spec object as their
 spec.
@@ -2238,7 +1837,6 @@ Functions or methods being mocked will have their arguments checked to
 ensure that they are called with the correct signature.
 If spec_set is True then attempting to set attributes that don’t exist
 on the spec object will raise an AttributeError .
-True
 AttributeError
 If a class is used as a spec then the return value of the mock (the
 instance of the class) will have the same spec. You can use a class as the
@@ -2255,10 +1853,6 @@ Changed in version 3.8: create_autospec() now returns an AsyncMock if the target
 an async function.
 create_autospec()
 AsyncMock
-
-### ANY
-
-unittest.mock. ANY
 Sometimes you may need to make assertions about some of the arguments in a
 call to mock, but either not care about some of the arguments or want to pull
 them individually out of call_args and make more complex
@@ -2274,7 +1868,6 @@ assert_called_once_with()
 [/CODE]
 
 ANY can also be used in comparisons with call lists like mock_calls :
-ANY
 mock_calls
 
 [CODE]
@@ -2283,7 +1876,6 @@ mock_calls
 
 ANY is not limited to comparisons with call objects and so
 can also be used in test assertions:
-ANY
 
 [CODE]
 class TestStringMethods ( unittest . TestCase ): def test_split ( self ): s = 'hello world' self . assertEqual ( s . split (), [ 'hello' , ANY ])
@@ -2291,7 +1883,6 @@ class TestStringMethods ( unittest . TestCase ): def test_split ( self ): s = 'h
 
 ### FILTER_DIR
 
-unittest.mock. FILTER_DIR
 FILTER_DIR is a module level variable that controls the way mock objects
 respond to dir() . The default is True ,
 which uses the filtering described below, to only show useful members. If you
@@ -2299,7 +1890,6 @@ dislike this filtering, or need to switch it off for diagnostic purposes, then
 set mock.FILTER_DIR = False .
 FILTER_DIR
 dir()
-True
 mock.FILTER_DIR = False
 With filtering on, dir(some_mock) shows only useful attributes and will
 include any dynamically created attributes that wouldn’t normally be shown.
@@ -2316,9 +1906,7 @@ Many of the not-very-useful (private to Mock rather than the thing being
 mocked) underscore and double underscore prefixed attributes have been
 filtered from the result of calling dir() on a Mock . If you dislike this
 behaviour you can switch it off by setting the module level switch FILTER_DIR :
-Mock
 dir()
-Mock
 FILTER_DIR
 
 [CODE]
@@ -2332,19 +1920,6 @@ FILTER_DIR
 
 ### mock_open
 
-unittest.mock. mock_open ( mock = None , read_data = None )
-A helper function to create a mock to replace the use of open() . It works
-for open() called directly or used as a context manager. The mock argument is the mock object to configure. If None (the
-default) then a MagicMock will be created for you, with the API limited
-to methods or attributes available on standard file handles. read_data is a string for the read() , readline() , and readlines() methods
-of the file handle to return.  Calls to those methods will take data from read_data until it is depleted.  The mock of these methods is pretty
-simplistic: every time the mock is called, the read_data is rewound to
-the start.  If you need more control over the data that you are feeding to
-the tested code you will need to customize this mock for yourself.  When that
-is insufficient, one of the in-memory filesystem packages on PyPI can offer a realistic filesystem for testing. Changed in version 3.4: Added readline() and readlines() support.
-The mock of read() changed to consume read_data rather
-than returning it on each call. Changed in version 3.5: read_data is now reset on each call to the mock . Changed in version 3.8: Added __iter__() to implementation so that iteration
-(such as in for loops) correctly consumes read_data .
 A helper function to create a mock to replace the use of open() . It works
 for open() called directly or used as a context manager.
 open()
@@ -2352,7 +1927,6 @@ open()
 The mock argument is the mock object to configure. If None (the
 default) then a MagicMock will be created for you, with the API limited
 to methods or attributes available on standard file handles.
-None
 MagicMock
 read_data is a string for the read() , readline() , and readlines() methods
 of the file handle to return.  Calls to those methods will take data from read_data until it is depleted.  The mock of these methods is pretty
@@ -2407,7 +1981,6 @@ api of mocks to the api of an original object (the spec), but it is recursive
 the attributes of the spec. In addition mocked functions / methods have the
 same call signature as the original so they raise a TypeError if they are
 called incorrectly.
-spec
 TypeError
 Before I explain how auto-speccing works, here’s why it is needed.
 Mock is a very powerful and flexible object, but it suffers from a flaw which
@@ -2415,7 +1988,6 @@ is general to mocking. If you refactor some of your code, rename members and so 
 tests for code that is still using the old api but uses mocks instead of the real
 objects will still pass. This means your tests can all pass even though your code is
 broken.
-Mock
 Changed in version 3.5: Before 3.5, tests with a typo in the word assert would silently pass when they should
 raise an error. You can still achieve this behavior by passing unsafe=True to Mock.
 unsafe=True
@@ -2427,7 +1999,6 @@ unittest.mock already provides a feature to help with this, called speccing. If 
 use a class or instance as the spec for a mock then you can only access
 attributes on the mock that exist on the real class:
 unittest.mock
-spec
 
 [CODE]
 >>> from urllib import request >>> mock = Mock ( spec = request . Request ) >>> mock . assret_called_with # Intentional typo! Traceback (most recent call last): ... AttributeError : Mock object has no attribute 'assret_called_with'
@@ -2550,10 +2121,6 @@ value of None for members that will later be an object of a different type. None
 spec, and probably indicates a member that will normally of some other type,
 autospec doesn’t use a spec for members that are set to None . These will
 just be ordinary mocks (well - MagicMocks):
-None
-None
-None
-None
 
 [CODE]
 >>> class Something : ... member = None ... >>> mock = create_autospec ( Something ) >>> mock . member . foo . bar . baz () <MagicMock name='mock.member.foo.bar.baz()' id='...'>
@@ -2579,11 +2146,6 @@ dir()
 
 ### Sealing mocks
 
-unittest.mock. seal ( mock )
-Seal will disable the automatic creation of mocks when accessing an attribute of
-the mock being sealed or any of its attributes that are already mocks recursively. If a mock instance with a name or a spec is assigned to an attribute
-it won’t be considered in the sealing chain. This allows one to prevent seal from
-fixing part of the mock object. >>> mock = Mock () >>> mock . submock . attribute1 = 2 >>> mock . not_submock = mock . Mock ( name = "sample_name" ) >>> seal ( mock ) >>> mock . new_attribute # This will raise AttributeError. >>> mock . submock . attribute2 # This will raise AttributeError. >>> mock . not_submock . attribute2 # This won't raise. Added in version 3.7.
 Seal will disable the automatic creation of mocks when accessing an attribute of
 the mock being sealed or any of its attributes that are already mocks recursively.
 If a mock instance with a name or a spec is assigned to an attribute
@@ -2623,9 +2185,7 @@ return_value
 
 As None is the default value of side_effect , if you reassign
 its value back to None , the order of precedence will be checked between return_value and the wrapped object, ignoring side_effect .
-None
 side_effect
-None
 return_value
 side_effect
 
@@ -2644,7 +2204,6 @@ DEFAULT
 [/CODE]
 
 When Mock wraps an object, the default value of return_value will be DEFAULT .
-Mock
 return_value
 DEFAULT
 
@@ -2673,7 +2232,6 @@ if any, required by the wrapped object must be passed.
 But if you assign None to it, this will not be ignored as it is an
 explicit assignment. So, the order of precedence will not move to the wrapped
 object.
-None
 
 [CODE]
 >>> order_mock . get_value . return_value = None >>> order_mock . get_value () is None True

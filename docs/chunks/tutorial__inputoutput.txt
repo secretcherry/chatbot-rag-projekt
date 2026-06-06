@@ -109,18 +109,14 @@ three places after the decimal:
 
 Passing an integer after the ':' will cause that field to be a minimum
 number of characters wide.  This is useful for making columns line up.
-':'
 
 [CODE]
 >>> table = { 'Sjoerd' : 4127 , 'Jack' : 4098 , 'Dcab' : 7678 } >>> for name , phone in table . items (): ... print ( f ' { name : 10 } ==> { phone : 10d } ' ) ... Sjoerd     ==>       4127 Jack       ==>       4098 Dcab       ==>       7678
 [/CODE]
 
 Other modifiers can be used to convert the value before it is formatted. '!a' applies ascii() , '!s' applies str() , and '!r' applies repr() :
-'!a'
 ascii()
-'!s'
 str()
-'!r'
 repr()
 
 [CODE]
@@ -175,7 +171,6 @@ If you have a really long format string that you don’t want to split up, it
 would be nice if you could reference the variables to be formatted by name
 instead of by position.  This can be done by simply passing the dict and using
 square brackets '[]' to access the keys.
-'[]'
 
 [CODE]
 >>> table = { 'Sjoerd' : 4127 , 'Jack' : 4098 , 'Dcab' : 8637678 } >>> print ( 'Jack: {0[Jack]:d} ; Sjoerd: {0[Sjoerd]:d} ; ' ... 'Dcab: {0[Dcab]:d} ' . format ( table )) Jack: 4098; Sjoerd: 4127; Dcab: 8637678
@@ -268,11 +263,6 @@ will be used. mode can be 'r' when the file will only be read, 'w' for only writ
 automatically added to the end. 'r+' opens the file for both reading and
 writing. The mode argument is optional; 'r' will be assumed if it’s
 omitted.
-'r'
-'w'
-'a'
-'r+'
-'r'
 Normally, files are opened in text mode , that means, you read and write
 strings from and to the file, which are encoded in a specific encoding .
 If encoding is not specified, the default is platform dependent
@@ -284,7 +274,6 @@ Binary mode data is read and written as bytes objects.
 You can not specify encoding when opening file in binary mode.
 open()
 encoding="utf-8"
-'b'
 bytes
 In text mode, the default when reading is to convert platform-specific line
 endings ( \n on Unix, \r\n on Windows) to just \n .  When writing in
@@ -292,17 +281,11 @@ text mode, the default is to convert occurrences of \n back to
 platform-specific line endings.  This behind-the-scenes modification
 to file data is fine for text files, but will corrupt binary data like that in JPEG or EXE files.  Be very careful to use binary mode when
 reading and writing such files.
-\r\n
-JPEG
-EXE
 It is good practice to use the with keyword when dealing
 with file objects.  The advantage is that the file is properly closed
 after its suite finishes, even if an exception is raised at some
 point.  Using with is also much shorter than writing
 equivalent try - finally blocks:
-with
-with
-try
 finally
 
 [CODE]
@@ -311,20 +294,17 @@ finally
 
 If you’re not using the with keyword, then you should call f.close() to close the file and immediately free up any system
 resources used by it.
-with
 f.close()
 Warning
 Calling f.write() without using the with keyword or calling f.close() might result in the arguments
 of f.write() not being completely written to the disk, even if the
 program exits successfully.
 f.write()
-with
 f.close()
 f.write()
 After a file object is closed, either by a with statement
 or by calling f.close() , attempts to use the file object will
 automatically fail.
-with
 f.close()
 
 [CODE]
@@ -355,7 +335,6 @@ has been reached, while a blank line is represented by '\n' , a string
 containing only a single newline.
 f.readline()
 f.readline()
-'\n'
 
 [CODE]
 >>> f . readline () 'This is the first line of the file.\n' >>> f . readline () 'Second line of the file\n' >>> f . readline () ''
@@ -416,7 +395,6 @@ truncate()
 
 ### 7.2.2. Saving structured data with json
 
-json
 Strings can easily be written to and read from a file.  Numbers take a bit more
 effort, since the read() method only returns strings, which will have to
 be passed to a function like int() , which takes a string like '123' and returns its numeric value 123.  When you want to save more complex data
@@ -433,8 +411,6 @@ called serializing .  Reconstructing the data from the string representation
 is called deserializing .  Between serializing and deserializing, the
 string representing the object may have been stored in a file or data, or
 sent over a network connection to some distant machine.
-json
-Note
 The JSON format is commonly used by modern applications to allow for data
 exchange.  Many programmers are already familiar with it, which makes
 it a good choice for interoperability.
@@ -460,14 +436,12 @@ To decode the object again, if f is a binary file or text file object which has 
 x = json . load ( f )
 [/CODE]
 
-Note
 JSON files must be encoded in UTF-8. Use encoding="utf-8" when opening
 JSON file as a text file for both of reading and writing.
 encoding="utf-8"
 This simple serialization technique can handle lists and dictionaries, but
 serializing arbitrary class instances in JSON requires a bit of extra effort.
 The reference for the json module contains an explanation of this.
-json
 See also
 pickle - the pickle module
 pickle

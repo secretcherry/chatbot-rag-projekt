@@ -30,8 +30,6 @@ example demonstrates the common practice of defining such functions in a module
 so that child processes can successfully import that module.  This basic example
 of data parallelism using Pool ,
 multiprocessing
-Pool
-Pool
 
 [CODE]
 from multiprocessing import Pool def f ( x ): return x * x if __name__ == '__main__' : with Pool ( 5 ) as p : print ( p . map ( f , [ 1 , 2 , 3 ]))
@@ -49,7 +47,6 @@ multiprocessing
 threading
 terminate
 interrupt
-kill
 See also
 concurrent.futures.ProcessPoolExecutor offers a higher level interface
 to push tasks to a background process without blocking execution of the
@@ -57,7 +54,6 @@ calling process. Compared to using the Pool interface directly, the concurrent.f
 the submission of work to the underlying process pool to be separated from
 waiting for the results.
 concurrent.futures.ProcessPoolExecutor
-Pool
 concurrent.futures
 
 ### The Process class
@@ -96,13 +92,6 @@ __main__
 Depending on the platform, multiprocessing supports three ways
 to start a process.  These start methods are
 multiprocessing
-spawn
-The parent process starts a fresh Python interpreter process.  The
-child process will only inherit those resources necessary to run
-the process object’s run() method.  In particular,
-unnecessary file descriptors and handles from the parent process
-will not be inherited.  Starting a process using this method is
-rather slow compared to using fork or forkserver . Available on POSIX and Windows platforms.  The default on Windows and macOS.
 The parent process starts a fresh Python interpreter process.  The
 child process will only inherit those resources necessary to run
 the process object’s run() method.  In particular,
@@ -111,15 +100,6 @@ will not be inherited.  Starting a process using this method is
 rather slow compared to using fork or forkserver .
 run()
 Available on POSIX and Windows platforms.  The default on Windows and macOS.
-fork
-The parent process uses os.fork() to fork the Python
-interpreter.  The child process, when it begins, is effectively
-identical to the parent process.  All resources of the parent are
-inherited by the child process.  Note that safely forking a
-multithreaded process is problematic. Available on POSIX systems. Changed in version 3.14: This is no longer the default start method on any platform.
-Code that requires fork must explicitly specify that via get_context() or set_start_method() . Changed in version 3.12: If Python is able to detect that your process has multiple threads, the os.fork() function that this start method calls internally will
-raise a DeprecationWarning . Use a different start method.
-See the os.fork() documentation for further explanation.
 The parent process uses os.fork() to fork the Python
 interpreter.  The child process, when it begins, is effectively
 identical to the parent process.  All resources of the parent are
@@ -137,15 +117,6 @@ See the os.fork() documentation for further explanation.
 os.fork()
 DeprecationWarning
 os.fork()
-forkserver
-When the program starts and selects the forkserver start method,
-a server process is spawned.  From then on, whenever a new process
-is needed, the parent process connects to the server and requests
-that it fork a new process.  The fork server process is single threaded
-unless system libraries or preloaded imports spawn threads as a
-side-effect so it is generally safe for it to use os.fork() .
-No unnecessary resources are inherited. Available on POSIX platforms which support passing file descriptors over
-Unix pipes such as Linux.  The default on those. Changed in version 3.14: This became the default start method on POSIX platforms.
 When the program starts and selects the forkserver start method,
 a server process is spawned.  From then on, whenever a new process
 is needed, the parent process connects to the server and requests
@@ -301,13 +272,7 @@ The 'd' and 'i' arguments used when creating num and arr are
 typecodes of the kind used by the array module: 'd' indicates a
 double precision float and 'i' indicates a signed integer.  These shared
 objects will be process and thread-safe.
-'d'
-'i'
-num
-arr
 array
-'d'
-'i'
 For more flexibility in using shared memory one can use the multiprocessing.sharedctypes module which supports the creation of
 arbitrary ctypes objects allocated from shared memory.
 multiprocessing.sharedctypes
@@ -318,11 +283,7 @@ proxies.
 Manager()
 A manager returned by Manager() will support types list , dict , set , Namespace , Lock , RLock , Semaphore , BoundedSemaphore , Condition , Event , Barrier , Queue , Value and Array .  For example,
 Manager()
-list
-dict
-set
 Namespace
-Lock
 RLock
 Semaphore
 BoundedSemaphore
@@ -353,7 +314,6 @@ They are, however, slower than using shared memory.
 The Pool class represents a pool of worker
 processes.  It has methods which allows tasks to be offloaded to the worker
 processes in a few different ways.
-Pool
 For example:
 
 [CODE]
@@ -362,7 +322,6 @@ from multiprocessing import Pool , TimeoutError import time import os def f ( x 
 
 Note that the methods of a pool should only ever be used by the
 process which created it.
-Note
 Functionality within this package requires that the __main__ module be
 importable by the children. This is covered in Programming guidelines however it is worth pointing out here. This means that some examples, such
 as the multiprocessing.pool.Pool examples will not work in the
@@ -398,73 +357,6 @@ or creating these objects.
 ### Process and exceptions
 
 Process
-class multiprocessing. Process ( group = None , target = None , name = None , args = () , kwargs = {} , * , daemon = None )
-Process objects represent activity that is run in a separate process. The Process class has equivalents of all the methods of threading.Thread . The constructor should always be called with keyword arguments. group should always be None ; it exists solely for compatibility with threading.Thread . target is the callable object to be invoked by
-the run() method.  It defaults to None , meaning nothing is
-called. name is the process name (see name for more details). args is the argument tuple for the target invocation. kwargs is a
-dictionary of keyword arguments for the target invocation.  If provided,
-the keyword-only daemon argument sets the process daemon flag
-to True or False .  If None (the default), this flag will be
-inherited from the creating process. By default, no arguments are passed to target . The args argument,
-which defaults to () , can be used to specify a list or tuple of the arguments
-to pass to target . If a subclass overrides the constructor, it must make sure it invokes the
-base class constructor ( super().__init__() ) before doing anything else
-to the process. Note In general, all arguments to Process must be picklable.  This is
-frequently observed when trying to create a Process or use a concurrent.futures.ProcessPoolExecutor from a REPL with a
-locally defined target function. Passing a callable object defined in the current REPL session causes the
-child process to die via an uncaught AttributeError exception when
-starting as target must have been defined within an importable module
-in order to be loaded during unpickling. Example of this uncatchable error from the child: >>> import multiprocessing as mp >>> def knigit (): ... print ( "Ni!" ) ... >>> process = mp . Process ( target = knigit ) >>> process . start () >>> Traceback ( most recent call last ): File ".../multiprocessing/spawn.py", line ..., in spawn_main File ".../multiprocessing/spawn.py", line ..., in _main AttributeError: module '__main__' has no attribute 'knigit' >>> process <SpawnProcess name='SpawnProcess-1' pid=379473 parent=378707 stopped exitcode=1> See The spawn and forkserver start methods .  While this restriction is
-not true if using the "fork" start method, as of Python 3.14 that
-is no longer the default on any platform.  See Contexts and start methods .
-See also gh-132898 . Changed in version 3.3: Added the daemon parameter. run ( ) Method representing the process’s activity. You may override this method in a subclass.  The standard run() method invokes the callable object passed to the object’s constructor as
-the target argument, if any, with sequential and keyword arguments taken
-from the args and kwargs arguments, respectively. Using a list or tuple as the args argument passed to Process achieves the same effect. Example: >>> from multiprocessing import Process >>> p = Process ( target = print , args = [ 1 ]) >>> p . run () 1 >>> p = Process ( target = print , args = ( 1 ,)) >>> p . run () 1 start ( ) Start the process’s activity. This must be called at most once per process object.  It arranges for the
-object’s run() method to be invoked in a separate process. join ( [ timeout ] ) If the optional argument timeout is None (the default), the method
-blocks until the process whose join() method is called terminates.
-If timeout is a positive number, it blocks at most timeout seconds.
-Note that the method returns None if its process terminates or if the
-method times out.  Check the process’s exitcode to determine if
-it terminated. A process can be joined many times. A process cannot join itself because this would cause a deadlock.  It is
-an error to attempt to join a process before it has been started. name The process’s name.  The name is a string used for identification purposes
-only.  It has no semantics.  Multiple processes may be given the same
-name. The initial name is set by the constructor.  If no explicit name is
-provided to the constructor, a name of the form
-‘Process-N 1 :N 2 :…:N k ’ is constructed, where
-each N k is the N-th child of its parent. is_alive ( ) Return whether the process is alive. Roughly, a process object is alive from the moment the start() method returns until the child process terminates. daemon The process’s daemon flag, a Boolean value.  This must be set before start() is called. The initial value is inherited from the creating process. When a process exits, it attempts to terminate all of its daemonic child
-processes. Note that a daemonic process is not allowed to create child processes.
-Otherwise a daemonic process would leave its children orphaned if it gets
-terminated when its parent process exits. Additionally, these are not Unix daemons or services, they are normal processes that will be
-terminated (and not joined) if non-daemonic processes have exited. In addition to the threading.Thread API, Process objects
-also support the following attributes and methods: pid Return the process ID.  Before the process is spawned, this will be None . exitcode The child’s exit code.  This will be None if the process has not yet
-terminated. If the child’s run() method returned normally, the exit code
-will be 0.  If it terminated via sys.exit() with an integer
-argument N , the exit code will be N . If the child terminated due to an exception not caught within run() , the exit code will be 1.  If it was terminated by
-signal N , the exit code will be the negative value -N . authkey The process’s authentication key (a byte string). When multiprocessing is initialized the main process is assigned a
-random string using os.urandom() . When a Process object is created, it will inherit the
-authentication key of its parent process, although this may be changed by
-setting authkey to another byte string. See Authentication keys . sentinel A numeric handle of a system object which will become “ready” when
-the process ends. You can use this value if you want to wait on several events at
-once using multiprocessing.connection.wait() .  Otherwise
-calling join() is simpler. On Windows, this is an OS handle usable with the WaitForSingleObject and WaitForMultipleObjects family of API calls.  On POSIX, this is
-a file descriptor usable with primitives from the select module. Added in version 3.3. interrupt ( ) Terminate the process. Works on POSIX using the SIGINT signal.
-Behavior on Windows is undefined. By default, this terminates the child process by raising KeyboardInterrupt .
-This behavior can be altered by setting the respective signal handler in the child
-process signal.signal() for SIGINT . Note: if the child process catches and discards KeyboardInterrupt , the
-process will not be terminated. Note: the default behavior will also set exitcode to 1 as if an
-uncaught exception was raised in the child process. To have a different exitcode you may simply catch KeyboardInterrupt and call exit(your_code) . Added in version 3.14. terminate ( ) Terminate the process.  On POSIX this is done using the SIGTERM signal;
-on Windows TerminateProcess() is used.  Note that exit handlers and
-finally clauses, etc., will not be executed. Note that descendant processes of the process will not be terminated –
-they will simply become orphaned. Warning If this method is used when the associated process is using a pipe or
-queue then the pipe or queue is liable to become corrupted and may
-become unusable by other process.  Similarly, if the process has
-acquired a lock or semaphore etc. then terminating it is liable to
-cause other processes to deadlock. kill ( ) Same as terminate() but using the SIGKILL signal on POSIX. Added in version 3.7. close ( ) Close the Process object, releasing all resources associated
-with it. ValueError is raised if the underlying process
-is still running.  Once close() returns successfully, most
-other methods and attributes of the Process object will
-raise ValueError . Added in version 3.7. Note that the start() , join() , is_alive() , terminate() and exitcode methods should only be called by
-the process that created the process object. Example usage of some of the methods of Process : >>> import multiprocessing , time , signal >>> mp_context = multiprocessing . get_context ( 'spawn' ) >>> p = mp_context . Process ( target = time . sleep , args = ( 1000 ,)) >>> print ( p , p . is_alive ()) <...Process ... initial> False >>> p . start () >>> print ( p , p . is_alive ()) <...Process ... started> True >>> p . terminate () >>> time . sleep ( 0.1 ) >>> print ( p , p . is_alive ()) <...Process ... stopped exitcode=-SIGTERM> False >>> p . exitcode == - signal . SIGTERM True
 Process objects represent activity that is run in a separate process. The Process class has equivalents of all the methods of threading.Thread .
 Process
 threading.Thread
@@ -475,15 +367,10 @@ dictionary of keyword arguments for the target invocation.  If provided,
 the keyword-only daemon argument sets the process daemon flag
 to True or False .  If None (the default), this flag will be
 inherited from the creating process.
-None
 threading.Thread
 run()
-None
-name
 daemon
-True
 False
-None
 By default, no arguments are passed to target . The args argument,
 which defaults to () , can be used to specify a list or tuple of the arguments
 to pass to target .
@@ -491,7 +378,6 @@ If a subclass overrides the constructor, it must make sure it invokes the
 base class constructor ( super().__init__() ) before doing anything else
 to the process.
 super().__init__()
-Note
 In general, all arguments to Process must be picklable.  This is
 frequently observed when trying to create a Process or use a concurrent.futures.ProcessPoolExecutor from a REPL with a
 locally defined target function.
@@ -514,12 +400,7 @@ not true if using the "fork" start method, as of Python 3.14 that
 is no longer the default on any platform.  See Contexts and start methods .
 See also gh-132898 .
 "fork"
-3.14
 Changed in version 3.3: Added the daemon parameter.
-run ( )
-Method representing the process’s activity. You may override this method in a subclass.  The standard run() method invokes the callable object passed to the object’s constructor as
-the target argument, if any, with sequential and keyword arguments taken
-from the args and kwargs arguments, respectively. Using a list or tuple as the args argument passed to Process achieves the same effect. Example: >>> from multiprocessing import Process >>> p = Process ( target = print , args = [ 1 ]) >>> p . run () 1 >>> p = Process ( target = print , args = ( 1 ,)) >>> p . run () 1
 Method representing the process’s activity.
 You may override this method in a subclass.  The standard run() method invokes the callable object passed to the object’s constructor as
 the target argument, if any, with sequential and keyword arguments taken
@@ -533,41 +414,21 @@ Example:
 >>> from multiprocessing import Process >>> p = Process ( target = print , args = [ 1 ]) >>> p . run () 1 >>> p = Process ( target = print , args = ( 1 ,)) >>> p . run () 1
 [/CODE]
 
-start ( )
-Start the process’s activity. This must be called at most once per process object.  It arranges for the
-object’s run() method to be invoked in a separate process.
 Start the process’s activity.
 This must be called at most once per process object.  It arranges for the
 object’s run() method to be invoked in a separate process.
 run()
-join ( [ timeout ] )
-If the optional argument timeout is None (the default), the method
-blocks until the process whose join() method is called terminates.
-If timeout is a positive number, it blocks at most timeout seconds.
-Note that the method returns None if its process terminates or if the
-method times out.  Check the process’s exitcode to determine if
-it terminated. A process can be joined many times. A process cannot join itself because this would cause a deadlock.  It is
-an error to attempt to join a process before it has been started.
 If the optional argument timeout is None (the default), the method
 blocks until the process whose join() method is called terminates.
 If timeout is a positive number, it blocks at most timeout seconds.
 Note that the method returns None if its process terminates or if the
 method times out.  Check the process’s exitcode to determine if
 it terminated.
-None
 join()
-None
 exitcode
 A process can be joined many times.
 A process cannot join itself because this would cause a deadlock.  It is
 an error to attempt to join a process before it has been started.
-name
-The process’s name.  The name is a string used for identification purposes
-only.  It has no semantics.  Multiple processes may be given the same
-name. The initial name is set by the constructor.  If no explicit name is
-provided to the constructor, a name of the form
-‘Process-N 1 :N 2 :…:N k ’ is constructed, where
-each N k is the N-th child of its parent.
 The process’s name.  The name is a string used for identification purposes
 only.  It has no semantics.  Multiple processes may be given the same
 name.
@@ -575,17 +436,9 @@ The initial name is set by the constructor.  If no explicit name is
 provided to the constructor, a name of the form
 ‘Process-N 1 :N 2 :…:N k ’ is constructed, where
 each N k is the N-th child of its parent.
-is_alive ( )
-Return whether the process is alive. Roughly, a process object is alive from the moment the start() method returns until the child process terminates.
 Return whether the process is alive.
 Roughly, a process object is alive from the moment the start() method returns until the child process terminates.
 start()
-daemon
-The process’s daemon flag, a Boolean value.  This must be set before start() is called. The initial value is inherited from the creating process. When a process exits, it attempts to terminate all of its daemonic child
-processes. Note that a daemonic process is not allowed to create child processes.
-Otherwise a daemonic process would leave its children orphaned if it gets
-terminated when its parent process exits. Additionally, these are not Unix daemons or services, they are normal processes that will be
-terminated (and not joined) if non-daemonic processes have exited.
 The process’s daemon flag, a Boolean value.  This must be set before start() is called.
 start()
 The initial value is inherited from the creating process.
@@ -599,19 +452,9 @@ In addition to the threading.Thread API, Process objects
 also support the following attributes and methods:
 threading.Thread
 Process
-pid
 Return the process ID.  Before the process is spawned, this will be None .
-Return the process ID.  Before the process is spawned, this will be None .
-None
-exitcode
-The child’s exit code.  This will be None if the process has not yet
-terminated. If the child’s run() method returned normally, the exit code
-will be 0.  If it terminated via sys.exit() with an integer
-argument N , the exit code will be N . If the child terminated due to an exception not caught within run() , the exit code will be 1.  If it was terminated by
-signal N , the exit code will be the negative value -N .
 The child’s exit code.  This will be None if the process has not yet
 terminated.
-None
 If the child’s run() method returned normally, the exit code
 will be 0.  If it terminated via sys.exit() with an integer
 argument N , the exit code will be N .
@@ -620,11 +463,6 @@ sys.exit()
 If the child terminated due to an exception not caught within run() , the exit code will be 1.  If it was terminated by
 signal N , the exit code will be the negative value -N .
 run()
-authkey
-The process’s authentication key (a byte string). When multiprocessing is initialized the main process is assigned a
-random string using os.urandom() . When a Process object is created, it will inherit the
-authentication key of its parent process, although this may be changed by
-setting authkey to another byte string. See Authentication keys .
 The process’s authentication key (a byte string).
 When multiprocessing is initialized the main process is assigned a
 random string using os.urandom() .
@@ -636,12 +474,6 @@ setting authkey to another byte string.
 Process
 authkey
 See Authentication keys .
-sentinel
-A numeric handle of a system object which will become “ready” when
-the process ends. You can use this value if you want to wait on several events at
-once using multiprocessing.connection.wait() .  Otherwise
-calling join() is simpler. On Windows, this is an OS handle usable with the WaitForSingleObject and WaitForMultipleObjects family of API calls.  On POSIX, this is
-a file descriptor usable with primitives from the select module. Added in version 3.3.
 A numeric handle of a system object which will become “ready” when
 the process ends.
 You can use this value if you want to wait on several events at
@@ -655,13 +487,6 @@ WaitForSingleObject
 WaitForMultipleObjects
 select
 Added in version 3.3.
-interrupt ( )
-Terminate the process. Works on POSIX using the SIGINT signal.
-Behavior on Windows is undefined. By default, this terminates the child process by raising KeyboardInterrupt .
-This behavior can be altered by setting the respective signal handler in the child
-process signal.signal() for SIGINT . Note: if the child process catches and discards KeyboardInterrupt , the
-process will not be terminated. Note: the default behavior will also set exitcode to 1 as if an
-uncaught exception was raised in the child process. To have a different exitcode you may simply catch KeyboardInterrupt and call exit(your_code) . Added in version 3.14.
 Terminate the process. Works on POSIX using the SIGINT signal.
 Behavior on Windows is undefined.
 SIGINT
@@ -681,15 +506,6 @@ exitcode
 KeyboardInterrupt
 exit(your_code)
 Added in version 3.14.
-terminate ( )
-Terminate the process.  On POSIX this is done using the SIGTERM signal;
-on Windows TerminateProcess() is used.  Note that exit handlers and
-finally clauses, etc., will not be executed. Note that descendant processes of the process will not be terminated –
-they will simply become orphaned. Warning If this method is used when the associated process is using a pipe or
-queue then the pipe or queue is liable to become corrupted and may
-become unusable by other process.  Similarly, if the process has
-acquired a lock or semaphore etc. then terminating it is liable to
-cause other processes to deadlock.
 Terminate the process.  On POSIX this is done using the SIGTERM signal;
 on Windows TerminateProcess() is used.  Note that exit handlers and
 finally clauses, etc., will not be executed.
@@ -703,18 +519,10 @@ queue then the pipe or queue is liable to become corrupted and may
 become unusable by other process.  Similarly, if the process has
 acquired a lock or semaphore etc. then terminating it is liable to
 cause other processes to deadlock.
-kill ( )
-Same as terminate() but using the SIGKILL signal on POSIX. Added in version 3.7.
 Same as terminate() but using the SIGKILL signal on POSIX.
 terminate()
 SIGKILL
 Added in version 3.7.
-close ( )
-Close the Process object, releasing all resources associated
-with it. ValueError is raised if the underlying process
-is still running.  Once close() returns successfully, most
-other methods and attributes of the Process object will
-raise ValueError . Added in version 3.7.
 Close the Process object, releasing all resources associated
 with it. ValueError is raised if the underlying process
 is still running.  Once close() returns successfully, most
@@ -740,14 +548,8 @@ Process
 >>> import multiprocessing , time , signal >>> mp_context = multiprocessing . get_context ( 'spawn' ) >>> p = mp_context . Process ( target = time . sleep , args = ( 1000 ,)) >>> print ( p , p . is_alive ()) <...Process ... initial> False >>> p . start () >>> print ( p , p . is_alive ()) <...Process ... started> True >>> p . terminate () >>> time . sleep ( 0.1 ) >>> print ( p , p . is_alive ()) <...Process ... stopped exitcode=-SIGTERM> False >>> p . exitcode == - signal . SIGTERM True
 [/CODE]
 
-exception multiprocessing. ProcessError
-The base class of all multiprocessing exceptions.
 The base class of all multiprocessing exceptions.
 multiprocessing
-exception multiprocessing. BufferTooShort
-Exception raised by Connection.recv_bytes_into() when the supplied
-buffer object is too small for the message read. If e is an instance of BufferTooShort then e.args[0] will give
-the message as a byte string.
 Exception raised by Connection.recv_bytes_into() when the supplied
 buffer object is too small for the message read.
 Connection.recv_bytes_into()
@@ -755,11 +557,7 @@ If e is an instance of BufferTooShort then e.args[0] will give
 the message as a byte string.
 BufferTooShort
 e.args[0]
-exception multiprocessing. AuthenticationError
 Raised when there is an authentication error.
-Raised when there is an authentication error.
-exception multiprocessing. TimeoutError
-Raised by methods with a timeout when the timeout expires.
 Raised by methods with a timeout when the timeout expires.
 
 ### Pipes and Queues
@@ -793,7 +591,6 @@ memory with the original object.
 multiprocessing
 pickle
 Note that one can also create a shared queue by using a manager object – see Managers .
-Note
 multiprocessing uses the usual queue.Empty and queue.Full exceptions to signal a timeout.  They are not available in
 the multiprocessing namespace so you need to import them from queue .
 multiprocessing
@@ -801,7 +598,6 @@ queue.Empty
 queue.Full
 multiprocessing
 queue
-Note
 When an object is put on a queue, the object is pickled and a
 background thread later flushes the pickled data to an underlying
 pipe.  This has some consequences which are a little surprising,
@@ -843,11 +639,6 @@ consumed.  Similarly, if the child process is non-daemonic then the parent
 process may hang on exit when it tries to join all its non-daemonic children.
 Note that a queue created using a manager does not have this issue.  See Programming guidelines .
 For an example of the usage of queues for interprocess communication see Examples .
-multiprocessing. Pipe ( duplex = True )
-Returns a pair (conn1, conn2) of Connection objects representing the
-ends of a pipe. If duplex is True (the default) then the pipe is bidirectional.  If duplex is False then the pipe is unidirectional: conn1 can only be
-used for receiving messages and conn2 can only be used for sending
-messages. The send() method serializes the object using pickle and the recv() re-creates the object.
 Returns a pair (conn1, conn2) of Connection objects representing the
 ends of a pipe.
 (conn1, conn2)
@@ -855,7 +646,6 @@ Connection
 If duplex is True (the default) then the pipe is bidirectional.  If duplex is False then the pipe is unidirectional: conn1 can only be
 used for receiving messages and conn2 can only be used for sending
 messages.
-True
 False
 conn1
 conn2
@@ -863,38 +653,6 @@ The send() method serializes the object using pickle and the recv() re-creates t
 send()
 pickle
 recv()
-class multiprocessing. Queue ( [ maxsize ] )
-Returns a process shared queue implemented using a pipe and a few
-locks/semaphores.  When a process first puts an item on the queue a feeder
-thread is started which transfers objects from a buffer into the pipe. Instantiating this class may set the global start method. See Global start method for more details. The usual queue.Empty and queue.Full exceptions from the
-standard library’s queue module are raised to signal timeouts. Queue implements all the methods of queue.Queue except for task_done() , join() , and shutdown() . qsize ( ) Return the approximate size of the queue.  Because of
-multithreading/multiprocessing semantics, this number is not reliable. Note that this may raise NotImplementedError on platforms like
-macOS where sem_getvalue() is not implemented. empty ( ) Return True if the queue is empty, False otherwise.  Because of
-multithreading/multiprocessing semantics, this is not reliable. May raise an OSError on closed queues. (not guaranteed) full ( ) Return True if the queue is full, False otherwise.  Because of
-multithreading/multiprocessing semantics, this is not reliable. put ( obj [ , block [ , timeout ] ] ) Put obj into the queue.  If the optional argument block is True (the default) and timeout is None (the default), block if necessary until
-a free slot is available.  If timeout is a positive number, it blocks at
-most timeout seconds and raises the queue.Full exception if no
-free slot was available within that time.  Otherwise ( block is False ), put an item on the queue if a free slot is immediately
-available, else raise the queue.Full exception ( timeout is
-ignored in that case). Changed in version 3.8: If the queue is closed, ValueError is raised instead of AssertionError . put_nowait ( obj ) Equivalent to put(obj, False) . get ( [ block [ , timeout ] ] ) Remove and return an item from the queue.  If optional args block is True (the default) and timeout is None (the default), block if
-necessary until an item is available.  If timeout is a positive number,
-it blocks at most timeout seconds and raises the queue.Empty exception if no item was available within that time.  Otherwise (block is False ), return an item if one is immediately available, else raise the queue.Empty exception ( timeout is ignored in that case). Changed in version 3.8: If the queue is closed, ValueError is raised instead of OSError . get_nowait ( ) Equivalent to get(False) . multiprocessing.Queue has a few additional methods not found in queue.Queue .  These methods are usually unnecessary for most
-code: close ( ) Close the queue: release internal resources. A queue must not be used anymore after it is closed. For example, get() , put() and empty() methods must no longer be called. The background thread will quit once it has flushed all buffered
-data to the pipe.  This is called automatically when the queue is garbage
-collected. join_thread ( ) Join the background thread.  This can only be used after close() has
-been called.  It blocks until the background thread exits, ensuring that
-all data in the buffer has been flushed to the pipe. By default if a process is not the creator of the queue then on exit it
-will attempt to join the queue’s background thread.  The process can call cancel_join_thread() to make join_thread() do nothing. cancel_join_thread ( ) Prevent join_thread() from blocking.  In particular, this prevents
-the background thread from being joined automatically when the process
-exits – see join_thread() . A better name for this method might be allow_exit_without_flush() .  It is likely to cause enqueued
-data to be lost, and you almost certainly will not need to use it.
-It is really only there if you need the current process to exit
-immediately without waiting to flush enqueued data to the
-underlying pipe, and you don’t care about lost data. Note This class’s functionality requires a functioning shared semaphore
-implementation on the host operating system. Without one, the
-functionality in this class will be disabled, and attempts to
-instantiate a Queue will result in an ImportError . See bpo-3770 for additional information.  The same holds true for any
-of the specialized queue types listed below.
 Returns a process shared queue implemented using a pipe and a few
 locks/semaphores.  When a process first puts an item on the queue a feeder
 thread is started which transfers objects from a buffer into the pipe.
@@ -910,84 +668,49 @@ queue.Queue
 task_done()
 join()
 shutdown()
-qsize ( )
-Return the approximate size of the queue.  Because of
-multithreading/multiprocessing semantics, this number is not reliable. Note that this may raise NotImplementedError on platforms like
-macOS where sem_getvalue() is not implemented.
 Return the approximate size of the queue.  Because of
 multithreading/multiprocessing semantics, this number is not reliable.
 Note that this may raise NotImplementedError on platforms like
 macOS where sem_getvalue() is not implemented.
 NotImplementedError
 sem_getvalue()
-empty ( )
-Return True if the queue is empty, False otherwise.  Because of
-multithreading/multiprocessing semantics, this is not reliable. May raise an OSError on closed queues. (not guaranteed)
 Return True if the queue is empty, False otherwise.  Because of
 multithreading/multiprocessing semantics, this is not reliable.
-True
 False
 May raise an OSError on closed queues. (not guaranteed)
 OSError
-full ( )
 Return True if the queue is full, False otherwise.  Because of
 multithreading/multiprocessing semantics, this is not reliable.
-Return True if the queue is full, False otherwise.  Because of
-multithreading/multiprocessing semantics, this is not reliable.
-True
 False
-put ( obj [ , block [ , timeout ] ] )
-Put obj into the queue.  If the optional argument block is True (the default) and timeout is None (the default), block if necessary until
-a free slot is available.  If timeout is a positive number, it blocks at
-most timeout seconds and raises the queue.Full exception if no
-free slot was available within that time.  Otherwise ( block is False ), put an item on the queue if a free slot is immediately
-available, else raise the queue.Full exception ( timeout is
-ignored in that case). Changed in version 3.8: If the queue is closed, ValueError is raised instead of AssertionError .
 Put obj into the queue.  If the optional argument block is True (the default) and timeout is None (the default), block if necessary until
 a free slot is available.  If timeout is a positive number, it blocks at
 most timeout seconds and raises the queue.Full exception if no
 free slot was available within that time.  Otherwise ( block is False ), put an item on the queue if a free slot is immediately
 available, else raise the queue.Full exception ( timeout is
 ignored in that case).
-True
-None
 queue.Full
 False
 queue.Full
 Changed in version 3.8: If the queue is closed, ValueError is raised instead of AssertionError .
 ValueError
 AssertionError
-put_nowait ( obj )
-Equivalent to put(obj, False) .
 Equivalent to put(obj, False) .
 put(obj, False)
-get ( [ block [ , timeout ] ] )
-Remove and return an item from the queue.  If optional args block is True (the default) and timeout is None (the default), block if
-necessary until an item is available.  If timeout is a positive number,
-it blocks at most timeout seconds and raises the queue.Empty exception if no item was available within that time.  Otherwise (block is False ), return an item if one is immediately available, else raise the queue.Empty exception ( timeout is ignored in that case). Changed in version 3.8: If the queue is closed, ValueError is raised instead of OSError .
 Remove and return an item from the queue.  If optional args block is True (the default) and timeout is None (the default), block if
 necessary until an item is available.  If timeout is a positive number,
 it blocks at most timeout seconds and raises the queue.Empty exception if no item was available within that time.  Otherwise (block is False ), return an item if one is immediately available, else raise the queue.Empty exception ( timeout is ignored in that case).
-True
-None
 queue.Empty
 False
 queue.Empty
 Changed in version 3.8: If the queue is closed, ValueError is raised instead of OSError .
 ValueError
 OSError
-get_nowait ( )
-Equivalent to get(False) .
 Equivalent to get(False) .
 get(False)
 multiprocessing.Queue has a few additional methods not found in queue.Queue .  These methods are usually unnecessary for most
 code:
 multiprocessing.Queue
 queue.Queue
-close ( )
-Close the queue: release internal resources. A queue must not be used anymore after it is closed. For example, get() , put() and empty() methods must no longer be called. The background thread will quit once it has flushed all buffered
-data to the pipe.  This is called automatically when the queue is garbage
-collected.
 Close the queue: release internal resources.
 A queue must not be used anymore after it is closed. For example, get() , put() and empty() methods must no longer be called.
 get()
@@ -996,11 +719,6 @@ empty()
 The background thread will quit once it has flushed all buffered
 data to the pipe.  This is called automatically when the queue is garbage
 collected.
-join_thread ( )
-Join the background thread.  This can only be used after close() has
-been called.  It blocks until the background thread exits, ensuring that
-all data in the buffer has been flushed to the pipe. By default if a process is not the creator of the queue then on exit it
-will attempt to join the queue’s background thread.  The process can call cancel_join_thread() to make join_thread() do nothing.
 Join the background thread.  This can only be used after close() has
 been called.  It blocks until the background thread exits, ensuring that
 all data in the buffer has been flushed to the pipe.
@@ -1009,14 +727,6 @@ By default if a process is not the creator of the queue then on exit it
 will attempt to join the queue’s background thread.  The process can call cancel_join_thread() to make join_thread() do nothing.
 cancel_join_thread()
 join_thread()
-cancel_join_thread ( )
-Prevent join_thread() from blocking.  In particular, this prevents
-the background thread from being joined automatically when the process
-exits – see join_thread() . A better name for this method might be allow_exit_without_flush() .  It is likely to cause enqueued
-data to be lost, and you almost certainly will not need to use it.
-It is really only there if you need the current process to exit
-immediately without waiting to flush enqueued data to the
-underlying pipe, and you don’t care about lost data.
 Prevent join_thread() from blocking.  In particular, this prevents
 the background thread from being joined automatically when the process
 exits – see join_thread() .
@@ -1028,7 +738,6 @@ It is really only there if you need the current process to exit
 immediately without waiting to flush enqueued data to the
 underlying pipe, and you don’t care about lost data.
 allow_exit_without_flush()
-Note
 This class’s functionality requires a functioning shared semaphore
 implementation on the host operating system. Without one, the
 functionality in this class will be disabled, and attempts to
@@ -1036,16 +745,9 @@ instantiate a Queue will result in an ImportError . See bpo-3770 for additional 
 of the specialized queue types listed below.
 Queue
 ImportError
-class multiprocessing. SimpleQueue
-It is a simplified Queue type, very close to a locked Pipe . Instantiating this class may set the global start method. See Global start method for more details. close ( ) Close the queue: release internal resources. A queue must not be used anymore after it is closed. For example, get() , put() and empty() methods must no longer be
-called. Added in version 3.9. empty ( ) Return True if the queue is empty, False otherwise. Always raises an OSError if the SimpleQueue is closed. get ( ) Remove and return an item from the queue. put ( item ) Put item into the queue.
 It is a simplified Queue type, very close to a locked Pipe .
 Queue
-Pipe
 Instantiating this class may set the global start method. See Global start method for more details.
-close ( )
-Close the queue: release internal resources. A queue must not be used anymore after it is closed. For example, get() , put() and empty() methods must no longer be
-called. Added in version 3.9.
 Close the queue: release internal resources.
 A queue must not be used anymore after it is closed. For example, get() , put() and empty() methods must no longer be
 called.
@@ -1053,30 +755,12 @@ get()
 put()
 empty()
 Added in version 3.9.
-empty ( )
-Return True if the queue is empty, False otherwise. Always raises an OSError if the SimpleQueue is closed.
 Return True if the queue is empty, False otherwise.
-True
 False
 Always raises an OSError if the SimpleQueue is closed.
 OSError
-get ( )
 Remove and return an item from the queue.
-Remove and return an item from the queue.
-put ( item )
 Put item into the queue.
-Put item into the queue.
-class multiprocessing. JoinableQueue ( [ maxsize ] )
-JoinableQueue , a Queue subclass, is a queue which
-additionally has task_done() and join() methods. Instantiating this class may set the global start method. See Global start method for more details. task_done ( ) Indicate that a formerly enqueued task is complete. Used by queue
-consumers.  For each get() used to fetch a task, a subsequent
-call to task_done() tells the queue that the processing on the task
-is complete. If a join() is currently blocking, it will resume when all
-items have been processed (meaning that a task_done() call was
-received for every item that had been put() into the queue). Raises a ValueError if called more times than there were items
-placed in the queue. join ( ) Block until all items in the queue have been gotten and processed. The count of unfinished tasks goes up whenever an item is added to the
-queue.  The count goes down whenever a consumer calls task_done() to indicate that the item was retrieved and all work on
-it is complete.  When the count of unfinished tasks drops to zero, join() unblocks.
 JoinableQueue , a Queue subclass, is a queue which
 additionally has task_done() and join() methods.
 JoinableQueue
@@ -1084,14 +768,6 @@ Queue
 task_done()
 join()
 Instantiating this class may set the global start method. See Global start method for more details.
-task_done ( )
-Indicate that a formerly enqueued task is complete. Used by queue
-consumers.  For each get() used to fetch a task, a subsequent
-call to task_done() tells the queue that the processing on the task
-is complete. If a join() is currently blocking, it will resume when all
-items have been processed (meaning that a task_done() call was
-received for every item that had been put() into the queue). Raises a ValueError if called more times than there were items
-placed in the queue.
 Indicate that a formerly enqueued task is complete. Used by queue
 consumers.  For each get() used to fetch a task, a subsequent
 call to task_done() tells the queue that the processing on the task
@@ -1107,10 +783,6 @@ put()
 Raises a ValueError if called more times than there were items
 placed in the queue.
 ValueError
-join ( )
-Block until all items in the queue have been gotten and processed. The count of unfinished tasks goes up whenever an item is added to the
-queue.  The count goes down whenever a consumer calls task_done() to indicate that the item was retrieved and all work on
-it is complete.  When the count of unfinished tasks drops to zero, join() unblocks.
 Block until all items in the queue have been gotten and processed.
 The count of unfinished tasks goes up whenever an item is added to the
 queue.  The count goes down whenever a consumer calls task_done() to indicate that the item was retrieved and all work on
@@ -1120,16 +792,9 @@ join()
 
 ### Miscellaneous
 
-multiprocessing. active_children ( )
-Return list of all live children of the current process. Calling this has the side effect of “joining” any processes which have
-already finished.
 Return list of all live children of the current process.
 Calling this has the side effect of “joining” any processes which have
 already finished.
-multiprocessing. cpu_count ( )
-Return the number of CPUs in the system. This number is not equivalent to the number of CPUs the current process can
-use.  The number of usable CPUs can be obtained with os.process_cpu_count() (or len(os.sched_getaffinity(0)) ). When the number of CPUs cannot be determined a NotImplementedError is raised. See also os.cpu_count() os.process_cpu_count() Changed in version 3.13: The return value can also be overridden using the -X cpu_count flag or PYTHON_CPU_COUNT as this is
-merely a wrapper around the os cpu count APIs.
 Return the number of CPUs in the system.
 This number is not equivalent to the number of CPUs the current process can
 use.  The number of usable CPUs can be obtained with os.process_cpu_count() (or len(os.sched_getaffinity(0)) ).
@@ -1145,29 +810,17 @@ Changed in version 3.13: The return value can also be overridden using the -X cp
 merely a wrapper around the os cpu count APIs.
 -X cpu_count
 PYTHON_CPU_COUNT
-multiprocessing. current_process ( )
-Return the Process object corresponding to the current process. An analogue of threading.current_thread() .
 Return the Process object corresponding to the current process.
 Process
 An analogue of threading.current_thread() .
 threading.current_thread()
-multiprocessing. parent_process ( )
-Return the Process object corresponding to the parent process of
-the current_process() . For the main process, parent_process will
-be None . Added in version 3.8.
 Return the Process object corresponding to the parent process of
 the current_process() . For the main process, parent_process will
 be None .
 Process
 current_process()
 parent_process
-None
 Added in version 3.8.
-multiprocessing. freeze_support ( )
-Add support for when a program which uses multiprocessing has been
-frozen to produce an executable.  (Has been tested with py2exe , PyInstaller and cx_Freeze .) One needs to call this function straight after the if __name__ == '__main__' line of the main module.  For example: from multiprocessing import Process , freeze_support def f (): print ( 'hello world!' ) if __name__ == '__main__' : freeze_support () Process ( target = f ) . start () If the freeze_support() line is omitted then trying to run the frozen
-executable will raise RuntimeError . Calling freeze_support() has no effect when the start method is not spawn . In addition, if the module is being run normally by the Python
-interpreter (the program has not been frozen), then freeze_support() has no effect.
 Add support for when a program which uses multiprocessing has been
 frozen to produce an executable.  (Has been tested with py2exe , PyInstaller and cx_Freeze .)
 multiprocessing
@@ -1186,10 +839,6 @@ Calling freeze_support() has no effect when the start method is not spawn . In a
 interpreter (the program has not been frozen), then freeze_support() has no effect.
 freeze_support()
 freeze_support()
-multiprocessing. get_all_start_methods ( )
-Returns a list of the supported start methods, the first of which
-is the default.  The possible start methods are 'fork' , 'spawn' and 'forkserver' .  Not all platforms support all
-methods.  See Contexts and start methods . Added in version 3.4.
 Returns a list of the supported start methods, the first of which
 is the default.  The possible start methods are 'fork' , 'spawn' and 'forkserver' .  Not all platforms support all
 methods.  See Contexts and start methods .
@@ -1197,12 +846,6 @@ methods.  See Contexts and start methods .
 'spawn'
 'forkserver'
 Added in version 3.4.
-multiprocessing. get_context ( method = None )
-Return a context object which has the same attributes as the multiprocessing module. If method is None then the default context is returned. Note that if
-the global start method has not been set, this will set it to the system default
-See Global start method for more details.
-Otherwise method should be 'fork' , 'spawn' , 'forkserver' . ValueError is raised if the specified
-start method is not available.  See Contexts and start methods . Added in version 3.4.
 Return a context object which has the same attributes as the multiprocessing module.
 multiprocessing
 If method is None then the default context is returned. Note that if
@@ -1210,17 +853,11 @@ the global start method has not been set, this will set it to the system default
 See Global start method for more details.
 Otherwise method should be 'fork' , 'spawn' , 'forkserver' . ValueError is raised if the specified
 start method is not available.  See Contexts and start methods .
-None
 'fork'
 'spawn'
 'forkserver'
 ValueError
 Added in version 3.4.
-multiprocessing. get_start_method ( allow_none = False )
-Return the name of start method used for starting processes. If the global start method is not set and allow_none is False , the global start
-method is set to the default, and its name is returned. See Global start method for more details. The return value can be 'fork' , 'spawn' , 'forkserver' or None .  See Contexts and start methods . Added in version 3.4. Changed in version 3.8: On macOS, the spawn start method is now the default.  The fork start
-method should be considered unsafe as it can lead to crashes of the
-subprocess. See bpo-33725 .
 Return the name of start method used for starting processes.
 If the global start method is not set and allow_none is False , the global start
 method is set to the default, and its name is returned. See Global start method for more details.
@@ -1229,15 +866,10 @@ The return value can be 'fork' , 'spawn' , 'forkserver' or None .  See Contexts 
 'fork'
 'spawn'
 'forkserver'
-None
 Added in version 3.4.
 Changed in version 3.8: On macOS, the spawn start method is now the default.  The fork start
 method should be considered unsafe as it can lead to crashes of the
 subprocess. See bpo-33725 .
-multiprocessing. set_executable ( executable )
-Set the path of the Python interpreter to use when starting a child process.
-(By default sys.executable is used).  Embedders will probably need to
-do something like set_executable ( os . path . join ( sys . exec_prefix , 'pythonw.exe' )) before they can create child processes. Changed in version 3.4: Now supported on POSIX when the 'spawn' start method is used. Changed in version 3.11: Accepts a path-like object .
 Set the path of the Python interpreter to use when starting a child process.
 (By default sys.executable is used).  Embedders will probably need to
 do something like
@@ -1251,14 +883,6 @@ before they can create child processes.
 Changed in version 3.4: Now supported on POSIX when the 'spawn' start method is used.
 'spawn'
 Changed in version 3.11: Accepts a path-like object .
-multiprocessing. set_forkserver_preload ( module_names )
-Set a list of module names for the forkserver main process to attempt to
-import so that their already imported state is inherited by forked
-processes. Any ImportError when doing so is silently ignored.
-This can be used as a performance enhancement to avoid repeated work
-in every process. For this to work, it must be called before the forkserver process has been
-launched (before creating a Pool or starting a Process ). Only meaningful when using the 'forkserver' start method.
-See Contexts and start methods . Added in version 3.4.
 Set a list of module names for the forkserver main process to attempt to
 import so that their already imported state is inherited by forked
 processes. Any ImportError when doing so is silently ignored.
@@ -1267,19 +891,11 @@ in every process.
 ImportError
 For this to work, it must be called before the forkserver process has been
 launched (before creating a Pool or starting a Process ).
-Pool
 Process
 Only meaningful when using the 'forkserver' start method.
 See Contexts and start methods .
 'forkserver'
 Added in version 3.4.
-multiprocessing. set_start_method ( method , force = False )
-Set the method which should be used to start child processes.
-The method argument can be 'fork' , 'spawn' or 'forkserver' .
-Raises RuntimeError if the start method has already been set and force is not True .  If method is None and force is True then the start
-method is set to None .  If method is None and force is False then the context is set to the default context. Note that this should be called at most once, and it should be
-protected inside the if __name__ == '__main__' clause of the
-main module. See Contexts and start methods . Added in version 3.4.
 Set the method which should be used to start child processes.
 The method argument can be 'fork' , 'spawn' or 'forkserver' .
 Raises RuntimeError if the start method has already been set and force is not True .  If method is None and force is True then the start
@@ -1288,11 +904,6 @@ method is set to None .  If method is None and force is False then the context i
 'spawn'
 'forkserver'
 RuntimeError
-True
-None
-True
-None
-None
 False
 Note that this should be called at most once, and it should be
 protected inside the if __name__ == '__main__' clause of the
@@ -1300,7 +911,6 @@ main module.
 if __name__ == '__main__'
 See Contexts and start methods .
 Added in version 3.4.
-Note
 multiprocessing contains no analogues of threading.active_count() , threading.enumerate() , threading.settrace() , threading.setprofile() , threading.Timer , or threading.local .
 multiprocessing
 threading.active_count()
@@ -1315,77 +925,29 @@ threading.local
 Connection objects allow the sending and receiving of picklable objects or
 strings.  They can be thought of as message oriented connected sockets.
 Connection objects are usually created using Pipe – see also Listeners and Clients .
-Pipe
-class multiprocessing.connection. Connection
-send ( obj ) Send an object to the other end of the connection which should be read
-using recv() . The object must be picklable.  Very large pickles (approximately 32 MiB+,
-though it depends on the OS) may raise a ValueError exception. recv ( ) Return an object sent from the other end of the connection using send() .  Blocks until there is something to receive.  Raises EOFError if there is nothing left to receive
-and the other end was closed. fileno ( ) Return the file descriptor or handle used by the connection. close ( ) Close the connection. This is called automatically when the connection is garbage collected. poll ( [ timeout ] ) Return whether there is any data available to be read. If timeout is not specified then it will return immediately.  If timeout is a number then this specifies the maximum time in seconds to
-block.  If timeout is None then an infinite timeout is used. Note that multiple connection objects may be polled at once by
-using multiprocessing.connection.wait() . send_bytes ( buf [ , offset [ , size ] ] ) Send byte data from a bytes-like object as a complete message. If offset is given then data is read from that position in buf .  If size is given then that many bytes will be read from buf .  Very large
-buffers (approximately 32 MiB+, though it depends on the OS) may raise a ValueError exception recv_bytes ( [ maxlength ] ) Return a complete message of byte data sent from the other end of the
-connection as a string.  Blocks until there is something to receive.
-Raises EOFError if there is nothing left
-to receive and the other end has closed. If maxlength is specified and the message is longer than maxlength then OSError is raised and the connection will no longer be
-readable. Changed in version 3.3: This function used to raise IOError , which is now an
-alias of OSError . recv_bytes_into ( buf [ , offset ] ) Read into buf a complete message of byte data sent from the other end
-of the connection and return the number of bytes in the message.  Blocks
-until there is something to receive.  Raises EOFError if there is nothing left to receive and the other end was
-closed. buf must be a writable bytes-like object .  If offset is given then the message will be written into the buffer from
-that position.  Offset must be a non-negative integer less than the
-length of buf (in bytes). If the buffer is too short then a BufferTooShort exception is
-raised and the complete message is available as e.args[0] where e is the exception instance. Changed in version 3.3: Connection objects themselves can now be transferred between processes
-using Connection.send() and Connection.recv() . Connection objects also now support the context management protocol – see Context Manager Types . __enter__() returns the
-connection object, and __exit__() calls close() .
-send ( obj )
-Send an object to the other end of the connection which should be read
-using recv() . The object must be picklable.  Very large pickles (approximately 32 MiB+,
-though it depends on the OS) may raise a ValueError exception.
 Send an object to the other end of the connection which should be read
 using recv() .
 recv()
 The object must be picklable.  Very large pickles (approximately 32 MiB+,
 though it depends on the OS) may raise a ValueError exception.
 ValueError
-recv ( )
-Return an object sent from the other end of the connection using send() .  Blocks until there is something to receive.  Raises EOFError if there is nothing left to receive
-and the other end was closed.
 Return an object sent from the other end of the connection using send() .  Blocks until there is something to receive.  Raises EOFError if there is nothing left to receive
 and the other end was closed.
 send()
 EOFError
-fileno ( )
 Return the file descriptor or handle used by the connection.
-Return the file descriptor or handle used by the connection.
-close ( )
-Close the connection. This is called automatically when the connection is garbage collected.
 Close the connection.
 This is called automatically when the connection is garbage collected.
-poll ( [ timeout ] )
-Return whether there is any data available to be read. If timeout is not specified then it will return immediately.  If timeout is a number then this specifies the maximum time in seconds to
-block.  If timeout is None then an infinite timeout is used. Note that multiple connection objects may be polled at once by
-using multiprocessing.connection.wait() .
 Return whether there is any data available to be read.
 If timeout is not specified then it will return immediately.  If timeout is a number then this specifies the maximum time in seconds to
 block.  If timeout is None then an infinite timeout is used.
-None
 Note that multiple connection objects may be polled at once by
 using multiprocessing.connection.wait() .
 multiprocessing.connection.wait()
-send_bytes ( buf [ , offset [ , size ] ] )
-Send byte data from a bytes-like object as a complete message. If offset is given then data is read from that position in buf .  If size is given then that many bytes will be read from buf .  Very large
-buffers (approximately 32 MiB+, though it depends on the OS) may raise a ValueError exception
 Send byte data from a bytes-like object as a complete message.
 If offset is given then data is read from that position in buf .  If size is given then that many bytes will be read from buf .  Very large
 buffers (approximately 32 MiB+, though it depends on the OS) may raise a ValueError exception
 ValueError
-recv_bytes ( [ maxlength ] )
-Return a complete message of byte data sent from the other end of the
-connection as a string.  Blocks until there is something to receive.
-Raises EOFError if there is nothing left
-to receive and the other end has closed. If maxlength is specified and the message is longer than maxlength then OSError is raised and the connection will no longer be
-readable. Changed in version 3.3: This function used to raise IOError , which is now an
-alias of OSError .
 Return a complete message of byte data sent from the other end of the
 connection as a string.  Blocks until there is something to receive.
 Raises EOFError if there is nothing left
@@ -1398,14 +960,6 @@ Changed in version 3.3: This function used to raise IOError , which is now an
 alias of OSError .
 IOError
 OSError
-recv_bytes_into ( buf [ , offset ] )
-Read into buf a complete message of byte data sent from the other end
-of the connection and return the number of bytes in the message.  Blocks
-until there is something to receive.  Raises EOFError if there is nothing left to receive and the other end was
-closed. buf must be a writable bytes-like object .  If offset is given then the message will be written into the buffer from
-that position.  Offset must be a non-negative integer less than the
-length of buf (in bytes). If the buffer is too short then a BufferTooShort exception is
-raised and the complete message is available as e.args[0] where e is the exception instance.
 Read into buf a complete message of byte data sent from the other end
 of the connection and return the number of bytes in the message.  Blocks
 until there is something to receive.  Raises EOFError if there is nothing left to receive and the other end was
@@ -1455,15 +1009,10 @@ program as they are in a multithreaded program.  See the documentation for threa
 threading
 Note that one can also create synchronization primitives by using a manager
 object – see Managers .
-class multiprocessing. Barrier ( parties [ , action [ , timeout ] ] )
-A barrier object: a clone of threading.Barrier . Instantiating this class may set the global start method. See Global start method for more details. Added in version 3.3.
 A barrier object: a clone of threading.Barrier .
 threading.Barrier
 Instantiating this class may set the global start method. See Global start method for more details.
 Added in version 3.3.
-class multiprocessing. BoundedSemaphore ( [ value ] )
-A bounded semaphore object: a close analog of threading.BoundedSemaphore . Instantiating this class may set the global start method. See Global start method for more details. A solitary difference from its close analog exists: its acquire method’s
-first argument is named block , as is consistent with Lock.acquire() . locked ( ) Return a boolean indicating whether this object is locked right now. Added in version 3.14. Note On macOS, this is indistinguishable from Semaphore because sem_getvalue() is not implemented on that platform.
 A bounded semaphore object: a close analog of threading.BoundedSemaphore .
 threading.BoundedSemaphore
 Instantiating this class may set the global start method. See Global start method for more details.
@@ -1471,52 +1020,22 @@ A solitary difference from its close analog exists: its acquire method’s
 first argument is named block , as is consistent with Lock.acquire() .
 acquire
 Lock.acquire()
-locked ( )
-Return a boolean indicating whether this object is locked right now. Added in version 3.14.
 Return a boolean indicating whether this object is locked right now.
 Added in version 3.14.
-Note
 On macOS, this is indistinguishable from Semaphore because sem_getvalue() is not implemented on that platform.
 Semaphore
 sem_getvalue()
-class multiprocessing. Condition ( [ lock ] )
-A condition variable: an alias for threading.Condition . If lock is specified then it should be a Lock or RLock object from multiprocessing . Instantiating this class may set the global start method. See Global start method for more details. Changed in version 3.3: The wait_for() method was added.
 A condition variable: an alias for threading.Condition .
 threading.Condition
 If lock is specified then it should be a Lock or RLock object from multiprocessing .
-Lock
 RLock
 multiprocessing
 Instantiating this class may set the global start method. See Global start method for more details.
 Changed in version 3.3: The wait_for() method was added.
 wait_for()
-class multiprocessing. Event
-A clone of threading.Event . Instantiating this class may set the global start method. See Global start method for more details.
 A clone of threading.Event .
 threading.Event
 Instantiating this class may set the global start method. See Global start method for more details.
-class multiprocessing. Lock
-A non-recursive lock object: a close analog of threading.Lock .
-Once a process or thread has acquired a lock, subsequent attempts to
-acquire it from any process or thread will block until it is released;
-any process or thread may release it.  The concepts and behaviors of threading.Lock as it applies to threads are replicated here in multiprocessing.Lock as it applies to either processes or threads,
-except as noted. Note that Lock is actually a factory function which returns an
-instance of multiprocessing.synchronize.Lock initialized with a
-default context. Instantiating this class may set the global start method. See Global start method for more details. Lock supports the context manager protocol and thus may be
-used in with statements. acquire ( block = True , timeout = None ) Acquire a lock, blocking or non-blocking. With the block argument set to True (the default), the method call
-will block until the lock is in an unlocked state, then set it to locked
-and return True .  Note that the name of this first argument differs
-from that in threading.Lock.acquire() . With the block argument set to False , the method call does not
-block.  If the lock is currently in a locked state, return False ;
-otherwise set the lock to a locked state and return True . When invoked with a positive, floating-point value for timeout , block
-for at most the number of seconds specified by timeout as long as
-the lock can not be acquired.  Invocations with a negative value for timeout are equivalent to a timeout of zero.  Invocations with a timeout value of None (the default) set the timeout period to
-infinite.  Note that the treatment of negative or None values for timeout differs from the implemented behavior in threading.Lock.acquire() .  The timeout argument has no practical
-implications if the block argument is set to False and is thus
-ignored.  Returns True if the lock has been acquired or False if
-the timeout period has elapsed. release ( ) Release a lock.  This can be called from any process or thread, not only
-the process or thread which originally acquired the lock. Behavior is the same as in threading.Lock.release() except that
-when invoked on an unlocked lock, a ValueError is raised. locked ( ) Return a boolean indicating whether this object is locked right now. Added in version 3.14.
 A non-recursive lock object: a close analog of threading.Lock .
 Once a process or thread has acquired a lock, subsequent attempts to
 acquire it from any process or thread will block until it is released;
@@ -1528,40 +1047,21 @@ multiprocessing.Lock
 Note that Lock is actually a factory function which returns an
 instance of multiprocessing.synchronize.Lock initialized with a
 default context.
-Lock
 multiprocessing.synchronize.Lock
 Instantiating this class may set the global start method. See Global start method for more details.
 Lock supports the context manager protocol and thus may be
 used in with statements.
-Lock
-with
-acquire ( block = True , timeout = None )
-Acquire a lock, blocking or non-blocking. With the block argument set to True (the default), the method call
-will block until the lock is in an unlocked state, then set it to locked
-and return True .  Note that the name of this first argument differs
-from that in threading.Lock.acquire() . With the block argument set to False , the method call does not
-block.  If the lock is currently in a locked state, return False ;
-otherwise set the lock to a locked state and return True . When invoked with a positive, floating-point value for timeout , block
-for at most the number of seconds specified by timeout as long as
-the lock can not be acquired.  Invocations with a negative value for timeout are equivalent to a timeout of zero.  Invocations with a timeout value of None (the default) set the timeout period to
-infinite.  Note that the treatment of negative or None values for timeout differs from the implemented behavior in threading.Lock.acquire() .  The timeout argument has no practical
-implications if the block argument is set to False and is thus
-ignored.  Returns True if the lock has been acquired or False if
-the timeout period has elapsed.
 Acquire a lock, blocking or non-blocking.
 With the block argument set to True (the default), the method call
 will block until the lock is in an unlocked state, then set it to locked
 and return True .  Note that the name of this first argument differs
 from that in threading.Lock.acquire() .
-True
-True
 threading.Lock.acquire()
 With the block argument set to False , the method call does not
 block.  If the lock is currently in a locked state, return False ;
 otherwise set the lock to a locked state and return True .
 False
 False
-True
 When invoked with a positive, floating-point value for timeout , block
 for at most the number of seconds specified by timeout as long as
 the lock can not be acquired.  Invocations with a negative value for timeout are equivalent to a timeout of zero.  Invocations with a timeout value of None (the default) set the timeout period to
@@ -1569,59 +1069,17 @@ infinite.  Note that the treatment of negative or None values for timeout differ
 implications if the block argument is set to False and is thus
 ignored.  Returns True if the lock has been acquired or False if
 the timeout period has elapsed.
-None
-None
 threading.Lock.acquire()
 False
-True
 False
-release ( )
-Release a lock.  This can be called from any process or thread, not only
-the process or thread which originally acquired the lock. Behavior is the same as in threading.Lock.release() except that
-when invoked on an unlocked lock, a ValueError is raised.
 Release a lock.  This can be called from any process or thread, not only
 the process or thread which originally acquired the lock.
 Behavior is the same as in threading.Lock.release() except that
 when invoked on an unlocked lock, a ValueError is raised.
 threading.Lock.release()
 ValueError
-locked ( )
-Return a boolean indicating whether this object is locked right now. Added in version 3.14.
 Return a boolean indicating whether this object is locked right now.
 Added in version 3.14.
-class multiprocessing. RLock
-A recursive lock object: a close analog of threading.RLock .  A
-recursive lock must be released by the process or thread that acquired it.
-Once a process or thread has acquired a recursive lock, the same process
-or thread may acquire it again without blocking; that process or thread
-must release it once for each time it has been acquired. Note that RLock is actually a factory function which returns an
-instance of multiprocessing.synchronize.RLock initialized with a
-default context. Instantiating this class may set the global start method. See Global start method for more details. RLock supports the context manager protocol and thus may be
-used in with statements. acquire ( block = True , timeout = None ) Acquire a lock, blocking or non-blocking. When invoked with the block argument set to True , block until the
-lock is in an unlocked state (not owned by any process or thread) unless
-the lock is already owned by the current process or thread.  The current
-process or thread then takes ownership of the lock (if it does not
-already have ownership) and the recursion level inside the lock increments
-by one, resulting in a return value of True .  Note that there are
-several differences in this first argument’s behavior compared to the
-implementation of threading.RLock.acquire() , starting with the name
-of the argument itself. When invoked with the block argument set to False , do not block.
-If the lock has already been acquired (and thus is owned) by another
-process or thread, the current process or thread does not take ownership
-and the recursion level within the lock is not changed, resulting in
-a return value of False .  If the lock is in an unlocked state, the
-current process or thread takes ownership and the recursion level is
-incremented, resulting in a return value of True . Use and behaviors of the timeout argument are the same as in Lock.acquire() .  Note that some of these behaviors of timeout differ from the implemented behaviors in threading.RLock.acquire() . release ( ) Release a lock, decrementing the recursion level.  If after the
-decrement the recursion level is zero, reset the lock to unlocked (not
-owned by any process or thread) and if any other processes or threads
-are blocked waiting for the lock to become unlocked, allow exactly one
-of them to proceed.  If after the decrement the recursion level is still
-nonzero, the lock remains locked and owned by the calling process or
-thread. Only call this method when the calling process or thread owns the lock.
-An AssertionError is raised if this method is called by a process
-or thread other than the owner or if the lock is in an unlocked (unowned)
-state.  Note that the type of exception raised in this situation
-differs from the implemented behavior in threading.RLock.release() . locked ( ) Return a boolean indicating whether this object is locked right now. Added in version 3.14.
 A recursive lock object: a close analog of threading.RLock .  A
 recursive lock must be released by the process or thread that acquired it.
 Once a process or thread has acquired a recursive lock, the same process
@@ -1637,23 +1095,6 @@ Instantiating this class may set the global start method. See Global start metho
 RLock supports the context manager protocol and thus may be
 used in with statements.
 RLock
-with
-acquire ( block = True , timeout = None )
-Acquire a lock, blocking or non-blocking. When invoked with the block argument set to True , block until the
-lock is in an unlocked state (not owned by any process or thread) unless
-the lock is already owned by the current process or thread.  The current
-process or thread then takes ownership of the lock (if it does not
-already have ownership) and the recursion level inside the lock increments
-by one, resulting in a return value of True .  Note that there are
-several differences in this first argument’s behavior compared to the
-implementation of threading.RLock.acquire() , starting with the name
-of the argument itself. When invoked with the block argument set to False , do not block.
-If the lock has already been acquired (and thus is owned) by another
-process or thread, the current process or thread does not take ownership
-and the recursion level within the lock is not changed, resulting in
-a return value of False .  If the lock is in an unlocked state, the
-current process or thread takes ownership and the recursion level is
-incremented, resulting in a return value of True . Use and behaviors of the timeout argument are the same as in Lock.acquire() .  Note that some of these behaviors of timeout differ from the implemented behaviors in threading.RLock.acquire() .
 Acquire a lock, blocking or non-blocking.
 When invoked with the block argument set to True , block until the
 lock is in an unlocked state (not owned by any process or thread) unless
@@ -1664,8 +1105,6 @@ by one, resulting in a return value of True .  Note that there are
 several differences in this first argument’s behavior compared to the
 implementation of threading.RLock.acquire() , starting with the name
 of the argument itself.
-True
-True
 threading.RLock.acquire()
 When invoked with the block argument set to False , do not block.
 If the lock has already been acquired (and thus is owned) by another
@@ -1676,22 +1115,9 @@ current process or thread takes ownership and the recursion level is
 incremented, resulting in a return value of True .
 False
 False
-True
 Use and behaviors of the timeout argument are the same as in Lock.acquire() .  Note that some of these behaviors of timeout differ from the implemented behaviors in threading.RLock.acquire() .
 Lock.acquire()
 threading.RLock.acquire()
-release ( )
-Release a lock, decrementing the recursion level.  If after the
-decrement the recursion level is zero, reset the lock to unlocked (not
-owned by any process or thread) and if any other processes or threads
-are blocked waiting for the lock to become unlocked, allow exactly one
-of them to proceed.  If after the decrement the recursion level is still
-nonzero, the lock remains locked and owned by the calling process or
-thread. Only call this method when the calling process or thread owns the lock.
-An AssertionError is raised if this method is called by a process
-or thread other than the owner or if the lock is in an unlocked (unowned)
-state.  Note that the type of exception raised in this situation
-differs from the implemented behavior in threading.RLock.release() .
 Release a lock, decrementing the recursion level.  If after the
 decrement the recursion level is zero, reset the lock to unlocked (not
 owned by any process or thread) and if any other processes or threads
@@ -1706,14 +1132,8 @@ state.  Note that the type of exception raised in this situation
 differs from the implemented behavior in threading.RLock.release() .
 AssertionError
 threading.RLock.release()
-locked ( )
-Return a boolean indicating whether this object is locked right now. Added in version 3.14.
 Return a boolean indicating whether this object is locked right now.
 Added in version 3.14.
-class multiprocessing. Semaphore ( [ value ] )
-A semaphore object: a close analog of threading.Semaphore . Instantiating this class may set the global start method. See Global start method for more details. A solitary difference from its close analog exists: its acquire method’s
-first argument is named block , as is consistent with Lock.acquire() . get_value ( ) Return the current value of semaphore. Note that this may raise NotImplementedError on platforms like
-macOS where sem_getvalue() is not implemented. locked ( ) Return a boolean indicating whether this object is locked right now. Added in version 3.14.
 A semaphore object: a close analog of threading.Semaphore .
 threading.Semaphore
 Instantiating this class may set the global start method. See Global start method for more details.
@@ -1721,24 +1141,17 @@ A solitary difference from its close analog exists: its acquire method’s
 first argument is named block , as is consistent with Lock.acquire() .
 acquire
 Lock.acquire()
-get_value ( )
-Return the current value of semaphore. Note that this may raise NotImplementedError on platforms like
-macOS where sem_getvalue() is not implemented.
 Return the current value of semaphore.
 Note that this may raise NotImplementedError on platforms like
 macOS where sem_getvalue() is not implemented.
 NotImplementedError
 sem_getvalue()
-locked ( )
-Return a boolean indicating whether this object is locked right now. Added in version 3.14.
 Return a boolean indicating whether this object is locked right now.
 Added in version 3.14.
-Note
 On macOS, sem_timedwait is unsupported, so calling acquire() with
 a timeout will emulate that function’s behavior using a sleeping loop.
 sem_timedwait
 acquire()
-Note
 Some of this package’s functionality requires a functioning shared semaphore
 implementation on the host operating system. Without one, the multiprocessing.synchronize module will be disabled, and attempts to
 import it will result in an ImportError . See bpo-3770 for additional information.
@@ -1750,19 +1163,6 @@ ImportError
 ctypes
 It is possible to create shared objects using shared memory which can be
 inherited by child processes.
-multiprocessing. Value ( typecode_or_type , * args , lock = True )
-Return a ctypes object allocated from shared memory.  By default the
-return value is actually a synchronized wrapper for the object.  The object
-itself can be accessed via the value attribute of a Value . typecode_or_type determines the type of the returned object: it is either a
-ctypes type or a one character typecode of the kind used by the array module. *args is passed on to the constructor for the type. If lock is True (the default) then a new recursive lock
-object is created to synchronize access to the value.  If lock is
-a Lock or RLock object then that will be used to
-synchronize access to the value.  If lock is False then
-access to the returned object will not be automatically protected
-by a lock, so it will not necessarily be “process-safe”. Operations like += which involve a read and write are not
-atomic.  So if, for instance, you want to atomically increment a
-shared value it is insufficient to just do counter . value += 1 Assuming the associated lock is recursive (which it is by default)
-you can instead do with counter . get_lock (): counter . value += 1 Note that lock is a keyword-only argument.
 Return a ctypes object allocated from shared memory.  By default the
 return value is actually a synchronized wrapper for the object.  The object
 itself can be accessed via the value attribute of a Value .
@@ -1777,8 +1177,6 @@ a Lock or RLock object then that will be used to
 synchronize access to the value.  If lock is False then
 access to the returned object will not be automatically protected
 by a lock, so it will not necessarily be “process-safe”.
-True
-Lock
 RLock
 False
 Operations like += which involve a read and write are not
@@ -1797,19 +1195,6 @@ with counter . get_lock (): counter . value += 1
 [/CODE]
 
 Note that lock is a keyword-only argument.
-multiprocessing. Array ( typecode_or_type , size_or_initializer , * , lock = True )
-Return a ctypes array allocated from shared memory.  By default the return
-value is actually a synchronized wrapper for the array. typecode_or_type determines the type of the elements of the returned array:
-it is either a ctypes type or a one
-character typecode of the kind used by the array module with the
-exception of 'w' , which is not supported.  In addition, the 'c' typecode is an alias for ctypes.c_char .  If size_or_initializer is an integer, then it determines the length of the array, and the array
-will be initially zeroed. Otherwise, size_or_initializer is a sequence
-which is used to initialize the array and whose length determines the length
-of the array. If lock is True (the default) then a new lock object is created to
-synchronize access to the value.  If lock is a Lock or RLock object then that will be used to synchronize access to the
-value.  If lock is False then access to the returned object will not be
-automatically protected by a lock, so it will not necessarily be
-“process-safe”. Note that lock is a keyword only argument. Note that an array of ctypes.c_char has value and raw attributes which allow one to use it to store and retrieve strings.
 Return a ctypes array allocated from shared memory.  By default the return
 value is actually a synchronized wrapper for the array.
 typecode_or_type determines the type of the elements of the returned array:
@@ -1820,16 +1205,12 @@ will be initially zeroed. Otherwise, size_or_initializer is a sequence
 which is used to initialize the array and whose length determines the length
 of the array.
 array
-'w'
-'c'
 ctypes.c_char
 If lock is True (the default) then a new lock object is created to
 synchronize access to the value.  If lock is a Lock or RLock object then that will be used to synchronize access to the
 value.  If lock is False then access to the returned object will not be
 automatically protected by a lock, so it will not necessarily be
 “process-safe”.
-True
-Lock
 RLock
 False
 Note that lock is a keyword only argument.
@@ -1843,20 +1224,11 @@ The multiprocessing.sharedctypes module provides functions for allocating ctypes
 processes.
 multiprocessing.sharedctypes
 ctypes
-Note
 Although it is possible to store a pointer in shared memory remember that
 this will refer to a location in the address space of a specific process.
 However, the pointer is quite likely to be invalid in the context of a second
 process and trying to dereference the pointer from the second process may
 cause a crash.
-multiprocessing.sharedctypes. RawArray ( typecode_or_type , size_or_initializer )
-Return a ctypes array allocated from shared memory. typecode_or_type determines the type of the elements of the returned array:
-it is either a ctypes type or a one character typecode of the kind used by
-the array module.  If size_or_initializer is an integer then it
-determines the length of the array, and the array will be initially zeroed.
-Otherwise size_or_initializer is a sequence which is used to initialize the
-array and whose length determines the length of the array. Note that setting and getting an element is potentially non-atomic – use Array() instead to make sure that access is automatically synchronized
-using a lock.
 Return a ctypes array allocated from shared memory.
 typecode_or_type determines the type of the elements of the returned array:
 it is either a ctypes type or a one character typecode of the kind used by
@@ -1868,11 +1240,6 @@ array
 Note that setting and getting an element is potentially non-atomic – use Array() instead to make sure that access is automatically synchronized
 using a lock.
 Array()
-multiprocessing.sharedctypes. RawValue ( typecode_or_type , * args )
-Return a ctypes object allocated from shared memory. typecode_or_type determines the type of the returned object: it is either a
-ctypes type or a one character typecode of the kind used by the array module. *args is passed on to the constructor for the type. Note that setting and getting the value is potentially non-atomic – use Value() instead to make sure that access is automatically synchronized
-using a lock. Note that an array of ctypes.c_char has value and raw attributes which allow one to use it to store and retrieve strings – see
-documentation for ctypes .
 Return a ctypes object allocated from shared memory.
 typecode_or_type determines the type of the returned object: it is either a
 ctypes type or a one character typecode of the kind used by the array module. *args is passed on to the constructor for the type.
@@ -1884,18 +1251,7 @@ Note that an array of ctypes.c_char has value and raw attributes which allow one
 documentation for ctypes .
 ctypes.c_char
 value
-raw
 ctypes
-multiprocessing.sharedctypes. Array ( typecode_or_type , size_or_initializer , * , lock = True , ctx = None )
-The same as RawArray() except that depending on the value of lock a
-process-safe synchronization wrapper may be returned instead of a raw ctypes
-array. If lock is True (the default) then a new lock object is created to
-synchronize access to the value.  If lock is a Lock or RLock object
-then that will be used to synchronize access to the
-value.  If lock is False then access to the returned object will not be
-automatically protected by a lock, so it will not necessarily be
-“process-safe”. ctx is a context object, or None (use the current context). If None ,
-calling this may set the global start method. See Global start method for more details. Note that lock and ctx are keyword-only parameters.
 The same as RawArray() except that depending on the value of lock a
 process-safe synchronization wrapper may be returned instead of a raw ctypes
 array.
@@ -1906,24 +1262,11 @@ then that will be used to synchronize access to the
 value.  If lock is False then access to the returned object will not be
 automatically protected by a lock, so it will not necessarily be
 “process-safe”.
-True
-Lock
 RLock
 False
 ctx is a context object, or None (use the current context). If None ,
 calling this may set the global start method. See Global start method for more details.
-None
-None
 Note that lock and ctx are keyword-only parameters.
-multiprocessing.sharedctypes. Value ( typecode_or_type , * args , lock = True , ctx = None )
-The same as RawValue() except that depending on the value of lock a
-process-safe synchronization wrapper may be returned instead of a raw ctypes
-object. If lock is True (the default) then a new lock object is created to
-synchronize access to the value.  If lock is a Lock or RLock object then that will be used to synchronize access to the
-value.  If lock is False then access to the returned object will not be
-automatically protected by a lock, so it will not necessarily be
-“process-safe”. ctx is a context object, or None (use the current context). If None ,
-calling this may set the global start method. See Global start method for more details. Note that lock and ctx are keyword-only parameters.
 The same as RawValue() except that depending on the value of lock a
 process-safe synchronization wrapper may be returned instead of a raw ctypes
 object.
@@ -1933,34 +1276,18 @@ synchronize access to the value.  If lock is a Lock or RLock object then that wi
 value.  If lock is False then access to the returned object will not be
 automatically protected by a lock, so it will not necessarily be
 “process-safe”.
-True
-Lock
 RLock
 False
 ctx is a context object, or None (use the current context). If None ,
 calling this may set the global start method. See Global start method for more details.
-None
-None
 Note that lock and ctx are keyword-only parameters.
-multiprocessing.sharedctypes. copy ( obj )
 Return a ctypes object allocated from shared memory which is a copy of the
 ctypes object obj .
-Return a ctypes object allocated from shared memory which is a copy of the
-ctypes object obj .
-multiprocessing.sharedctypes. synchronized ( obj , lock = None , ctx = None )
-Return a process-safe wrapper object for a ctypes object which uses lock to
-synchronize access.  If lock is None (the default) then a multiprocessing.RLock object is created automatically. ctx is a context object, or None (use the current context). If None ,
-calling this may set the global start method. See Global start method for more details. A synchronized wrapper will have two methods in addition to those of the
-object it wraps: get_obj() returns the wrapped object and get_lock() returns the lock object used for synchronization. Note that accessing the ctypes object through the wrapper can be a lot slower
-than accessing the raw ctypes object. Changed in version 3.5: Synchronized objects support the context manager protocol.
 Return a process-safe wrapper object for a ctypes object which uses lock to
 synchronize access.  If lock is None (the default) then a multiprocessing.RLock object is created automatically.
-None
 multiprocessing.RLock
 ctx is a context object, or None (use the current context). If None ,
 calling this may set the global start method. See Global start method for more details.
-None
-None
 A synchronized wrapper will have two methods in addition to those of the
 object it wraps: get_obj() returns the wrapped object and get_lock() returns the lock object used for synchronization.
 get_obj()
@@ -2009,11 +1336,6 @@ Managers provide a way to create data which can be shared between different
 processes, including sharing over a network between processes running on
 different machines. A manager object controls a server process which manages shared objects .  Other processes can access the shared objects by using
 proxies.
-multiprocessing. Manager ( )
-Returns a started SyncManager object which
-can be used for sharing objects between processes.  The returned manager
-object corresponds to a spawned child process and has methods which will
-create shared objects and return corresponding proxies.
 Returns a started SyncManager object which
 can be used for sharing objects between processes.  The returned manager
 object corresponds to a spawned child process and has methods which will
@@ -2022,35 +1344,6 @@ SyncManager
 Manager processes will be shutdown as soon as they are garbage collected or
 their parent process exits.  The manager classes are defined in the multiprocessing.managers module:
 multiprocessing.managers
-class multiprocessing.managers. BaseManager ( address = None , authkey = None , serializer = 'pickle' , ctx = None , * , shutdown_timeout = 1.0 )
-Create a BaseManager object. Once created one should call start() or get_server().serve_forever() to ensure
-that the manager object refers to a started manager process. address is the address on which the manager process listens for new
-connections.  If address is None then an arbitrary one is chosen. authkey is the authentication key which will be used to check the
-validity of incoming connections to the server process.  If authkey is None then current_process().authkey is used.
-Otherwise authkey is used and it must be a byte string. serializer must be 'pickle' (use pickle serialization) or 'xmlrpclib' (use xmlrpc.client serialization). ctx is a context object, or None (use the current context). If None ,
-calling this may set the global start method. See Global start method for more details. shutdown_timeout is a timeout in seconds used to wait until the process
-used by the manager completes in the shutdown() method. If the
-shutdown times out, the process is terminated. If terminating the process
-also times out, the process is killed. Changed in version 3.11: Added the shutdown_timeout parameter. start ( [ initializer [ , initargs ] ] ) Start a subprocess to start the manager.  If initializer is not None then the subprocess will call initializer(*initargs) when it starts. get_server ( ) Returns a Server object which represents the actual server under
-the control of the Manager. The Server object supports the serve_forever() method: >>> from multiprocessing.managers import BaseManager >>> manager = BaseManager ( address = ( '' , 50000 ), authkey = b 'abc' ) >>> server = manager . get_server () >>> server . serve_forever () Server additionally has an address attribute. connect ( ) Connect a local manager object to a remote manager process: >>> from multiprocessing.managers import BaseManager >>> m = BaseManager ( address = ( '127.0.0.1' , 50000 ), authkey = b 'abc' ) >>> m . connect () shutdown ( ) Stop the process used by the manager.  This is only available if start() has been used to start the server process. This can be called multiple times. register ( typeid [ , callable [ , proxytype [ , exposed [ , method_to_typeid [ , create_method ] ] ] ] ] ) A classmethod which can be used for registering a type or callable with
-the manager class. typeid is a “type identifier” which is used to identify a particular
-type of shared object.  This must be a string. callable is a callable used for creating objects for this type
-identifier.  If a manager instance will be connected to the
-server using the connect() method, or if the create_method argument is False then this can be left as None . proxytype is a subclass of BaseProxy which is used to create
-proxies for shared objects with this typeid .  If None then a proxy
-class is created automatically. exposed is used to specify a sequence of method names which proxies for
-this typeid should be allowed to access using BaseProxy._callmethod() .  (If exposed is None then proxytype._exposed_ is used instead if it exists.)  In the case
-where no exposed list is specified, all “public methods” of the shared
-object will be accessible.  (Here a “public method” means any attribute
-which has a __call__() method and whose name does not begin
-with '_' .) method_to_typeid is a mapping used to specify the return type of those
-exposed methods which should return a proxy.  It maps method names to
-typeid strings.  (If method_to_typeid is None then proxytype._method_to_typeid_ is used instead if it exists.)  If a
-method’s name is not a key of this mapping or if the mapping is None then the object returned by the method will be copied by value. create_method determines whether a method should be created with name typeid which can be used to tell the server process to create a new
-shared object and return a proxy for it.  By default it is True . BaseManager instances also have one read-only property: address The address used by the manager. Changed in version 3.3: Manager objects support the context management protocol – see Context Manager Types . __enter__() starts the
-server process (if it has not already started) and then returns the
-manager object. __exit__() calls shutdown() . In previous versions __enter__() did not start the
-manager’s server process if it was not already started.
 Create a BaseManager object.
 Once created one should call start() or get_server().serve_forever() to ensure
 that the manager object refers to a started manager process.
@@ -2058,11 +1351,9 @@ start()
 get_server().serve_forever()
 address is the address on which the manager process listens for new
 connections.  If address is None then an arbitrary one is chosen.
-None
 authkey is the authentication key which will be used to check the
 validity of incoming connections to the server process.  If authkey is None then current_process().authkey is used.
 Otherwise authkey is used and it must be a byte string.
-None
 current_process().authkey
 serializer must be 'pickle' (use pickle serialization) or 'xmlrpclib' (use xmlrpc.client serialization).
 'pickle'
@@ -2071,22 +1362,14 @@ pickle
 xmlrpc.client
 ctx is a context object, or None (use the current context). If None ,
 calling this may set the global start method. See Global start method for more details.
-None
-None
 shutdown_timeout is a timeout in seconds used to wait until the process
 used by the manager completes in the shutdown() method. If the
 shutdown times out, the process is terminated. If terminating the process
 also times out, the process is killed.
 shutdown()
 Changed in version 3.11: Added the shutdown_timeout parameter.
-start ( [ initializer [ , initargs ] ] )
 Start a subprocess to start the manager.  If initializer is not None then the subprocess will call initializer(*initargs) when it starts.
-Start a subprocess to start the manager.  If initializer is not None then the subprocess will call initializer(*initargs) when it starts.
-None
 initializer(*initargs)
-get_server ( )
-Returns a Server object which represents the actual server under
-the control of the Manager. The Server object supports the serve_forever() method: >>> from multiprocessing.managers import BaseManager >>> manager = BaseManager ( address = ( '' , 50000 ), authkey = b 'abc' ) >>> server = manager . get_server () >>> server . serve_forever () Server additionally has an address attribute.
 Returns a Server object which represents the actual server under
 the control of the Manager. The Server object supports the serve_forever() method:
 Server
@@ -2100,36 +1383,15 @@ serve_forever()
 Server additionally has an address attribute.
 Server
 address
-connect ( )
-Connect a local manager object to a remote manager process: >>> from multiprocessing.managers import BaseManager >>> m = BaseManager ( address = ( '127.0.0.1' , 50000 ), authkey = b 'abc' ) >>> m . connect ()
 Connect a local manager object to a remote manager process:
 
 [CODE]
 >>> from multiprocessing.managers import BaseManager >>> m = BaseManager ( address = ( '127.0.0.1' , 50000 ), authkey = b 'abc' ) >>> m . connect ()
 [/CODE]
 
-shutdown ( )
-Stop the process used by the manager.  This is only available if start() has been used to start the server process. This can be called multiple times.
 Stop the process used by the manager.  This is only available if start() has been used to start the server process.
 start()
 This can be called multiple times.
-register ( typeid [ , callable [ , proxytype [ , exposed [ , method_to_typeid [ , create_method ] ] ] ] ] )
-A classmethod which can be used for registering a type or callable with
-the manager class. typeid is a “type identifier” which is used to identify a particular
-type of shared object.  This must be a string. callable is a callable used for creating objects for this type
-identifier.  If a manager instance will be connected to the
-server using the connect() method, or if the create_method argument is False then this can be left as None . proxytype is a subclass of BaseProxy which is used to create
-proxies for shared objects with this typeid .  If None then a proxy
-class is created automatically. exposed is used to specify a sequence of method names which proxies for
-this typeid should be allowed to access using BaseProxy._callmethod() .  (If exposed is None then proxytype._exposed_ is used instead if it exists.)  In the case
-where no exposed list is specified, all “public methods” of the shared
-object will be accessible.  (Here a “public method” means any attribute
-which has a __call__() method and whose name does not begin
-with '_' .) method_to_typeid is a mapping used to specify the return type of those
-exposed methods which should return a proxy.  It maps method names to
-typeid strings.  (If method_to_typeid is None then proxytype._method_to_typeid_ is used instead if it exists.)  If a
-method’s name is not a key of this mapping or if the mapping is None then the object returned by the method will be copied by value. create_method determines whether a method should be created with name typeid which can be used to tell the server process to create a new
-shared object and return a proxy for it.  By default it is True .
 A classmethod which can be used for registering a type or callable with
 the manager class.
 typeid is a “type identifier” which is used to identify a particular
@@ -2139,12 +1401,10 @@ identifier.  If a manager instance will be connected to the
 server using the connect() method, or if the create_method argument is False then this can be left as None .
 connect()
 False
-None
 proxytype is a subclass of BaseProxy which is used to create
 proxies for shared objects with this typeid .  If None then a proxy
 class is created automatically.
 BaseProxy
-None
 exposed is used to specify a sequence of method names which proxies for
 this typeid should be allowed to access using BaseProxy._callmethod() .  (If exposed is None then proxytype._exposed_ is used instead if it exists.)  In the case
 where no exposed list is specified, all “public methods” of the shared
@@ -2152,24 +1412,17 @@ object will be accessible.  (Here a “public method” means any attribute
 which has a __call__() method and whose name does not begin
 with '_' .)
 BaseProxy._callmethod()
-None
 proxytype._exposed_
 __call__()
-'_'
 method_to_typeid is a mapping used to specify the return type of those
 exposed methods which should return a proxy.  It maps method names to
 typeid strings.  (If method_to_typeid is None then proxytype._method_to_typeid_ is used instead if it exists.)  If a
 method’s name is not a key of this mapping or if the mapping is None then the object returned by the method will be copied by value.
-None
 proxytype._method_to_typeid_
-None
 create_method determines whether a method should be created with name typeid which can be used to tell the server process to create a new
 shared object and return a proxy for it.  By default it is True .
-True
 BaseManager instances also have one read-only property:
 BaseManager
-address
-The address used by the manager.
 The address used by the manager.
 Changed in version 3.3: Manager objects support the context management protocol – see Context Manager Types . __enter__() starts the
 server process (if it has not already started) and then returns the
@@ -2180,18 +1433,6 @@ shutdown()
 In previous versions __enter__() did not start the
 manager’s server process if it was not already started.
 __enter__()
-class multiprocessing.managers. SyncManager
-A subclass of BaseManager which can be used for the synchronization
-of processes.  Objects of this type are returned by multiprocessing.Manager() . Its methods create and return Proxy Objects for a
-number of commonly used data types to be synchronized across processes.
-This notably includes shared lists and dictionaries. Barrier ( parties [ , action [ , timeout ] ] ) Create a shared threading.Barrier object and return a
-proxy for it. Added in version 3.3. BoundedSemaphore ( [ value ] ) Create a shared threading.BoundedSemaphore object and return a
-proxy for it. Condition ( [ lock ] ) Create a shared threading.Condition object and return a proxy for
-it. If lock is supplied then it should be a proxy for a threading.Lock or threading.RLock object. Changed in version 3.3: The wait_for() method was added. Event ( ) Create a shared threading.Event object and return a proxy for it. Lock ( ) Create a shared threading.Lock object and return a proxy for it. Namespace ( ) Create a shared Namespace object and return a proxy for it. Queue ( [ maxsize ] ) Create a shared queue.Queue object and return a proxy for it. RLock ( ) Create a shared threading.RLock object and return a proxy for it. Semaphore ( [ value ] ) Create a shared threading.Semaphore object and return a proxy for
-it. Array ( typecode , sequence ) Create an array and return a proxy for it. Value ( typecode , value ) Create an object with a writable value attribute and return a proxy
-for it. dict ( ) dict ( mapping ) dict ( sequence ) Create a shared dict object and return a proxy for it. list ( ) list ( sequence ) Create a shared list object and return a proxy for it. set ( ) set ( sequence ) set ( mapping ) Create a shared set object and return a proxy for it. Added in version 3.14: set support was added. Changed in version 3.6: Shared objects are capable of being nested.  For example, a shared
-container object such as a shared list can contain other shared objects
-which will all be managed and synchronized by the SyncManager .
 A subclass of BaseManager which can be used for the synchronization
 of processes.  Objects of this type are returned by multiprocessing.Manager() .
 BaseManager
@@ -2199,22 +1440,13 @@ multiprocessing.Manager()
 Its methods create and return Proxy Objects for a
 number of commonly used data types to be synchronized across processes.
 This notably includes shared lists and dictionaries.
-Barrier ( parties [ , action [ , timeout ] ] )
-Create a shared threading.Barrier object and return a
-proxy for it. Added in version 3.3.
 Create a shared threading.Barrier object and return a
 proxy for it.
 threading.Barrier
 Added in version 3.3.
-BoundedSemaphore ( [ value ] )
-Create a shared threading.BoundedSemaphore object and return a
-proxy for it.
 Create a shared threading.BoundedSemaphore object and return a
 proxy for it.
 threading.BoundedSemaphore
-Condition ( [ lock ] )
-Create a shared threading.Condition object and return a proxy for
-it. If lock is supplied then it should be a proxy for a threading.Lock or threading.RLock object. Changed in version 3.3: The wait_for() method was added.
 Create a shared threading.Condition object and return a proxy for
 it.
 threading.Condition
@@ -2223,69 +1455,31 @@ threading.Lock
 threading.RLock
 Changed in version 3.3: The wait_for() method was added.
 wait_for()
-Event ( )
-Create a shared threading.Event object and return a proxy for it.
 Create a shared threading.Event object and return a proxy for it.
 threading.Event
-Lock ( )
-Create a shared threading.Lock object and return a proxy for it.
 Create a shared threading.Lock object and return a proxy for it.
 threading.Lock
-Namespace ( )
-Create a shared Namespace object and return a proxy for it.
 Create a shared Namespace object and return a proxy for it.
 Namespace
-Queue ( [ maxsize ] )
-Create a shared queue.Queue object and return a proxy for it.
 Create a shared queue.Queue object and return a proxy for it.
 queue.Queue
-RLock ( )
-Create a shared threading.RLock object and return a proxy for it.
 Create a shared threading.RLock object and return a proxy for it.
 threading.RLock
-Semaphore ( [ value ] )
-Create a shared threading.Semaphore object and return a proxy for
-it.
 Create a shared threading.Semaphore object and return a proxy for
 it.
 threading.Semaphore
-Array ( typecode , sequence )
 Create an array and return a proxy for it.
-Create an array and return a proxy for it.
-Value ( typecode , value )
-Create an object with a writable value attribute and return a proxy
-for it.
 Create an object with a writable value attribute and return a proxy
 for it.
 value
-dict ( )
-dict ( mapping )
-dict ( sequence )
 Create a shared dict object and return a proxy for it.
-Create a shared dict object and return a proxy for it.
-dict
-list ( )
-list ( sequence )
 Create a shared list object and return a proxy for it.
-Create a shared list object and return a proxy for it.
-list
-set ( )
-set ( sequence )
-set ( mapping )
-Create a shared set object and return a proxy for it. Added in version 3.14: set support was added.
 Create a shared set object and return a proxy for it.
-set
 Added in version 3.14: set support was added.
-set
 Changed in version 3.6: Shared objects are capable of being nested.  For example, a shared
 container object such as a shared list can contain other shared objects
 which will all be managed and synchronized by the SyncManager .
 SyncManager
-class multiprocessing.managers. Namespace
-A type that can register with SyncManager . A namespace object has no public methods, but does have writable attributes.
-Its representation shows the values of its attributes. However, when using a proxy for a namespace object, an attribute beginning
-with '_' will be an attribute of the proxy and not an attribute of the
-referent: >>> mp_context = multiprocessing . get_context ( 'spawn' ) >>> manager = mp_context . Manager () >>> Global = manager . Namespace () >>> Global . x = 10 >>> Global . y = 'hello' >>> Global . _z = 12.3 # this is an attribute of the proxy >>> print ( Global ) Namespace(x=10, y='hello')
 A type that can register with SyncManager .
 SyncManager
 A namespace object has no public methods, but does have writable attributes.
@@ -2293,7 +1487,6 @@ Its representation shows the values of its attributes.
 However, when using a proxy for a namespace object, an attribute beginning
 with '_' will be an attribute of the proxy and not an attribute of the
 referent:
-'_'
 
 [CODE]
 >>> mp_context = multiprocessing . get_context ( 'spawn' ) >>> manager = mp_context . Manager () >>> Global = manager . Namespace () >>> Global . x = 10 >>> Global . y = 'hello' >>> Global . _z = 12.3 # this is an attribute of the proxy >>> print ( Global ) Namespace(x=10, y='hello')
@@ -2380,8 +1573,6 @@ contained within are modified.  However, storing a value in a container proxy
 (which triggers a __setitem__ on the proxy object) does propagate through
 the manager and so to effectively modify such an item, one could re-assign the
 modified value to the container proxy:
-list
-dict
 __setitem__
 
 [CODE]
@@ -2390,7 +1581,6 @@ __setitem__
 
 This approach is perhaps less convenient than employing nested Proxy Objects for most use cases but also
 demonstrates a level of control over the synchronization.
-Note
 The proxy types in multiprocessing do nothing to support comparisons
 by value.  So, for instance, we have:
 multiprocessing
@@ -2400,24 +1590,11 @@ multiprocessing
 [/CODE]
 
 One should just use a copy of the referent instead when making comparisons.
-class multiprocessing.managers. BaseProxy
-Proxy objects are instances of subclasses of BaseProxy . _callmethod ( methodname [ , args [ , kwds ] ] ) Call and return the result of a method of the proxy’s referent. If proxy is a proxy whose referent is obj then the expression proxy . _callmethod ( methodname , args , kwds ) will evaluate the expression getattr ( obj , methodname )( * args , ** kwds ) in the manager’s process. The returned value will be a copy of the result of the call or a proxy to
-a new shared object – see documentation for the method_to_typeid argument of BaseManager.register() . If an exception is raised by the call, then is re-raised by _callmethod() .  If some other exception is raised in the manager’s
-process then this is converted into a RemoteError exception and is
-raised by _callmethod() . Note in particular that an exception will be raised if methodname has
-not been exposed . An example of the usage of _callmethod() : >>> l = manager . list ( range ( 10 )) >>> l . _callmethod ( '__len__' ) 10 >>> l . _callmethod ( '__getitem__' , ( slice ( 2 , 7 ),)) # equivalent to l[2:7] [2, 3, 4, 5, 6] >>> l . _callmethod ( '__getitem__' , ( 20 ,)) # equivalent to l[20] Traceback (most recent call last): ... IndexError : list index out of range _getvalue ( ) Return a copy of the referent. If the referent is unpicklable then this will raise an exception. __repr__ ( ) Return a representation of the proxy object. __str__ ( ) Return the representation of the referent.
 Proxy objects are instances of subclasses of BaseProxy .
 BaseProxy
-_callmethod ( methodname [ , args [ , kwds ] ] )
-Call and return the result of a method of the proxy’s referent. If proxy is a proxy whose referent is obj then the expression proxy . _callmethod ( methodname , args , kwds ) will evaluate the expression getattr ( obj , methodname )( * args , ** kwds ) in the manager’s process. The returned value will be a copy of the result of the call or a proxy to
-a new shared object – see documentation for the method_to_typeid argument of BaseManager.register() . If an exception is raised by the call, then is re-raised by _callmethod() .  If some other exception is raised in the manager’s
-process then this is converted into a RemoteError exception and is
-raised by _callmethod() . Note in particular that an exception will be raised if methodname has
-not been exposed . An example of the usage of _callmethod() : >>> l = manager . list ( range ( 10 )) >>> l . _callmethod ( '__len__' ) 10 >>> l . _callmethod ( '__getitem__' , ( slice ( 2 , 7 ),)) # equivalent to l[2:7] [2, 3, 4, 5, 6] >>> l . _callmethod ( '__getitem__' , ( 20 ,)) # equivalent to l[20] Traceback (most recent call last): ... IndexError : list index out of range
 Call and return the result of a method of the proxy’s referent.
 If proxy is a proxy whose referent is obj then the expression
 proxy
-obj
 
 [CODE]
 proxy . _callmethod ( methodname , args , kwds )
@@ -2448,15 +1625,9 @@ _callmethod()
 >>> l = manager . list ( range ( 10 )) >>> l . _callmethod ( '__len__' ) 10 >>> l . _callmethod ( '__getitem__' , ( slice ( 2 , 7 ),)) # equivalent to l[2:7] [2, 3, 4, 5, 6] >>> l . _callmethod ( '__getitem__' , ( 20 ,)) # equivalent to l[20] Traceback (most recent call last): ... IndexError : list index out of range
 [/CODE]
 
-_getvalue ( )
-Return a copy of the referent. If the referent is unpicklable then this will raise an exception.
 Return a copy of the referent.
 If the referent is unpicklable then this will raise an exception.
-__repr__ ( )
 Return a representation of the proxy object.
-Return a representation of the proxy object.
-__str__ ( )
-Return the representation of the referent.
 Return the representation of the referent.
 
 #### Cleanup
@@ -2470,74 +1641,17 @@ any proxies referring to it.
 
 One can create a pool of processes which will carry out tasks submitted to it
 with the Pool class.
-Pool
-class multiprocessing.pool. Pool ( [ processes [ , initializer [ , initargs [ , maxtasksperchild [ , context ] ] ] ] ] )
-A process pool object which controls a pool of worker processes to which jobs
-can be submitted.  It supports asynchronous results with timeouts and
-callbacks and has a parallel map implementation. processes is the number of worker processes to use.  If processes is None then the number returned by os.process_cpu_count() is used. If initializer is not None then each worker process will call initializer(*initargs) when it starts. maxtasksperchild is the number of tasks a worker process can complete
-before it will exit and be replaced with a fresh worker process, to enable
-unused resources to be freed. The default maxtasksperchild is None , which
-means worker processes will live as long as the pool. context can be used to specify the context used for starting
-the worker processes.  Usually a pool is created using the
-function multiprocessing.Pool() or the Pool() method
-of a context object.  In both cases context is set
-appropriately. If None , calling this function will have the side effect
-of setting the current global start method if it has not been set already.
-See the get_context() function. Note that the methods of the pool object should only be called by
-the process which created the pool. Warning multiprocessing.pool objects have internal resources that need to be
-properly managed (like any other resource) by using the pool as a context manager
-or by calling close() and terminate() manually. Failure to do this
-can lead to the process hanging on finalization. Note that it is not correct to rely on the garbage collector to destroy the pool
-as CPython does not assure that the finalizer of the pool will be called
-(see object.__del__() for more information). Changed in version 3.2: Added the maxtasksperchild parameter. Changed in version 3.4: Added the context parameter. Changed in version 3.13: processes uses os.process_cpu_count() by default, instead of os.cpu_count() . Note Worker processes within a Pool typically live for the complete
-duration of the Pool’s work queue. A frequent pattern found in other
-systems (such as Apache, mod_wsgi, etc) to free resources held by
-workers is to allow a worker within a pool to complete only a set
-amount of work before exiting, being cleaned up and a new
-process spawned to replace the old one. The maxtasksperchild argument to the Pool exposes this ability to the end user. apply ( func [ , args [ , kwds ] ] ) Call func with arguments args and keyword arguments kwds .  It blocks
-until the result is ready. Given this blocks, apply_async() is
-better suited for performing work in parallel. Additionally, func is only executed in one of the workers of the pool. apply_async ( func [ , args [ , kwds [ , callback [ , error_callback ] ] ] ] ) A variant of the apply() method which returns a AsyncResult object. If callback is specified then it should be a callable which accepts a
-single argument.  When the result becomes ready callback is applied to
-it, that is unless the call failed, in which case the error_callback is applied instead. If error_callback is specified then it should be a callable which
-accepts a single argument.  If the target function fails, then
-the error_callback is called with the exception instance. Callbacks should complete immediately since otherwise the thread which
-handles the results will get blocked. map ( func , iterable [ , chunksize ] ) A parallel equivalent of the map() built-in function (it supports only
-one iterable argument though, for multiple iterables see starmap() ).
-It blocks until the result is ready. This method chops the iterable into a number of chunks which it submits to
-the process pool as separate tasks.  The (approximate) size of these
-chunks can be specified by setting chunksize to a positive integer. Note that it may cause high memory usage for very long iterables. Consider
-using imap() or imap_unordered() with explicit chunksize option for better efficiency. map_async ( func , iterable [ , chunksize [ , callback [ , error_callback ] ] ] ) A variant of the map() method which returns a AsyncResult object. If callback is specified then it should be a callable which accepts a
-single argument.  When the result becomes ready callback is applied to
-it, that is unless the call failed, in which case the error_callback is applied instead. If error_callback is specified then it should be a callable which
-accepts a single argument.  If the target function fails, then
-the error_callback is called with the exception instance. Callbacks should complete immediately since otherwise the thread which
-handles the results will get blocked. imap ( func , iterable [ , chunksize ] ) A lazier version of map() . The chunksize argument is the same as the one used by the map() method.  For very long iterables using a large value for chunksize can
-make the job complete much faster than using the default value of 1 . Also if chunksize is 1 then the next() method of the iterator
-returned by the imap() method has an optional timeout parameter: next(timeout) will raise multiprocessing.TimeoutError if the
-result cannot be returned within timeout seconds. imap_unordered ( func , iterable [ , chunksize ] ) The same as imap() except that the ordering of the results from the
-returned iterator should be considered arbitrary.  (Only when there is
-only one worker process is the order guaranteed to be “correct”.) starmap ( func , iterable [ , chunksize ] ) Like map() except that the
-elements of the iterable are expected to be iterables that are
-unpacked as arguments. Hence an iterable of [(1,2), (3, 4)] results in [func(1,2), func(3,4)] . Added in version 3.3. starmap_async ( func , iterable [ , chunksize [ , callback [ , error_callback ] ] ] ) A combination of starmap() and map_async() that iterates over iterable of iterables and calls func with the iterables unpacked.
-Returns a result object. Added in version 3.3. close ( ) Prevents any more tasks from being submitted to the pool.  Once all the
-tasks have been completed the worker processes will exit. terminate ( ) Stops the worker processes immediately without completing outstanding
-work.  When the pool object is garbage collected terminate() will be
-called immediately. join ( ) Wait for the worker processes to exit.  One must call close() or terminate() before using join() . Changed in version 3.3: Pool objects now support the context management protocol – see Context Manager Types . __enter__() returns the
-pool object, and __exit__() calls terminate() .
 A process pool object which controls a pool of worker processes to which jobs
 can be submitted.  It supports asynchronous results with timeouts and
 callbacks and has a parallel map implementation.
 processes is the number of worker processes to use.  If processes is None then the number returned by os.process_cpu_count() is used.
-None
 os.process_cpu_count()
 If initializer is not None then each worker process will call initializer(*initargs) when it starts.
-None
 initializer(*initargs)
 maxtasksperchild is the number of tasks a worker process can complete
 before it will exit and be replaced with a fresh worker process, to enable
 unused resources to be freed. The default maxtasksperchild is None , which
 means worker processes will live as long as the pool.
-None
 context can be used to specify the context used for starting
 the worker processes.  Usually a pool is created using the
 function multiprocessing.Pool() or the Pool() method
@@ -2547,7 +1661,6 @@ of setting the current global start method if it has not been set already.
 See the get_context() function.
 multiprocessing.Pool()
 Pool()
-None
 get_context()
 Note that the methods of the pool object should only be called by
 the process which created the pool.
@@ -2568,30 +1681,16 @@ Changed in version 3.4: Added the context parameter.
 Changed in version 3.13: processes uses os.process_cpu_count() by default, instead of os.cpu_count() .
 os.process_cpu_count()
 os.cpu_count()
-Note
 Worker processes within a Pool typically live for the complete
 duration of the Pool’s work queue. A frequent pattern found in other
 systems (such as Apache, mod_wsgi, etc) to free resources held by
 workers is to allow a worker within a pool to complete only a set
 amount of work before exiting, being cleaned up and a new
 process spawned to replace the old one. The maxtasksperchild argument to the Pool exposes this ability to the end user.
-Pool
-Pool
-apply ( func [ , args [ , kwds ] ] )
-Call func with arguments args and keyword arguments kwds .  It blocks
-until the result is ready. Given this blocks, apply_async() is
-better suited for performing work in parallel. Additionally, func is only executed in one of the workers of the pool.
 Call func with arguments args and keyword arguments kwds .  It blocks
 until the result is ready. Given this blocks, apply_async() is
 better suited for performing work in parallel. Additionally, func is only executed in one of the workers of the pool.
 apply_async()
-apply_async ( func [ , args [ , kwds [ , callback [ , error_callback ] ] ] ] )
-A variant of the apply() method which returns a AsyncResult object. If callback is specified then it should be a callable which accepts a
-single argument.  When the result becomes ready callback is applied to
-it, that is unless the call failed, in which case the error_callback is applied instead. If error_callback is specified then it should be a callable which
-accepts a single argument.  If the target function fails, then
-the error_callback is called with the exception instance. Callbacks should complete immediately since otherwise the thread which
-handles the results will get blocked.
 A variant of the apply() method which returns a AsyncResult object.
 apply()
 AsyncResult
@@ -2603,13 +1702,6 @@ accepts a single argument.  If the target function fails, then
 the error_callback is called with the exception instance.
 Callbacks should complete immediately since otherwise the thread which
 handles the results will get blocked.
-map ( func , iterable [ , chunksize ] )
-A parallel equivalent of the map() built-in function (it supports only
-one iterable argument though, for multiple iterables see starmap() ).
-It blocks until the result is ready. This method chops the iterable into a number of chunks which it submits to
-the process pool as separate tasks.  The (approximate) size of these
-chunks can be specified by setting chunksize to a positive integer. Note that it may cause high memory usage for very long iterables. Consider
-using imap() or imap_unordered() with explicit chunksize option for better efficiency.
 A parallel equivalent of the map() built-in function (it supports only
 one iterable argument though, for multiple iterables see starmap() ).
 It blocks until the result is ready.
@@ -2622,13 +1714,6 @@ Note that it may cause high memory usage for very long iterables. Consider
 using imap() or imap_unordered() with explicit chunksize option for better efficiency.
 imap()
 imap_unordered()
-map_async ( func , iterable [ , chunksize [ , callback [ , error_callback ] ] ] )
-A variant of the map() method which returns a AsyncResult object. If callback is specified then it should be a callable which accepts a
-single argument.  When the result becomes ready callback is applied to
-it, that is unless the call failed, in which case the error_callback is applied instead. If error_callback is specified then it should be a callable which
-accepts a single argument.  If the target function fails, then
-the error_callback is called with the exception instance. Callbacks should complete immediately since otherwise the thread which
-handles the results will get blocked.
 A variant of the map() method which returns a AsyncResult object.
 map()
 AsyncResult
@@ -2640,11 +1725,6 @@ accepts a single argument.  If the target function fails, then
 the error_callback is called with the exception instance.
 Callbacks should complete immediately since otherwise the thread which
 handles the results will get blocked.
-imap ( func , iterable [ , chunksize ] )
-A lazier version of map() . The chunksize argument is the same as the one used by the map() method.  For very long iterables using a large value for chunksize can
-make the job complete much faster than using the default value of 1 . Also if chunksize is 1 then the next() method of the iterator
-returned by the imap() method has an optional timeout parameter: next(timeout) will raise multiprocessing.TimeoutError if the
-result cannot be returned within timeout seconds.
 A lazier version of map() .
 map()
 The chunksize argument is the same as the one used by the map() method.  For very long iterables using a large value for chunksize can
@@ -2657,18 +1737,10 @@ next()
 imap()
 next(timeout)
 multiprocessing.TimeoutError
-imap_unordered ( func , iterable [ , chunksize ] )
-The same as imap() except that the ordering of the results from the
-returned iterator should be considered arbitrary.  (Only when there is
-only one worker process is the order guaranteed to be “correct”.)
 The same as imap() except that the ordering of the results from the
 returned iterator should be considered arbitrary.  (Only when there is
 only one worker process is the order guaranteed to be “correct”.)
 imap()
-starmap ( func , iterable [ , chunksize ] )
-Like map() except that the
-elements of the iterable are expected to be iterables that are
-unpacked as arguments. Hence an iterable of [(1,2), (3, 4)] results in [func(1,2), func(3,4)] . Added in version 3.3.
 Like map() except that the
 elements of the iterable are expected to be iterables that are
 unpacked as arguments.
@@ -2677,29 +1749,17 @@ Hence an iterable of [(1,2), (3, 4)] results in [func(1,2), func(3,4)] .
 [(1,2), (3, 4)]
 [func(1,2), func(3,4)]
 Added in version 3.3.
-starmap_async ( func , iterable [ , chunksize [ , callback [ , error_callback ] ] ] )
-A combination of starmap() and map_async() that iterates over iterable of iterables and calls func with the iterables unpacked.
-Returns a result object. Added in version 3.3.
 A combination of starmap() and map_async() that iterates over iterable of iterables and calls func with the iterables unpacked.
 Returns a result object.
 starmap()
 map_async()
 Added in version 3.3.
-close ( )
 Prevents any more tasks from being submitted to the pool.  Once all the
 tasks have been completed the worker processes will exit.
-Prevents any more tasks from being submitted to the pool.  Once all the
-tasks have been completed the worker processes will exit.
-terminate ( )
-Stops the worker processes immediately without completing outstanding
-work.  When the pool object is garbage collected terminate() will be
-called immediately.
 Stops the worker processes immediately without completing outstanding
 work.  When the pool object is garbage collected terminate() will be
 called immediately.
 terminate()
-join ( )
-Wait for the worker processes to exit.  One must call close() or terminate() before using join() .
 Wait for the worker processes to exit.  One must call close() or terminate() before using join() .
 close()
 terminate()
@@ -2709,33 +1769,16 @@ pool object, and __exit__() calls terminate() .
 __enter__()
 __exit__()
 terminate()
-class multiprocessing.pool. AsyncResult
-The class of the result returned by Pool.apply_async() and Pool.map_async() . get ( [ timeout ] ) Return the result when it arrives.  If timeout is not None and the
-result does not arrive within timeout seconds then multiprocessing.TimeoutError is raised.  If the remote call raised
-an exception then that exception will be reraised by get() . wait ( [ timeout ] ) Wait until the result is available or until timeout seconds pass. ready ( ) Return whether the call has completed. successful ( ) Return whether the call completed without raising an exception.  Will
-raise ValueError if the result is not ready. Changed in version 3.7: If the result is not ready, ValueError is raised instead of AssertionError .
 The class of the result returned by Pool.apply_async() and Pool.map_async() .
 Pool.apply_async()
 Pool.map_async()
-get ( [ timeout ] )
 Return the result when it arrives.  If timeout is not None and the
 result does not arrive within timeout seconds then multiprocessing.TimeoutError is raised.  If the remote call raised
 an exception then that exception will be reraised by get() .
-Return the result when it arrives.  If timeout is not None and the
-result does not arrive within timeout seconds then multiprocessing.TimeoutError is raised.  If the remote call raised
-an exception then that exception will be reraised by get() .
-None
 multiprocessing.TimeoutError
 get()
-wait ( [ timeout ] )
 Wait until the result is available or until timeout seconds pass.
-Wait until the result is available or until timeout seconds pass.
-ready ( )
 Return whether the call has completed.
-Return whether the call has completed.
-successful ( )
-Return whether the call completed without raising an exception.  Will
-raise ValueError if the result is not ready. Changed in version 3.7: If the result is not ready, ValueError is raised instead of AssertionError .
 Return whether the call completed without raising an exception.  Will
 raise ValueError if the result is not ready.
 ValueError
@@ -2759,29 +1802,15 @@ with sockets or Windows named pipes.  It also has support for digest
 authentication using the hmac module, and for polling
 multiple connections at the same time.
 multiprocessing.connection
-hmac
-multiprocessing.connection. deliver_challenge ( connection , authkey )
-Send a randomly generated message to the other end of the connection and wait
-for a reply. If the reply matches the digest of the message using authkey as the key
-then a welcome message is sent to the other end of the connection.  Otherwise AuthenticationError is raised.
 Send a randomly generated message to the other end of the connection and wait
 for a reply.
 If the reply matches the digest of the message using authkey as the key
 then a welcome message is sent to the other end of the connection.  Otherwise AuthenticationError is raised.
 AuthenticationError
-multiprocessing.connection. answer_challenge ( connection , authkey )
-Receive a message, calculate the digest of the message using authkey as the
-key, and then send the digest back. If a welcome message is not received, then AuthenticationError is raised.
 Receive a message, calculate the digest of the message using authkey as the
 key, and then send the digest back.
 If a welcome message is not received, then AuthenticationError is raised.
 AuthenticationError
-multiprocessing.connection. Client ( address [ , family [ , authkey ] ] )
-Attempt to set up a connection to the listener which is using address address , returning a Connection . The type of the connection is determined by family argument, but this can
-generally be omitted since it can usually be inferred from the format of address . (See Address Formats ) If authkey is given and not None , it should be a byte string and will be
-used as the secret key for an HMAC-based authentication challenge. No
-authentication is done if authkey is None . AuthenticationError is raised if authentication fails.
-See Authentication keys .
 Attempt to set up a connection to the listener which is using address address , returning a Connection .
 Connection
 The type of the connection is determined by family argument, but this can
@@ -2790,37 +1819,11 @@ If authkey is given and not None , it should be a byte string and will be
 used as the secret key for an HMAC-based authentication challenge. No
 authentication is done if authkey is None . AuthenticationError is raised if authentication fails.
 See Authentication keys .
-None
-None
 AuthenticationError
-class multiprocessing.connection. Listener ( [ address [ , family [ , backlog [ , authkey ] ] ] ] )
-A wrapper for a bound socket or Windows named pipe which is ‘listening’ for
-connections. address is the address to be used by the bound socket or named pipe of the
-listener object. Note If an address of ‘0.0.0.0’ is used, the address will not be a connectable
-end point on Windows. If you require a connectable end-point,
-you should use ‘127.0.0.1’. family is the type of socket (or named pipe) to use.  This can be one of
-the strings 'AF_INET' (for a TCP socket), 'AF_UNIX' (for a Unix
-domain socket) or 'AF_PIPE' (for a Windows named pipe).  Of these only
-the first is guaranteed to be available.  If family is None then the
-family is inferred from the format of address .  If address is also None then a default is chosen.  This default is the family which is
-assumed to be the fastest available.  See Address Formats .  Note that if family is 'AF_UNIX' and address is None then the socket will be created in a
-private temporary directory created using tempfile.mkstemp() . If the listener object uses a socket then backlog (1 by default) is passed
-to the listen() method of the socket once it has been
-bound. If authkey is given and not None , it should be a byte string and will be
-used as the secret key for an HMAC-based authentication challenge. No
-authentication is done if authkey is None . AuthenticationError is raised if authentication fails.
-See Authentication keys . accept ( ) Accept a connection on the bound socket or named pipe of the listener
-object and return a Connection object.
-If authentication is attempted and fails, then AuthenticationError is raised. close ( ) Close the bound socket or named pipe of the listener object.  This is
-called automatically when the listener is garbage collected.  However it
-is advisable to call it explicitly. Listener objects have the following read-only properties: address The address which is being used by the Listener object. last_accepted The address from which the last accepted connection came.  If this is
-unavailable then it is None . Changed in version 3.3: Listener objects now support the context management protocol – see Context Manager Types . __enter__() returns the
-listener object, and __exit__() calls close() .
 A wrapper for a bound socket or Windows named pipe which is ‘listening’ for
 connections.
 address is the address to be used by the bound socket or named pipe of the
 listener object.
-Note
 If an address of ‘0.0.0.0’ is used, the address will not be a connectable
 end point on Windows. If you require a connectable end-point,
 you should use ‘127.0.0.1’.
@@ -2834,10 +1837,7 @@ private temporary directory created using tempfile.mkstemp() .
 'AF_INET'
 'AF_UNIX'
 'AF_PIPE'
-None
-None
 'AF_UNIX'
-None
 tempfile.mkstemp()
 If the listener object uses a socket then backlog (1 by default) is passed
 to the listen() method of the socket once it has been
@@ -2847,59 +1847,28 @@ If authkey is given and not None , it should be a byte string and will be
 used as the secret key for an HMAC-based authentication challenge. No
 authentication is done if authkey is None . AuthenticationError is raised if authentication fails.
 See Authentication keys .
-None
-None
 AuthenticationError
-accept ( )
-Accept a connection on the bound socket or named pipe of the listener
-object and return a Connection object.
-If authentication is attempted and fails, then AuthenticationError is raised.
 Accept a connection on the bound socket or named pipe of the listener
 object and return a Connection object.
 If authentication is attempted and fails, then AuthenticationError is raised.
 Connection
 AuthenticationError
-close ( )
-Close the bound socket or named pipe of the listener object.  This is
-called automatically when the listener is garbage collected.  However it
-is advisable to call it explicitly.
 Close the bound socket or named pipe of the listener object.  This is
 called automatically when the listener is garbage collected.  However it
 is advisable to call it explicitly.
 Listener objects have the following read-only properties:
-address
 The address which is being used by the Listener object.
-The address which is being used by the Listener object.
-last_accepted
 The address from which the last accepted connection came.  If this is
 unavailable then it is None .
-The address from which the last accepted connection came.  If this is
-unavailable then it is None .
-None
 Changed in version 3.3: Listener objects now support the context management protocol – see Context Manager Types . __enter__() returns the
 listener object, and __exit__() calls close() .
 __enter__()
 __exit__()
 close()
-multiprocessing.connection. wait ( object_list , timeout = None )
-Wait till an object in object_list is ready.  Returns the list of
-those objects in object_list which are ready.  If timeout is a
-float then the call blocks for at most that many seconds.  If timeout is None then it will block for an unlimited period.
-A negative timeout is equivalent to a zero timeout. For both POSIX and Windows, an object can appear in object_list if
-it is a readable Connection object; a connected and readable socket.socket object; or the sentinel attribute of a Process object. A connection or socket object is ready when there is data available
-to be read from it, or the other end has been closed. POSIX : wait(object_list, timeout) almost equivalent select.select(object_list, [], [], timeout) .  The difference is
-that, if select.select() is interrupted by a signal, it can
-raise OSError with an error number of EINTR , whereas wait() will not. Windows : An item in object_list must either be an integer
-handle which is waitable (according to the definition used by the
-documentation of the Win32 function WaitForMultipleObjects() )
-or it can be an object with a fileno() method which returns a
-socket handle or pipe handle.  (Note that pipe handles and socket
-handles are not waitable handles.) Added in version 3.3.
 Wait till an object in object_list is ready.  Returns the list of
 those objects in object_list which are ready.  If timeout is a
 float then the call blocks for at most that many seconds.  If timeout is None then it will block for an unlimited period.
 A negative timeout is equivalent to a zero timeout.
-None
 For both POSIX and Windows, an object can appear in object_list if
 it is
 a readable Connection object;
@@ -2993,7 +1962,6 @@ to provide digest authentication.
 Connection.recv
 Listener
 Client()
-hmac
 An authentication key is a byte string which can be thought of as a
 password: once a connection is established both ends will demand proof
 that the other knows the authentication key.  (Demonstrating that both
@@ -3028,13 +1996,6 @@ multiprocessing
 Some support for logging is available.  Note, however, that the logging package does not use process shared locks so it is possible (depending on the
 handler type) for messages from different processes to get mixed up.
 logging
-multiprocessing. get_logger ( )
-Returns the logger used by multiprocessing .  If necessary, a new one
-will be created. When first created the logger has level logging.NOTSET and no
-default handler. Messages sent to this logger will not by default propagate
-to the root logger. Note that on Windows child processes will only inherit the level of the
-parent process’s logger – any other customization of the logger will not be
-inherited.
 Returns the logger used by multiprocessing .  If necessary, a new one
 will be created.
 multiprocessing
@@ -3045,11 +2006,6 @@ logging.NOTSET
 Note that on Windows child processes will only inherit the level of the
 parent process’s logger – any other customization of the logger will not be
 inherited.
-multiprocessing. log_to_stderr ( level = None )
-This function performs a call to get_logger() but in addition to
-returning the logger created by get_logger, it adds a handler which sends
-output to sys.stderr using format '[%(levelname)s/%(processName)s] %(message)s' .
-You can modify levelname of the logger by passing a level argument.
 This function performs a call to get_logger() but in addition to
 returning the logger created by get_logger, it adds a handler which sends
 output to sys.stderr using format '[%(levelname)s/%(processName)s] %(message)s' .
@@ -3078,48 +2034,27 @@ multiprocessing
 threading
 In particular, the Pool function provided by multiprocessing.dummy returns an instance of ThreadPool , which is a subclass of Pool that supports all the same method calls but uses a pool of
 worker threads rather than worker processes.
-Pool
 multiprocessing.dummy
 ThreadPool
-Pool
-class multiprocessing.pool. ThreadPool ( [ processes [ , initializer [ , initargs ] ] ] )
-A thread pool object which controls a pool of worker threads to which jobs
-can be submitted. ThreadPool instances are fully interface
-compatible with Pool instances, and their resources must also be
-properly managed, either by using the pool as a context manager or by
-calling close() and terminate() manually. processes is the number of worker threads to use.  If processes is None then the number returned by os.process_cpu_count() is used. If initializer is not None then each worker process will call initializer(*initargs) when it starts. Unlike Pool , maxtasksperchild and context cannot be provided. Note A ThreadPool shares the same interface as Pool , which
-is designed around a pool of processes and predates the introduction of
-the concurrent.futures module.  As such, it inherits some
-operations that don’t make sense for a pool backed by threads, and it
-has its own type for representing the status of asynchronous jobs, AsyncResult , that is not understood by any other libraries. Users should generally prefer to use concurrent.futures.ThreadPoolExecutor , which has a simpler
-interface that was designed around threads from the start, and which
-returns concurrent.futures.Future instances that are
-compatible with many other libraries, including asyncio .
 A thread pool object which controls a pool of worker threads to which jobs
 can be submitted. ThreadPool instances are fully interface
 compatible with Pool instances, and their resources must also be
 properly managed, either by using the pool as a context manager or by
 calling close() and terminate() manually.
 ThreadPool
-Pool
 close()
 terminate()
 processes is the number of worker threads to use.  If processes is None then the number returned by os.process_cpu_count() is used.
-None
 os.process_cpu_count()
 If initializer is not None then each worker process will call initializer(*initargs) when it starts.
-None
 initializer(*initargs)
 Unlike Pool , maxtasksperchild and context cannot be provided.
-Pool
-Note
 A ThreadPool shares the same interface as Pool , which
 is designed around a pool of processes and predates the introduction of
 the concurrent.futures module.  As such, it inherits some
 operations that don’t make sense for a pool backed by threads, and it
 has its own type for representing the status of asynchronous jobs, AsyncResult , that is not understood by any other libraries.
 ThreadPool
-Pool
 concurrent.futures
 AsyncResult
 Users should generally prefer to use concurrent.futures.ThreadPoolExecutor , which has a simpler
@@ -3306,7 +2241,6 @@ from multiprocessing import freeze_support from multiprocessing.managers import 
 [/CODE]
 
 Using Pool :
-Pool
 
 [CODE]
 import multiprocessing import time import random import sys # # Functions used by test code # def calculate ( func , args ): result = func ( * args ) return ' %s says that %s%s = %s ' % ( multiprocessing . current_process () . name , func . __name__ , args , result ) def calculatestar ( args ): return calculate ( * args ) def mul ( a , b ): time . sleep ( 0.5 * random . random ()) return a * b def plus ( a , b ): time . sleep ( 0.5 * random . random ()) return a + b def f ( x ): return 1.0 / ( x - 5.0 ) def pow3 ( x ): return x ** 3 def noop ( x ): pass # # Test code # def test (): PROCESSES = 4 print ( 'Creating pool with %d processes \n ' % PROCESSES ) with multiprocessing . Pool ( PROCESSES ) as pool : # # Tests # TASKS = [( mul , ( i , 7 )) for i in range ( 10 )] + \ [( plus , ( i , 8 )) for i in range ( 10 )] results = [ pool . apply_async ( calculate , t ) for t in TASKS ] imap_it = pool . imap ( calculatestar , TASKS ) imap_unordered_it = pool . imap_unordered ( calculatestar , TASKS ) print ( 'Ordered results using pool.apply_async():' ) for r in results : print ( ' \t ' , r . get ()) print () print ( 'Ordered results using pool.imap():' ) for x in imap_it : print ( ' \t ' , x ) print () print ( 'Unordered results using pool.imap_unordered():' ) for x in imap_unordered_it : print ( ' \t ' , x ) print () print ( 'Ordered results using pool.map() --- will block till complete:' ) for x in pool . map ( calculatestar , TASKS ): print ( ' \t ' , x ) print () # # Test error handling # print ( 'Testing error handling:' ) try : print ( pool . apply ( f , ( 5 ,))) except ZeroDivisionError : print ( ' \t Got ZeroDivisionError as expected from pool.apply()' ) else : raise AssertionError ( 'expected ZeroDivisionError' ) try : print ( pool . map ( f , list ( range ( 10 )))) except ZeroDivisionError : print ( ' \t Got ZeroDivisionError as expected from pool.map()' ) else : raise AssertionError ( 'expected ZeroDivisionError' ) try : print ( list ( pool . imap ( f , list ( range ( 10 ))))) except ZeroDivisionError : print ( ' \t Got ZeroDivisionError as expected from list(pool.imap())' ) else : raise AssertionError ( 'expected ZeroDivisionError' ) it = pool . imap ( f , list ( range ( 10 ))) for i in range ( 10 ): try : x = next ( it ) except ZeroDivisionError : if i == 5 : pass except StopIteration : break else : if i == 5 : raise AssertionError ( 'expected ZeroDivisionError' ) assert i == 9 print ( ' \t Got ZeroDivisionError as expected from IMapIterator.next()' ) print () # # Testing timeouts # print ( 'Testing ApplyResult.get() with timeout:' , end = ' ' ) res = pool . apply_async ( calculate , TASKS [ 0 ]) while 1 : sys . stdout . flush () try : sys . stdout . write ( ' \n\t %s ' % res . get ( 0.02 )) break except multiprocessing . TimeoutError : sys . stdout . write ( '.' ) print () print () print ( 'Testing IMapIterator.next() with timeout:' , end = ' ' ) it = pool . imap ( calculatestar , TASKS ) while 1 : sys . stdout . flush () try : sys . stdout . write ( ' \n\t %s ' % it . next ( 0.02 )) except StopIteration : break except multiprocessing . TimeoutError : sys . stdout . write ( '.' ) print () print () if __name__ == '__main__' : multiprocessing . freeze_support () test ()

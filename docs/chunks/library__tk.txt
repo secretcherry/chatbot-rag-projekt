@@ -98,7 +98,6 @@ Separator Options
 Options
 Sizegrip Platform-specific notes Bugs
 Platform-specific notes
-Bugs
 Treeview Options Item Options Tag Options Column Identifiers Virtual Events ttk.Treeview
 Options
 Item Options

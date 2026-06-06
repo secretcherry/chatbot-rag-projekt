@@ -5,9 +5,6 @@ SOURCE: howto\timerfd.html
 
 # timer file descriptor HOWTO
 
-Release :
-1.13
-1.13
 This HOWTO discusses Python’s support for the linux timer file descriptor.
 
 ## Examples
@@ -23,7 +20,6 @@ To avoid the precision loss caused by the float type,
 timer file descriptors allow specifying initial expiration and interval
 in integer nanoseconds with _ns variants of the functions.
 float
-_ns
 This example shows how epoll() can be used with timer file
 descriptors to wait until the file descriptor is ready for reading:
 epoll()

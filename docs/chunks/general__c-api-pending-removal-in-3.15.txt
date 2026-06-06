@@ -40,7 +40,6 @@ Use PyCodec_Decode() instead; Note that some codecs (for example, “base64”)
 may return a type other than str , such as bytes .
 PyUnicode_AsDecodedUnicode()
 PyCodec_Decode()
-str
 bytes
 PyUnicode_AsEncodedObject() :
 Use PyCodec_Encode() instead.
@@ -57,7 +56,6 @@ may return a type other than bytes , such as str .
 PyUnicode_AsEncodedUnicode()
 PyCodec_Encode()
 bytes
-str
 Python initialization functions, deprecated in Python 3.13: Py_GetPath() :
 Use PyConfig_Get("module_search_paths") ( sys.path ) instead. Py_GetPrefix() :
 Use PyConfig_Get("base_prefix") ( sys.base_prefix ) instead. Use PyConfig_Get("prefix") ( sys.prefix ) if virtual environments need to be handled. Py_GetExecPrefix() :

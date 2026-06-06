@@ -5,8 +5,6 @@ SOURCE: whatsnew\3.11.html
 
 # What’s New In Python 3.11
 
-Editor :
-Pablo Galindo Salgado
 Pablo Galindo Salgado
 This article explains the new features in Python 3.11, compared to 3.10.
 Python 3.11 was released on October 24, 2022.
@@ -74,8 +72,6 @@ Traceback ( most recent call last ): File "distance.py" , line 11 , in < module 
 Previous versions of the interpreter would point to just the line, making it
 ambiguous which object was None . These enhanced errors can also be helpful
 when dealing with deeply nested dict objects and multiple function calls:
-None
-dict
 
 [CODE]
 Traceback ( most recent call last ): File "query.py" , line 37 , in < module > magic_arithmetic ( 'foo' ) File "query.py" , line 18 , in magic_arithmetic return add_counts ( x ) / 25 ^^^^^^^^^^^^^ File "query.py" , line 24 , in add_counts return 25 + query_user ( user1 ) + query_user ( user2 ) ^^^^^^^^^^^^^^^^^ File "query.py" , line 32 , in query_user return 1 + query_count ( db , response [ 'a' ][ 'b' ][ 'c' ][ 'user' ], retry = True ) ~~~~~~~~~~~~~~~~~~^^^^^ TypeError : 'NoneType' object is not subscriptable
@@ -98,7 +94,6 @@ The PyCode_Addr2Location() function in the C API.
 PyCode_Addr2Location()
 See PEP 657 for more details. (Contributed by Pablo Galindo, Batuhan Taskaya
 and Ammar Askar in bpo-43950 .)
-Note
 This feature requires storing column positions in Code Objects ,
 which may result in a small increase in interpreter memory usage
 and disk usage for compiled Python files.
@@ -149,12 +144,10 @@ PythonCore
 When using -V: selectors, either company or tag can be omitted, but all
 installs will be searched. For example, -V:OtherPython/ will select the
 “best” tag registered for OtherPython , while -V:3.11 or -V:/3.11 will select the “best” distribution with tag 3.11 .
--V:
 -V:OtherPython/
 OtherPython
 -V:3.11
 -V:/3.11
-3.11
 When using the legacy - <major> , - <major> . <minor> , - <major> - <bitness> or - <major> . <minor> - <bitness> arguments,
 all existing behaviour should be preserved from past versions,
 and only releases from PythonCore will be selected.
@@ -167,8 +160,6 @@ All releases of Python since 3.5 have included this in their 32-bit builds.
 - <major> - <bitness>
 - <major> . <minor> - <bitness>
 PythonCore
--64
--32
 
 ## New Features Related to Type Hints
 
@@ -228,18 +219,15 @@ written by David Foster.)
 
 ### PEP 673: Self type
 
-Self
 The new Self annotation provides a simple and intuitive
 way to annotate methods that return an instance of their class. This
 behaves the same as the TypeVar -based approach specified in PEP 484 ,
 but is more concise and easier to follow.
-Self
 TypeVar
 Common use cases include alternative constructors provided as classmethod s,
 and __enter__() methods that return self :
 classmethod
 __enter__()
-self
 
 [CODE]
 class MyLock : def __enter__ ( self ) -> Self : self . lock () return self ... class MyInt : @classmethod def fromhex ( cls , s : str ) -> Self : return cls ( int ( s , 16 )) ...
@@ -247,7 +235,6 @@ class MyLock : def __enter__ ( self ) -> Self : self . lock () return self ... c
 
 Self can also be used to annotate method parameters
 or attributes of the same type as their enclosing class.
-Self
 See PEP 673 for more details.
 (Contributed by James Hilton-Balfe in bpo-46534 . PEP written by
 Pradeep Kumar Srinivasan and James Hilton-Balfe.)
@@ -307,7 +294,6 @@ Starred unpacking expressions can now be used in for statements.
 (See bpo-46725 for more details.)
 Starred unpacking expressions can now be used in for statements.
 (See bpo-46725 for more details.)
-for
 Asynchronous comprehensions are now allowed
 inside comprehensions in asynchronous functions .
 Outer comprehensions implicitly become asynchronous in this case.
@@ -324,7 +310,6 @@ and in async with statements and contextlib.AsyncExitStack.enter_async_context()
 (Contributed by Serhiy Storchaka in bpo-12022 and bpo-44471 .)
 TypeError
 AttributeError
-with
 contextlib.ExitStack.enter_context()
 async with
 contextlib.AsyncExitStack.enter_async_context()
@@ -348,10 +333,8 @@ workarounds such code may need.
 (Contributed by Serhiy Storchaka in bpo-26579 .)
 object.__getstate__()
 __getstate__()
-copy
 pickle
 bytearray
-set
 frozenset
 collections.OrderedDict
 collections.deque
@@ -387,7 +370,6 @@ A "z" option was added to the Format specification mini-language that
 coerces negative to positive zero after rounding to the format precision.
 See PEP 682 for more details.
 (Contributed by John Belmonte in gh-90153 .)
-"z"
 Bytes are no longer accepted on sys.path .  Support broke sometime
 between Python 3.2 and 3.6, with no one noticing until after Python 3.10.0
 was released. In addition, bringing back support would be problematic due to
@@ -402,7 +384,6 @@ there is a mixture of str and bytes keys.
 (Contributed by Thomas Grainger in gh-91181 .)
 sys.path
 sys.path_importer_cache
-str
 bytes
 
 ## Other CPython Implementation Changes
@@ -431,7 +412,6 @@ now use it as the default algorithm for hash() . PEP 552 hash-based .pyc files n
 (Contributed by Inada Naoki in bpo-29410 .)
 siphash13
 siphash24
-str
 bytes
 hash()
 siphash13
@@ -514,10 +494,7 @@ This limit can be configured or disabled by environment variable, command
 line flag, or sys APIs. See the integer string conversion
 length limitation documentation.  The default limit
 is 4300 digits in string form.
-int
-str
 ValueError
-sys
 
 ## New Modules
 
@@ -605,7 +582,6 @@ These are primarily intended for internal use,
 notably by TaskGroup .
 cancelling()
 uncancel()
-Task
 TaskGroup
 
 ### contextlib
@@ -623,9 +599,6 @@ chdir()
 
 Change field default mutability check, allowing only defaults which are hashable instead of any object which is not an instance of dict , list or set . (Contributed by Eric V. Smith in bpo-44674 .)
 Change field default mutability check, allowing only defaults which are hashable instead of any object which is not an instance of dict , list or set . (Contributed by Eric V. Smith in bpo-44674 .)
-dict
-list
-set
 
 ### datetime
 
@@ -642,9 +615,6 @@ formats (barring only those that support fractional hours and minutes).
 datetime.date.fromisoformat()
 datetime.time.fromisoformat()
 datetime.datetime.fromisoformat()
-
-### enum
-
 Renamed EnumMeta to EnumType ( EnumMeta kept as an alias).
 Renamed EnumMeta to EnumType ( EnumMeta kept as an alias).
 EnumMeta
@@ -687,7 +657,6 @@ to control how to handle out-of-range flag values.
 Added a new boundary class parameter to Flag enums
 and the FlagBoundary enum with its options,
 to control how to handle out-of-range flag values.
-Flag
 FlagBoundary
 Added the verify() enum decorator
 and the EnumCheck enum with its options,
@@ -731,7 +700,6 @@ Enhanced Flag to support len() , iteration and in / not in on its members.
 For example, the following now works: len(AFlag(3)) == 2 and list(AFlag(3)) == (AFlag.ONE, AFlag.TWO)
 Enhanced Flag to support len() , iteration and in / not in on its members.
 For example, the following now works: len(AFlag(3)) == 2 and list(AFlag(3)) == (AFlag.ONE, AFlag.TWO)
-Flag
 len()
 not in
 len(AFlag(3)) == 2 and list(AFlag(3)) == (AFlag.ONE, AFlag.TWO)
@@ -739,8 +707,6 @@ Changed Enum and Flag so that members are now defined
 before __init_subclass__() is called; dir() now includes methods, etc., from mixed-in data types.
 Changed Enum and Flag so that members are now defined
 before __init_subclass__() is called; dir() now includes methods, etc., from mixed-in data types.
-Enum
-Flag
 __init_subclass__()
 dir()
 Changed Flag to only consider primary values (power of two) canonical
@@ -749,7 +715,6 @@ inverted flags are coerced to their positive equivalent.
 Changed Flag to only consider primary values (power of two) canonical
 while composite values ( 3 , 6 , 10 , etc.) are considered aliases;
 inverted flags are coerced to their positive equivalent.
-Flag
 
 ### fcntl
 
@@ -761,7 +726,6 @@ are supported, the former equals to dup2 usage while the latter set
 the FD_CLOEXEC flag in addition.
 F_DUP2FD
 F_DUP2FD_CLOEXEC
-dup2
 FD_CLOEXEC
 
 ### fractions
@@ -794,9 +758,6 @@ typing.Union
 [/CODE]
 
 (Contributed by Yurii Karabas in bpo-46014 .)
-
-### gzip
-
 The gzip.compress() function is now faster when used with the mtime=0 argument as it delegates the compression entirely to a single zlib.compress() operation. There is one side effect of this change: The
 gzip file header contains an “OS” byte in its header. That was traditionally
 always set to a value of 255 representing “unknown” by the gzip module. Now, when using compress() with mtime=0 , it may be
@@ -811,7 +772,6 @@ against.
 (See gh-112346 for details on the side effect.)
 gzip.compress()
 zlib.compress()
-gzip
 compress()
 
 ### hashlib
@@ -848,7 +808,6 @@ Apply syntax highlighting to .pyi files. (Contributed by Alex
 Waygood and Terry Jan Reedy in bpo-45447 .)
 Apply syntax highlighting to .pyi files. (Contributed by Alex
 Waygood and Terry Jan Reedy in bpo-45447 .)
-.pyi
 Include prompts when saving Shell with inputs and outputs.
 (Contributed by Terry Jan Reedy in gh-95191 .)
 Include prompts when saving Shell with inputs and outputs.
@@ -927,9 +886,6 @@ and when emitting an event, if there is no active socket.
 createSocket()
 SysLogHandler
 SocketHandler.createSocket()
-
-### math
-
 Add math.exp2() : return 2 raised to the power of x.
 (Contributed by Gideon Mitchell in bpo-45917 .)
 Add math.exp2() : return 2 raised to the power of x.
@@ -949,7 +905,6 @@ Dickinson in bpo-44339 .)
 math.pow()
 math.pow(0.0, -math.inf)
 math.pow(-0.0, -math.inf)
-inf
 ValueError
 The math.nan value is now always available.
 (Contributed by Victor Stinner in bpo-46917 .)
@@ -985,7 +940,6 @@ directories if pattern ends with a pathname components separator: sep or altsep 
 (Contributed by Eisuke Kawasima in bpo-22276 and bpo-33392 .)
 glob()
 rglob()
-sep
 altsep
 Atomic grouping ( (?>...) ) and possessive quantifiers ( *+ , ++ , ?+ , {m,n}+ ) are now supported in regular expressions.
 (Contributed by Jeffrey C. Jacobs and Serhiy Storchaka in bpo-433030 .)
@@ -1025,7 +979,6 @@ You can now disable the authorizer by passing None to set_authorizer() .
 (Contributed by Erlend E. Aasland in bpo-44491 .)
 You can now disable the authorizer by passing None to set_authorizer() .
 (Contributed by Erlend E. Aasland in bpo-44491 .)
-None
 set_authorizer()
 Collation name create_collation() can now
 contain any Unicode character.  Collation names with invalid characters
@@ -1115,9 +1068,6 @@ and whether any invalid placeholders are present.
 get_identifiers()
 is_valid()
 string.Template
-
-### sys
-
 sys.exc_info() now derives the type and traceback fields
 from the value (the exception instance), so when an exception is
 modified while it is being handled, the changes are reflected in
@@ -1129,7 +1079,6 @@ modified while it is being handled, the changes are reflected in
 the results of subsequent calls to exc_info() .
 (Contributed by Irit Katriel in bpo-45711 .)
 sys.exc_info()
-type
 traceback
 value
 exc_info()
@@ -1168,7 +1117,6 @@ This is useful for downstream distributors who modify sysconfig.get_preferred_sc
 Third party code that creates new virtual environments should use the new venv installation scheme to determine the paths, as does venv .
 (Contributed by Miro Hrončok in bpo-45413 .)
 sysconfig.get_preferred_scheme()
-venv
 
 ### tempfile
 
@@ -1204,9 +1152,6 @@ sem_clockwait()
 threading.Lock.acquire()
 time.CLOCK_MONOTONIC
 time.CLOCK_REALTIME
-
-### time
-
 On Unix, time.sleep() now uses the clock_nanosleep() or nanosleep() function, if available, which has a resolution of 1 nanosecond
 (10 -9 seconds), rather than using select() which has a resolution
 of 1 microsecond (10 -6 seconds).
@@ -1363,7 +1308,6 @@ typing.get_type_hints() no longer adds Optional to parameters with None as a def
 in gh-90353 .)
 typing.get_type_hints()
 Optional
-None
 typing.get_type_hints() now supports evaluating bare stringified ClassVar annotations. (Contributed by Gregory Beauregard
 in gh-90711 .)
 typing.get_type_hints() now supports evaluating bare stringified ClassVar annotations. (Contributed by Gregory Beauregard
@@ -1399,9 +1343,6 @@ TestCase
 enterAsyncContext()
 IsolatedAsyncioTestCase
 unittest.enterModuleContext()
-
-### venv
-
 When new Python virtual environments are created, the venv sysconfig installation scheme is used
 to determine the paths inside the environment.
 When Python runs in a virtual environment, the same installation scheme
@@ -1448,7 +1389,6 @@ Added stem , suffix and suffixes to zipfile.Path .
 (Contributed by Miguel Brito in gh-88261 .)
 Added stem , suffix and suffixes to zipfile.Path .
 (Contributed by Miguel Brito in gh-88261 .)
-stem
 suffix
 suffixes
 zipfile.Path
@@ -1470,7 +1410,6 @@ It is now around 20% faster on x86-64 when dividing an int by a value smaller th
 Integer division ( // ) is better tuned for optimization by compilers.
 It is now around 20% faster on x86-64 when dividing an int by a value smaller than 2**30 .
 (Contributed by Gregory P. Smith and Tim Peters in gh-90564 .)
-int
 2**30
 sum() is now nearly 30% faster for integers smaller than 2**30 .
 (Contributed by Stefan Behnel in gh-68264 .)
@@ -1495,7 +1434,6 @@ Dictionaries don’t store hash values when all keys are Unicode objects,
 decreasing dict size.
 For example, sys.getsizeof(dict.fromkeys("abcdefg")) is reduced from 352 bytes to 272 bytes (23% smaller) on 64-bit platforms.
 (Contributed by Inada Naoki in bpo-46845 .)
-dict
 sys.getsizeof(dict.fromkeys("abcdefg"))
 Using asyncio.DatagramProtocol is now orders of magnitude faster
 when transferring large files over UDP,
@@ -1512,7 +1450,6 @@ math functions comb() and perm() are now
 math functions comb() and perm() are now
 ≈10 times faster for large arguments (with a larger speedup for larger k ).
 (Contributed by Serhiy Storchaka in bpo-37295 .)
-math
 comb()
 perm()
 The statistics functions mean() , variance() and stdev() now consume
@@ -1527,7 +1464,6 @@ statistics
 mean()
 variance()
 stdev()
-list
 unicodedata.normalize() now normalizes pure-ASCII strings in constant time.
 (Contributed by Donghee Na in bpo-44987 .)
 unicodedata.normalize() now normalizes pure-ASCII strings in constant time.
@@ -1629,7 +1565,6 @@ allowing specialization to adapt to new circumstances.
 See PEP 659 for more information. Implementation by Mark Shannon and Brandt
 Bucher, with additional help from Irit Katriel and Dennis Sweeney.)
 Operation
-Form
 Specialization
 Operation speedup
 (up to)
@@ -1644,22 +1579,15 @@ x * x
 x * x
 Binary add, multiply and subtract for common types
 such as int , float and str take custom fast paths for their underlying types.
-int
 float
-str
-10%
 Mark Shannon,
 Donghee Na,
 Brandt Bucher,
 Dennis Sweeney
 Subscript
-a[i]
-a[i]
 Subscripting container types such as list , tuple and dict directly index
 the underlying data structures.
-list
 tuple
-dict
 Subscripting custom __getitem__() is also inlined similar to Inlined Python function calls .
 __getitem__()
 10-25%
@@ -1682,8 +1610,6 @@ as len() and str directly call their
 underlying C version. This avoids going through the
 internal calling convention.
 len()
-str
-20%
 Mark Shannon,
 Ken Jin
 Load
@@ -1691,8 +1617,6 @@ global
 variable
 print
 print
-len
-len
 The object’s index in the globals/builtins namespace
 is cached. Loading globals and builtins require
 zero namespace lookups.
@@ -1729,11 +1653,8 @@ in pyperformance
 Mark Shannon
 Unpack
 Sequence
-*seq
-*seq
 Specialized for common containers such as list and tuple .
 Avoids internal calling convention.
-list
 tuple
 Brandt Bucher
 A similar optimization already existed since Python 3.8.
@@ -1741,9 +1662,6 @@ A similar optimization already existed since Python 3.8.
 A similar optimization already existed since Python 3.10.
 3.11 specializes for more forms. Furthermore, all attribute loads should
 be sped up by bpo-45947 .
-
-### Misc
-
 Objects now require less memory due to lazily created object namespaces.
 Their namespace dictionaries now also share keys more freely.
 (Contributed Mark Shannon in bpo-45340 and bpo-40116 .)
@@ -1756,7 +1674,6 @@ of try statements when no exception is raised.
 “Zero-cost” exceptions are implemented, eliminating the cost
 of try statements when no exception is raised.
 (Contributed by Mark Shannon in bpo-40222 .)
-try
 A more concise representation of exceptions in the interpreter reduced the
 time required for catching an exception by about 10%.
 (Contributed by Irit Katriel in bpo-45711 .)
@@ -1773,8 +1690,6 @@ and now uses computed gotos (or “threaded code”) on supported platforms. As 
 result, Python 3.11 executes the pyperformance regular expression benchmarks up to 10%
 faster than Python 3.10.
 (Contributed by Brandt Bucher in gh-91404 .)
-
-### FAQ
 
 #### How should I write my code to utilize these speedups?
 
@@ -1828,7 +1743,6 @@ ASYNC_GEN_WRAP , RETURN_GENERATOR and SEND ,
 used in generators and co-routines.
 ASYNC_GEN_WRAP
 RETURN_GENERATOR
-SEND
 COPY_FREE_VARS ,
 which avoids needing special caller-side code for closures.
 COPY_FREE_VARS ,
@@ -1871,7 +1785,6 @@ opcodes with a single opcode
 CALL_FUNCTION
 CALL_FUNCTION_KW
 CALL_METHOD
-CALL
 KW_NAMES
 PRECALL
 PUSH_NULL
@@ -1884,8 +1797,6 @@ ROT_TWO
 ROT_THREE
 ROT_FOUR
 ROT_N
-COPY
-SWAP
 Stack manipulation instructions
 JUMP_IF_NOT_EXC_MATCH
 CHECK_EXC_MATCH
@@ -1898,16 +1809,13 @@ POP_JUMP_BACKWARD_IF_*
 POP_JUMP_FORWARD_IF_*
 See [ 3 ] ; TRUE , FALSE , NONE and NOT_NONE variants
 for each direction
-TRUE
 FALSE
-NONE
 NOT_NONE
 SETUP_WITH
 SETUP_ASYNC_WITH
 BEFORE_WITH
 BEFORE_WITH
 with block setup
-with
 All jump opcodes are now relative, including the
 existing JUMP_IF_TRUE_OR_POP and JUMP_IF_FALSE_OR_POP .
 The argument is now an offset from the current instruction
@@ -1925,7 +1833,6 @@ Instead, None is pushed on failure
 in place of the tuple of extracted values.
 MATCH_CLASS
 MATCH_KEYS
-None
 Changed opcodes that work with exceptions to reflect them
 now being represented as one item on the stack instead of three
 (see gh-89874 ).
@@ -1998,8 +1905,6 @@ PEP 594 led to the deprecations of the following modules
 slated for removal in Python 3.13: aifc chunk msilib pipes telnetlib audioop crypt nis sndhdr uu cgi imghdr nntplib spwd xdrlib cgitb mailcap ossaudiodev sunau (Contributed by Brett Cannon in bpo-47061 and Victor Stinner in gh-68966 .)
 PEP 594 led to the deprecations of the following modules
 slated for removal in Python 3.13:
-aifc
-aifc
 chunk
 chunk
 msilib
@@ -2012,18 +1917,12 @@ audioop
 audioop
 crypt
 crypt
-nis
-nis
 sndhdr
 sndhdr
-cgi
-cgi
 imghdr
 imghdr
 nntplib
 nntplib
-spwd
-spwd
 xdrlib
 xdrlib
 cgitb
@@ -2055,7 +1954,6 @@ are now deprecated and may not be able to parse Python 3.10 or newer.
 See PEP 617 , introducing the new PEG parser, for details.
 (Contributed by Victor Stinner in bpo-40360 .)
 lib2to3
-2to3
 Undocumented modules sre_compile , sre_constants and sre_parse are now deprecated.
 (Contributed by Serhiy Storchaka in bpo-47152 .)
 Undocumented modules sre_compile , sre_constants and sre_parse are now deprecated.
@@ -2173,7 +2071,6 @@ They will be removed in Python 3.13.
 (Contributed by Serhiy Storchaka and Miro Hrončok in gh-92728 .)
 re.template()
 re.TEMPLATE
-re.T
 turtle.settiltangle() has been deprecated since Python 3.1;
 it now emits a deprecation warning and will be removed in Python 3.13. Use turtle.tiltangle() instead (it was earlier incorrectly marked
 as deprecated, and its docstring is now corrected).
@@ -2195,7 +2092,6 @@ currently unplanned, but users are encouraged to use str instead
 wherever possible.
 (Contributed by Alex Waygood in gh-92332 .)
 typing.Text
-str
 The keyword argument syntax for constructing typing.TypedDict types
 is now deprecated. Support will be removed in Python 3.13. (Contributed by
 Jingchen Ye in gh-90224 .)
@@ -2217,7 +2113,6 @@ The behavior of returning a value from a TestCase and IsolatedAsyncioTestCase te
 default None value) is now deprecated.
 TestCase
 IsolatedAsyncioTestCase
-None
 Deprecated the following not-formally-documented unittest functions,
 scheduled for removal in Python 3.13: unittest.findTestCases() unittest.makeSuite() unittest.getTestCaseNames() Use TestLoader methods instead: unittest.TestLoader.loadTestsFromModule() unittest.TestLoader.loadTestsFromTestCase() unittest.TestLoader.getTestCaseNames() (Contributed by Erlend E. Aasland in bpo-5846 .)
 Deprecated the following not-formally-documented unittest functions,
@@ -2267,7 +2162,6 @@ The entire distutils package
 The entire distutils package
 The imp module
 The imp module
-imp
 The typing.io namespace
 The typing.io namespace
 typing.io
@@ -2353,77 +2247,62 @@ failUnless
 failUnless
 assertTrue()
 assertTrue()
-3.1
 failIf
 failIf
 assertFalse()
 assertFalse()
-3.1
 failUnlessEqual
 failUnlessEqual
 assertEqual()
 assertEqual()
-3.1
 failIfEqual
 failIfEqual
 assertNotEqual()
 assertNotEqual()
-3.1
 failUnlessAlmostEqual
 failUnlessAlmostEqual
 assertAlmostEqual()
 assertAlmostEqual()
-3.1
 failIfAlmostEqual
 failIfAlmostEqual
 assertNotAlmostEqual()
 assertNotAlmostEqual()
-3.1
 failUnlessRaises
 failUnlessRaises
 assertRaises()
 assertRaises()
-3.1
 assert_
 assert_
 assertTrue()
 assertTrue()
-3.2
 assertEquals
 assertEquals
 assertEqual()
 assertEqual()
-3.2
 assertNotEquals
 assertNotEquals
 assertNotEqual()
 assertNotEqual()
-3.2
 assertAlmostEquals
 assertAlmostEquals
 assertAlmostEqual()
 assertAlmostEqual()
-3.2
 assertNotAlmostEquals
 assertNotAlmostEquals
 assertNotAlmostEqual()
 assertNotAlmostEqual()
-3.2
 assertRegexpMatches
 assertRegexpMatches
 assertRegex()
 assertRegex()
-3.2
 assertRaisesRegexp
 assertRaisesRegexp
 assertRaisesRegex()
 assertRaisesRegex()
-3.2
 assertNotRegexpMatches
 assertNotRegexpMatches
 assertNotRegex()
 assertNotRegex()
-3.5
 
 ## Removed
 
@@ -2627,8 +2506,6 @@ open()
 io.open()
 codecs.open()
 fileinput.FileInput
-'U'
-'U'
 ast.AST node positions are now validated when provided to compile() and other related functions. If invalid positions are detected,
 a ValueError will be raised. (Contributed by Pablo Galindo in gh-93351 )
 ast.AST node positions are now validated when provided to compile() and other related functions. If invalid positions are detected,
@@ -2659,7 +2536,6 @@ the 'UTF-8' encoding.
 The pdb module now reads the .pdbrc configuration file with
 the 'UTF-8' encoding.
 (Contributed by Srinivas Reddy Thatiparthy (శ్రీనివాస్  రెడ్డి తాటిపర్తి) in bpo-41137 .)
-pdb
 .pdbrc
 'UTF-8'
 The population parameter of random.sample() must be a sequence,
@@ -2673,8 +2549,6 @@ is no longer supported. Also, if the sample size
 is larger than the population size, a ValueError is raised.
 (Contributed by Raymond Hettinger in bpo-40465 .)
 random.sample()
-set
-list
 ValueError
 The random optional parameter of random.shuffle() was removed.
 It was previously an arbitrary random function to use for the shuffle;
@@ -2692,7 +2566,6 @@ In re Regular Expression Syntax , global inline flags (e.g. (?i) )
 can now only be used at the start of regular expressions.
 Using them elsewhere has been deprecated since Python 3.6.
 (Contributed by Serhiy Storchaka in bpo-47066 .)
-(?i)
 In the re module, several long-standing bugs where fixed that,
 in rare cases, could cause capture groups to get the wrong result.
 Therefore, this could change the captured output in these cases.
@@ -2771,7 +2644,6 @@ via passing thin to --with-lto , i.e. --with-lto=thin .
 CPython can now be built with the ThinLTO option
 via passing thin to --with-lto , i.e. --with-lto=thin .
 (Contributed by Donghee Na and Brett Holman in bpo-44340 .)
-thin
 --with-lto
 --with-lto=thin
 Freelists for object structs can now be disabled. A new configure option --without-freelists can be used to disable all freelists
@@ -2795,7 +2667,6 @@ test modules can be linked statically into a main binary or library.
 Modules/Setup
 Modules/makesetup
 makesetup
-Note
 Use the environment variables TCLTK_CFLAGS and TCLTK_LIBS to manually specify the location of Tcl/Tk headers
 and libraries. The configure options --with-tcltk-includes and --with-tcltk-libs have been removed.
 TCLTK_CFLAGS
@@ -2809,7 +2680,6 @@ tcl.pc
 tk.pc
 TCLTK_LIBS="-ltk8.5 -ltkstub8.5 -ltcl8.5"
 Misc/rhel7
-.pc
 CPython will now use 30-bit digits by default for the Python int implementation. Previously, the default was to use 30-bit digits on platforms
 with SIZEOF_VOID_P >= 8 , and 15-bit digits otherwise. It’s still possible
 to explicitly request use of 15-bit digits via either the --enable-big-digits option to the configure script
@@ -2822,7 +2692,6 @@ to explicitly request use of 15-bit digits via either the --enable-big-digits op
 or (for Windows) the PYLONG_BITS_IN_DIGIT variable in PC/pyconfig.h ,
 but this option may be removed at some point in the future.
 (Contributed by Mark Dickinson in bpo-45569 .)
-int
 SIZEOF_VOID_P >= 8
 --enable-big-digits
 PYLONG_BITS_IN_DIGIT
@@ -2975,7 +2844,6 @@ instance (the value argument). The function still steals references
 of all three arguments.
 (Contributed by Irit Katriel in bpo-45711 .)
 PyErr_SetExcInfo()
-type
 traceback
 value
 PyErr_GetExcInfo() now derives the type and traceback fields of the result from the exception instance (the value field).
@@ -2983,7 +2851,6 @@ PyErr_GetExcInfo() now derives the type and traceback fields of the result from 
 PyErr_GetExcInfo() now derives the type and traceback fields of the result from the exception instance (the value field).
 (Contributed by Irit Katriel in bpo-45711 .)
 PyErr_GetExcInfo()
-type
 traceback
 value
 _frozen has a new is_package field to indicate whether
@@ -2998,8 +2865,6 @@ be used for size .
 (Contributed by Kumar Aditya in bpo-46608 .)
 _frozen
 is_package
-size
-size
 _PyFrameEvalFunction() now takes _PyInterpreterFrame* as its second parameter, instead of PyFrameObject* .
 See PEP 523 for more details of how to use this function pointer type.
 _PyFrameEvalFunction() now takes _PyInterpreterFrame* as its second parameter, instead of PyFrameObject* .
@@ -3065,7 +2930,6 @@ Py_TRASHCAN_BEGIN
 To support older Python versions in the same codebase, you
 can define the following macros and use them throughout
 the code (credit: these were copied from the mypy codebase):
-mypy
 
 [CODE]
 #if PY_VERSION_HEX >= 0x03080000 #  define CPy_TRASHCAN_BEGIN(op, dealloc) Py_TRASHCAN_BEGIN(op, dealloc) #  define CPy_TRASHCAN_END(op) Py_TRASHCAN_END #else #  define CPy_TRASHCAN_BEGIN(op, dealloc) Py_TRASHCAN_SAFE_BEGIN(op) #  define CPy_TRASHCAN_END(op) Py_TRASHCAN_SAFE_END(op) #endif

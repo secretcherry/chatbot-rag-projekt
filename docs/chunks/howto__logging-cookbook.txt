@@ -5,8 +5,6 @@ SOURCE: howto\logging-cookbook.html
 
 # Logging Cookbook
 
-Author :
-Vinay Sajip <vinay_sajip at red-dove dot com>
 Vinay Sajip <vinay_sajip at red-dove dot com>
 This page contains a number of recipes related to logging, which have been found
 useful in the past. For links to tutorial and reference information, please see Other resources .
@@ -166,7 +164,6 @@ processed by a handler. To do this, you need to use filters. Let’s look at a
 scenario where you want to arrange things as follows:
 Send messages of severity INFO and WARNING to sys.stdout
 Send messages of severity INFO and WARNING to sys.stdout
-INFO
 WARNING
 sys.stdout
 Send messages of severity ERROR and above to sys.stderr
@@ -190,7 +187,6 @@ excludes those messages and add it to the relevant handler. This can be configur
 adding a filters section parallel to formatters and handlers :
 sys.stdout
 ERROR
-INFO
 WARNING
 filters
 formatters
@@ -221,7 +217,6 @@ at or below the specified level. Note that in this example I have defined the fi
 so its module will be __main__ - hence the __main__.filter_maker in the
 filter configuration. You will need to change that if you define it in a
 different module.
-True
 filter_maker
 main.py
 __main__
@@ -334,7 +329,6 @@ which, when run, will produce:
 MainThread: Look out!
 [/CODE]
 
-Note
 Although the earlier discussion wasn’t specifically talking about
 async code, but rather about slow logging handlers, it should be noted that
 when logging from async code, network and even file handlers could lead to
@@ -355,7 +349,6 @@ QueueListener
 respect_handler_level=True
 Changed in version 3.14: The QueueListener can be started (and stopped) via the with statement. For example:
 QueueListener
-with
 
 [CODE]
 with QueueListener ( que , handler ) as listener : # The queue listener automatically starts # when the 'with' block is entered. pass # The queue listener automatically stops once # the 'with' block is exited.
@@ -402,7 +395,6 @@ makePickle()
 To run a logging listener in production, you may need to use a
 process-management tool such as Supervisor . Here is a Gist which provides the bare-bones files to run the above functionality using
 Supervisor. It consists of the following files:
-File
 Purpose
 prepare.sh
 prepare.sh
@@ -449,8 +441,6 @@ This creates a run subdirectory to contain Supervisor-related and
 log files, and a venv subdirectory to contain a virtual environment
 into which bottle , gunicorn and supervisor are installed.
 bash prepare.sh
-run
-venv
 bottle
 gunicorn
 supervisor
@@ -472,7 +462,6 @@ Inspect the log files in the run subdirectory. You should see the
 most recent log lines in files matching the pattern app.log* . They
 won’t be in any particular order, since they have been handled concurrently
 by different worker processes in a non-deterministic way.
-run
 app.log*
 You can shut down the listener and the web application by running venv/bin/supervisorctl -c supervisor.conf shutdown .
 You can shut down the listener and the web application by running venv/bin/supervisorctl -c supervisor.conf shutdown .
@@ -491,15 +480,11 @@ corresponding domain socket and not on a TCP socket (the port key is
 ignored).
 listener.json
 socket
-port
 In webapp.json , change the socket handler configuration dictionary
 so that the host value is the path to the domain socket, and set the port value to null .
 In webapp.json , change the socket handler configuration dictionary
 so that the host value is the path to the domain socket, and set the port value to null .
 webapp.json
-host
-port
-null
 
 ## Adding contextual information to your logging output
 
@@ -733,7 +718,6 @@ SocketHandler
 You could also write your own handler which uses the Lock class from the multiprocessing module to serialize access to the
 file from your processes. The stdlib FileHandler and subclasses do
 not make use of multiprocessing .
-Lock
 multiprocessing
 FileHandler
 multiprocessing
@@ -765,8 +749,6 @@ This variant shows how you can e.g. apply configuration for particular loggers
 - e.g. the foo logger has a special handler which stores all events in the foo subsystem in a file mplog-foo.log . This will be used by the logging
 machinery in the main process (even though the logging events are generated in
 the worker processes) to direct the messages to the appropriate destinations.
-foo
-foo
 mplog-foo.log
 
 ### Using concurrent.futures.ProcessPoolExecutor
@@ -855,9 +837,6 @@ you get the ability to specify format strings which work with str.format() or st
 session to show the possibilities:
 Formatter
 style
-'%'
-'{'
-'$'
 str.format()
 string.Template
 
@@ -1281,7 +1260,6 @@ import logging , logging.config , os , shutil def owned_file_handler ( filename 
 [/CODE]
 
 To run this, you will probably need to run as root :
-root
 
 [CODE]
 $ sudo python3.3 chowntest.py $ cat chowntest.log 2013-11-05 09:34:51,128 DEBUG mylogger A debug message $ ls -l chowntest.log -rw-r--r-- 1 pulse pulse 55 2013-11-05 09:34 chowntest.log
@@ -1549,9 +1527,7 @@ all the logging levels, writing to sys.stderr to say what level it’s about
 to log at, and then actually logging a message at that level. You can pass a
 parameter to foo which, if true, will log at ERROR and CRITICAL levels -
 otherwise, it only logs at DEBUG, INFO and WARNING levels.
-foo
 sys.stderr
-foo
 The script just arranges to decorate foo with a decorator which will do the
 conditional logging that’s required. The decorator takes a logger as a parameter
 and attaches a memory handler for the duration of the call to the decorated
@@ -1559,11 +1535,9 @@ function. The decorator can be additionally parameterised using a target handler
 a level at which flushing should occur, and a capacity for the buffer (number of
 records buffered). These default to a StreamHandler which
 writes to sys.stderr , logging.ERROR and 100 respectively.
-foo
 StreamHandler
 sys.stderr
 logging.ERROR
-100
 Here’s the script:
 
 [CODE]
@@ -1693,16 +1667,11 @@ writing to sys.stdout . Thus, message #5 appears twice on the console (once
 via stderr and once via stdout ). After the with statement’s
 completion, the status is as it was before so message #6 appears (like message
 #1) whereas message #7 doesn’t (just like message #2).
-INFO
 DEBUG
-with
-INFO
-with
 DEBUG
 sys.stdout
 stderr
 stdout
-with
 If we run the resulting script, the result is as follows:
 
 [CODE]
@@ -1764,7 +1733,6 @@ import argparse import importlib import logging import os import sys def main ( 
 And the start , stop and restart commands can be implemented in
 separate modules, like so for starting:
 start
-stop
 restart
 
 [CODE]
@@ -2092,17 +2060,11 @@ more fine-grained than that).
 ## Other resources
 
 See also
-Module logging
 logging
 API reference for the logging module.
-API reference for the logging module.
-Module logging.config
 logging.config
 Configuration API for the logging module.
-Configuration API for the logging module.
-Module logging.handlers
 logging.handlers
-Useful handlers included with the logging module.
 Useful handlers included with the logging module.
 Basic Tutorial
 Advanced Tutorial

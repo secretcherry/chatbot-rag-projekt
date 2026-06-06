@@ -59,16 +59,12 @@ will be changed to a syntax error. ( gh-87999 )
 [0x1for x in y]
 [0x1 for x in y]
 [0x1f or x in y]
-and
-else
-for
 Support for __index__() and __int__() method returning non-int type:
 these methods will be required to return an instance of a strict subclass of int .
 Support for __index__() and __int__() method returning non-int type:
 these methods will be required to return an instance of a strict subclass of int .
 __index__()
 __int__()
-int
 Support for __float__() method returning a strict subclass of float : these methods will be required to return an instance of float .
 Support for __float__() method returning a strict subclass of float : these methods will be required to return an instance of float .
 __float__()
@@ -145,7 +141,6 @@ EntryPoints tuple interface.
 EntryPoints
 Implicit None on return values.
 Implicit None on return values.
-None
 logging : the warn() method has been deprecated
 since Python 3.3, use warning() instead.
 logging : the warn() method has been deprecated
@@ -192,7 +187,6 @@ rmtree()
 ssl options and protocols: ssl.SSLContext without protocol argument is deprecated. ssl.SSLContext : set_npn_protocols() and selected_npn_protocol() are deprecated: use ALPN
 instead. ssl.OP_NO_SSL* options ssl.OP_NO_TLS* options ssl.PROTOCOL_SSLv3 ssl.PROTOCOL_TLS ssl.PROTOCOL_TLSv1 ssl.PROTOCOL_TLSv1_1 ssl.PROTOCOL_TLSv1_2 ssl.TLSVersion.SSLv3 ssl.TLSVersion.TLSv1 ssl.TLSVersion.TLSv1_1
 ssl options and protocols:
-ssl
 ssl.SSLContext without protocol argument is deprecated.
 ssl.SSLContext without protocol argument is deprecated.
 ssl.SSLContext
@@ -284,7 +278,6 @@ that is not None from a test case.
 unittest.IsolatedAsyncioTestCase : it is deprecated to return a value
 that is not None from a test case.
 unittest.IsolatedAsyncioTestCase
-None
 urllib.parse deprecated functions: urlparse() instead splitattr() splithost() splitnport() splitpasswd() splitport() splitquery() splittag() splittype() splituser() splitvalue() to_bytes()
 urllib.parse deprecated functions: urlparse() instead
 urllib.parse
@@ -334,7 +327,6 @@ xml.etree.ElementTree : Testing the truth value of an Element is deprecated. In 
 will always return True . Prefer explicit len(elem) or elem is not None tests instead.
 xml.etree.ElementTree
 Element
-True
 len(elem)
 elem is not None
 sys._clear_type_cache() is deprecated:

@@ -15,12 +15,6 @@ Unless you use some sort of integrated development environment, you will end up 
 search bar by searching for cmd .  You should be able to recognize
 when you have started such a window because you will see a Windows “command
 prompt”, which usually looks like this:
-cmd
-
-[CODE]
-C:\>
-[/CODE]
-
 The letter may be different, and there might be other things after it, so you
 might just as easily see something like:
 
@@ -70,7 +64,6 @@ You may also find that you have a Start-menu entry such as Start
 seeing the >>> prompt in a new window.  If so, the window will disappear
 after you call the exit() function or enter the Ctrl - Z character; Windows is running a single “python”
 command in the window, and closes it when you terminate the interpreter.
->>>
 exit()
 Now that we know the py command is recognized, you can give your
 Python script to it. You’ll have to give either an absolute or a

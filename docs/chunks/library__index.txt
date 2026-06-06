@@ -34,36 +34,27 @@ Notes on availability
 Built-in Functions
 Built-in Constants Constants added by the site module
 Constants added by the site module
-site
 Built-in Types Truth Value Testing Boolean Operations — and , or , not Comparisons Numeric Types — int , float , complex Boolean Type - bool Iterator Types Sequence Types — list , tuple , range Text and Binary Sequence Type Methods Summary Text Sequence Type — str Binary Sequence Types — bytes , bytearray , memoryview Set Types — set , frozenset Mapping Types — dict Context Manager Types Type Annotation Types — Generic Alias , Union Other Built-in Types Special Attributes Integer string conversion length limitation
 Truth Value Testing
 Boolean Operations — and , or , not
-and
-not
 Comparisons
 Numeric Types — int , float , complex
-int
 float
 complex
 Boolean Type - bool
-bool
 Iterator Types
 Sequence Types — list , tuple , range
-list
 tuple
 range
 Text and Binary Sequence Type Methods Summary
 Text Sequence Type — str
-str
 Binary Sequence Types — bytes , bytearray , memoryview
 bytes
 bytearray
 memoryview
 Set Types — set , frozenset
-set
 frozenset
 Mapping Types — dict
-dict
 Context Manager Types
 Type Annotation Types — Generic Alias , Union
 Other Built-in Types
@@ -129,21 +120,18 @@ weakref
 types — Dynamic type creation and names for built-in types
 types
 copy — Shallow and deep copy operations
-copy
 pprint — Data pretty printer
 pprint
 reprlib — Alternate repr() implementation
 reprlib
 repr()
 enum — Support for enumerations
-enum
 graphlib — Functionality to operate with graph-like structures
 graphlib
 Numeric and Mathematical Modules numbers — Numeric abstract base classes math — Mathematical functions cmath — Mathematical functions for complex numbers decimal — Decimal fixed-point and floating-point arithmetic fractions — Rational numbers random — Generate pseudo-random numbers statistics — Mathematical statistics functions
 numbers — Numeric abstract base classes
 numbers
 math — Mathematical functions
-math
 cmath — Mathematical functions for complex numbers
 cmath
 decimal — Decimal fixed-point and floating-point arithmetic
@@ -167,14 +155,12 @@ pathlib
 os.path — Common pathname manipulations
 os.path
 stat — Interpreting stat() results
-stat
 stat()
 filecmp — File and Directory Comparisons
 filecmp
 tempfile — Generate temporary files and directories
 tempfile
 glob — Unix style pathname pattern expansion
-glob
 fnmatch — Unix filename pattern matching
 fnmatch
 linecache — Random access to text lines
@@ -192,7 +178,6 @@ shelve
 marshal — Internal Python object serialization
 marshal
 dbm — Interfaces to Unix “databases”
-dbm
 sqlite3 — DB-API 2.0 interface for SQLite databases
 sqlite3
 Data Compression and Archiving The compression package compression.zstd — Compression compatible with the Zstandard format zlib — Compression compatible with gzip gzip — Support for gzip files bz2 — Support for bzip2 compression lzma — Compression using the LZMA algorithm zipfile — Work with ZIP archives tarfile — Read and write tar archive files
@@ -201,20 +186,15 @@ compression
 compression.zstd — Compression compatible with the Zstandard format
 compression.zstd
 zlib — Compression compatible with gzip
-zlib
 gzip — Support for gzip files
-gzip
 bz2 — Support for bzip2 compression
-bz2
 lzma — Compression using the LZMA algorithm
-lzma
 zipfile — Work with ZIP archives
 zipfile
 tarfile — Read and write tar archive files
 tarfile
 File Formats csv — CSV File Reading and Writing configparser — Configuration file parser tomllib — Parse TOML files netrc — netrc file processing plistlib — Generate and parse Apple .plist files
 csv — CSV File Reading and Writing
-csv
 configparser — Configuration file parser
 configparser
 tomllib — Parse TOML files
@@ -228,14 +208,12 @@ Cryptographic Services hashlib — Secure hashes and message digests hmac — Ke
 hashlib — Secure hashes and message digests
 hashlib
 hmac — Keyed-Hashing for Message Authentication
-hmac
 secrets — Generate secure random numbers for managing secrets
 secrets
 Generic Operating System Services os — Miscellaneous operating system interfaces io — Core tools for working with streams time — Time access and conversions logging — Logging facility for Python logging.config — Logging configuration logging.handlers — Logging handlers platform —  Access to underlying platform’s identifying data errno — Standard errno system symbols ctypes — A foreign function library for Python
 os — Miscellaneous operating system interfaces
 io — Core tools for working with streams
 time — Time access and conversions
-time
 logging — Logging facility for Python
 logging
 logging.config — Logging configuration
@@ -266,7 +244,6 @@ curses.ascii
 curses.panel — A panel stack extension for curses
 curses.panel
 cmd — Support for line-oriented command interpreters
-cmd
 Concurrent Execution threading — Thread-based parallelism multiprocessing — Process-based parallelism multiprocessing.shared_memory — Shared memory for direct access across processes The concurrent package concurrent.futures — Launching parallel tasks concurrent.interpreters — Multiple interpreters in the same process subprocess — Subprocess management sched — Event scheduler queue — A synchronized queue class contextvars — Context Variables _thread — Low-level threading API
 threading — Thread-based parallelism
 threading
@@ -296,7 +273,6 @@ asyncio
 socket — Low-level networking interface
 socket
 ssl — TLS/SSL wrapper for socket objects
-ssl
 select — Waiting for I/O completion
 select
 selectors — High-level I/O multiplexing
@@ -304,12 +280,10 @@ selectors
 signal — Set handlers for asynchronous events
 signal
 mmap — Memory-mapped file support
-mmap
 Internet Data Handling email — An email and MIME handling package json — JSON encoder and decoder mailbox — Manipulate mailboxes in various formats mimetypes — Map filenames to MIME types base64 — Base16, Base32, Base64, Base85 Data Encodings binascii — Convert between binary and ASCII quopri — Encode and decode MIME quoted-printable data
 email — An email and MIME handling package
 email
 json — JSON encoder and decoder
-json
 mailbox — Manipulate mailboxes in various formats
 mailbox
 mimetypes — Map filenames to MIME types
@@ -322,7 +296,6 @@ quopri — Encode and decode MIME quoted-printable data
 quopri
 Structured Markup Processing Tools html — HyperText Markup Language support html.parser — Simple HTML and XHTML parser html.entities — Definitions of HTML general entities XML Processing Modules xml.etree.ElementTree — The ElementTree XML API xml.dom — The Document Object Model API xml.dom.minidom — Minimal DOM implementation xml.dom.pulldom — Support for building partial DOM trees xml.sax — Support for SAX2 parsers xml.sax.handler — Base classes for SAX handlers xml.sax.saxutils — SAX Utilities xml.sax.xmlreader — Interface for XML parsers xml.parsers.expat — Fast XML parsing using Expat
 html — HyperText Markup Language support
-html
 html.parser — Simple HTML and XHTML parser
 html.parser
 html.entities — Definitions of HTML general entities
@@ -364,7 +337,6 @@ urllib.error
 urllib.robotparser —  Parser for robots.txt
 urllib.robotparser
 http — HTTP modules
-http
 http.client — HTTP protocol client
 http.client
 ftplib — FTP protocol client
@@ -376,7 +348,6 @@ imaplib
 smtplib — SMTP protocol client
 smtplib
 uuid — UUID objects according to RFC 9562
-uuid
 socketserver — A framework for network servers
 socketserver
 http.server — HTTP servers
@@ -395,7 +366,6 @@ ipaddress — IPv4/IPv6 manipulation library
 ipaddress
 Multimedia Services wave — Read and write WAV files colorsys — Conversions between color systems
 wave — Read and write WAV files
-wave
 colorsys — Conversions between color systems
 colorsys
 Internationalization gettext — Multilingual internationalization services locale — Internationalization services
@@ -437,7 +407,6 @@ unittest.mock
 unittest.mock — getting started
 unittest.mock
 test — Regression tests package for Python
-test
 test.support — Utilities for the Python test suite
 test.support
 test.support.socket_helper — Utilities for socket tests
@@ -457,11 +426,9 @@ test.support.warnings_helper
 Debugging and Profiling Audit events table bdb — Debugger framework faulthandler — Dump the Python traceback pdb — The Python Debugger The Python Profilers timeit — Measure execution time of small code snippets trace — Trace or track Python statement execution tracemalloc — Trace memory allocations
 Audit events table
 bdb — Debugger framework
-bdb
 faulthandler — Dump the Python traceback
 faulthandler
 pdb — The Python Debugger
-pdb
 The Python Profilers
 timeit — Measure execution time of small code snippets
 timeit
@@ -472,14 +439,11 @@ tracemalloc
 Software Packaging and Distribution ensurepip — Bootstrapping the pip installer venv — Creation of virtual environments zipapp — Manage executable Python zip archives
 ensurepip — Bootstrapping the pip installer
 ensurepip
-pip
 venv — Creation of virtual environments
-venv
 zipapp — Manage executable Python zip archives
 zipapp
 Python Runtime Services sys — System-specific parameters and functions sys.monitoring — Execution event monitoring sysconfig — Provide access to Python’s configuration information builtins — Built-in objects __main__ — Top-level code environment warnings — Warning control dataclasses — Data Classes contextlib — Utilities for with -statement contexts abc — Abstract Base Classes atexit — Exit handlers traceback — Print or retrieve a stack traceback __future__ — Future statement definitions gc — Garbage Collector interface inspect — Inspect live objects annotationlib — Functionality for introspecting annotations site — Site-specific configuration hook
 sys — System-specific parameters and functions
-sys
 sys.monitoring — Execution event monitoring
 sys.monitoring
 sysconfig — Provide access to Python’s configuration information
@@ -494,9 +458,7 @@ dataclasses — Data Classes
 dataclasses
 contextlib — Utilities for with -statement contexts
 contextlib
-with
 abc — Abstract Base Classes
-abc
 atexit — Exit handlers
 atexit
 traceback — Print or retrieve a stack traceback
@@ -509,10 +471,8 @@ inspect
 annotationlib — Functionality for introspecting annotations
 annotationlib
 site — Site-specific configuration hook
-site
 Custom Python Interpreters code — Interpreter base classes codeop — Compile Python code
 code — Interpreter base classes
-code
 codeop — Compile Python code
 codeop
 Importing Modules zipimport — Import modules from Zip archives pkgutil — Package extension utility modulefinder — Find modules used by a script runpy — Locating and executing Python modules importlib — The implementation of import importlib.resources – Package resource reading, opening and access importlib.resources.abc – Abstract base classes for resources importlib.metadata – Accessing package metadata The initialization of the sys.path module search path
@@ -537,7 +497,6 @@ The initialization of the sys.path module search path
 sys.path
 Python Language Services ast — Abstract syntax trees symtable — Access to the compiler’s symbol tables token — Constants used with Python parse trees keyword — Testing for Python keywords tokenize — Tokenizer for Python source tabnanny — Detection of ambiguous indentation pyclbr — Python module browser support py_compile — Compile Python source files compileall — Byte-compile Python libraries dis — Disassembler for Python bytecode pickletools — Tools for pickle developers
 ast — Abstract syntax trees
-ast
 symtable — Access to the compiler’s symbol tables
 symtable
 token — Constants used with Python parse trees
@@ -555,7 +514,6 @@ py_compile
 compileall — Byte-compile Python libraries
 compileall
 dis — Disassembler for Python bytecode
-dis
 pickletools — Tools for pickle developers
 pickletools
 MS Windows Specific Services msvcrt — Useful routines from the MS VC++ runtime winreg — Windows registry access winsound — Sound-playing interface for Windows
@@ -571,15 +529,11 @@ shlex
 posix — The most common POSIX system calls
 posix
 pwd — The password database
-pwd
 grp — The group database
-grp
 termios — POSIX style tty control
 termios
 tty — Terminal control functions
-tty
 pty — Pseudo-terminal utilities
-pty
 fcntl — The fcntl and ioctl system calls
 fcntl
 fcntl

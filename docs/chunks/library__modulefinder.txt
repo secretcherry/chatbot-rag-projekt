@@ -13,23 +13,8 @@ a script, giving the filename of a Python script as its argument, after which a
 report of the imported modules will be printed.
 ModuleFinder
 modulefinder.py
-modulefinder. AddPackagePath ( pkg_name , path )
 Record that the package named pkg_name can be found in the specified path .
-Record that the package named pkg_name can be found in the specified path .
-modulefinder. ReplacePackage ( oldname , newname )
 Allows specifying that the module named oldname is in fact the package named newname .
-Allows specifying that the module named oldname is in fact the package named newname .
-class modulefinder. ModuleFinder ( path = None , debug = 0 , excludes = [] , replace_paths = [] )
-This class provides run_script() and report() methods to determine
-the set of modules imported by a script. path can be a list of directories to
-search for modules; if not specified, sys.path is used. debug sets the
-debugging level; higher values make the class print debugging messages about
-what it’s doing. excludes is a list of module names to exclude from the
-analysis. replace_paths is a list of (oldpath, newpath) tuples that will
-be replaced in module paths. report ( ) Print a report to standard output that lists the modules imported by the
-script and their paths, as well as modules that are missing or seem to be
-missing. run_script ( pathname ) Analyze the contents of the pathname file, which must contain Python
-code. modules A dictionary mapping module names to modules. See Example usage of ModuleFinder .
 This class provides run_script() and report() methods to determine
 the set of modules imported by a script. path can be a list of directories to
 search for modules; if not specified, sys.path is used. debug sets the
@@ -41,20 +26,11 @@ run_script()
 report()
 sys.path
 (oldpath, newpath)
-report ( )
 Print a report to standard output that lists the modules imported by the
 script and their paths, as well as modules that are missing or seem to be
 missing.
-Print a report to standard output that lists the modules imported by the
-script and their paths, as well as modules that are missing or seem to be
-missing.
-run_script ( pathname )
 Analyze the contents of the pathname file, which must contain Python
 code.
-Analyze the contents of the pathname file, which must contain Python
-code.
-modules
-A dictionary mapping module names to modules. See Example usage of ModuleFinder .
 A dictionary mapping module names to modules. See Example usage of ModuleFinder .
 
 ## Example usage of ModuleFinder

@@ -22,7 +22,6 @@ runtime when they are accessed or used, and will be removed in Python 3.14: ast.
 ast : The following features have been deprecated in documentation
 since Python 3.8, now cause a DeprecationWarning to be emitted at
 runtime when they are accessed or used, and will be removed in Python 3.14:
-ast
 DeprecationWarning
 ast.Num
 ast.Num
@@ -155,7 +154,6 @@ DeprecationWarning
 importlib.util.find_spec()
 pty : master_open() : use pty.openpty() . slave_open() : use pty.openpty() .
 pty :
-pty
 master_open() : use pty.openpty() .
 master_open() : use pty.openpty() .
 master_open()
@@ -175,7 +173,6 @@ execute() and executemany() if named placeholders are used and parameters is a s
 execute() and executemany() if named placeholders are used and parameters is a sequence instead of a dict .
 execute()
 executemany()
-dict
 urllib : urllib.parse.Quoter is deprecated: it was not intended to be a
 public API.
 (Contributed by Gregory P. Smith in gh-88168 .)

@@ -8,7 +8,6 @@ SOURCE: howto\enum.html
 An Enum is a set of symbolic names bound to unique values.  They are
 similar to global variables, but they offer a more useful repr() ,
 grouping, type-safety, and a few other features.
-Enum
 repr()
 They are most useful when you have a variable that can take one of a limited
 selection of values.  For example, the days of the week:
@@ -25,9 +24,6 @@ Or perhaps the RGB primary colors:
 
 As you can see, creating an Enum is as simple as writing a class that
 inherits from Enum itself.
-Enum
-Enum
-Note
 Case of Enum Members
 Because Enums are used to represent constants, and to help avoid issues
 with name clashes between mixin-class methods/attributes and enum names,
@@ -58,7 +54,6 @@ The type of an enumeration member is the enum it belongs to:
 [/CODE]
 
 Enum members have an attribute that contains just their name :
-name
 
 [CODE]
 >>> print ( Weekday . TUESDAY . name ) TUESDAY
@@ -80,7 +75,6 @@ datetime.date
 weekday()
 isoweekday()
 Weekday
-date
 
 [CODE]
 @classmethod def from_date ( cls , date ): return cls ( date . isoweekday ())
@@ -105,8 +99,6 @@ what if we need several?  Maybe we’re writing a function to plot chores during
 a week, and don’t want to use a list – we could use a different type
 of Enum :
 Weekday
-list
-Enum
 
 [CODE]
 >>> from enum import Flag >>> class Weekday ( Flag ): ... MONDAY = 1 ... TUESDAY = 2 ... WEDNESDAY = 4 ... THURSDAY = 8 ... FRIDAY = 16 ... SATURDAY = 32 ... SUNDAY = 64
@@ -114,7 +106,6 @@ Enum
 
 We’ve changed two things: we’re inherited from Flag , and the values are
 all powers of 2.
-Flag
 Just like the original Weekday enum above, we can have a single selection:
 Weekday
 
@@ -124,14 +115,12 @@ Weekday
 
 But Flag also allows us to combine several members into a single
 variable:
-Flag
 
 [CODE]
 >>> weekend = Weekday . SATURDAY | Weekday . SUNDAY >>> weekend <Weekday.SATURDAY|SUNDAY: 96>
 [/CODE]
 
 You can even iterate over a Flag variable:
-Flag
 
 [CODE]
 >>> for day in weekend : ... print ( day ) Weekday.SATURDAY Weekday.SUNDAY
@@ -163,7 +152,6 @@ Sometimes it’s useful to access members in enumerations programmatically (i.e.
 situations where Color.RED won’t do because the exact color is not known
 at program-writing time). Enum allows such access:
 Color.RED
-Enum
 
 [CODE]
 >>> Color ( 1 ) <Color.RED: 1> >>> Color ( 3 ) <Color.BLUE: 3>
@@ -176,7 +164,6 @@ If you want to access enum members by name , use item access:
 [/CODE]
 
 If you have an enum member and need its name or value :
-name
 value
 
 [CODE]
@@ -200,7 +187,6 @@ By-name lookup of B will also return the member A :
 >>> class Shape ( Enum ): ... SQUARE = 2 ... DIAMOND = 1 ... CIRCLE = 3 ... ALIAS_FOR_SQUARE = 2 ... >>> Shape . SQUARE <Shape.SQUARE: 2> >>> Shape . ALIAS_FOR_SQUARE <Shape.SQUARE: 2> >>> Shape ( 2 ) <Shape.SQUARE: 2>
 [/CODE]
 
-Note
 Attempting to create a member with the same name as an already
 defined attribute (another member, a method, etc.) or attempting to create
 an attribute with the same name as a member is not allowed.
@@ -218,7 +204,6 @@ unique()
 ## Using automatic values
 
 If the exact value is unimportant you can use auto :
-auto
 
 [CODE]
 >>> from enum import Enum , auto >>> class Color ( Enum ): ... RED = auto () ... BLUE = auto () ... GREEN = auto () ... >>> [ member . value for member in Color ] [1, 2, 3]
@@ -232,7 +217,6 @@ _generate_next_value_()
 >>> class AutoName ( Enum ): ... @staticmethod ... def _generate_next_value_ ( name , start , count , last_values ): ... return name ... >>> class Ordinal ( AutoName ): ... NORTH = auto () ... SOUTH = auto () ... EAST = auto () ... WEST = auto () ... >>> [ member . value for member in Ordinal ] ['NORTH', 'SOUTH', 'EAST', 'WEST']
 [/CODE]
 
-Note
 The _generate_next_value_() method must be defined before any members.
 _generate_next_value_()
 
@@ -264,7 +248,6 @@ __members__
 >>> [ name for name , member in Shape . __members__ . items () if member . name != name ] ['ALIAS_FOR_SQUARE']
 [/CODE]
 
-Note
 Aliases for flags include values with multiple flags set, such as 3 ,
 and no flags set, i.e. 0 .
 
@@ -336,7 +319,6 @@ any value(s) given to the enum member will be passed into those methods.
 See Planet for an example.
 __new__()
 __init__()
-Note
 The __new__() method, if defined, is used during creation of the Enum
 members; it is then replaced by Enum’s __new__() which is used after
 class creation for lookup of existing members.  See When to use __new__() vs. __init__() for
@@ -349,7 +331,6 @@ __new__()
 A new Enum class must have one base enum class, up to one concrete
 data type, and as many object -based mixin classes as needed.  The
 order of these base classes is:
-Enum
 object
 
 [CODE]
@@ -391,12 +372,10 @@ repr=False
 repr()
 Changed in version 3.12: Only the dataclass fields are shown in the value area, not the dataclass’
 name.
-Note
 Adding dataclass() decorator to Enum and its subclasses is not supported. It will not raise any errors,
 but it will produce very strange results at runtime, such as members
 being equal to each other:
 dataclass()
-Enum
 
 [CODE]
 >>> @dataclass # don't do this: it does not make any sense ... class Color ( Enum ): ... RED = 1 ... BLUE = 2 ... >>> Color . RED is Color . BLUE False >>> Color . RED == Color . BLUE # problem is here: they should not be equal True
@@ -413,7 +392,6 @@ Enumerations can be pickled and unpickled:
 The usual restrictions for pickling apply: picklable enums must be defined in
 the top level of a module, since unpickling requires them to be importable
 from that module.
-Note
 With pickle protocol version 4 it is possible to easily pickle enums
 nested in other classes.
 It is possible to modify how enum members are pickled/unpickled by defining __reduce_ex__() in the enumeration class.  The default method is by-value,
@@ -424,14 +402,12 @@ __reduce_ex__()
 >>> import enum >>> class MyEnum ( enum . Enum ): ... __reduce_ex__ = enum . pickle_by_enum_name
 [/CODE]
 
-Note
 Using by-name for flags is not recommended, as unnamed aliases will
 not unpickle.
 
 ## Functional API
 
 The Enum class is callable, providing the following functional API:
-Enum
 
 [CODE]
 >>> Animal = Enum ( 'Animal' , 'ANT BEE CAT DOG' ) >>> Animal <enum 'Animal'> >>> Animal . ANT <Animal.ANT: 1> >>> list ( Animal ) [<Animal.ANT: 1>, <Animal.BEE: 2>, <Animal.CAT: 3>, <Animal.DOG: 4>]
@@ -440,7 +416,6 @@ Enum
 The semantics of this API resemble namedtuple . The first
 argument of the call to Enum is the name of the enumeration.
 namedtuple
-Enum
 The second argument is the source of enumeration member names.  It can be a
 whitespace-separated string of names, a sequence of names, a sequence of
 2-tuples with key/value pairs, or a mapping (e.g. dictionary) of names to
@@ -450,7 +425,6 @@ the start parameter to specify a different starting value).  A
 new class derived from Enum is returned.  In other words, the above
 assignment to Animal is equivalent to:
 start
-Enum
 Animal
 
 [CODE]
@@ -461,7 +435,6 @@ The reason for defaulting to 1 as the starting number and not 0 is
 that 0 is False in a boolean sense, but by default enum members all
 evaluate to True .
 False
-True
 Pickling enums created with the functional API can be tricky as frame stack
 implementation details are used to try and figure out which module the
 enumeration is being created in (e.g. it will fail if you use a utility
@@ -538,8 +511,6 @@ Changed in version 3.5: The start parameter was added.
 The first variation of Enum that is provided is also a subclass of int .  Members of an IntEnum can be compared to integers;
 by extension, integer enumerations of different types can also be compared
 to each other:
-Enum
-int
 IntEnum
 
 [CODE]
@@ -547,7 +518,6 @@ IntEnum
 [/CODE]
 
 However, they still can’t be compared to standard Enum enumerations:
-Enum
 
 [CODE]
 >>> class Shape ( IntEnum ): ... CIRCLE = 1 ... SQUARE = 2 ... >>> class Color ( Enum ): ... RED = 1 ... GREEN = 2 ... >>> Shape . CIRCLE == Color . RED False
@@ -565,8 +535,6 @@ IntEnum
 The second variation of Enum that is provided is also a subclass of str .  Members of a StrEnum can be compared to strings;
 by extension, string enumerations of different types can also be compared
 to each other.
-Enum
-str
 StrEnum
 Added in version 3.11.
 
@@ -575,15 +543,11 @@ Added in version 3.11.
 The next variation of Enum provided, IntFlag , is also based
 on int .  The difference being IntFlag members can be combined
 using the bitwise operators (&, |, ^, ~) and the result is still an IntFlag member, if possible.  Like IntEnum , IntFlag members are also integers and can be used wherever an int is used.
-Enum
 IntFlag
-int
 IntFlag
 IntFlag
 IntEnum
 IntFlag
-int
-Note
 Any operation on an IntFlag member besides the bit-wise operations will
 lose the IntFlag membership.
 IntFlag
@@ -608,14 +572,12 @@ It is also possible to name the combinations:
 >>> class Perm ( IntFlag ): ... R = 4 ... W = 2 ... X = 1 ... RWX = 7 ... >>> Perm . RWX <Perm.RWX: 7> >>> ~ Perm . RWX <Perm: 0> >>> Perm ( 7 ) <Perm.RWX: 7>
 [/CODE]
 
-Note
 Named combinations are considered aliases.  Aliases do not show up during
 iteration, but can be returned from by-value lookups.
 Changed in version 3.11.
 Another important difference between IntFlag and Enum is that
 if no flags are set (the value is 0), its boolean evaluation is False :
 IntFlag
-Enum
 False
 
 [CODE]
@@ -625,14 +587,12 @@ False
 Because IntFlag members are also subclasses of int they can
 be combined with them (but may lose IntFlag membership:
 IntFlag
-int
 IntFlag
 
 [CODE]
 >>> Perm . X | 4 <Perm.R|X: 5> >>> Perm . X + 8 9
 [/CODE]
 
-Note
 The negation operator, ~ , always returns an IntFlag member with a
 positive value:
 IntFlag
@@ -649,26 +609,16 @@ IntFlag
 [/CODE]
 
 Added in version 3.11.
-
-### Flag
-
 The last variation is Flag .  Like IntFlag , Flag members can be combined using the bitwise operators (&, |, ^, ~).  Unlike IntFlag , they cannot be combined with, nor compared against, any
 other Flag enumeration, nor int .  While it is possible to
 specify the values directly it is recommended to use auto as the
 value and let Flag select an appropriate value.
-Flag
 IntFlag
-Flag
 IntFlag
-Flag
-int
-auto
-Flag
 Added in version 3.6.
 Like IntFlag , if a combination of Flag members results in no
 flags being set, the boolean evaluation is False :
 IntFlag
-Flag
 False
 
 [CODE]
@@ -690,34 +640,27 @@ value:
 [/CODE]
 
 Flag members can also be iterated over:
-Flag
 
 [CODE]
 >>> purple = Color . RED | Color . BLUE >>> list ( purple ) [<Color.RED: 1>, <Color.BLUE: 2>]
 [/CODE]
 
 Added in version 3.11.
-Note
 For the majority of new code, Enum and Flag are strongly
 recommended, since IntEnum and IntFlag break some
 semantic promises of an enumeration (by being comparable to integers, and
 thus by transitivity to other unrelated enumerations). IntEnum and IntFlag should be used only in cases where Enum and Flag will not do; for example, when integer constants are replaced
 with enumerations, or for interoperability with other systems.
-Enum
-Flag
 IntEnum
 IntFlag
 IntEnum
 IntFlag
-Enum
-Flag
 
 ### Others
 
 While IntEnum is part of the enum module, it would be very
 simple to implement independently:
 IntEnum
-enum
 
 [CODE]
 class IntEnum ( int , ReprEnum ): # or Enum instead of ReprEnum pass
@@ -727,18 +670,14 @@ This demonstrates how similar derived enumerations can be defined; for example
 a FloatEnum that mixes in float instead of int .
 FloatEnum
 float
-int
 Some rules:
 When subclassing Enum , mix-in types must appear before the Enum class itself in the sequence of bases, as in the IntEnum example above.
 When subclassing Enum , mix-in types must appear before the Enum class itself in the sequence of bases, as in the IntEnum example above.
-Enum
-Enum
 IntEnum
 Mix-in types must be subclassable. For example, bool and range are not subclassable and will throw an error during Enum
 creation if used as the mix-in type.
 Mix-in types must be subclassable. For example, bool and range are not subclassable and will throw an error during Enum
 creation if used as the mix-in type.
-bool
 range
 While Enum can have members of any type, once you mix in an
 additional type, all the members must have values of that type, e.g. int above.  This restriction does not apply to mix-ins which only
@@ -746,8 +685,6 @@ add methods and don’t specify another type.
 While Enum can have members of any type, once you mix in an
 additional type, all the members must have values of that type, e.g. int above.  This restriction does not apply to mix-ins which only
 add methods and don’t specify another type.
-Enum
-int
 When another data type is mixed in, the value attribute is not the
 same as the enum member itself, although it is equivalent and will compare
 equal.
@@ -762,7 +699,6 @@ __new__()
 dataclass
 %-style formatting: %s and %r call the Enum class’s __str__() and __repr__() respectively; other codes (such as %i or %h for IntEnum) treat the enum member as its mixed-in type.
 %-style formatting: %s and %r call the Enum class’s __str__() and __repr__() respectively; other codes (such as %i or %h for IntEnum) treat the enum member as its mixed-in type.
-Enum
 __str__()
 __repr__()
 Formatted string literals , str.format() ,
@@ -772,7 +708,6 @@ and format() will use the enum’s __str__() method.
 str.format()
 format()
 __str__()
-Note
 Because IntEnum , IntFlag , and StrEnum are
 designed to be drop-in replacements for existing constants, their __str__() method has been reset to their data types’ __str__() method.
 IntEnum
@@ -788,7 +723,6 @@ __init__()
 __new__() must be used whenever you want to customize the actual value of
 the Enum member.  Any other modifications may go in either __new__() or __init__() , with __init__() being preferred.
 __new__()
-Enum
 __new__()
 __init__()
 __init__()
@@ -823,7 +757,6 @@ Changed in version 3.11.
 
 ### Enum member type
 
-Enum
 Enum members are instances of their enum class, and are normally accessed as EnumClass.member .  In certain situations, such as writing custom enum
 behavior, being able to access one member directly from another is useful,
 and is supported; however, in order to avoid name clashes between member names
@@ -837,9 +770,6 @@ Changed in version 3.5.
 When subclassing other data types, such as int or str , with
 an Enum , all values after the = are passed to that data type’s
 constructor.  For example:
-int
-str
-Enum
 
 [CODE]
 >>> class MyEnum ( IntEnum ): # help(int) -> int(x, base=10) -> integer ... example = '11' , 16 # so x='11' and base=16 ... >>> MyEnum . example . value # and hex(11) is... 17
@@ -847,27 +777,19 @@ Enum
 
 ### Boolean value of Enum classes and members
 
-Enum
 Enum classes that are mixed with non- Enum types (such as int , str , etc.) are evaluated according to the mixed-in
 type’s rules; otherwise, all members evaluate as True .  To make your
 own enum’s boolean evaluation depend on the member’s value add the following to
 your class:
-Enum
-int
-str
-True
 
 [CODE]
 def __bool__ ( self ): return bool ( self . value )
 [/CODE]
 
 Plain Enum classes always evaluate as True .
-Enum
-True
 
 ### Enum classes with methods
 
-Enum
 If you give your enum subclass extra methods, like the Planet class below, those methods will show up in a dir() of the member,
 but not of the class:
 dir()
@@ -878,10 +800,8 @@ dir()
 
 ### Combining members of Flag
 
-Flag
 Iterating over a combination of Flag members will only return the members that
 are comprised of a single bit:
-Flag
 
 [CODE]
 >>> class Color ( Flag ): ... RED = auto () ... GREEN = auto () ... BLUE = auto () ... MAGENTA = RED | BLUE ... YELLOW = RED | GREEN ... CYAN = GREEN | BLUE ... >>> Color ( 3 ) # named combination <Color.YELLOW: 3> >>> Color ( 7 ) # not named combination <Color.RED|GREEN|BLUE: 7>
@@ -889,7 +809,6 @@ Flag
 
 ### Flag and IntFlag minutia
 
-Flag
 IntFlag
 Using the following snippet for our examples:
 
@@ -954,7 +873,6 @@ bits are handled: STRICT , CONFORM , EJECT , and KEEP :
 STRICT
 CONFORM
 EJECT
-KEEP
 STRICT –> raises an exception when presented with invalid values
 STRICT –> raises an exception when presented with invalid values
 CONFORM –> discards any invalid bits
@@ -976,14 +894,11 @@ STRICT
 IntFlag
 EJECT
 _convert_
-KEEP
 ssl.Options
-KEEP
 
 ## How are Enums and Flags different?
 
 Enums have a custom metaclass that affects many aspects of both derived Enum classes and their instances (members).
-Enum
 
 ### Enum Classes
 
@@ -995,11 +910,9 @@ EnumType
 __contains__()
 __dir__()
 __iter__()
-Enum
 list(Color)
 some_enum_var in Color
 EnumType
-Enum
 __new__()
 __getnewargs__()
 __str__()
@@ -1010,7 +923,6 @@ __repr__()
 Flags have an expanded view of aliasing: to be canonical, the value of a flag
 needs to be a power-of-two value, and not a duplicate name.  So, in addition to the Enum definition of alias, a flag with no value (a.k.a. 0 ) or with more than one
 power-of-two value (e.g. 3 ) is considered an alias.
-Enum
 
 ### Enum Members (aka instances)
 
@@ -1024,7 +936,6 @@ __new__()
 
 Flag members can be iterated over just like the Flag class, and only the
 canonical members will be returned.  For example:
-Flag
 
 [CODE]
 >>> list ( Color ) [<Color.RED: 1>, <Color.GREEN: 2>, <Color.BLUE: 4>]
@@ -1053,10 +964,8 @@ they contain.  For example:
 While Enum , IntEnum , StrEnum , Flag , and IntFlag are expected to cover the majority of use-cases, they cannot
 cover them all.  Here are recipes for some different types of enumerations
 that can be used directly, or as examples for creating one’s own.
-Enum
 IntEnum
 StrEnum
-Flag
 IntFlag
 
 ### Omitting values
@@ -1065,7 +974,6 @@ In many use-cases, one doesn’t care what the actual value of an enumeration
 is. There are several ways to define this type of simple enumeration:
 use instances of auto for the value
 use instances of auto for the value
-auto
 use instances of object as the value
 use instances of object as the value
 object
@@ -1076,16 +984,13 @@ tuple with an int value
 use a tuple as the value and a custom __new__() to replace the
 tuple with an int value
 __new__()
-int
 Using any of these methods signifies to the user that these values are not
 important, and also enables one to add, remove, or reorder members without
 having to renumber the remaining members.
 
 #### Using auto
 
-auto
 Using auto would look like:
-auto
 
 [CODE]
 >>> class Color ( Enum ): ... RED = auto () ... BLUE = auto () ... GREEN = auto () ... >>> Color . GREEN <Color.GREEN: 3>
@@ -1142,7 +1047,6 @@ __init__
 >>> class Swatch ( AutoNumber ): ... def __init__ ( self , pantone = 'unknown' ): ... self . pantone = pantone ... AUBURN = '3497' ... SEA_GREEN = '1246' ... BLEACHED_CORAL = () # New color, no Pantone code yet! ... >>> Swatch . SEA_GREEN <Swatch.SEA_GREEN: 2> >>> Swatch . SEA_GREEN . pantone '1246' >>> Swatch . BLEACHED_CORAL . pantone 'unknown'
 [/CODE]
 
-Note
 The __new__() method, if defined, is used during creation of the Enum
 members; it is then replaced by Enum’s __new__() which is used after
 class creation for lookup of existing members.
@@ -1164,7 +1068,6 @@ An ordered enumeration that is not based on IntEnum and so maintains
 the normal Enum invariants (such as not being comparable to other
 enumerations):
 IntEnum
-Enum
 
 [CODE]
 >>> class OrderedEnum ( Enum ): ... def __ge__ ( self , other ): ... if self . __class__ is other . __class__ : ... return self . value >= other . value ... return NotImplemented ... def __gt__ ( self , other ): ... if self . __class__ is other . __class__ : ... return self . value > other . value ... return NotImplemented ... def __le__ ( self , other ): ... if self . __class__ is other . __class__ : ... return self . value <= other . value ... return NotImplemented ... def __lt__ ( self , other ): ... if self . __class__ is other . __class__ : ... return self . value < other . value ... return NotImplemented ... >>> class Grade ( OrderedEnum ): ... A = 5 ... B = 4 ... C = 3 ... D = 2 ... F = 1 ... >>> Grade . C < Grade . A True
@@ -1179,7 +1082,6 @@ alias:
 >>> class DuplicateFreeEnum ( Enum ): ... def __init__ ( self , * args ): ... cls = self . __class__ ... if any ( self . value == e . value for e in cls ): ... a = self . name ... e = cls ( self . value ) . name ... raise ValueError ( ... "aliases not allowed in DuplicateFreeEnum: %r --> %r " ... % ( a , e )) ... >>> class Color ( DuplicateFreeEnum ): ... RED = 1 ... GREEN = 2 ... BLUE = 3 ... GRENE = 2 ... Traceback (most recent call last): ... ValueError : aliases not allowed in DuplicateFreeEnum:  'GRENE' --> 'GREEN'
 [/CODE]
 
-Note
 This is a useful example for subclassing Enum to add or change other
 behaviors as well as disallowing aliases.  If the only desired change is
 disallowing aliases, the unique() decorator can be used instead.
@@ -1218,5 +1120,4 @@ _ignore_
 While most enum needs can be met by customizing Enum subclasses,
 either with class decorators or custom functions, EnumType can be
 subclassed to provide a different Enum experience.
-Enum
 EnumType

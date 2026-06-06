@@ -21,8 +21,6 @@ Character
 Next token (or other relevant documentation)
 space
 space
-tab
-tab
 formfeed
 formfeed
 Whitespace
@@ -51,14 +49,10 @@ ASCII letter ( a - z , A - Z )
 ASCII letter ( a - z , A - Z )
 non-ASCII character
 non-ASCII character
-Name
-Name
 Prefixed string or bytes literal
 Prefixed string or bytes literal
 underscore ( _ )
 underscore ( _ )
-Name
-Name
 (Can also be part of numeric literals )
 (Can also be part of numeric literals )
 number ( 0 - 9 )
@@ -77,7 +71,6 @@ dollar ( $ )
 dollar ( $ )
 backquote ( ​`​ )
 backquote ( ​`​ )
-​`​
 control character
 control character
 Error (outside string literals and comments)
@@ -288,8 +281,6 @@ Whitespace is needed between two tokens only if their concatenation
 could otherwise be interpreted as a different token. For example, ab is one
 token, but a b is two tokens. However, +a and + a both produce
 two tokens, + and a , as +a is not a valid token.
-a b
-+ a
 
 ### 2.1.10. End marker
 
@@ -308,19 +299,15 @@ forms a legal token, when read from left to right.
 NEWLINE
 INDENT
 DEDENT
-NAME
 NUMBER
 STRING
 
 ## 2.3. Names (identifiers and keywords)
 
 NAME tokens represent identifiers , keywords , and soft keywords .
-NAME
 Names are composed of the following characters:
 uppercase and lowercase letters ( A-Z and a-z ),
 uppercase and lowercase letters ( A-Z and a-z ),
-A-Z
-a-z
 the underscore ( _ ),
 the underscore ( _ ),
 digits ( 0 through 9 ), which cannot appear as the first character, and
@@ -339,7 +326,6 @@ NAME : name_start name_continue * name_start : "a" ... "z" | "A" ... "Z" | "_" |
 
 name_start
 name_continue
-NAME
 Note that not all names matched by this grammar are valid; see Non-ASCII characters in names for details.
 
 ### 2.3.1. Keywords
@@ -365,19 +351,15 @@ Some names are only reserved under specific contexts. These are known as soft ke
 match , case , and _ , when used in the match statement.
 match , case , and _ , when used in the match statement.
 match
-case
 match
 type , when used in the type statement.
 type , when used in the type statement.
-type
-type
 These syntactically act as keywords in their specific contexts,
 but this distinction is done at the parser level, not when tokenizing.
 As soft keywords, their use in the grammar is possible while still
 preserving compatibility with existing code that uses these names as
 identifier names.
 Changed in version 3.12: type is now a soft keyword.
-type
 
 ### 2.3.3. Reserved classes of identifiers
 
@@ -385,17 +367,8 @@ Certain classes of identifiers (besides keywords) have special meanings.  These
 classes are identified by the patterns of leading and trailing underscore
 characters:
 Not imported by from module import * .
-Not imported by from module import * .
 from module import *
-In a case pattern within a match statement, _ is a soft keyword that denotes a wildcard . Separately, the interactive interpreter makes the result of the last evaluation
-available in the variable _ .
-(It is stored in the builtins module, alongside built-in
-functions like print .) Elsewhere, _ is a regular identifier. It is often used to name
-“special” items, but it is not special to Python itself. Note The name _ is often used in conjunction with internationalization;
-refer to the documentation for the gettext module for more
-information on this convention. It is also commonly used for unused variables.
 In a case pattern within a match statement, _ is a soft keyword that denotes a wildcard .
-case
 match
 Separately, the interactive interpreter makes the result of the last evaluation
 available in the variable _ .
@@ -405,20 +378,12 @@ builtins
 print
 Elsewhere, _ is a regular identifier. It is often used to name
 “special” items, but it is not special to Python itself.
-Note
 The name _ is often used in conjunction with internationalization;
 refer to the documentation for the gettext module for more
 information on this convention.
 gettext
 It is also commonly used for unused variables.
 __*__
-__*__
-System-defined names, informally known as “dunder” names. These names are
-defined by the interpreter and its implementation (including the standard library).
-Current system names are discussed in the Special method names section and elsewhere.
-More will likely be defined in future versions of Python. Any use of __*__ names,
-in any context, that does not follow explicitly documented use, is subject to
-breakage without warning.
 System-defined names, informally known as “dunder” names. These names are
 defined by the interpreter and its implementation (including the standard library).
 Current system names are discussed in the Special method names section and elsewhere.
@@ -426,11 +391,6 @@ More will likely be defined in future versions of Python. Any use of __*__ names
 in any context, that does not follow explicitly documented use, is subject to
 breakage without warning.
 __*__
-__*
-__*
-Class-private names.  Names in this category, when used within the context of a
-class definition, are re-written to use a mangled form to help avoid name
-clashes between “private” attributes of base and derived classes. See section Identifiers (Names) .
 Class-private names.  Names in this category, when used within the context of a
 class definition, are re-written to use a mangled form to help avoid name
 clashes between “private” attributes of base and derived classes. See section Identifiers (Names) .
@@ -440,9 +400,6 @@ clashes between “private” attributes of base and derived classes. See sectio
 Names that contain non-ASCII characters need additional normalization
 and validation beyond the rules and grammar explained above .
 For example, ř_1 , 蛇 , or साँप are valid names, but r〰2 , € , or 🐍 are not.
-ř_1
-साँप
-r〰2
 This section explains the exact rules.
 All names are converted into the normalization form NFKC while parsing.
 This means that, for example, some typographic variants of characters are
@@ -454,7 +411,6 @@ finalization
 >>> ﬁⁿₐˡᵢᶻₐᵗᵢᵒₙ = 3 >>> finalization 3
 [/CODE]
 
-Note
 Normalization is done at the lexical level only.
 Run-time functions that take names as strings generally do not normalize
 their arguments.
@@ -480,25 +436,18 @@ The set id_start is defined as the union of:
 id_start
 Unicode category <Lu> - uppercase letters (includes A to Z )
 Unicode category <Lu> - uppercase letters (includes A to Z )
-<Lu>
 Unicode category <Ll> - lowercase letters (includes a to z )
 Unicode category <Ll> - lowercase letters (includes a to z )
-<Ll>
 Unicode category <Lt> - titlecase letters
 Unicode category <Lt> - titlecase letters
-<Lt>
 Unicode category <Lm> - modifier letters
 Unicode category <Lm> - modifier letters
-<Lm>
 Unicode category <Lo> - other letters
 Unicode category <Lo> - other letters
-<Lo>
 Unicode category <Nl> - letter numbers
 Unicode category <Nl> - letter numbers
-<Nl>
 { "_" } - the underscore
 { "_" } - the underscore
-"_"
 <Other_ID_Start> - an explicit set of characters in PropList.txt to support backwards compatibility
 <Other_ID_Start> - an explicit set of characters in PropList.txt to support backwards compatibility
 <Other_ID_Start>
@@ -513,16 +462,12 @@ id_start (see above)
 id_start
 Unicode category <Nd> - decimal numbers (includes 0 to 9 )
 Unicode category <Nd> - decimal numbers (includes 0 to 9 )
-<Nd>
 Unicode category <Pc> - connector punctuations
 Unicode category <Pc> - connector punctuations
-<Pc>
 Unicode category <Mn> - nonspacing marks
 Unicode category <Mn> - nonspacing marks
-<Mn>
 Unicode category <Mc> - spacing combining marks
 Unicode category <Mc> - spacing combining marks
-<Mc>
 <Other_ID_Continue> - another explicit set of characters in PropList.txt to support backwards compatibility
 <Other_ID_Continue> - another explicit set of characters in PropList.txt to support backwards compatibility
 <Other_ID_Continue>
@@ -542,10 +487,7 @@ PEP 672 – Unicode-related Security Considerations for Python
 Literals are notations for constant values of some built-in types.
 In terms of lexical analysis, Python has string, bytes and numeric literals.
 Other “literals” are lexically denoted using keywords ( None , True , False ) and the special ellipsis token ( ... ).
-None
-True
 False
-...
 
 ## 2.5. String and Bytes literals
 
@@ -628,8 +570,6 @@ The ‘ r ’ prefix can be combined with ‘ f ’, ‘ t ’ or ‘ b ’, so 
 ‘ rf ’, ‘ tr ’, ‘ rt ’, ‘ br ’, and ‘ rb ’ are also valid prefixes.
 Added in version 3.3: The 'rb' prefix of raw bytes literals has been added as a synonym
 of 'br' .
-'rb'
-'br'
 Support for the unicode legacy literal ( u'value' ) was reintroduced
 to simplify the maintenance of dual Python 2.x and 3.x codebases.
 See PEP 414 for more information.
@@ -819,14 +759,12 @@ instance of the bytes type instead of the str type.
 They may only contain ASCII characters; bytes with a numeric value of 128
 or greater must be expressed with escape sequences (typically Hexadecimal character or Octal character ):
 bytes
-str
 
 [CODE]
 >>> b ' \x89 PNG \r\n\x1a\n ' b'\x89PNG\r\n\x1a\n' >>> list ( b ' \x89 PNG \r\n\x1a\n ' ) [137, 80, 78, 71, 13, 10, 26, 10]
 [/CODE]
 
 Similarly, a zero byte must be expressed using an escape sequence (typically \0 or \x00 ).
-\x00
 
 ### 2.5.6. Raw string literals
 
@@ -846,7 +784,6 @@ backslashes).  Specifically, a raw literal cannot end in a single backslash (sin
 that a single backslash followed by a newline is interpreted as those two
 characters as part of the literal, not as a line continuation.
 r"\""
-r"\"
 
 ### 2.5.7. f-strings
 
@@ -1070,7 +1007,6 @@ fstring_replacement_field
 conditional_expression
 or_expr
 yield_expression
-Note
 In the above grammar snippet, the f_quote and FSTRING_MIDDLE rules
 are context-sensitive – they depend on the contents of FSTRING_START of the nearest enclosing fstring .
 f_quote
@@ -1104,7 +1040,6 @@ The numeric value of a numeric literal is the same as if it were passed as a
 string to the int , float or complex class
 constructor, respectively.
 Note that not all valid inputs for those constructors are also valid literals.
-int
 float
 complex
 Numeric literals do not include a sign; a phrase like -1 is
@@ -1135,8 +1070,6 @@ For example, the following literals are equivalent:
 
 Underscores can only occur between digits.
 For example, _123 , 321_ , and 123__321 are not valid literals.
-_123
-321_
 123__321
 Integers can be specified in binary (base 2), octal (base 8), or hexadecimal
 (base 16) using the prefixes 0b , 0o and 0x , respectively.
@@ -1157,7 +1090,6 @@ Leading zeros in a non-zero decimal number are not allowed.
 For example, 0123 is not a valid literal.
 This is for disambiguation with C-style octal literals, which Python used
 before version 3.0.
-0123
 Formally, integer literals are described by the following lexical definitions:
 
 [CODE]
@@ -1180,8 +1112,6 @@ Changed in version 3.6: Underscores are now allowed for grouping purposes in lit
 ### 2.6.2. Floating-point literals
 
 Floating-point (float) literals, such as 3.14 or 1.5 , denote approximations of real numbers .
-3.14
-1.5
 They consist of integer and fraction parts, each composed of decimal digits.
 The parts are separated by a decimal point, . :
 
@@ -1263,7 +1193,6 @@ of the integer literal 3 ,
 the operator ‘ + ’,
 and the imaginary literal 4.2j .
 Since these are three separate tokens, whitespace is allowed between them:
-4.2j
 
 [CODE]
 3 + 4.2 j
@@ -1321,7 +1250,6 @@ OP :
    | "..." | other_op assignment_operator : "+=" | "-=" | "*=" | "**=" | "/=" | "//=" | "%=" | "&=" | "|=" | "^=" | "<<=" | ">>=" | "@=" | ":=" bitwise_operator : "&" | "|" | "^" | "~" | "<<" | ">>" comparison_operator : "<=" | ">=" | "<" | ">" | "==" | "!=" enclosing_delimiter : "(" | ")" | "[" | "]" | "{" | "}" other_delimiter : "," | ":" | "!" | ";" | "=" | "->" arithmetic_operator : "+" | "-" | "**" | "*" | "//" | "/" | "%" other_op : "." | "@"
 [/CODE]
 
-Note
 Generally, operators are used to combine expressions ,
 while delimiters serve other purposes.
 However, there is no clear, formal distinction between the two categories.
@@ -1334,9 +1262,7 @@ For example, some people consider . , ( , and ) to be delimiters, while others
 see the getattr() operator and the function call operator(s).
 getattr()
 Some of Python’s operators, like and , or , and not in , use keyword tokens rather than “symbols” (operator tokens).
-and
 not in
 A sequence of three consecutive periods ( ... ) has a special
 meaning as an Ellipsis literal.
-...
 Ellipsis

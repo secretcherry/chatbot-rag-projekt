@@ -5,8 +5,6 @@ SOURCE: whatsnew\2.6.html
 
 # What’s New in Python 2.6
 
-Author :
-A.M. Kuchling (amk at amk.ca)
 A.M. Kuchling (amk at amk.ca)
 This article explains the new features in Python 2.6, released on October 1,
 2008.  The release schedule is described in PEP 361 .
@@ -23,7 +21,6 @@ such as the multiprocessing and json modules, but
 there aren’t many new features that aren’t related to Python 3.0 in
 some way.
 multiprocessing
-json
 Python 2.6 also sees a number of improvements and bugfixes throughout
 the source.  A search through the change logs finds there were 259
 patches applied and 612 bugs fixed between Python 2.5 and 2.6.  Both
@@ -118,17 +115,9 @@ SourceForge; his scripts for this import operation are at https://svn.python.org
 other projects wishing to move from SourceForge to Roundup.
 https://svn.python.org/view/tracker/importer/
 See also
-https://bugs.python.org
 The Python bug tracker.
-The Python bug tracker.
-https://bugs.jython.org :
 The Jython bug tracker.
-The Jython bug tracker.
-https://roundup.sourceforge.io/
 Roundup downloads and documentation.
-Roundup downloads and documentation.
-https://svn.python.org/view/tracker/importer/
-Martin von Löwis’s conversion scripts.
 Martin von Löwis’s conversion scripts.
 
 ### New Documentation Format: reStructuredText Using Sphinx
@@ -162,14 +151,8 @@ almost two dozen other projects
 ( listed on the Sphinx web site )
 have adopted Sphinx as their documentation tool.
 See also
-Documenting Python
 Describes how to write for Python’s documentation.
-Describes how to write for Python’s documentation.
-Sphinx
 Documentation and code for the Sphinx toolchain.
-Documentation and code for the Sphinx toolchain.
-Docutils
-The underlying reStructuredText parser and toolset.
 The underlying reStructuredText parser and toolset.
 
 ## PEP 343: The ‘with’ statement
@@ -181,19 +164,14 @@ keyword.  The rest of this section is a copy of the corresponding
 section from the “What’s New in Python 2.5” document; if you’re
 familiar with the ‘ with ’ statement
 from Python 2.5, you can skip this section.
-with
 from __future__ import with_statement
-with
-with
 The ‘ with ’ statement clarifies code that previously would use try...finally blocks to ensure that clean-up code is executed.  In this
 section, I’ll discuss the statement as it will commonly be used.  In the next
 section, I’ll examine the implementation details and show how to write objects
 for use with this statement.
-with
 try...finally
 The ‘ with ’ statement is a control-flow structure whose basic
 structure is:
-with
 
 [CODE]
 with expression [ as variable ]: with - block
@@ -213,7 +191,6 @@ clean-up code.
 __exit__()
 Some standard Python objects now support the context management protocol and can
 be used with the ‘ with ’ statement. File objects are one example:
-with
 
 [CODE]
 with open ( '/etc/passwd' , 'r' ) as f : for line in f : print line ... more processing code ...
@@ -222,15 +199,12 @@ with open ( '/etc/passwd' , 'r' ) as f : for line in f : print line ... more pro
 After this statement has executed, the file object in f will have been
 automatically closed, even if the for loop raised an exception
 part-way through the block.
-for
-Note
 In this case, f is the same object created by open() , because __enter__() returns self .
 open()
 __enter__()
 The threading module’s locks and condition variables  also support the
 ‘ with ’ statement:
 threading
-with
 
 [CODE]
 lock = threading . Lock () with lock : # Critical section of code ...
@@ -255,8 +229,6 @@ people will only use ‘ with ’ in company with existing objects and
 don’t need to know these details, so you can skip the rest of this section if
 you like.  Authors of new objects will need to understand the details of the
 underlying implementation and should keep reading.
-with
-with
 A high-level explanation of the context management protocol is:
 The expression is evaluated and should result in an object called a “context
 manager”.  The context manager must have __enter__() and __exit__() methods.
@@ -291,15 +263,11 @@ never realize anything went wrong.
 __exit__()
 type, value, traceback
 sys.exc_info()
-None
-True
-with
 If BLOCK didn’t raise an exception,  the __exit__() method is still
 called, but type , value , and traceback are all None .
 If BLOCK didn’t raise an exception,  the __exit__() method is still
 called, but type , value , and traceback are all None .
 __exit__()
-None
 Let’s think through an example.  I won’t present detailed code but will only
 sketch the methods necessary for a database that supports transactions.
 (For people unfamiliar with database terminology: a set of changes to the
@@ -328,7 +296,6 @@ result, so the method will return it.  The user can then add as cursor to
 their ‘ with ’ statement to bind the cursor to a variable name.
 __enter__()
 as cursor
-with
 
 [CODE]
 class DatabaseConnection : ... def __enter__ ( self ): # Code to start a new transaction cursor = self . cursor () return cursor
@@ -343,8 +310,6 @@ In the code below, execution will just fall off the end of the function,
 returning the default value of None . None is false, so the exception
 will be re-raised automatically.  If you wished, you could be more explicit and
 add a return statement at the marked location.
-None
-None
 return
 
 [CODE]
@@ -356,7 +321,6 @@ class DatabaseConnection : ... def __exit__ ( self , type , value , tb ): if tb 
 The contextlib module provides some functions and a decorator that
 are useful when writing objects for use with the ‘ with ’ statement.
 contextlib
-with
 The decorator is called contextmanager() , and lets you write
 a single generator function instead of defining a new class.  The generator
 should yield exactly one value.  The code up to the yield will be
@@ -368,7 +332,6 @@ Any exception raised in the block will be raised by the yield statement.
 contextmanager()
 yield
 __enter__()
-with
 yield
 __exit__()
 yield
@@ -385,8 +348,6 @@ that combines a number of context managers so you don’t need to write nested
 statement both starts a database transaction and acquires a thread lock:
 contextlib
 nested(mgr1, mgr2, ...)
-with
-with
 
 [CODE]
 lock = threading . Lock () with nested ( db_transaction ( db ), lock ) as ( cursor , locked ): ...
@@ -403,16 +364,10 @@ import urllib , sys from contextlib import closing with closing ( urllib . urlop
 [/CODE]
 
 See also
-PEP 343 - The “with” statement
 PEP written by Guido van Rossum and Nick Coghlan; implemented by Mike Bland,
 Guido van Rossum, and Neal Norwitz.  The PEP shows the code generated for a
 ‘ with ’ statement, which can be helpful in learning how the statement
 works.
-PEP written by Guido van Rossum and Nick Coghlan; implemented by Mike Bland,
-Guido van Rossum, and Neal Norwitz.  The PEP shows the code generated for a
-‘ with ’ statement, which can be helpful in learning how the statement
-works.
-with
 The documentation  for the contextlib module.
 contextlib
 
@@ -466,9 +421,7 @@ site.py
 The feature can be disabled entirely by running Python with the -s option or setting the PYTHONNOUSERSITE environment variable.
 PYTHONNOUSERSITE
 See also
-PEP 370 - Per-user site-packages Directory
 site-packages
-PEP written and implemented by Christian Heimes.
 PEP written and implemented by Christian Heimes.
 
 ## PEP 371: The multiprocessing Package
@@ -518,14 +471,11 @@ Two other classes, Pool and Manager , provide higher-level interfaces. Pool will
 processes, and requests can then be distributed to the workers by calling apply() or apply_async() to add a single request, and map() or map_async() to add a number of
 requests.  The following code uses a Pool to
 spread requests across 5 worker processes and retrieve a list of results:
-Pool
 Manager
-Pool
 apply()
 apply_async()
 map()
 map_async()
-Pool
 
 [CODE]
 from multiprocessing import Pool def factorial ( N , dictionary ): "Compute a factorial." ... p = Pool ( 5 ) result = p . map ( factorial , range ( 1 , 1000 , 10 )) for v in result : print v
@@ -566,9 +516,6 @@ This will produce the output:
 See also
 The documentation for the multiprocessing module.
 multiprocessing
-PEP 371 - Addition of the multiprocessing package
-PEP written by Jesse Noller and Richard Oudkerk;
-implemented by Richard Oudkerk and Jesse Noller.
 PEP written by Jesse Noller and Richard Oudkerk;
 implemented by Richard Oudkerk and Jesse Noller.
 
@@ -596,8 +543,6 @@ Curly brackets can be escaped by doubling them:
 
 Field names can be integers indicating positional arguments, such as {0} , {1} , etc. or names of keyword arguments.  You can also
 supply compound field names that read attributes or access dictionary keys:
-{0}
-{1}
 
 [CODE]
 >>> import sys >>> print 'Platform: {0.platform} \n Python version: {0.version} ' . format ( sys ) Platform: darwin Python version: 2.6a1+ (trunk:61261M, Mar  5 2008, 20:29:41) [GCC 4.0.1 (Apple Computer, Inc. build 5367)]' >>> import mimetypes >>> 'Content-type: {0[.mp4]} ' . format ( mimetypes . types_map ) 'Content-type: video/mp4'
@@ -609,7 +554,6 @@ up the value using .mp4 as the key.  Strings beginning with a
 number will be converted to an integer.  You can’t write more
 complicated expressions inside a format string.
 [.mp4]
-.mp4
 So far we’ve shown how to specify which field to substitute into the
 resulting string.  The precise formatting used is also controllable by
 adding a colon followed by a format specifier.  For example:
@@ -678,11 +622,7 @@ __format__()
 [/CODE]
 
 See also
-Format string syntax
 The reference documentation for format fields.
-The reference documentation for format fields.
-PEP 3101 - Advanced String Formatting
-PEP written by Talin. Implemented by Eric Smith.
 PEP written by Talin. Implemented by Eric Smith.
 
 ## PEP 3105: print As a Function
@@ -722,8 +662,6 @@ arguments have been output.
 file : the file object to which the output will be sent.
 file : the file object to which the output will be sent.
 See also
-PEP 3105 - Make print a function
-PEP written by Georg Brandl.
 PEP written by Georg Brandl.
 
 ## PEP 3110: Exception-Handling Changes
@@ -755,7 +693,6 @@ node that’s a tuple?
 Python 3.0 makes this unambiguous by replacing the comma with the word
 “as”.  To catch an exception and store the exception object in the
 variable exc , you must write:
-exc
 
 [CODE]
 try : ... except TypeError as exc : ...
@@ -767,8 +704,6 @@ supports both the comma and “as”, so existing code will continue to
 work.  We therefore suggest using “as” when writing new Python code
 that will only be executed with 2.6.
 See also
-PEP 3110 - Catching Exceptions in Python 3000
-PEP written and implemented by Collin Winter.
 PEP written and implemented by Collin Winter.
 
 ## PEP 3112: Byte Literals
@@ -780,16 +715,12 @@ and it also supports the b'' notation.
 b'string'
 bytes
 bytes
-str
-b''
 The 2.6 str differs from 3.0’s bytes type in various
 ways; most notably, the constructor is completely different.  In 3.0, bytes([65, 66, 67]) is 3 elements long, containing the bytes
 representing ABC ; in 2.6, bytes([65, 66, 67]) returns the
 12-byte string representing the str() of the list.
-str
 bytes
 bytes([65, 66, 67])
-ABC
 bytes([65, 66, 67])
 str()
 The primary use of bytes in 2.6 will be to write tests of
@@ -801,7 +732,6 @@ exactly, and the resulting code will also be correct in Python 3.0.
 bytes
 isinstance(x, bytes)
 bytes
-str
 There’s also a __future__ import that causes all string literals
 to become Unicode strings.  This means that \u escape sequences
 can be used to include Unicode characters:
@@ -850,8 +780,6 @@ and various other functions.
 PyByteArray_FromObject()
 PyByteArray_FromStringAndSize()
 See also
-PEP 3112 - Bytes literals in Python 3000
-PEP written by Jason Orendorff; backported to 2.6 by Christian Heimes.
 PEP written by Jason Orendorff; backported to 2.6 by Christian Heimes.
 
 ## PEP 3116: New I/O Library
@@ -913,7 +841,6 @@ and adds a raw attribute holding the underlying
 raw object.
 BufferedIOBase
 RawIOBase
-raw
 There are five concrete classes implementing this ABC. BufferedWriter and BufferedReader are for objects
 that support write-only or read-only usage that have a seek() method for random access. BufferedRandom objects support
 read and write access upon the same underlying stream, and BufferedRWPair is for objects such as TTYs that have both
@@ -967,10 +894,6 @@ module is being provided to make it easier to write code that’s
 forward-compatible with 3.0, and to save developers the effort of writing
 their own implementations of buffering and text I/O.
 See also
-PEP 3116 - New I/O
-PEP written by Daniel Stutzbach, Mike Verdone, and Guido van Rossum.
-Code by Guido van Rossum, Georg Brandl, Walter Doerwald,
-Jeremy Hylton, Martin von Löwis, Tony Lownds, and others.
 PEP written by Daniel Stutzbach, Mike Verdone, and Guido van Rossum.
 Code by Guido van Rossum, Georg Brandl, Walter Doerwald,
 Jeremy Hylton, Martin von Löwis, Tony Lownds, and others.
@@ -1015,9 +938,6 @@ PyBUF_F_CONTIGUOUS
 Two new argument codes for PyArg_ParseTuple() , s* and z* , return locked buffer objects for a parameter.
 PyArg_ParseTuple()
 See also
-PEP 3118 - Revising the buffer protocol
-PEP written by Travis Oliphant and Carl Banks; implemented by
-Travis Oliphant.
 PEP written by Travis Oliphant and Carl Banks; implemented by
 Travis Oliphant.
 
@@ -1031,7 +951,6 @@ containing a metaclass called ABCMeta , special handling of
 this metaclass by the isinstance() and issubclass() builtins, and a collection of basic ABCs that the Python developers
 think will be widely useful.  Future versions of Python will probably
 add more ABCs.
-abc
 ABCMeta
 isinstance()
 issubclass()
@@ -1147,10 +1066,6 @@ from abc import abstractproperty ... @abstractproperty def readonly ( self ): re
 Subclasses must then define a readonly property.
 readonly
 See also
-PEP 3119 - Introducing Abstract Base Classes
-PEP written by Guido van Rossum and Talin.
-Implemented by Guido van Rossum.
-Backported to 2.6 by Benjamin Aranguren, with Alex Martelli.
 PEP written by Guido van Rossum and Talin.
 Implemented by Guido van Rossum.
 Backported to 2.6 by Benjamin Aranguren, with Alex Martelli.
@@ -1188,9 +1103,6 @@ long()
 [/CODE]
 
 See also
-PEP 3127 - Integer Literal Support and Syntax
-PEP written by Patrick Maupin; backported to 2.6 by
-Eric Smith.
 PEP written by Patrick Maupin; backported to 2.6 by
 Eric Smith.
 
@@ -1210,8 +1122,6 @@ class A : pass A = foo ( bar ( A ))
 [/CODE]
 
 See also
-PEP 3129 - Class Decorators
-PEP written by Collin Winter.
 PEP written by Collin Winter.
 
 ## PEP 3141: A Type Hierarchy for Numbers
@@ -1237,7 +1147,6 @@ Real further derives from Complex , and adds
 operations that only work on real numbers: floor() , trunc() ,
 rounding, taking the remainder mod N, floor division,
 and comparisons.
-Real
 Complex
 floor()
 trunc()
@@ -1245,7 +1154,6 @@ Rational numbers derive from Real , have numerator and denominator properties, a
 converted to floats.  Python 2.6 adds a simple rational-number class, Fraction , in the fractions module.  (It’s called Fraction instead of Rational to avoid
 a name clash with numbers.Rational .)
 Rational
-Real
 numerator
 denominator
 Fraction
@@ -1268,8 +1176,6 @@ math.trunc()
 math.trunc()
 Integral
 See also
-PEP 3141 - A Type Hierarchy for Numbers
-PEP written by Jeffrey Yasskin.
 PEP written by Jeffrey Yasskin.
 Scheme’s numerical tower , from the Guile manual.
 Scheme’s number datatypes from the R5RS Scheme specification.
@@ -1282,7 +1188,6 @@ values as a numerator and denominator forming a fraction, and can
 exactly represent numbers such as 2/3 that floating-point numbers
 can only approximate.
 fractions
-2/3
 The Fraction constructor takes two Integral values
 that will be the numerator and denominator of the resulting fraction.
 Fraction
@@ -1448,12 +1353,8 @@ IEEE 754 Not A Number value, and +inf and -inf into
 positive or negative infinity.  This works on any platform with
 IEEE 754 semantics.  (Contributed by Christian Heimes; bpo-1635 .)
 float()
-nan
-+inf
--inf
 Other functions in the math module, isinf() and isnan() , return true if their floating-point argument is
 infinite or Not A Number.  ( bpo-1640 )
-math
 isinf()
 isnan()
 Conversion functions were added to convert floating-point numbers
@@ -1501,7 +1402,6 @@ __cmp__()
 __eq__()
 id(obj)
 __hash__()
-None
 tp_hash
 PyObject_HashNotImplemented()
 The GeneratorExit exception now subclasses BaseException instead of Exception .  This means
@@ -1545,7 +1445,6 @@ transformation.   This makes it easier to carry out operations
 that only delete characters.  (Contributed by Bengt Richter and
 implemented by Raymond Hettinger; bpo-1193128 .)
 translate()
-None
 The built-in dir() function now checks for a __dir__() method on the objects it receives.  This method must return a list
 of strings containing the names of valid attributes for the object,
 and lets the object control the value that dir() produces.
@@ -1665,7 +1564,6 @@ The with statement now stores the __exit__() method on the stack,
 producing a small speedup.  (Implemented by Jeffrey Yasskin.)
 The with statement now stores the __exit__() method on the stack,
 producing a small speedup.  (Implemented by Jeffrey Yasskin.)
-with
 __exit__()
 To reduce memory usage, the garbage collector will now clear internal
 free lists when garbage-collecting the highest generation of objects.
@@ -1689,8 +1587,6 @@ variable before running the interpreter.  This setting is available to
 Python programs as the sys.dont_write_bytecode variable, and
 Python code can change the value to modify the interpreter’s
 behaviour.  (Contributed by Neal Norwitz and Georg Brandl.)
-.pyc
-.pyo
 PYTHONDONTWRITEBYTECODE
 sys.dont_write_bytecode
 The encoding used for standard input, output, and standard error can
@@ -1755,7 +1651,6 @@ of an HTTP POST request.  This makes it possible to use form actions
 with URLs that include query strings such as
 “/cgi-bin/add.py?category=1”.  (Contributed by Alexandre Fiori and
 Nubis; bpo-1817 .)
-cgi
 The parse_qs() and parse_qsl() functions have been
 relocated from the cgi module to the urlparse module.
 The versions still available in the cgi module will
@@ -1763,9 +1658,7 @@ trigger PendingDeprecationWarning messages in 2.6
 ( bpo-600362 ).
 parse_qs()
 parse_qsl()
-cgi
 urlparse
-cgi
 PendingDeprecationWarning
 The cmath module underwent extensive revision,
 contributed by Mark Dickinson and Christian Heimes.
@@ -1842,7 +1735,6 @@ been modified to return namedtuple() instances.  For example,
 the Decimal.as_tuple() method now returns a named tuple with sign , digits , and exponent fields.
 namedtuple()
 Decimal.as_tuple()
-sign
 digits
 exponent
 (Contributed by Raymond Hettinger.)
@@ -1916,7 +1808,6 @@ The as_tuple() method of Decimal objects now returns a
 named tuple with sign , digits , and exponent fields.
 as_tuple()
 Decimal
-sign
 digits
 exponent
 (Implemented by Facundo Batista and Mark Dickinson.  Named tuple
@@ -1931,7 +1822,6 @@ with a , b , and size attributes.
 (Contributed by Raymond Hettinger.)
 difflib
 SequenceMatcher
-size
 An optional timeout parameter, specifying a timeout measured in
 seconds, was added to the ftplib.FTP class constructor as
 well as the connect() method.  (Added by Facundo Batista.)
@@ -1947,7 +1837,6 @@ will be called with each block of data after the data has been sent.
 timeout
 ftplib.FTP
 connect()
-FTP
 storbinary()
 storlines()
 The reduce() built-in function is also available in the functools module.  In Python 3.0, the builtin has been
@@ -2149,7 +2038,6 @@ and is careful to avoid loss of precision through using partial sums.
 (Contributed by Jean Brouwers, Raymond Hettinger, and Mark Dickinson; bpo-2819 .) acosh() , asinh() and atanh() compute the inverse hyperbolic functions. log1p() returns the natural logarithm of 1+x (base e ). trunc() rounds a number toward zero, returning the closest Integral that’s between the function’s argument and zero.
 Added as part of the backport of PEP 3141’s type hierarchy for numbers .
 Several new functions were added to the math module:
-math
 isinf() and isnan() determine whether a given float
 is a (positive or negative) infinity or a NaN (Not a Number), respectively.
 isinf() and isnan() determine whether a given float
@@ -2202,7 +2090,6 @@ Python will raise OverflowError .  (See bpo-711019 and bpo-1640 .) (Contributed 
 The math module has been improved to give more consistent
 behaviour across platforms, especially with respect to handling of
 floating-point exceptions and IEEE 754 special values.
-math
 Whenever possible, the module follows the recommendations of the C99
 standard about 754’s special values.  For example, sqrt(-1.) should now give a ValueError across almost all platforms,
 while sqrt(float('NaN')) should return a NaN on all IEEE 754
@@ -2226,7 +2113,6 @@ substring beginning at the end of the string and searching
 backwards.  The find() method also gained an end parameter
 giving an index at which to stop searching.
 (Contributed by John Lenton.)
-mmap
 rfind()
 find()
 The operator module gained a methodcaller() function that takes a name and an optional
@@ -2278,7 +2164,6 @@ the stat module; some possible values include UF_IMMUTABLE to signal the file ma
 file.  (Contributed by M. Levinson.)
 chflags()
 lchflags()
-stat
 UF_IMMUTABLE
 UF_APPEND
 os.closerange(low, high) efficiently closes all file descriptors
@@ -2336,7 +2221,6 @@ working directory to the destination path .  (Contributed by
 Richard Barran; bpo-1339796 .)
 os.path.relpath(path, start='.')
 start
-path
 On Windows, os.path.expandvars() will now expand environment variables
 given in the form “%var%”, and “~user” will be expanded into the
 user’s home directory path.  (Contributed by Josiah Carlson; bpo-957650 .)
@@ -2349,7 +2233,6 @@ The Python debugger provided by the pdb module
 gained a new command: “run” restarts the Python program being debugged
 and can optionally take new command-line arguments for the program.
 (Contributed by Rocky Bernstein; bpo-1393667 .)
-pdb
 The pdb.post_mortem() function, used to begin debugging a
 traceback, will now use the traceback returned by sys.exc_info() if no traceback is supplied.   (Contributed by Facundo Batista; bpo-1106316 .)
 The pdb.post_mortem() function, used to begin debugging a
@@ -2482,7 +2365,6 @@ select
 epoll()
 kqueue()
 modify()
-poll
 pollobj.modify(fd, eventmask)
 The shutil.copytree() function now has an optional ignore argument
 that takes a callable object.  This callable will receive each directory path
@@ -2505,7 +2387,6 @@ which have names ending with ‘~’:
 shutil
 ignore_patterns()
 ignore_patterns()
-.svn
 
 [CODE]
 shutil . copytree ( 'Doc/library' , '/tmp/library' , ignore = shutil . ignore_patterns ( '*~' , '.svn' ))
@@ -2585,7 +2466,6 @@ initial connection attempt, measured in seconds.  (Contributed by
 Facundo Batista.)
 smtplib
 SMTP_SSL
-SMTP
 timeout
 An implementation of the LMTP protocol ( RFC 2033 ) was also added
 to the module.  LMTP is used in place of SMTP when transferring
@@ -2650,7 +2530,6 @@ The struct module now supports the C99 _Bool type,
 using the format character '?' .
 (Contributed by David Remahl.)
 struct
-'?'
 The Popen objects provided by the subprocess module
 now have terminate() , kill() , and send_signal() methods.
 On Windows, send_signal() only supports the SIGTERM signal, and all these methods are aliases for the Win32 API function TerminateProcess() .
@@ -2698,7 +2577,6 @@ about the platform’s floating-point support.  Attributes of this
 object include mant_dig (number of digits in the mantissa), epsilon (smallest difference between 1.0 and the next
 largest value representable), and several others.  (Contributed by
 Christian Heimes; bpo-1534 .)
-sys
 float_info
 float.h
 mant_dig
@@ -2712,8 +2590,6 @@ change the value of this variable to control whether bytecode files
 are written or not.
 (Contributed by Neal Norwitz and Georg Brandl.)
 dont_write_bytecode
-.pyc
-.pyo
 PYTHONDONTWRITEBYTECODE
 Information about the command-line arguments supplied to the Python
 interpreter is available by reading attributes of a named
@@ -3031,9 +2907,6 @@ datetime.date
 datetime.time
 xmlrpclib.DateTime
 xmlrpclib
-date
-time
-<i8>
 The zipfile module’s ZipFile class now has extract() and extractall() methods that will unpack
 a single file or all the files in the archive to the current directory, or
 to a specified directory: z = zipfile . ZipFile ( 'python-251.zip' ) # Unpack a single file, writing it relative # to the /tmp directory. z . extract ( 'Python/sysmodule.c' , '/tmp' ) # Unpack all the files in the archive. z . extractall () (Contributed by Alan McIntyre; bpo-467924 .) The open() , read() and extract() methods can now
@@ -3068,14 +2941,12 @@ zipfile
 
 ### The ast module
 
-ast
 The ast module provides an Abstract Syntax Tree
 representation of Python code, and Armin Ronacher
 contributed a set of helper functions that perform a variety of
 common tasks.  These will be useful for HTML templating
 packages, code analyzers, and similar tools that process
 Python code.
-ast
 The parse() function takes an expression and returns an AST.
 The dump() function outputs a representation of a tree, suitable
 for debugging:
@@ -3154,14 +3025,11 @@ oct()
 
 ### The json module: JavaScript Object Notation
 
-json
 The new json module supports the encoding and decoding of Python types in
 JSON (Javascript Object Notation). JSON is a lightweight interchange format
 often used in web applications. For more information about JSON, see http://www.json.org .
-json
 json comes with support for decoding and encoding most built-in Python
 types. The following example encodes and decodes a dictionary:
-json
 
 [CODE]
 >>> import json >>> data = { "spam" : "foo" , "parrot" : 42 } >>> in_json = json . dumps ( data ) # Encode the data >>> in_json '{"parrot": 42, "spam": "foo"}' >>> json . loads ( in_json ) # Decode into a Python object {"spam": "foo", "parrot": 42}
@@ -3171,7 +3039,6 @@ It’s also possible to write your own decoders and encoders to support
 more types. Pretty-printing of the JSON strings is also supported.
 json (originally called simplejson) was written by Bob
 Ippolito.
-json
 
 ### The plistlib module: A Property-List Parser
 
@@ -3200,7 +3067,6 @@ ctypes now supports a c_bool datatype
 that represents the C99 bool type.  (Contributed by David Remahl; bpo-1649190 .)
 ctypes
 c_bool
-bool
 The ctypes string, buffer and array types have improved
 support for extended slicing syntax,
 where various combinations of (start, stop, step) are supplied.
@@ -3254,7 +3120,6 @@ the X.509 certificates used, and has better support for writing SSL
 servers (as opposed to clients) in Python.  The existing SSL support
 in the socket module hasn’t been removed and continues to work,
 though it will be removed in Python 3.0.
-ssl
 socket
 To use the new module, you must first create a TCP connection in the
 usual way and then pass it to the ssl.wrap_socket() function.
@@ -3264,7 +3129,6 @@ ssl.wrap_socket()
 getpeercert()
 See also
 The documentation for the ssl module.
-ssl
 
 ## Deprecations and Removals
 
@@ -3279,7 +3143,6 @@ as dictated by PEP 352 continue to be made.  For 2.6,
 the message attribute is being deprecated in favor of the args attribute.
 Exception
 message
-args
 (3.0-warning mode) Python 3.0 will feature a reorganized standard
 library that will drop many outdated modules and rename others.
 Python 2.6 running in 3.0-warning mode will warn about these modules
@@ -3305,8 +3168,6 @@ linuxaudiodev
 mhlib
 mimetools
 multifile
-new
-pure
 statvfs
 sunaudiodev
 test.testall
@@ -3325,7 +3186,6 @@ The md5 module has been deprecated; use the hashlib module
 instead.
 The md5 module has been deprecated; use the hashlib module
 instead.
-md5
 hashlib
 The posixfile module has been deprecated; fcntl.lockf() provides better locking.
 The posixfile module has been deprecated; fcntl.lockf() provides better locking.
@@ -3342,14 +3202,11 @@ The sets module has been deprecated; it’s better to
 use the built-in set and frozenset types.
 The sets module has been deprecated; it’s better to
 use the built-in set and frozenset types.
-sets
-set
 frozenset
 The sha module has been deprecated; use the hashlib module
 instead.
 The sha module has been deprecated; use the hashlib module
 instead.
-sha
 hashlib
 
 ## Build and C API Changes
@@ -3588,7 +3445,6 @@ for making a patch: it fixes trailing whitespace in all modified .py files, chec
 and reports whether the Misc/ACKS and Misc/NEWS files
 have been updated.
 (Contributed by Brett Cannon.)
-.py
 Misc/ACKS
 Misc/NEWS
 Another new target, “make profile-opt”, compiles a Python binary
@@ -3659,7 +3515,6 @@ in with statements. (Contributed by Christian Heimes.)
 _winreg
 ExpandEnvironmentStrings()
 %NAME%
-with
 _winreg also has better support for x64 systems,
 exposing the DisableReflectionKey() , EnableReflectionKey() ,
 and QueryReflectionKey() functions, which enable and disable
@@ -3725,10 +3580,8 @@ macfs
 macostools
 macresource
 MiniAEFrame
-Nav
 Netscape
 OSATerminology
-pimp
 PixMapWrapper
 StdSuites
 SystemEvents
@@ -3739,21 +3592,14 @@ terminalcommand
 
 A number of old IRIX-specific modules were deprecated and will
 be removed in Python 3.0: al and AL , cd , cddb , cdplayer , CL and cl , DEVICE , ERRNO , FILE , FL and fl , flp , fm , GET , GLWS , GL and gl , IN , IOCTL , jpeg , panelparser , readcd , SV and sv , torgb , videoreader , and WAIT .
-cddb
 cdplayer
 DEVICE
 ERRNO
-FILE
-flp
-GET
-GLWS
 IOCTL
-jpeg
 panelparser
 readcd
 torgb
 videoreader
-WAIT
 
 ## Porting to Python 2.6
 
@@ -3848,8 +3694,6 @@ datetime.date
 datetime.time
 xmlrpclib.DateTime
 xmlrpclib
-date
-time
 (3.0-warning mode) The Exception class now warns
 when accessed using slicing or index access; having Exception behave like a tuple is being phased out.
 (3.0-warning mode) The Exception class now warns

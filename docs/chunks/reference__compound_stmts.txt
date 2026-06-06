@@ -15,9 +15,6 @@ handlers and/or cleanup code for a group of statements, while the with statement
 finalization code around a block of code.  Function and class definitions are
 also syntactically compound statements.
 while
-for
-try
-with
 A compound statement consists of one or more ‘clauses.’  A clause consists of a
 header and a ‘suite.’  The clause headers of a particular compound statement are
 all at the same indentation level. Each clause header begins with a uniquely
@@ -27,7 +24,6 @@ statements on the same line as the header, following the header’s colon, or it
 can be one or more indented statements on subsequent lines.  Only the latter
 form of a suite can contain nested compound statements; the following is illegal,
 mostly because it wouldn’t be clear to which if clause a following else clause would belong:
-else
 
 [CODE]
 if test1 : if test2 : print ( x )
@@ -70,7 +66,6 @@ keyword that cannot start a statement, thus there are no ambiguities (the
 ‘dangling else ’ problem is solved in Python by requiring nested if statements to be indented).
 NEWLINE
 DEDENT
-else
 The formatting of the grammar rules in the following sections places each clause
 on a separate line for clarity.
 
@@ -92,7 +87,6 @@ It selects exactly one of the suites by evaluating the expressions one by one
 until one is found to be true (see section Boolean operations for the definition of
 true and false); then that suite is executed (and no other part of the if statement is executed or evaluated).  If all expressions are
 false, the suite of the else clause, if present, is executed.
-else
 
 ## 8.2. The while statement
 
@@ -112,20 +106,16 @@ This repeatedly tests the expression and, if it is true, executes the first
 suite; if the expression is false (which may be the first time it is tested) the
 suite of the else clause, if present, is executed and the loop
 terminates.
-else
 A break statement executed in the first suite terminates the loop
 without executing the else clause’s suite.  A continue statement executed in the first suite skips the rest of the suite and goes back
 to testing the expression.
 break
-else
 continue
 
 ## 8.3. The for statement
 
-for
 The for statement is used to iterate over the elements of a sequence
 (such as a string, tuple or list) or other iterable object:
-for
 
 [CODE]
 for_stmt : "for" target_list "in" starred_expression_list ":" suite [ "else" ":" suite ]
@@ -144,15 +134,12 @@ item provided by the iterator. When the iterator is exhausted,
 the suite in the else clause,
 if present, is executed, and the loop terminates.
 starred_expression_list
-else
 A break statement executed in the first suite terminates the loop
 without executing the else clause’s suite.  A continue statement executed in the first suite skips the rest of the suite and continues
 with the next item, or with the else clause if there is no next
 item.
 break
-else
 continue
-else
 The for-loop makes assignments to the variables in the target list.
 This overwrites all previous assignments to those variables including
 those made in the suite of the for-loop:
@@ -171,10 +158,8 @@ Changed in version 3.11: Starred elements are now allowed in the expression list
 
 ## 8.4. The try statement
 
-try
 The try statement specifies exception handlers and/or cleanup code
 for a group of statements:
-try
 
 [CODE]
 try_stmt : try1_stmt | try2_stmt | try3_stmt try1_stmt : "try" ":" suite ( "except" [ expression [ "as" identifier ]] ":" suite )+
@@ -218,8 +203,6 @@ until one is found that matches the exception.
 An expression-less except clause, if present, must be last;
 it matches any exception.
 except
-try
-try
 except
 except
 For an except clause with an expression, the
@@ -240,7 +223,6 @@ the original search for a handler is canceled and a search starts for
 the new exception in the surrounding code and on the call stack (it is treated
 as if the entire try statement raised the exception).
 except
-try
 When a matching except clause is found,
 the exception is assigned to the target
 specified after the as keyword in that except clause,
@@ -255,8 +237,6 @@ except
 except
 except
 except
-try
-try
 When an exception has been assigned using as target , it is cleared at the
 end of the except clause.  This is as if
 as target
@@ -283,10 +263,8 @@ the exception is stored in the sys module, where it can be accessed
 from within the body of the except clause by calling sys.exception() . When leaving an exception handler, the exception
 stored in the sys module is reset to its previous value:
 except
-sys
 except
 sys.exception()
-sys
 
 [CODE]
 >>> print ( sys . exception ()) None >>> try : ... raise TypeError ... except : ... print ( repr ( sys . exception ())) ... try : ... raise ValueError ... except : ... print ( repr ( sys . exception ())) ... print ( repr ( sys . exception ())) ... TypeError() ValueError() TypeError() >>> print ( sys . exception ()) None
@@ -305,7 +283,6 @@ type is a subclass of BaseExceptionGroup , because that would have
 ambiguous semantics.
 except*
 BaseExceptionGroup
-try
 except
 except*
 except*
@@ -341,7 +318,6 @@ If the exception raised from the try block is not an exception group
 and its type matches one of the except* clauses, it is caught and
 wrapped by an exception group with an empty message string. This ensures that the
 type of the target e is consistently BaseExceptionGroup :
-try
 except*
 BaseExceptionGroup
 
@@ -357,15 +333,11 @@ except*
 
 ### 8.4.3. else clause
 
-else
 The optional else clause is executed if the control flow leaves the try suite, no exception was raised, and no return , continue , or break statement was executed.  Exceptions in
 the else clause are not handled by the preceding except clauses.
-else
-try
 return
 continue
 break
-else
 except
 
 ### 8.4.4. finally clause
@@ -381,9 +353,7 @@ is set as the context of the new exception.
 If the finally clause executes a return , break or continue statement, the saved exception is discarded. For example,
 this function returns 42.
 finally
-try
 except
-else
 finally
 finally
 finally
@@ -404,8 +374,6 @@ executed in the try suite of a try … finally statement, the finally clause is 
 return
 break
 continue
-try
-try
 finally
 finally
 The return value of a function is determined by the last return statement executed.  Since the finally clause always executes, a return statement executed in the finally clause will
@@ -431,12 +399,9 @@ finally
 
 ## 8.5. The with statement
 
-with
 The with statement is used to wrap the execution of a block with
 methods defined by a context manager (see section With Statement Context Managers ).
 This allows common try … except … finally usage patterns to be encapsulated for convenient reuse.
-with
-try
 except
 finally
 
@@ -452,7 +417,6 @@ with_item
 expression
 target
 The execution of the with statement with one “item” proceeds as follows:
-with
 The context expression (the expression given in the with_item ) is evaluated to obtain a context manager.
 The context expression (the expression given in the with_item ) is evaluated to obtain a context manager.
 with_item
@@ -472,14 +436,11 @@ it will be treated the same as an error occurring within the suite would
 be. See step 7 below.
 If a target was included in the with statement, the return value
 from __enter__() is assigned to it.
-with
 __enter__()
-Note
 The with statement guarantees that if the __enter__() method returns without an error, then __exit__() will always be
 called. Thus, if an error occurs during the assignment to the target list,
 it will be treated the same as an error occurring within the suite would
 be. See step 7 below.
-with
 __enter__()
 __exit__()
 The suite is executed.
@@ -498,12 +459,10 @@ arguments to __exit__() . Otherwise, three None arguments are
 supplied.
 __exit__()
 __exit__()
-None
 If the suite was exited due to an exception, and the return value from the __exit__() method was false, the exception is reraised.  If the return
 value was true, the exception is suppressed, and execution continues with the
 statement following the with statement.
 __exit__()
-with
 If the suite was exited for any reason other than an exception, the return
 value from __exit__() is ignored, and execution proceeds at the normal
 location for the kind of exit that was taken.
@@ -525,7 +484,6 @@ for __enter__() and __exit__() .
 __enter__()
 __exit__()
 With more than one item, the context managers are processed as if multiple with statements were nested:
-with
 
 [CODE]
 with A () as a , B () as b : SUITE
@@ -547,10 +505,7 @@ with ( A () as a , B () as b , ): SUITE
 Changed in version 3.1: Support for multiple context expressions.
 Changed in version 3.10: Support for using grouping parentheses to break the statement in multiple lines.
 See also
-PEP 343 - The “with” statement
 The specification, background, and examples for the Python with statement.
-The specification, background, and examples for the Python with statement.
-with
 
 ## 8.6. The match statement
 
@@ -567,12 +522,10 @@ subject_expr
 case_block
 patterns
 guard
-Note
 This section uses single quotes to denote soft keywords .
 Pattern matching takes a pattern as input (following case ) and a subject
 value (following match ).  The pattern (which may contain subpatterns) is
 matched against the subject value.  The outcomes are:
-case
 match
 A match success or failure (also termed a pattern success or failure).
 A match success or failure (also termed a pattern success or failure).
@@ -582,7 +535,6 @@ Possible binding of matched values to a name.  The prerequisites for this are
 further discussed below.
 The match and case keywords are soft keywords .
 match
-case
 See also
 PEP 634 – Structural Pattern Matching: Specification
 PEP 634 – Structural Pattern Matching: Specification
@@ -617,7 +569,6 @@ pattern binding rules vary per pattern type and are
 specified below. Name bindings made during a successful pattern match
 outlive the executed block and can be used after the match statement .
 case_block
-Note
 During failed pattern matches, some subpatterns may succeed.  Do not
 rely on bindings being made for a failed match.  Conversely, do not
 rely on variables remaining unchanged after a failed match.  The exact
@@ -637,7 +588,6 @@ Otherwise, the next case_block is attempted as described above.
 case_block
 If there are no further case blocks, the match statement is completed.
 If there are no further case blocks, the match statement is completed.
-Note
 Users should generally never rely on a pattern being evaluated.  Depending on
 implementation, the interpreter may cache values or use other optimizations
 which skip repeated evaluations.
@@ -660,10 +610,7 @@ A guard (which is part of the case ) must succeed for code inside
 the case block to execute.  It takes the form: if followed by an
 expression.
 guard
-case
-case
 The logical flow of a case block with a guard follows:
-case
 guard
 Check that the pattern in the case block succeeded.  If the pattern
 failed, the guard is not evaluated and the next case block is
@@ -671,9 +618,7 @@ checked.
 Check that the pattern in the case block succeeded.  If the pattern
 failed, the guard is not evaluated and the next case block is
 checked.
-case
 guard
-case
 If the pattern succeeded, evaluate the guard . If the guard condition evaluates as true, the case block is
 selected. If the guard condition evaluates as false, the case block is not
 selected. If the guard raises an exception during evaluation, the exception
@@ -722,7 +667,6 @@ parenthesized irrefutable patterns
 
 ### 8.6.4. Patterns
 
-Note
 This section uses grammar notations beyond standard EBNF:
 the notation SEP.RULE+ is shorthand for RULE (SEP RULE)*
 the notation SEP.RULE+ is shorthand for RULE (SEP RULE)*
@@ -821,8 +765,6 @@ In simple terms, LITERAL will succeed only if <subject> == LITERAL . For
 the singletons None , True and False , the is operator is used.
 LITERAL
 <subject> == LITERAL
-None
-True
 False
 
 #### 8.6.4.4. Capture Patterns
@@ -835,7 +777,6 @@ capture_pattern : ! '_' NAME
 [/CODE]
 
 A single underscore _ is not a capture pattern (this is what !'_' expresses). It is instead treated as a wildcard_pattern .
-!'_'
 wildcard_pattern
 In a given pattern, a given name can only be bound once.  E.g. case x, x: ... is invalid while case [x] | x: ... is allowed.
 case x, x: ...
@@ -847,7 +788,6 @@ there’s an applicable global or nonlocal statement.
 global
 nonlocal
 In simple terms NAME will always succeed and it will set NAME = <subject> .
-NAME
 NAME = <subject>
 
 #### 8.6.4.5. Wildcard Patterns
@@ -863,7 +803,6 @@ _ is a soft keyword within any pattern,
 but only within patterns.  It is an identifier, as usual, even within match subject expressions, guard s, and case blocks.
 match
 guard
-case
 In simple terms, _ will always succeed.
 
 #### 8.6.4.6. Value Patterns
@@ -875,16 +814,13 @@ Syntax:
 value_pattern : attr attr : name_or_attr "." NAME name_or_attr : attr | NAME
 [/CODE]
 
-attr
 name_or_attr
-attr
 The dotted name in the pattern is looked up using standard Python name resolution rules .  The pattern succeeds if the
 value found compares equal to the subject value (using the == equality
 operator).
 In simple terms NAME1.NAME2 will succeed only if <subject> == NAME1.NAME2
 NAME1.NAME2
 <subject> == NAME1.NAME2
-Note
 If the same value occurs multiple times in the same match statement, the
 interpreter may cache the first value found and reuse it rather than repeat
 the same lookup.  This cache is strictly tied to a given execution of a
@@ -902,7 +838,6 @@ group_pattern : "(" pattern ")"
 
 pattern
 In simple terms (P) has the same effect as P .
-(P)
 
 #### 8.6.4.8. Sequence Patterns
 
@@ -926,7 +861,6 @@ There is no difference if parentheses  or square brackets
 are used for sequence patterns (i.e. (...) vs [...] ).
 (...)
 [...]
-Note
 A single pattern enclosed in parentheses without a trailing comma
 (e.g. (3 | 4) ) is a group pattern .
 While a single pattern enclosed in square brackets (e.g. [3 | 4] ) is
@@ -945,7 +879,6 @@ If the subject value is not a sequence [ 2 ] , the sequence pattern
 fails.
 If the subject value is an instance of str , bytes or bytearray the sequence pattern fails.
 If the subject value is an instance of str , bytes or bytearray the sequence pattern fails.
-str
 bytes
 bytearray
 The subsequent steps depend on whether the sequence pattern is fixed or
@@ -994,7 +927,6 @@ Remaining non-star subpatterns are matched to their corresponding subject
 items, as for a fixed-length sequence.
 Remaining non-star subpatterns are matched to their corresponding subject
 items, as for a fixed-length sequence.
-Note
 The length of the subject sequence is obtained via len() (i.e. via the __len__() protocol).
 This length may be cached by the interpreter in a similar manner as value patterns .
 len()
@@ -1060,7 +992,6 @@ considered invalid. A SyntaxError is raised for duplicate literal
 values; or a ValueError for named keys of the same value.
 SyntaxError
 ValueError
-Note
 Key-value pairs are matched using the two-argument form of the mapping
 subject’s get() method.  Matched key-value pairs must already be present
 in the mapping, and not created on-the-fly via __missing__() or __getitem__() .
@@ -1106,7 +1037,6 @@ subject value:
 If name_or_attr is not an instance of the builtin type , raise TypeError .
 If name_or_attr is not an instance of the builtin type , raise TypeError .
 name_or_attr
-type
 TypeError
 If the subject value is not an instance of name_or_attr (tested via isinstance() ), the class pattern fails.
 If the subject value is not an instance of name_or_attr (tested via isinstance() ), the class pattern fails.
@@ -1195,36 +1125,18 @@ Once all positional patterns have been converted to keyword patterns,
 the match proceeds as if there were only keyword patterns.
 For the following built-in types the handling of positional subpatterns is
 different:
-bool
-bool
-bool
 bytearray
 bytearray
 bytearray
 bytes
 bytes
 bytes
-dict
-dict
-dict
 float
 float
 float
 frozenset
 frozenset
 frozenset
-int
-int
-int
-list
-list
-list
-set
-set
-set
-str
-str
-str
 tuple
 tuple
 tuple
@@ -1232,7 +1144,6 @@ These classes accept a single positional argument, and the pattern there is matc
 against the whole object rather than an attribute. For example int(0|1) matches
 the value 0 , but not the value 0.0 .
 int(0|1)
-0.0
 In simple terms CLS(P1, attr=P2) matches only if the following happens:
 CLS(P1, attr=P2)
 isinstance(<subject>, CLS)
@@ -1325,7 +1236,6 @@ def func (): pass func = f1 ( arg )( f2 ( func ))
 [/CODE]
 
 except that the original function is not temporarily bound to the name func .
-func
 Changed in version 3.9: Functions may be decorated with any valid assignment_expression . Previously, the grammar was
 much more restrictive; see PEP 614 for details.
 assignment_expression
@@ -1349,7 +1259,6 @@ mutable object, such as a list or a dictionary: if the function modifies the
 object (e.g. by appending an item to a list), the default parameter value is in effect
 modified.  This is generally not what was intended.  A way around this is to use None as the default, and explicitly test for it in the body of the function,
 e.g.:
-None
 
 [CODE]
 def whats_on_the_telly ( penguin = None ): if penguin is None : penguin = [] penguin . append ( "property of the zoo" ) return penguin
@@ -1393,33 +1302,17 @@ simplified function definition; a function defined in a “ def ”
 statement can be passed around or assigned to another name just like a function
 defined by a lambda expression.  The “ def ” form is actually more powerful
 since it allows the execution of multiple statements and annotations.
-def
-def
 Programmer’s note: Functions are first-class objects.  A “ def ” statement
 executed inside a function definition defines a local function that can be
 returned or passed around.  Free variables used in the nested function can
 access the local variables of the function containing the def.  See section Naming and binding for details.
-def
 See also
-PEP 3107 - Function Annotations
 The original specification for function annotations.
-The original specification for function annotations.
-PEP 484 - Type Hints
 Definition of a standard meaning for annotations: type hints.
-Definition of a standard meaning for annotations: type hints.
-PEP 526 - Syntax for Variable Annotations
 Ability to type hint variable declarations, including class
 variables and instance variables.
-Ability to type hint variable declarations, including class
-variables and instance variables.
-PEP 563 - Postponed Evaluation of Annotations
 Support for forward references within annotations by preserving
 annotations in a string form at runtime instead of eager evaluation.
-Support for forward references within annotations by preserving
-annotations in a string form at runtime instead of eager evaluation.
-PEP 318 - Decorators for Functions and Methods
-Function and method decorators were introduced.
-Class decorators were introduced in PEP 3129 .
 Function and method decorators were introduced.
 Class decorators were introduced in PEP 3129 .
 
@@ -1502,16 +1395,9 @@ values there can lead to unexpected results. Descriptors can be used to create i
 self.name = value
 self.name
 See also
-PEP 3115 - Metaclasses in Python 3000
 The proposal that changed the declaration of metaclasses to the current
 syntax, and the semantics for how classes with metaclasses are
 constructed.
-The proposal that changed the declaration of metaclasses to the current
-syntax, and the semantics for how classes with metaclasses are
-constructed.
-PEP 3129 - Class Decorators
-The proposal that added class decorators.  Function and method decorators
-were introduced in PEP 318 .
 The proposal that added class decorators.  Function and method decorators
 were introduced in PEP 318 .
 
@@ -1625,9 +1511,6 @@ body of a coroutine function.
 SyntaxError
 async with
 See also
-PEP 492 - Coroutines with async and await syntax
-The proposal that made coroutines a proper standalone concept in Python,
-and added supporting syntax.
 The proposal that made coroutines a proper standalone concept in Python,
 and added supporting syntax.
 
@@ -1687,13 +1570,11 @@ typing.TypeVarTuple , introduced by a name prefixed with a single
 asterisk (e.g., *Ts ). Semantically, this stands for a tuple of any
 number of types.
 typing.TypeVarTuple
-*Ts
 typing.ParamSpec , introduced by a name prefixed with two asterisks
 (e.g., **P ). Semantically, this stands for the parameters of a callable.
 typing.ParamSpec , introduced by a name prefixed with two asterisks
 (e.g., **P ). Semantically, this stands for the parameters of a callable.
 typing.ParamSpec
-**P
 typing.TypeVar declarations can define bounds and constraints with
 a colon ( : ) followed by an expression. A single expression after the colon
 indicates a bound (e.g. T: int ). Semantically, this means
@@ -1813,7 +1694,6 @@ annotation - def TYPE_PARAMS_OF_Bag (): T = typing . TypeVar ( "T" ) class Bag (
 ### 8.10.3. Generic type aliases
 
 The type statement can also be used to create a generic type alias:
-type
 
 [CODE]
 type ListOrSet [ T ] = list [ T ] | set [ T ]
@@ -1897,9 +1777,6 @@ array.array
 collections.deque
 collections.deque
 collections.deque
-list
-list
-list
 memoryview
 memoryview
 memoryview
@@ -1909,9 +1786,7 @@ range
 tuple
 tuple
 tuple
-Note
 Subject values of type str , bytes , and bytearray do not match sequence patterns.
-str
 bytes
 bytearray
 In pattern matching, a mapping is defined as one of the following:
@@ -1927,7 +1802,6 @@ Py_TPFLAGS_MAPPING
 a class that inherits from any of the above
 a class that inherits from any of the above
 The standard library classes dict and types.MappingProxyType are mappings.
-dict
 types.MappingProxyType
 A string literal appearing as the first statement in the function body is
 transformed into the function’s __doc__ attribute and

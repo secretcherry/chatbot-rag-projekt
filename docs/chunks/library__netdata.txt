@@ -45,7 +45,6 @@ email.utils
 email.iterators : Iterators
 email.iterators
 json — JSON encoder and decoder Basic Usage Encoders and Decoders Exceptions Standard Compliance and Interoperability Character Encodings Infinite and NaN Number Values Repeated Names Within an Object Top-level Non-Object, Non-Array Values Implementation Limitations Command-line interface Command-line options
-json
 Basic Usage
 Encoders and Decoders
 Exceptions
@@ -64,12 +63,10 @@ Mailbox
 Maildir objects
 Maildir
 mbox objects
-mbox
 MH objects
 Babyl objects
 Babyl
 MMDF objects
-MMDF
 Message objects MaildirMessage objects mboxMessage objects MHMessage objects BabylMessage objects MMDFMessage objects
 Message
 MaildirMessage objects

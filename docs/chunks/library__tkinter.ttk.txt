@@ -17,8 +17,6 @@ the code implementing a widget’s behavior from the code implementing its
 appearance.
 tkinter.ttk
 See also
-Tk Widget Styling Support
-A document introducing theming support for Tk
 A document introducing theming support for Tk
 
 ## Using Ttk
@@ -57,9 +55,6 @@ longer present in Ttk widgets.  Instead, use  the ttk.Style class
 for improved styling effects.
 ttk.Style
 See also
-Converting existing applications to use Tile widgets
-A monograph (using Tcl terminology) about differences typically
-encountered when moving applications to use the new widgets.
 A monograph (using Tcl terminology) about differences typically
 encountered when moving applications to use the new widgets.
 
@@ -113,7 +108,6 @@ ttk.Widget
 ### Standard Options
 
 All the ttk Widgets accept the following options:
-ttk
 Option
 Description
 class
@@ -163,7 +157,6 @@ The following options are supported by labels, buttons and other button-like
 widgets.
 Option
 Description
-text
 Specifies a text string to be displayed inside the widget.
 textvariable
 Specifies a name whose value will be used in place of the
@@ -217,7 +210,6 @@ Widget.state()
 ### Widget States
 
 The widget state is a bitmap of independent state flags.
-Flag
 Description
 active
 The mouse cursor is over the widget and pressing a mouse
@@ -252,31 +244,12 @@ methods tkinter.Widget.cget() and tkinter.Widget.configure() .
 ttk.Widget
 tkinter.Widget.cget()
 tkinter.Widget.configure()
-class tkinter.ttk. Widget
-identify ( x , y ) Returns the name of the element at position x y , or the empty string
-if the point does not lie within any element. x and y are pixel coordinates relative to the widget. instate ( statespec , callback = None , * args , ** kw ) Test the widget’s state. If a callback is not specified, returns True if the widget state matches statespec and False otherwise. If callback
-is specified then it is called with args if widget state matches statespec . state ( statespec = None ) Modify or inquire widget state. If statespec is specified, sets the
-widget state according to it and return a new statespec indicating
-which flags were changed. If statespec is not specified, returns
-the currently enabled state flags. statespec will usually be a list or a tuple.
-identify ( x , y )
-Returns the name of the element at position x y , or the empty string
-if the point does not lie within any element. x and y are pixel coordinates relative to the widget.
 Returns the name of the element at position x y , or the empty string
 if the point does not lie within any element.
 x and y are pixel coordinates relative to the widget.
-instate ( statespec , callback = None , * args , ** kw )
 Test the widget’s state. If a callback is not specified, returns True if the widget state matches statespec and False otherwise. If callback
 is specified then it is called with args if widget state matches statespec .
-Test the widget’s state. If a callback is not specified, returns True if the widget state matches statespec and False otherwise. If callback
-is specified then it is called with args if widget state matches statespec .
-True
 False
-state ( statespec = None )
-Modify or inquire widget state. If statespec is specified, sets the
-widget state according to it and return a new statespec indicating
-which flags were changed. If statespec is not specified, returns
-the currently enabled state flags.
 Modify or inquire widget state. If statespec is specified, sets the
 widget state according to it and return a new statespec indicating
 which flags were changed. If statespec is not specified, returns
@@ -352,22 +325,10 @@ when the user selects an element from the list of values.
 
 ### ttk.Combobox
 
-class tkinter.ttk. Combobox
-current ( newindex = None ) If newindex is specified, sets the combobox value to the element
-position newindex . Otherwise, returns the index of the current value or
--1 if the current value is not in the values list. get ( ) Returns the current value of the combobox. set ( value ) Sets the value of the combobox to value .
-current ( newindex = None )
 If newindex is specified, sets the combobox value to the element
 position newindex . Otherwise, returns the index of the current value or
 -1 if the current value is not in the values list.
-If newindex is specified, sets the combobox value to the element
-position newindex . Otherwise, returns the index of the current value or
--1 if the current value is not in the values list.
-get ( )
 Returns the current value of the combobox.
-Returns the current value of the combobox.
-set ( value )
-Sets the value of the combobox to value .
 Sets the value of the combobox to value .
 
 ## Spinbox
@@ -400,12 +361,10 @@ ttk.Spinbox
 This widget accepts the following specific options:
 Option
 Description
-from
 Float value.  If set, this is the minimum value to
 which the decrement button will decrement.  Must be
 spelled as from_ when used as an argument, since from is a Python keyword.
 from_
-from
 Float value.  If set, this is the maximum value to
 which the increment button will increment.
 increment
@@ -417,12 +376,8 @@ Sequence of string or float values.  If specified,
 the increment/decrement buttons will cycle through
 the items in this sequence rather than incrementing
 or decrementing numbers.
-wrap
 Boolean value.  If True , increment and decrement
 buttons will cycle from the to value to the from value or the from value to the to value, respectively.
-True
-from
-from
 format
 String value.  This specifies the format of numbers
 set by the increment/decrement buttons.  It must be
@@ -442,13 +397,7 @@ presses <Down>.
 
 ### ttk.Spinbox
 
-class tkinter.ttk. Spinbox
-get ( ) Returns the current value of the spinbox. set ( value ) Sets the value of the spinbox to value .
-get ( )
 Returns the current value of the spinbox.
-Returns the current value of the spinbox.
-set ( value )
-Sets the value of the spinbox to value .
 Sets the value of the spinbox to value .
 
 ## Notebook
@@ -497,7 +446,6 @@ padding
 Specifies the amount of extra space to add between the
 notebook and this pane. Syntax is the same as for the option
 padding used by this widget.
-text
 Specifies a text to be displayed in the tab.
 image
 Specifies an image to display in the tab. See the option
@@ -537,86 +485,34 @@ tab is selected.
 
 ### ttk.Notebook
 
-class tkinter.ttk. Notebook
-add ( child , ** kw ) Adds a new tab to the notebook. If window is currently managed by the notebook but hidden, it is
-restored to its previous position. See Tab Options for the list of available options. forget ( tab_id ) Removes the tab specified by tab_id , unmaps and unmanages the
-associated window. hide ( tab_id ) Hides the tab specified by tab_id . The tab will not be displayed, but the associated window remains
-managed by the notebook and its configuration remembered. Hidden tabs
-may be restored with the add() command. identify ( x , y ) Returns the name of the tab element at position x , y , or the empty
-string if none. index ( tab_id ) Returns the numeric index of the tab specified by tab_id , or the total
-number of tabs if tab_id is the string “end”. insert ( pos , child , ** kw ) Inserts a pane at the specified position. pos is either the string “end”, an integer index, or the name of a
-managed child. If child is already managed by the notebook, moves it to
-the specified position. See Tab Options for the list of available options. select ( tab_id = None ) Selects the specified tab_id . The associated child window will be displayed, and the
-previously selected window (if different) is unmapped. If tab_id is
-omitted, returns the widget name of the currently selected pane. tab ( tab_id , option = None , ** kw ) Query or modify the options of the specific tab_id . If kw is not given, returns a dictionary of the tab option values. If option is specified, returns the value of that option . Otherwise,
-sets the options to the corresponding values. tabs ( ) Returns a list of windows managed by the notebook. enable_traversal ( ) Enable keyboard traversal for a toplevel window containing this notebook. This will extend the bindings for the toplevel window containing the
-notebook as follows: Control - Tab : selects the tab following the currently selected one. Shift - Control - Tab : selects the tab preceding the currently selected one. Alt - K : where K is the mnemonic (underlined) character of any tab, will
-select that tab. Multiple notebooks in a single toplevel may be enabled for traversal,
-including nested notebooks. However, notebook traversal only works
-properly if all panes have the notebook they are in as master.
-add ( child , ** kw )
-Adds a new tab to the notebook. If window is currently managed by the notebook but hidden, it is
-restored to its previous position. See Tab Options for the list of available options.
 Adds a new tab to the notebook.
 If window is currently managed by the notebook but hidden, it is
 restored to its previous position.
 See Tab Options for the list of available options.
-forget ( tab_id )
 Removes the tab specified by tab_id , unmaps and unmanages the
 associated window.
-Removes the tab specified by tab_id , unmaps and unmanages the
-associated window.
-hide ( tab_id )
-Hides the tab specified by tab_id . The tab will not be displayed, but the associated window remains
-managed by the notebook and its configuration remembered. Hidden tabs
-may be restored with the add() command.
 Hides the tab specified by tab_id .
 The tab will not be displayed, but the associated window remains
 managed by the notebook and its configuration remembered. Hidden tabs
 may be restored with the add() command.
 add()
-identify ( x , y )
 Returns the name of the tab element at position x , y , or the empty
 string if none.
-Returns the name of the tab element at position x , y , or the empty
-string if none.
-index ( tab_id )
 Returns the numeric index of the tab specified by tab_id , or the total
 number of tabs if tab_id is the string “end”.
-Returns the numeric index of the tab specified by tab_id , or the total
-number of tabs if tab_id is the string “end”.
-insert ( pos , child , ** kw )
-Inserts a pane at the specified position. pos is either the string “end”, an integer index, or the name of a
-managed child. If child is already managed by the notebook, moves it to
-the specified position. See Tab Options for the list of available options.
 Inserts a pane at the specified position.
 pos is either the string “end”, an integer index, or the name of a
 managed child. If child is already managed by the notebook, moves it to
 the specified position.
 See Tab Options for the list of available options.
-select ( tab_id = None )
-Selects the specified tab_id . The associated child window will be displayed, and the
-previously selected window (if different) is unmapped. If tab_id is
-omitted, returns the widget name of the currently selected pane.
 Selects the specified tab_id .
 The associated child window will be displayed, and the
 previously selected window (if different) is unmapped. If tab_id is
 omitted, returns the widget name of the currently selected pane.
-tab ( tab_id , option = None , ** kw )
-Query or modify the options of the specific tab_id . If kw is not given, returns a dictionary of the tab option values. If option is specified, returns the value of that option . Otherwise,
-sets the options to the corresponding values.
 Query or modify the options of the specific tab_id .
 If kw is not given, returns a dictionary of the tab option values. If option is specified, returns the value of that option . Otherwise,
 sets the options to the corresponding values.
-tabs ( )
 Returns a list of windows managed by the notebook.
-Returns a list of windows managed by the notebook.
-enable_traversal ( )
-Enable keyboard traversal for a toplevel window containing this notebook. This will extend the bindings for the toplevel window containing the
-notebook as follows: Control - Tab : selects the tab following the currently selected one. Shift - Control - Tab : selects the tab preceding the currently selected one. Alt - K : where K is the mnemonic (underlined) character of any tab, will
-select that tab. Multiple notebooks in a single toplevel may be enabled for traversal,
-including nested notebooks. However, notebook traversal only works
-properly if all panes have the notebook they are in as master.
 Enable keyboard traversal for a toplevel window containing this notebook.
 This will extend the bindings for the toplevel window containing the
 notebook as follows:
@@ -652,7 +548,6 @@ of the progress bar.
 length
 Specifies the length of the long axis of the progress bar
 (width if horizontal, height if vertical).
-mode
 One of “determinate” or “indeterminate”.
 maximum
 A number specifying the maximum value. Defaults to 100.
@@ -674,18 +569,10 @@ by the current theme to provide additional animation effects.
 
 ### ttk.Progressbar
 
-class tkinter.ttk. Progressbar
-start ( interval = None ) Begin autoincrement mode: schedules a recurring timer event that calls Progressbar.step() every interval milliseconds. If omitted, interval defaults to 50 milliseconds. step ( amount = None ) Increments the progress bar’s value by amount . amount defaults to 1.0 if omitted. stop ( ) Stop autoincrement mode: cancels any recurring timer event initiated by Progressbar.start() for this progress bar.
-start ( interval = None )
-Begin autoincrement mode: schedules a recurring timer event that calls Progressbar.step() every interval milliseconds. If omitted, interval defaults to 50 milliseconds.
 Begin autoincrement mode: schedules a recurring timer event that calls Progressbar.step() every interval milliseconds. If omitted, interval defaults to 50 milliseconds.
 Progressbar.step()
-step ( amount = None )
-Increments the progress bar’s value by amount . amount defaults to 1.0 if omitted.
 Increments the progress bar’s value by amount .
 amount defaults to 1.0 if omitted.
-stop ( )
-Stop autoincrement mode: cancels any recurring timer event initiated by Progressbar.start() for this progress bar.
 Stop autoincrement mode: cancels any recurring timer event initiated by Progressbar.start() for this progress bar.
 Progressbar.start()
 
@@ -724,9 +611,6 @@ On macOS, toplevel windows automatically include a built-in size grip
 by default. Adding a Sizegrip is harmless, since the built-in
 grip will just mask the widget.
 Sizegrip
-
-### Bugs
-
 If the containing toplevel’s position was specified relative to the right
 or bottom of the screen (e.g. ….), the Sizegrip widget will
 not resize the window.
@@ -790,7 +674,6 @@ be changed.
 Note that the application code and tag bindings can set
 the selection however they wish, regardless of the
 value  of this option.
-show
 A list containing zero or more of the following values,
 specifying which elements of the tree to display.
 tree: display tree labels in column #0.
@@ -808,7 +691,6 @@ The following item options may be specified for items in the insert and item
 widget commands.
 Option
 Description
-text
 The textual label to display for the item.
 image
 A Tk Image, displayed to the left of the label.
@@ -818,12 +700,9 @@ Each item should have the same number of values as the widget
 option columns. If there are fewer values than columns, the
 remaining values are assumed empty. If there are more values
 than columns, the extra values are ignored.
-open
 True / False value indicating whether the item’s
 children should be displayed or hidden.
-True
 False
-tags
 A list of tags associated with this item.
 
 ### Tag Options
@@ -835,7 +714,6 @@ foreground
 Specifies the text foreground color.
 background
 Specifies the cell or item background color.
-font
 Specifies the font to use when drawing text.
 image
 Specifies the item image, in case the item’s image option
@@ -887,160 +765,55 @@ Treeview.selection()
 
 ### ttk.Treeview
 
-class tkinter.ttk. Treeview
-bbox ( item , column = None ) Returns the bounding box (relative to the treeview widget’s window) of
-the specified item in the form (x, y, width, height). If column is specified, returns the bounding box of that cell. If the item is not visible (i.e., if it is a descendant of a closed item or is
-scrolled offscreen), returns an empty string. get_children ( item = None ) Returns the list of children belonging to item . If item is not specified, returns root children. set_children ( item , * newchildren ) Replaces item ’s child with newchildren . Children present in item that are not present in newchildren are
-detached from the tree. No items in newchildren may be an ancestor of item . Note that not specifying newchildren results in detaching item ’s children. column ( column , option = None , ** kw ) Query or modify the options for the specified column . If kw is not given, returns a dict of the column option values. If option is specified then the value for that option is returned.
-Otherwise, sets the options to the corresponding values. The valid options/values are: id Returns the column name. This is a read-only option. anchor : One of the standard Tk anchor values. Specifies how the text in this column should be aligned with respect
-to the cell. minwidth : width The minimum width of the column in pixels. The treeview widget will
-not make the column any smaller than specified by this option when
-the widget is resized or the user drags a column. stretch : True / False Specifies whether the column’s width should be adjusted when
-the widget is resized. width : width The width of the column in pixels. To configure the tree column, call this with column = “#0” delete ( * items ) Delete all specified items and all their descendants. The root item may not be deleted. detach ( * items ) Unlinks all of the specified items from the tree. The items and all of their descendants are still present, and may be
-reinserted at another point in the tree, but will not be displayed. The root item may not be detached. exists ( item ) Returns True if the specified item is present in the tree. focus ( item = None ) If item is specified, sets the focus item to item . Otherwise, returns
-the current focus item, or ‘’ if there is none. heading ( column , option = None , ** kw ) Query or modify the heading options for the specified column . If kw is not given, returns a dict of the heading option values. If option is specified then the value for that option is returned.
-Otherwise, sets the options to the corresponding values. The valid options/values are: text : text The text to display in the column heading. image : imageName Specifies an image to display to the right of the column heading. anchor : anchor Specifies how the heading text should be aligned. One of the standard
-Tk anchor values. command : callback A callback to be invoked when the heading label is pressed. To configure the tree column heading, call this with column = “#0”. identify ( component , x , y ) Returns a description of the specified component under the point given
-by x and y , or the empty string if no such component is present at
-that position. identify_row ( y ) Returns the item ID of the item at position y . identify_column ( x ) Returns the data column identifier of the cell at position x . The tree column has ID #0. identify_region ( x , y ) Returns one of: region meaning heading Tree heading area. separator Space between two columns headings. tree The tree area. cell A data cell. Availability: Tk 8.6. identify_element ( x , y ) Returns the element at position x , y . Availability: Tk 8.6. index ( item ) Returns the integer index of item within its parent’s list of children. insert ( parent , index , iid = None , ** kw ) Creates a new item and returns the item identifier of the newly created
-item. parent is the item ID of the parent item, or the empty string to create
-a new top-level item. index is an integer, or the value “end”,
-specifying where in the list of parent’s children to insert the new item.
-If index is less than or equal to zero, the new node is inserted at
-the beginning; if index is greater than or equal to the current number
-of children, it is inserted at the end. If iid is specified, it is used
-as the item identifier; iid must not already exist in the tree.
-Otherwise, a new unique identifier is generated. See Item Options for the list of available options. item ( item , option = None , ** kw ) Query or modify the options for the specified item . If no options are given, a dict with options/values for the item is
-returned.
-If option is specified then the value for that option is returned.
-Otherwise, sets the options to the corresponding values as given by kw . move ( item , parent , index ) Moves item to position index in parent ’s list of children. It is illegal to move an item under one of its descendants. If index is
-less than or equal to zero, item is moved to the beginning; if greater
-than or equal to the number of children, it is moved to the end. If item was detached it is reattached. next ( item ) Returns the identifier of item ’s next sibling, or ‘’ if item is the
-last child of its parent. parent ( item ) Returns the ID of the parent of item , or ‘’ if item is at the top
-level of the hierarchy. prev ( item ) Returns the identifier of item ’s previous sibling, or ‘’ if item is
-the first child of its parent. reattach ( item , parent , index ) An alias for Treeview.move() . see ( item ) Ensure that item is visible. Sets all of item ’s ancestors open option to True , and scrolls the
-widget if necessary so that item is within the visible portion of
-the tree. selection ( ) Returns a tuple of selected items. Changed in version 3.8: selection() no longer takes arguments.  For changing the selection
-state use the following selection methods. selection_set ( * items ) items becomes the new selection. Changed in version 3.6: items can be passed as separate arguments, not just as a single tuple. selection_add ( * items ) Add items to the selection. Changed in version 3.6: items can be passed as separate arguments, not just as a single tuple. selection_remove ( * items ) Remove items from the selection. Changed in version 3.6: items can be passed as separate arguments, not just as a single tuple. selection_toggle ( * items ) Toggle the selection state of each item in items . Changed in version 3.6: items can be passed as separate arguments, not just as a single tuple. set ( item , column = None , value = None ) With one argument, returns a dictionary of column/value pairs for the
-specified item . With two arguments, returns the current value of the
-specified column . With three arguments, sets the value of given column in given item to the specified value . tag_bind ( tagname , sequence = None , callback = None ) Bind a callback for the given event sequence to the tag tagname .
-When an event is delivered to an item, the callbacks for each of the
-item’s tags option are called. tag_configure ( tagname , option = None , ** kw ) Query or modify the options for the specified tagname . If kw is not given, returns a dict of the option settings for tagname . If option is specified, returns the value for that option for the specified tagname . Otherwise, sets the options to the
-corresponding values for the given tagname . tag_has ( tagname , item = None ) If item is specified, returns 1 or 0 depending on whether the specified item has the given tagname . Otherwise, returns a list of all items
-that have the specified tag. Availability: Tk 8.6 xview ( * args ) Query or modify horizontal position of the treeview. yview ( * args ) Query or modify vertical position of the treeview.
-bbox ( item , column = None )
-Returns the bounding box (relative to the treeview widget’s window) of
-the specified item in the form (x, y, width, height). If column is specified, returns the bounding box of that cell. If the item is not visible (i.e., if it is a descendant of a closed item or is
-scrolled offscreen), returns an empty string.
 Returns the bounding box (relative to the treeview widget’s window) of
 the specified item in the form (x, y, width, height).
 If column is specified, returns the bounding box of that cell. If the item is not visible (i.e., if it is a descendant of a closed item or is
 scrolled offscreen), returns an empty string.
-get_children ( item = None )
-Returns the list of children belonging to item . If item is not specified, returns root children.
 Returns the list of children belonging to item .
 If item is not specified, returns root children.
-set_children ( item , * newchildren )
-Replaces item ’s child with newchildren . Children present in item that are not present in newchildren are
-detached from the tree. No items in newchildren may be an ancestor of item . Note that not specifying newchildren results in detaching item ’s children.
 Replaces item ’s child with newchildren .
 Children present in item that are not present in newchildren are
 detached from the tree. No items in newchildren may be an ancestor of item . Note that not specifying newchildren results in detaching item ’s children.
-column ( column , option = None , ** kw )
-Query or modify the options for the specified column . If kw is not given, returns a dict of the column option values. If option is specified then the value for that option is returned.
-Otherwise, sets the options to the corresponding values. The valid options/values are: id Returns the column name. This is a read-only option. anchor : One of the standard Tk anchor values. Specifies how the text in this column should be aligned with respect
-to the cell. minwidth : width The minimum width of the column in pixels. The treeview widget will
-not make the column any smaller than specified by this option when
-the widget is resized or the user drags a column. stretch : True / False Specifies whether the column’s width should be adjusted when
-the widget is resized. width : width The width of the column in pixels. To configure the tree column, call this with column = “#0”
 Query or modify the options for the specified column .
 If kw is not given, returns a dict of the column option values. If option is specified then the value for that option is returned.
 Otherwise, sets the options to the corresponding values.
 The valid options/values are:
 Returns the column name. This is a read-only option.
-Returns the column name. This is a read-only option.
-anchor : One of the standard Tk anchor values.
 Specifies how the text in this column should be aligned with respect
 to the cell.
-Specifies how the text in this column should be aligned with respect
-to the cell.
-minwidth : width
 The minimum width of the column in pixels. The treeview widget will
 not make the column any smaller than specified by this option when
 the widget is resized or the user drags a column.
-The minimum width of the column in pixels. The treeview widget will
-not make the column any smaller than specified by this option when
-the widget is resized or the user drags a column.
-stretch : True / False
-True
 False
 Specifies whether the column’s width should be adjusted when
 the widget is resized.
-Specifies whether the column’s width should be adjusted when
-the widget is resized.
-width : width
-The width of the column in pixels.
 The width of the column in pixels.
 To configure the tree column, call this with column = “#0”
-delete ( * items )
-Delete all specified items and all their descendants. The root item may not be deleted.
 Delete all specified items and all their descendants.
 The root item may not be deleted.
-detach ( * items )
-Unlinks all of the specified items from the tree. The items and all of their descendants are still present, and may be
-reinserted at another point in the tree, but will not be displayed. The root item may not be detached.
 Unlinks all of the specified items from the tree.
 The items and all of their descendants are still present, and may be
 reinserted at another point in the tree, but will not be displayed.
 The root item may not be detached.
-exists ( item )
 Returns True if the specified item is present in the tree.
-Returns True if the specified item is present in the tree.
-True
-focus ( item = None )
 If item is specified, sets the focus item to item . Otherwise, returns
 the current focus item, or ‘’ if there is none.
-If item is specified, sets the focus item to item . Otherwise, returns
-the current focus item, or ‘’ if there is none.
-heading ( column , option = None , ** kw )
-Query or modify the heading options for the specified column . If kw is not given, returns a dict of the heading option values. If option is specified then the value for that option is returned.
-Otherwise, sets the options to the corresponding values. The valid options/values are: text : text The text to display in the column heading. image : imageName Specifies an image to display to the right of the column heading. anchor : anchor Specifies how the heading text should be aligned. One of the standard
-Tk anchor values. command : callback A callback to be invoked when the heading label is pressed. To configure the tree column heading, call this with column = “#0”.
 Query or modify the heading options for the specified column .
 If kw is not given, returns a dict of the heading option values. If option is specified then the value for that option is returned.
 Otherwise, sets the options to the corresponding values.
 The valid options/values are:
-text : text
 The text to display in the column heading.
-The text to display in the column heading.
-image : imageName
 Specifies an image to display to the right of the column heading.
-Specifies an image to display to the right of the column heading.
-anchor : anchor
 Specifies how the heading text should be aligned. One of the standard
 Tk anchor values.
-Specifies how the heading text should be aligned. One of the standard
-Tk anchor values.
-command : callback
-A callback to be invoked when the heading label is pressed.
 A callback to be invoked when the heading label is pressed.
 To configure the tree column heading, call this with column = “#0”.
-identify ( component , x , y )
 Returns a description of the specified component under the point given
 by x and y , or the empty string if no such component is present at
 that position.
-Returns a description of the specified component under the point given
-by x and y , or the empty string if no such component is present at
-that position.
-identify_row ( y )
 Returns the item ID of the item at position y .
-Returns the item ID of the item at position y .
-identify_column ( x )
-Returns the data column identifier of the cell at position x . The tree column has ID #0.
 Returns the data column identifier of the cell at position x .
 The tree column has ID #0.
-identify_region ( x , y )
-Returns one of: region meaning heading Tree heading area. separator Space between two columns headings. tree The tree area. cell A data cell. Availability: Tk 8.6.
 Returns one of:
 region
 meaning
@@ -1048,28 +821,12 @@ heading
 Tree heading area.
 separator
 Space between two columns headings.
-tree
 The tree area.
-cell
 A data cell.
 Availability: Tk 8.6.
-identify_element ( x , y )
-Returns the element at position x , y . Availability: Tk 8.6.
 Returns the element at position x , y .
 Availability: Tk 8.6.
-index ( item )
 Returns the integer index of item within its parent’s list of children.
-Returns the integer index of item within its parent’s list of children.
-insert ( parent , index , iid = None , ** kw )
-Creates a new item and returns the item identifier of the newly created
-item. parent is the item ID of the parent item, or the empty string to create
-a new top-level item. index is an integer, or the value “end”,
-specifying where in the list of parent’s children to insert the new item.
-If index is less than or equal to zero, the new node is inserted at
-the beginning; if index is greater than or equal to the current number
-of children, it is inserted at the end. If iid is specified, it is used
-as the item identifier; iid must not already exist in the tree.
-Otherwise, a new unique identifier is generated. See Item Options for the list of available options.
 Creates a new item and returns the item identifier of the newly created
 item.
 parent is the item ID of the parent item, or the empty string to create
@@ -1081,106 +838,52 @@ of children, it is inserted at the end. If iid is specified, it is used
 as the item identifier; iid must not already exist in the tree.
 Otherwise, a new unique identifier is generated.
 See Item Options for the list of available options.
-item ( item , option = None , ** kw )
-Query or modify the options for the specified item . If no options are given, a dict with options/values for the item is
-returned.
-If option is specified then the value for that option is returned.
-Otherwise, sets the options to the corresponding values as given by kw .
 Query or modify the options for the specified item .
 If no options are given, a dict with options/values for the item is
 returned.
 If option is specified then the value for that option is returned.
 Otherwise, sets the options to the corresponding values as given by kw .
-move ( item , parent , index )
-Moves item to position index in parent ’s list of children. It is illegal to move an item under one of its descendants. If index is
-less than or equal to zero, item is moved to the beginning; if greater
-than or equal to the number of children, it is moved to the end. If item was detached it is reattached.
 Moves item to position index in parent ’s list of children.
 It is illegal to move an item under one of its descendants. If index is
 less than or equal to zero, item is moved to the beginning; if greater
 than or equal to the number of children, it is moved to the end. If item was detached it is reattached.
-next ( item )
 Returns the identifier of item ’s next sibling, or ‘’ if item is the
 last child of its parent.
-Returns the identifier of item ’s next sibling, or ‘’ if item is the
-last child of its parent.
-parent ( item )
 Returns the ID of the parent of item , or ‘’ if item is at the top
 level of the hierarchy.
-Returns the ID of the parent of item , or ‘’ if item is at the top
-level of the hierarchy.
-prev ( item )
 Returns the identifier of item ’s previous sibling, or ‘’ if item is
 the first child of its parent.
-Returns the identifier of item ’s previous sibling, or ‘’ if item is
-the first child of its parent.
-reattach ( item , parent , index )
-An alias for Treeview.move() .
 An alias for Treeview.move() .
 Treeview.move()
-see ( item )
-Ensure that item is visible. Sets all of item ’s ancestors open option to True , and scrolls the
-widget if necessary so that item is within the visible portion of
-the tree.
 Ensure that item is visible.
 Sets all of item ’s ancestors open option to True , and scrolls the
 widget if necessary so that item is within the visible portion of
 the tree.
-True
-selection ( )
-Returns a tuple of selected items. Changed in version 3.8: selection() no longer takes arguments.  For changing the selection
-state use the following selection methods.
 Returns a tuple of selected items.
 Changed in version 3.8: selection() no longer takes arguments.  For changing the selection
 state use the following selection methods.
 selection()
-selection_set ( * items )
-items becomes the new selection. Changed in version 3.6: items can be passed as separate arguments, not just as a single tuple.
 items becomes the new selection.
 Changed in version 3.6: items can be passed as separate arguments, not just as a single tuple.
-selection_add ( * items )
-Add items to the selection. Changed in version 3.6: items can be passed as separate arguments, not just as a single tuple.
 Add items to the selection.
 Changed in version 3.6: items can be passed as separate arguments, not just as a single tuple.
-selection_remove ( * items )
-Remove items from the selection. Changed in version 3.6: items can be passed as separate arguments, not just as a single tuple.
 Remove items from the selection.
 Changed in version 3.6: items can be passed as separate arguments, not just as a single tuple.
-selection_toggle ( * items )
-Toggle the selection state of each item in items . Changed in version 3.6: items can be passed as separate arguments, not just as a single tuple.
 Toggle the selection state of each item in items .
 Changed in version 3.6: items can be passed as separate arguments, not just as a single tuple.
-set ( item , column = None , value = None )
 With one argument, returns a dictionary of column/value pairs for the
 specified item . With two arguments, returns the current value of the
 specified column . With three arguments, sets the value of given column in given item to the specified value .
-With one argument, returns a dictionary of column/value pairs for the
-specified item . With two arguments, returns the current value of the
-specified column . With three arguments, sets the value of given column in given item to the specified value .
-tag_bind ( tagname , sequence = None , callback = None )
 Bind a callback for the given event sequence to the tag tagname .
 When an event is delivered to an item, the callbacks for each of the
 item’s tags option are called.
-Bind a callback for the given event sequence to the tag tagname .
-When an event is delivered to an item, the callbacks for each of the
-item’s tags option are called.
-tag_configure ( tagname , option = None , ** kw )
-Query or modify the options for the specified tagname . If kw is not given, returns a dict of the option settings for tagname . If option is specified, returns the value for that option for the specified tagname . Otherwise, sets the options to the
-corresponding values for the given tagname .
 Query or modify the options for the specified tagname .
 If kw is not given, returns a dict of the option settings for tagname . If option is specified, returns the value for that option for the specified tagname . Otherwise, sets the options to the
 corresponding values for the given tagname .
-tag_has ( tagname , item = None )
-If item is specified, returns 1 or 0 depending on whether the specified item has the given tagname . Otherwise, returns a list of all items
-that have the specified tag. Availability: Tk 8.6
 If item is specified, returns 1 or 0 depending on whether the specified item has the given tagname . Otherwise, returns a list of all items
 that have the specified tag.
 Availability: Tk 8.6
-xview ( * args )
 Query or modify horizontal position of the treeview.
-Query or modify horizontal position of the treeview.
-yview ( * args )
-Query or modify vertical position of the treeview.
 Query or modify vertical position of the treeview.
 
 ## Ttk Styling
@@ -1190,73 +893,10 @@ elements making up the widget and how they are arranged, along with dynamic
 and default settings for element options. By default the style name is the
 same as the widget’s class name, but it may be overridden by the widget’s style
 option. If you don’t know the class name of a widget, use the method Misc.winfo_class() (somewidget.winfo_class()).
-ttk
 Misc.winfo_class()
 See also
-Tcl’2004 conference presentation
 This document explains how the theme engine works
-This document explains how the theme engine works
-class tkinter.ttk. Style
-This class is used to manipulate the style database. configure ( style , query_opt = None , ** kw ) Query or set the default value of the specified option(s) in style . Each key in kw is an option and each value is a string identifying
-the value for that option. For example, to change every default button to be a flat button with
-some padding and a different background color: from tkinter import ttk import tkinter root = tkinter . Tk () ttk . Style () . configure ( "TButton" , padding = 6 , relief = "flat" , background = "#ccc" ) btn = ttk . Button ( text = "Sample" ) btn . pack () root . mainloop () map ( style , query_opt = None , ** kw ) Query or sets dynamic values of the specified option(s) in style . Each key in kw is an option and each value should be a list or a
-tuple (usually) containing statespecs grouped in tuples, lists, or
-some other preference. A statespec is a compound of one
-or more states and then a value. An example may make it more understandable: import tkinter from tkinter import ttk root = tkinter . Tk () style = ttk . Style () style . map ( "C.TButton" , foreground = [( 'pressed' , 'red' ), ( 'active' , 'blue' )], background = [( 'pressed' , '!disabled' , 'black' ), ( 'active' , 'white' )] ) colored_btn = ttk . Button ( text = "Test" , style = "C.TButton" ) . pack () root . mainloop () Note that the order of the (states, value) sequences for an option does
-matter, if the order is changed to [('active', 'blue'), ('pressed', 'red')] in the foreground option, for example, the result would be a
-blue foreground when the widget were in active or pressed states. lookup ( style , option , state = None , default = None ) Returns the value specified for option in style . If state is specified, it is expected to be a sequence of one or more
-states. If the default argument is set, it is used as a fallback value
-in case no specification for option is found. To check what font a Button uses by default: from tkinter import ttk print ( ttk . Style () . lookup ( "TButton" , "font" )) layout ( style , layoutspec = None ) Define the widget layout for given style . If layoutspec is omitted,
-return the layout specification for given style. layoutspec , if specified, is expected to be a list or some other
-sequence type (excluding strings), where each item should be a tuple and
-the first item is the layout name and the second item should have the
-format described in Layouts . To understand the format, see the following example (it is not
-intended to do anything useful): from tkinter import ttk import tkinter root = tkinter . Tk () style = ttk . Style () style . layout ( "TMenubutton" , [ ( "Menubutton.background" , None ), ( "Menubutton.button" , { "children" : [( "Menubutton.focus" , { "children" : [( "Menubutton.padding" , { "children" : [( "Menubutton.label" , { "side" : "left" , "expand" : 1 })] })] })] }), ]) mbtn = ttk . Menubutton ( text = 'Text' ) mbtn . pack () root . mainloop () element_create ( elementname , etype , * args , ** kw ) Create a new element in the current theme, of the given etype which is
-expected to be either “image”, “from” or “vsapi”.
-The latter is only available in Tk 8.6 on Windows. If “image” is used, args should contain the default image name followed
-by statespec/value pairs (this is the imagespec), and kw may have the
-following options: border=padding padding is a list of up to four integers, specifying the left, top,
-right, and bottom borders, respectively. height=height Specifies a minimum height for the element. If less than zero, the
-base image’s height is used as a default. padding=padding Specifies the element’s interior padding. Defaults to border’s value
-if not specified. sticky=spec Specifies how the image is placed within the final parcel. spec
-contains zero or more characters “n”, “s”, “w”, or “e”. width=width Specifies a minimum width for the element. If less than zero, the
-base image’s width is used as a default. Example: img1 = tkinter . PhotoImage ( master = root , file = 'button.png' ) img1 = tkinter . PhotoImage ( master = root , file = 'button-pressed.png' ) img1 = tkinter . PhotoImage ( master = root , file = 'button-active.png' ) style = ttk . Style ( root ) style . element_create ( 'Button.button' , 'image' , img1 , ( 'pressed' , img2 ), ( 'active' , img3 ), border = ( 2 , 4 ), sticky = 'we' ) If “from” is used as the value of etype , element_create() will clone an existing
-element. args is expected to contain a themename, from which
-the element will be cloned, and optionally an element to clone from.
-If this element to clone from is not specified, an empty element will
-be used. kw is discarded. Example: style = ttk . Style ( root ) style . element_create ( 'plain.background' , 'from' , 'default' ) If “vsapi” is used as the value of etype , element_create() will create a new element in the current theme whose visual appearance
-is drawn using the Microsoft Visual Styles API which is responsible
-for the themed styles on Windows XP and Vista. args is expected to contain the Visual Styles class and part as
-given in the Microsoft documentation followed by an optional sequence
-of tuples of ttk states and the corresponding Visual Styles API state
-value. kw may have the following options: padding=padding Specify the element’s interior padding. padding is a list of up to four integers specifying the left,
-top, right and bottom padding quantities respectively.
-If fewer than four elements are specified, bottom defaults to top,
-right defaults to left, and top defaults to left.
-In other words, a list of three numbers specify the left, vertical,
-and right padding; a list of two numbers specify the horizontal
-and the vertical padding; a single number specifies the same
-padding all the way around the widget.
-This option may not be mixed with any other options. margins=padding Specifies the elements exterior padding. padding is a list of up to four integers specifying the left, top,
-right and bottom padding quantities respectively.
-This option may not be mixed with any other options. width=width Specifies the width for the element.
-If this option is set then the Visual Styles API will not be queried
-for the recommended size or the part.
-If this option is set then height should also be set.
-The width and height options cannot be mixed with the padding or margins options. height=height Specifies the height of the element.
-See the comments for width . Example: style = ttk . Style ( root ) style . element_create ( 'pin' , 'vsapi' , 'EXPLORERBAR' , 3 , [ ( 'pressed' , '!selected' , 3 ), ( 'active' , '!selected' , 2 ), ( 'pressed' , 'selected' , 6 ), ( 'active' , 'selected' , 5 ), ( 'selected' , 4 ), ( '' , 1 )]) style . layout ( 'Explorer.Pin' , [( 'Explorer.Pin.pin' , { 'sticky' : 'news' })]) pin = ttk . Checkbutton ( style = 'Explorer.Pin' ) pin . pack ( expand = True , fill = 'both' ) Changed in version 3.13: Added support of the “vsapi” element factory. element_names ( ) Returns the list of elements defined in the current theme. element_options ( elementname ) Returns the list of elementname ’s options. theme_create ( themename , parent = None , settings = None ) Create a new theme. It is an error if themename already exists. If parent is specified,
-the new theme will inherit styles, elements and layouts from the parent
-theme. If settings are present they are expected to have the same
-syntax used for theme_settings() . theme_settings ( themename , settings ) Temporarily sets the current theme to themename , apply specified settings and then restore the previous theme. Each key in settings is a style and each value may contain the keys
-‘configure’, ‘map’, ‘layout’ and ‘element create’ and they are expected
-to have the same format as specified by the methods Style.configure() , Style.map() , Style.layout() and Style.element_create() respectively. As an example, let’s change the Combobox for the default theme a bit: from tkinter import ttk import tkinter root = tkinter . Tk () style = ttk . Style () style . theme_settings ( "default" , { "TCombobox" : { "configure" : { "padding" : 5 }, "map" : { "background" : [( "active" , "green2" ), ( "!disabled" , "green4" )], "fieldbackground" : [( "!disabled" , "green3" )], "foreground" : [( "focus" , "OliveDrab1" ), ( "!disabled" , "OliveDrab2" )] } } }) combo = ttk . Combobox () . pack () root . mainloop () theme_names ( ) Returns a list of all known themes. theme_use ( themename = None ) If themename is not given, returns the theme in use.  Otherwise, sets
-the current theme to themename , refreshes all widgets and emits a
-<<ThemeChanged>> event.
 This class is used to manipulate the style database.
-configure ( style , query_opt = None , ** kw )
-Query or set the default value of the specified option(s) in style . Each key in kw is an option and each value is a string identifying
-the value for that option. For example, to change every default button to be a flat button with
-some padding and a different background color: from tkinter import ttk import tkinter root = tkinter . Tk () ttk . Style () . configure ( "TButton" , padding = 6 , relief = "flat" , background = "#ccc" ) btn = ttk . Button ( text = "Sample" ) btn . pack () root . mainloop ()
 Query or set the default value of the specified option(s) in style .
 Each key in kw is an option and each value is a string identifying
 the value for that option.
@@ -1267,13 +907,6 @@ some padding and a different background color:
 from tkinter import ttk import tkinter root = tkinter . Tk () ttk . Style () . configure ( "TButton" , padding = 6 , relief = "flat" , background = "#ccc" ) btn = ttk . Button ( text = "Sample" ) btn . pack () root . mainloop ()
 [/CODE]
 
-map ( style , query_opt = None , ** kw )
-Query or sets dynamic values of the specified option(s) in style . Each key in kw is an option and each value should be a list or a
-tuple (usually) containing statespecs grouped in tuples, lists, or
-some other preference. A statespec is a compound of one
-or more states and then a value. An example may make it more understandable: import tkinter from tkinter import ttk root = tkinter . Tk () style = ttk . Style () style . map ( "C.TButton" , foreground = [( 'pressed' , 'red' ), ( 'active' , 'blue' )], background = [( 'pressed' , '!disabled' , 'black' ), ( 'active' , 'white' )] ) colored_btn = ttk . Button ( text = "Test" , style = "C.TButton" ) . pack () root . mainloop () Note that the order of the (states, value) sequences for an option does
-matter, if the order is changed to [('active', 'blue'), ('pressed', 'red')] in the foreground option, for example, the result would be a
-blue foreground when the widget were in active or pressed states.
 Query or sets dynamic values of the specified option(s) in style .
 Each key in kw is an option and each value should be a list or a
 tuple (usually) containing statespecs grouped in tuples, lists, or
@@ -1289,10 +922,6 @@ Note that the order of the (states, value) sequences for an option does
 matter, if the order is changed to [('active', 'blue'), ('pressed', 'red')] in the foreground option, for example, the result would be a
 blue foreground when the widget were in active or pressed states.
 [('active', 'blue'), ('pressed', 'red')]
-lookup ( style , option , state = None , default = None )
-Returns the value specified for option in style . If state is specified, it is expected to be a sequence of one or more
-states. If the default argument is set, it is used as a fallback value
-in case no specification for option is found. To check what font a Button uses by default: from tkinter import ttk print ( ttk . Style () . lookup ( "TButton" , "font" ))
 Returns the value specified for option in style .
 If state is specified, it is expected to be a sequence of one or more
 states. If the default argument is set, it is used as a fallback value
@@ -1303,13 +932,6 @@ To check what font a Button uses by default:
 from tkinter import ttk print ( ttk . Style () . lookup ( "TButton" , "font" ))
 [/CODE]
 
-layout ( style , layoutspec = None )
-Define the widget layout for given style . If layoutspec is omitted,
-return the layout specification for given style. layoutspec , if specified, is expected to be a list or some other
-sequence type (excluding strings), where each item should be a tuple and
-the first item is the layout name and the second item should have the
-format described in Layouts . To understand the format, see the following example (it is not
-intended to do anything useful): from tkinter import ttk import tkinter root = tkinter . Tk () style = ttk . Style () style . layout ( "TMenubutton" , [ ( "Menubutton.background" , None ), ( "Menubutton.button" , { "children" : [( "Menubutton.focus" , { "children" : [( "Menubutton.padding" , { "children" : [( "Menubutton.label" , { "side" : "left" , "expand" : 1 })] })] })] }), ]) mbtn = ttk . Menubutton ( text = 'Text' ) mbtn . pack () root . mainloop ()
 Define the widget layout for given style . If layoutspec is omitted,
 return the layout specification for given style.
 layoutspec , if specified, is expected to be a list or some other
@@ -1323,70 +945,20 @@ intended to do anything useful):
 from tkinter import ttk import tkinter root = tkinter . Tk () style = ttk . Style () style . layout ( "TMenubutton" , [ ( "Menubutton.background" , None ), ( "Menubutton.button" , { "children" : [( "Menubutton.focus" , { "children" : [( "Menubutton.padding" , { "children" : [( "Menubutton.label" , { "side" : "left" , "expand" : 1 })] })] })] }), ]) mbtn = ttk . Menubutton ( text = 'Text' ) mbtn . pack () root . mainloop ()
 [/CODE]
 
-element_create ( elementname , etype , * args , ** kw )
-Create a new element in the current theme, of the given etype which is
-expected to be either “image”, “from” or “vsapi”.
-The latter is only available in Tk 8.6 on Windows. If “image” is used, args should contain the default image name followed
-by statespec/value pairs (this is the imagespec), and kw may have the
-following options: border=padding padding is a list of up to four integers, specifying the left, top,
-right, and bottom borders, respectively. height=height Specifies a minimum height for the element. If less than zero, the
-base image’s height is used as a default. padding=padding Specifies the element’s interior padding. Defaults to border’s value
-if not specified. sticky=spec Specifies how the image is placed within the final parcel. spec
-contains zero or more characters “n”, “s”, “w”, or “e”. width=width Specifies a minimum width for the element. If less than zero, the
-base image’s width is used as a default. Example: img1 = tkinter . PhotoImage ( master = root , file = 'button.png' ) img1 = tkinter . PhotoImage ( master = root , file = 'button-pressed.png' ) img1 = tkinter . PhotoImage ( master = root , file = 'button-active.png' ) style = ttk . Style ( root ) style . element_create ( 'Button.button' , 'image' , img1 , ( 'pressed' , img2 ), ( 'active' , img3 ), border = ( 2 , 4 ), sticky = 'we' ) If “from” is used as the value of etype , element_create() will clone an existing
-element. args is expected to contain a themename, from which
-the element will be cloned, and optionally an element to clone from.
-If this element to clone from is not specified, an empty element will
-be used. kw is discarded. Example: style = ttk . Style ( root ) style . element_create ( 'plain.background' , 'from' , 'default' ) If “vsapi” is used as the value of etype , element_create() will create a new element in the current theme whose visual appearance
-is drawn using the Microsoft Visual Styles API which is responsible
-for the themed styles on Windows XP and Vista. args is expected to contain the Visual Styles class and part as
-given in the Microsoft documentation followed by an optional sequence
-of tuples of ttk states and the corresponding Visual Styles API state
-value. kw may have the following options: padding=padding Specify the element’s interior padding. padding is a list of up to four integers specifying the left,
-top, right and bottom padding quantities respectively.
-If fewer than four elements are specified, bottom defaults to top,
-right defaults to left, and top defaults to left.
-In other words, a list of three numbers specify the left, vertical,
-and right padding; a list of two numbers specify the horizontal
-and the vertical padding; a single number specifies the same
-padding all the way around the widget.
-This option may not be mixed with any other options. margins=padding Specifies the elements exterior padding. padding is a list of up to four integers specifying the left, top,
-right and bottom padding quantities respectively.
-This option may not be mixed with any other options. width=width Specifies the width for the element.
-If this option is set then the Visual Styles API will not be queried
-for the recommended size or the part.
-If this option is set then height should also be set.
-The width and height options cannot be mixed with the padding or margins options. height=height Specifies the height of the element.
-See the comments for width . Example: style = ttk . Style ( root ) style . element_create ( 'pin' , 'vsapi' , 'EXPLORERBAR' , 3 , [ ( 'pressed' , '!selected' , 3 ), ( 'active' , '!selected' , 2 ), ( 'pressed' , 'selected' , 6 ), ( 'active' , 'selected' , 5 ), ( 'selected' , 4 ), ( '' , 1 )]) style . layout ( 'Explorer.Pin' , [( 'Explorer.Pin.pin' , { 'sticky' : 'news' })]) pin = ttk . Checkbutton ( style = 'Explorer.Pin' ) pin . pack ( expand = True , fill = 'both' ) Changed in version 3.13: Added support of the “vsapi” element factory.
 Create a new element in the current theme, of the given etype which is
 expected to be either “image”, “from” or “vsapi”.
 The latter is only available in Tk 8.6 on Windows.
 If “image” is used, args should contain the default image name followed
 by statespec/value pairs (this is the imagespec), and kw may have the
 following options:
-border=padding
 padding is a list of up to four integers, specifying the left, top,
 right, and bottom borders, respectively.
-padding is a list of up to four integers, specifying the left, top,
-right, and bottom borders, respectively.
-height=height
 Specifies a minimum height for the element. If less than zero, the
 base image’s height is used as a default.
-Specifies a minimum height for the element. If less than zero, the
-base image’s height is used as a default.
-padding=padding
 Specifies the element’s interior padding. Defaults to border’s value
 if not specified.
-Specifies the element’s interior padding. Defaults to border’s value
-if not specified.
-sticky=spec
 Specifies how the image is placed within the final parcel. spec
 contains zero or more characters “n”, “s”, “w”, or “e”.
-Specifies how the image is placed within the final parcel. spec
-contains zero or more characters “n”, “s”, “w”, or “e”.
-width=width
-Specifies a minimum width for the element. If less than zero, the
-base image’s width is used as a default.
 Specifies a minimum width for the element. If less than zero, the
 base image’s width is used as a default.
 Example:
@@ -1414,7 +986,6 @@ given in the Microsoft documentation followed by an optional sequence
 of tuples of ttk states and the corresponding Visual Styles API state
 value. kw may have the following options:
 element_create()
-padding=padding
 Specify the element’s interior padding. padding is a list of up to four integers specifying the left,
 top, right and bottom padding quantities respectively.
 If fewer than four elements are specified, bottom defaults to top,
@@ -1424,36 +995,14 @@ and right padding; a list of two numbers specify the horizontal
 and the vertical padding; a single number specifies the same
 padding all the way around the widget.
 This option may not be mixed with any other options.
-Specify the element’s interior padding. padding is a list of up to four integers specifying the left,
-top, right and bottom padding quantities respectively.
-If fewer than four elements are specified, bottom defaults to top,
-right defaults to left, and top defaults to left.
-In other words, a list of three numbers specify the left, vertical,
-and right padding; a list of two numbers specify the horizontal
-and the vertical padding; a single number specifies the same
-padding all the way around the widget.
-This option may not be mixed with any other options.
-margins=padding
 Specifies the elements exterior padding. padding is a list of up to four integers specifying the left, top,
 right and bottom padding quantities respectively.
 This option may not be mixed with any other options.
-Specifies the elements exterior padding. padding is a list of up to four integers specifying the left, top,
-right and bottom padding quantities respectively.
-This option may not be mixed with any other options.
-width=width
 Specifies the width for the element.
 If this option is set then the Visual Styles API will not be queried
 for the recommended size or the part.
 If this option is set then height should also be set.
 The width and height options cannot be mixed with the padding or margins options.
-Specifies the width for the element.
-If this option is set then the Visual Styles API will not be queried
-for the recommended size or the part.
-If this option is set then height should also be set.
-The width and height options cannot be mixed with the padding or margins options.
-height=height
-Specifies the height of the element.
-See the comments for width .
 Specifies the height of the element.
 See the comments for width .
 Example:
@@ -1463,27 +1012,14 @@ style = ttk . Style ( root ) style . element_create ( 'pin' , 'vsapi' , 'EXPLORE
 [/CODE]
 
 Changed in version 3.13: Added support of the “vsapi” element factory.
-element_names ( )
 Returns the list of elements defined in the current theme.
-Returns the list of elements defined in the current theme.
-element_options ( elementname )
 Returns the list of elementname ’s options.
-Returns the list of elementname ’s options.
-theme_create ( themename , parent = None , settings = None )
-Create a new theme. It is an error if themename already exists. If parent is specified,
-the new theme will inherit styles, elements and layouts from the parent
-theme. If settings are present they are expected to have the same
-syntax used for theme_settings() .
 Create a new theme.
 It is an error if themename already exists. If parent is specified,
 the new theme will inherit styles, elements and layouts from the parent
 theme. If settings are present they are expected to have the same
 syntax used for theme_settings() .
 theme_settings()
-theme_settings ( themename , settings )
-Temporarily sets the current theme to themename , apply specified settings and then restore the previous theme. Each key in settings is a style and each value may contain the keys
-‘configure’, ‘map’, ‘layout’ and ‘element create’ and they are expected
-to have the same format as specified by the methods Style.configure() , Style.map() , Style.layout() and Style.element_create() respectively. As an example, let’s change the Combobox for the default theme a bit: from tkinter import ttk import tkinter root = tkinter . Tk () style = ttk . Style () style . theme_settings ( "default" , { "TCombobox" : { "configure" : { "padding" : 5 }, "map" : { "background" : [( "active" , "green2" ), ( "!disabled" , "green4" )], "fieldbackground" : [( "!disabled" , "green3" )], "foreground" : [( "focus" , "OliveDrab1" ), ( "!disabled" , "OliveDrab2" )] } } }) combo = ttk . Combobox () . pack () root . mainloop ()
 Temporarily sets the current theme to themename , apply specified settings and then restore the previous theme.
 Each key in settings is a style and each value may contain the keys
 ‘configure’, ‘map’, ‘layout’ and ‘element create’ and they are expected
@@ -1498,13 +1034,7 @@ As an example, let’s change the Combobox for the default theme a bit:
 from tkinter import ttk import tkinter root = tkinter . Tk () style = ttk . Style () style . theme_settings ( "default" , { "TCombobox" : { "configure" : { "padding" : 5 }, "map" : { "background" : [( "active" , "green2" ), ( "!disabled" , "green4" )], "fieldbackground" : [( "!disabled" , "green3" )], "foreground" : [( "focus" , "OliveDrab1" ), ( "!disabled" , "OliveDrab2" )] } } }) combo = ttk . Combobox () . pack () root . mainloop ()
 [/CODE]
 
-theme_names ( )
 Returns a list of all known themes.
-Returns a list of all known themes.
-theme_use ( themename = None )
-If themename is not given, returns the theme in use.  Otherwise, sets
-the current theme to themename , refreshes all widgets and emits a
-<<ThemeChanged>> event.
 If themename is not given, returns the theme in use.  Otherwise, sets
 the current theme to themename , refreshes all widgets and emits a
 <<ThemeChanged>> event.
@@ -1515,30 +1045,15 @@ A layout can be just None , if it takes no options, or a dict of
 options specifying how to arrange the element. The layout mechanism
 uses a simplified version of the pack geometry manager: given an
 initial cavity, each element is allocated a parcel.
-None
 The valid options/values are:
-side : whichside
 Specifies which side of the cavity to place the element; one of
 top, right, bottom or left. If omitted, the element occupies the
 entire cavity.
-Specifies which side of the cavity to place the element; one of
-top, right, bottom or left. If omitted, the element occupies the
-entire cavity.
-sticky : nswe
 Specifies where the element is placed inside its allocated parcel.
-Specifies where the element is placed inside its allocated parcel.
-unit : 0 or 1
-If set to 1, causes the element and all of its descendants to be treated as
-a single element for the purposes of Widget.identify() et al. It’s
-used for things like scrollbar thumbs with grips.
 If set to 1, causes the element and all of its descendants to be treated as
 a single element for the purposes of Widget.identify() et al. It’s
 used for things like scrollbar thumbs with grips.
 Widget.identify()
-children : [sublayout… ]
-Specifies a list of elements to place inside the element. Each
-element is a tuple (or other sequence type) where the first item is
-the layout name, and the other is a Layout .
 Specifies a list of elements to place inside the element. Each
 element is a tuple (or other sequence type) where the first item is
 the layout name, and the other is a Layout .

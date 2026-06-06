@@ -5,8 +5,6 @@ SOURCE: howto\sorting.html
 
 # Sorting Techniques
 
-Author :
-Andrew Dalke and Raymond Hettinger
 Andrew Dalke and Raymond Hettinger
 Python lists have a built-in list.sort() method that modifies the list
 in-place.  There is also a sorted() built-in function that builds a new
@@ -30,7 +28,6 @@ in-place (and returns None to avoid confusion). Usually it’s less convenient
 than sorted() - but if you don’t need the original list, it’s slightly
 more efficient.
 list.sort()
-None
 sorted()
 
 [CODE]
@@ -242,14 +239,12 @@ Remove special values prior to sorting:
 This is needed because the IEEE-754 standard specifies that, “Every NaN
 shall compare unordered with everything, including itself.”
 Likewise, None can be stripped from datasets as well:
-None
 
 [CODE]
 >>> data = [ 3.3 , None , 1.1 , 2.2 ] >>> sorted ( x for x in data if x is not None ) [1.1, 2.2, 3.3]
 [/CODE]
 
 This is needed because None is not comparable to other types.
-None
 Convert mapping types into sorted item lists before sorting:
 Convert mapping types into sorted item lists before sorting:
 

@@ -143,21 +143,12 @@ email.utils
 email.iterators : Iterators
 email.iterators
 See also
-Module smtplib
 smtplib
 SMTP (Simple Mail Transport Protocol) client
-SMTP (Simple Mail Transport Protocol) client
-Module poplib
 poplib
 POP (Post Office Protocol) client
-POP (Post Office Protocol) client
-Module imaplib
 imaplib
 IMAP (Internet Message Access Protocol) client
-IMAP (Internet Message Access Protocol) client
-Module mailbox
 mailbox
-Tools for creating, reading, and managing collections of messages on disk
-using a variety standard formats.
 Tools for creating, reading, and managing collections of messages on disk
 using a variety standard formats.

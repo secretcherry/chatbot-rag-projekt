@@ -39,8 +39,6 @@ in a package.  If the argument to pydoc looks like a path (that is,
 it contains the path separator for your operating system, such as a slash in
 Unix), and refers to an existing Python source file, then documentation is
 produced for that file.
-sys
-Note
 In order to find objects and their documentation, pydoc imports the
 module(s) to be documented.  Therefore, any code on module level will be
 executed on that occasion.  Use an if __name__ == '__main__': guard to

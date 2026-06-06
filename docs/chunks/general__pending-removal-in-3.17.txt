@@ -31,7 +31,6 @@ Use isinstance(obj, collections.abc.Buffer) to test if obj implements the buffer
 in type annotations, either use Buffer or a union
 that explicitly specifies the types your code supports (e.g., bytes | bytearray | memoryview ).
 isinstance(obj, collections.abc.Buffer)
-obj
 Buffer
 bytes | bytearray | memoryview
 ByteString was originally intended to be an abstract class that
@@ -88,7 +87,6 @@ Use isinstance(obj, collections.abc.Buffer) to test if obj implements the buffer
 in type annotations, either use Buffer or a union
 that explicitly specifies the types your code supports (e.g., bytes | bytearray | memoryview ).
 isinstance(obj, collections.abc.Buffer)
-obj
 Buffer
 bytes | bytearray | memoryview
 ByteString was originally intended to be an abstract class that

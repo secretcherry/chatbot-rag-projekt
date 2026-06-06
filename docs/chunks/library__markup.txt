@@ -10,7 +10,6 @@ data markup.  This includes modules to work with the Standard Generalized Markup
 Language (SGML) and the Hypertext Markup Language (HTML), and several interfaces
 for working with the Extensible Markup Language (XML).
 html — HyperText Markup Language support
-html
 html.parser — Simple HTML and XHTML parser Example HTML Parser Application HTMLParser Methods Examples
 html.parser
 Example HTML Parser Application

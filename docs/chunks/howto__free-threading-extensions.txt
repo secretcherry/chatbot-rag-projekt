@@ -21,7 +21,6 @@ Py_GIL_DISABLED
 #ifdef Py_GIL_DISABLED /* code that only runs in the free-threaded build */ #endif
 [/CODE]
 
-Note
 On Windows, this macro is not defined automatically, but must be specified
 to the compiler when building. The sysconfig.get_config_var() function
 can be used to determine whether the current running interpreter had the
@@ -180,7 +179,6 @@ For thread-safety, the free-threaded build requires that only Python objects
 are allocated using the object domain, and that all Python objects are
 allocated using that domain.  This differs from the prior Python versions,
 where this was only a best practice and not a hard requirement.
-Note
 Search for uses of PyObject_Malloc() in your
 extension and check that the allocated memory is used for Python objects.
 Use PyMem_Malloc() to allocate buffers instead of PyObject_Malloc() .
@@ -397,7 +395,6 @@ your extension and currently set py_limited_api=True you can use py_limited_api=
 of the limited API when building with the free-threaded build.
 py_limited_api=True
 py_limited_api=not sysconfig.get_config_var("Py_GIL_DISABLED")
-Note
 You will need to build separate wheels specifically for the free-threaded
 build.  If you currently use the stable ABI, you can continue to build a
 single wheel for multiple non-free-threaded Python versions.

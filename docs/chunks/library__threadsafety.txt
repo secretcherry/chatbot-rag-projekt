@@ -69,7 +69,6 @@ PyMutex_IsLocked()
 ## Thread safety for list objects
 
 Reading a single element from a list is atomic :
-list
 
 [CODE]
 lst [ i ] # list.__getitem__
@@ -126,11 +125,8 @@ Otherwise, an iterator is created which can be concurrently modified by
 another thread.  The same applies to inplace concatenation of a list with
 other iterables when using lst += iterable .
 extend()
-list
 tuple
-set
 frozenset
-dict
 extend
 lst += iterable
 Similarly, assigning to a list slice with lst[i:j] = iterable is safe
@@ -138,7 +134,6 @@ to call from multiple threads, but iterable is only locked when it is
 also a list (but not its subclasses).
 lst[i:j] = iterable
 iterable
-list
 Operations that involve multiple accesses, as well as iteration, are never
 atomic. For example:
 
@@ -148,20 +143,15 @@ atomic. For example:
 
 Consider external synchronization when sharing list instances
 across threads.
-list
 
 ## Thread safety for dict objects
 
 Creating a dictionary with the dict constructor is atomic when the
 argument to it is a dict or a tuple . When using the dict.fromkeys() method, dictionary creation is atomic when the
 argument is a dict , tuple , set or frozenset .
-dict
-dict
 tuple
 dict.fromkeys()
-dict
 tuple
-set
 frozenset
 The following operations and functions are lock-free and atomic .
 
@@ -183,8 +173,6 @@ be modified by another thread. For built-in types like str , int , and float , t
 the underlying lock is not released during comparisons and this is not a
 concern.
 __eq__()
-str
-int
 float
 __eq__()
 The following operations return new objects and hold the per-object lock for the duration of the operation:
@@ -200,8 +188,6 @@ The following operations lock both dictionaries. For update() and |= , this appl
 iteration). For equality comparison, this applies to dict and
 its subclasses:
 update()
-dict
-dict
 
 [CODE]
 d . update ( other_dict ) # both locked when other_dict is a dict d |= other_dict # both locked when other_dict is a dict d == other_dict # both locked for dict and subclasses
@@ -213,8 +199,6 @@ __eq__()
 fromkeys() locks both the new dictionary and the iterable
 when the iterable is exactly a dict , set , or frozenset (not subclasses):
 fromkeys()
-dict
-set
 frozenset
 
 [CODE]
@@ -251,7 +235,6 @@ thread, iterate over a copy:
 
 Consider external synchronization when sharing dict instances
 across threads.
-dict
 
 ## Thread safety for set objects
 
@@ -270,8 +253,6 @@ execute arbitrary Python code. During such comparisons, the set may be
 modified by another thread. For built-in types like str , int , and float , __eq__() does not release the
 underlying lock during comparisons and this is not a concern.
 __eq__()
-str
-int
 float
 __eq__()
 All other operations from here on hold the per-object lock.
@@ -291,7 +272,6 @@ The clear() method holds the lock for its duration. Other
 threads cannot observe elements being removed.
 clear()
 The following operations only accept set or frozenset as operands and always lock both objects:
-set
 frozenset
 
 [CODE]
@@ -305,38 +285,26 @@ set.union()
 set.intersection()
 set.difference()
 set.update() and set.union() lock both objects only when the other operand is a set , frozenset , or dict .
-set.update() and set.union() lock both objects only when
 set.update()
 set.union()
 the other operand is a set , frozenset , or dict .
-the other operand is a set , frozenset , or dict .
-set
 frozenset
-dict
 set.intersection() and set.difference() always try to lock all objects.
-set.intersection() and set.difference() always try to lock
 set.intersection()
 set.difference()
-all objects.
 all objects.
 set.symmetric_difference() tries to lock both objects.
 set.symmetric_difference()
 The update variants of the above methods also have some differences between
 them:
 set.difference_update() and set.intersection_update() try to lock all objects one-by-one.
-set.difference_update() and set.intersection_update() try
 set.difference_update()
 set.intersection_update()
 to lock all objects one-by-one.
-to lock all objects one-by-one.
 set.symmetric_difference_update() only locks the arguments if it is of type set , frozenset , or dict .
-set.symmetric_difference_update() only locks the arguments if it is
 set.symmetric_difference_update()
 of type set , frozenset , or dict .
-of type set , frozenset , or dict .
-set
 frozenset
-dict
 The following methods always try to lock both objects:
 
 [CODE]
@@ -352,7 +320,6 @@ atomic:
 
 Consider external synchronization when sharing set instances
 across threads.  See Python support for free threading for more information.
-set
 
 ## Thread safety for bytearray objects
 

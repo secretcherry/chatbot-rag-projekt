@@ -12,29 +12,17 @@ configuration language which provides a structure similar to what’s found in
 Microsoft Windows INI files.  You can use this to write Python programs which
 can be customized by end users easily.
 ConfigParser
-Note
 This library does not interpret or write the value-type prefixes used in
 the Windows Registry extended version of INI syntax.
 See also
-Module tomllib
 tomllib
 TOML is a well-specified format for application configuration files.
 It is specifically designed to be an improved version of INI.
-TOML is a well-specified format for application configuration files.
-It is specifically designed to be an improved version of INI.
-Module shlex
 shlex
 Support for creating Unix shell-like mini-languages which can also
 be used for application configuration files.
-Support for creating Unix shell-like mini-languages which can also
-be used for application configuration files.
-Module json
-json
 The json module implements a subset of JavaScript syntax which is
 sometimes used for configuration, but does not support comments.
-The json module implements a subset of JavaScript syntax which is
-sometimes used for configuration, but does not support comments.
-json
 
 ## Quick Start
 
@@ -107,16 +95,11 @@ provide getboolean() .  This method is case-insensitive and
 recognizes Boolean values from 'yes' / 'no' , 'on' / 'off' , 'true' / 'false' and '1' / '0' [ 1 ] .  For example:
 bool()
 bool('False')
-True
 getboolean()
 'yes'
-'no'
-'on'
 'off'
 'true'
 'false'
-'1'
-'0'
 
 [CODE]
 >>> topsecret . getboolean ( 'ForwardX11' ) False >>> config [ 'forge.example' ] . getboolean ( 'ForwardX11' ) True >>> config . getboolean ( 'forge.example' , 'Compression' ) True
@@ -219,14 +202,6 @@ interpolation.  This means values can be preprocessed before returning them
 from get() calls.
 ConfigParser
 get()
-class configparser. BasicInterpolation
-The default implementation used by ConfigParser .  It enables
-values to contain format strings which refer to other values in the same
-section, or values in the special default section [ 1 ] .  Additional default
-values can be provided on initialization. For example: [Paths] home_dir : /Users my_dir : %(home_dir)s/lumberjack my_pictures : %(my_dir)s/Pictures [Escape] # use a %% to escape the % sign (% is the only character that needs to be escaped): gain : 80%% In the example above, ConfigParser with interpolation set to BasicInterpolation() would resolve %(home_dir)s to the value of home_dir ( /Users in this case). %(my_dir)s in effect would
-resolve to /Users/lumberjack .  All interpolations are done on demand so
-keys used in the chain of references do not have to be specified in any
-specific order in the configuration file. With interpolation set to None , the parser would simply return %(my_dir)s/Pictures as the value of my_pictures and %(home_dir)s/lumberjack as the value of my_dir .
 The default implementation used by ConfigParser .  It enables
 values to contain format strings which refer to other values in the same
 section, or values in the special default section [ 1 ] .  Additional default
@@ -251,18 +226,10 @@ home_dir
 /Users/lumberjack
 With interpolation set to None , the parser would simply return %(my_dir)s/Pictures as the value of my_pictures and %(home_dir)s/lumberjack as the value of my_dir .
 interpolation
-None
 %(my_dir)s/Pictures
 my_pictures
 %(home_dir)s/lumberjack
 my_dir
-class configparser. ExtendedInterpolation
-An alternative handler for interpolation which implements a more advanced
-syntax, used for instance in zc.buildout .  Extended interpolation is
-using ${section:option} to denote a value from a foreign section.
-Interpolation can span multiple levels.  For convenience, if the section: part is omitted, interpolation defaults to the current section
-(and possibly the default values from the special section). For example, the configuration specified above with basic interpolation,
-would look like this with extended interpolation: [Paths] home_dir : /Users my_dir : ${home_dir}/lumberjack my_pictures : ${my_dir}/Pictures [Escape] # use a $$ to escape the $ sign ($ is the only character that needs to be escaped): cost : $$80 Values from other sections can be fetched as well: [Common] home_dir : /Users library_dir : /Library system_dir : /System macports_dir : /opt/local [Frameworks] Python : 3.2 path : ${Common:system_dir}/Library/Frameworks/ [Arthur] nickname : Two Sheds last_name : Jackson my_dir : ${Common:home_dir}/twosheds my_pictures : ${my_dir}/Pictures python_dir : ${Frameworks:path}/Python/Versions/${Frameworks:Python}
 An alternative handler for interpolation which implements a more advanced
 syntax, used for instance in zc.buildout .  Extended interpolation is
 using ${section:option} to denote a value from a foreign section.
@@ -311,8 +278,6 @@ option key names.  This means lowercased keys by default.  At the same time,
 for a section that holds the key 'a' , both expressions return True :
 for option in parser["section"]
 optionxform
-'a'
-True
 
 [CODE]
 "a" in parser [ "section" ] "A" in parser [ "section" ]
@@ -378,7 +343,6 @@ put in the DEFAULT section.  This makes for an elegant way to support
 concise configuration files that don’t specify values which are the same as
 the documented default. Hint: if you want to specify default values for a specific section, use read_dict() before you read the actual file.
 defaults , default value: None
-None
 This option accepts a dictionary of key-value pairs which will be initially
 put in the DEFAULT section.  This makes for an elegant way to support
 concise configuration files that don’t specify values which are the same as
@@ -394,7 +358,6 @@ options on write-back. Please note: there are ways to add a set of key-value pai
 operation.  When you use a regular dictionary in those operations, the order
 of the keys will be ordered.  For example: >>> parser = configparser . ConfigParser () >>> parser . read_dict ({ 'section1' : { 'key1' : 'value1' , ... 'key2' : 'value2' , ... 'key3' : 'value3' }, ... 'section2' : { 'keyA' : 'valueA' , ... 'keyB' : 'valueB' , ... 'keyC' : 'valueC' }, ... 'section3' : { 'foo' : 'x' , ... 'bar' : 'y' , ... 'baz' : 'z' } ... }) >>> parser . sections () ['section1', 'section2', 'section3'] >>> [ option for option in parser [ 'section3' ]] ['foo', 'bar', 'baz']
 dict_type , default value: dict
-dict
 This option has a major impact on how the mapping protocol will behave and how
 the written configuration files look.  With the standard dictionary, every
 section is stored in the order they were added to the parser.  Same goes for
@@ -448,15 +411,12 @@ setting inline_comment_prefixes .  In any circumstances, the only way of
 storing comment prefix characters at the beginning of a line in multiline
 values is to interpolate the prefix, for example: >>> from configparser import ConfigParser , ExtendedInterpolation >>> parser = ConfigParser ( interpolation = ExtendedInterpolation ()) >>> # the default BasicInterpolation could be used as well >>> parser . read_string ( """ ... [DEFAULT] ... hash = # ... ... [hashes] ... shebang = ... $ {hash} !/usr/bin/env python ... $ {hash} -*- coding: utf-8 -*- ... ... extensions = ... enabled_extension ... another_extension ... #disabled_by_comment ... yet_another_extension ... ... interpolation not necessary = if # is not at line start ... even in multiline values = line #1 ... line #2 ... line #3 ... """ ) >>> print ( parser [ 'hashes' ][ 'shebang' ]) #!/usr/bin/env python # -*- coding: utf-8 -*- >>> print ( parser [ 'hashes' ][ 'extensions' ]) enabled_extension another_extension yet_another_extension >>> print ( parser [ 'hashes' ][ 'interpolation not necessary' ]) if # is not at line start >>> print ( parser [ 'hashes' ][ 'even in multiline values' ]) line #1 line #2 line #3
 inline_comment_prefixes , default value: None
-None
 Comment prefixes are strings that indicate the start of a valid comment within
 a config file. comment_prefixes are used only on otherwise empty lines
 (optionally indented) whereas inline_comment_prefixes can be used after
 every valid value (e.g. section names, options and empty lines as well).  By
 default inline comments are disabled and '#' and ';' are used as
 prefixes for whole line comments.
-'#'
-';'
 Changed in version 3.2: In previous versions of configparser behaviour matched comment_prefixes=('#',';') and inline_comment_prefixes=(';',) .
 configparser
 comment_prefixes=('#',';')
@@ -476,11 +436,9 @@ strict , default value: True When set to True , the parser will not allow for an
 duplicates while reading from a single source (using read_file() , read_string() or read_dict() ).  It is recommended to use strict
 parsers in new applications. Changed in version 3.2: In previous versions of configparser behaviour matched strict=False .
 strict , default value: True
-True
 When set to True , the parser will not allow for any section or option
 duplicates while reading from a single source (using read_file() , read_string() or read_dict() ).  It is recommended to use strict
 parsers in new applications.
-True
 read_file()
 read_string()
 read_dict()
@@ -498,7 +456,6 @@ not need values with empty lines, you should consider disallowing them.  This
 will make empty lines split keys every time.  In the example above, it would
 produce two keys, key and this .
 empty_lines_in_values , default value: True
-True
 In config parsers, values can span multiple lines as long as they are
 indented more than the key that holds them.  By default parsers also let
 empty lines to be parts of values.  At the same time, keys can be arbitrarily
@@ -515,8 +472,6 @@ proportional font to edit the file.  That is why when your application does
 not need values with empty lines, you should consider disallowing them.  This
 will make empty lines split keys every time.  In the example above, it would
 produce two keys, key and this .
-key
-this
 default_section , default value: configparser.DEFAULTSECT (that is: "DEFAULT" ) The convention of allowing a special section of default values for other
 sections or interpolation purposes is a powerful concept of this library,
 letting users create complex declarative configurations.  This section is
@@ -550,11 +505,9 @@ Interpolation behaviour may be customized by providing a custom handler
 through the interpolation argument. None can be used to turn off
 interpolation completely, ExtendedInterpolation() provides a more
 advanced variant inspired by zc.buildout .  More on the subject in the dedicated documentation section . RawConfigParser has a default value of None .
-None
 ExtendedInterpolation()
 zc.buildout
 RawConfigParser
-None
 converters , default value: not set Config parsers provide option value getters that perform type conversion.  By
 default getint() , getfloat() , and getboolean() are implemented.  Should other getters be
 desirable, users may define them in a subclass or pass a dictionary where each
@@ -582,27 +535,17 @@ If the converter needs to access the state of the parser, it can be
 implemented as a method on a config parser subclass.  If the name of this
 method starts with get , it will be available on all section proxies, in
 the dict-compatible form (see the getdecimal() example above).
-get
 getdecimal()
 More advanced customization may be achieved by overriding default values of
 these parser attributes.  The defaults are defined on the classes, so they may
 be overridden by subclasses or by attribute assignment.
-ConfigParser. BOOLEAN_STATES
-By default when using getboolean() , config parsers
-consider the following values True : '1' , 'yes' , 'true' , 'on' and the following values False : '0' , 'no' , 'false' , 'off' .  You can override this by specifying a custom dictionary of strings
-and their Boolean outcomes. For example: >>> custom = configparser . ConfigParser () >>> custom [ 'section1' ] = { 'funky' : 'nope' } >>> custom [ 'section1' ] . getboolean ( 'funky' ) Traceback (most recent call last): ... ValueError : Not a boolean: nope >>> custom . BOOLEAN_STATES = { 'sure' : True , 'nope' : False } >>> custom [ 'section1' ] . getboolean ( 'funky' ) False Other typical Boolean pairs include accept / reject or enabled / disabled .
 By default when using getboolean() , config parsers
 consider the following values True : '1' , 'yes' , 'true' , 'on' and the following values False : '0' , 'no' , 'false' , 'off' .  You can override this by specifying a custom dictionary of strings
 and their Boolean outcomes. For example:
 getboolean()
-True
-'1'
 'yes'
 'true'
-'on'
 False
-'0'
-'no'
 'false'
 'off'
 
@@ -615,14 +558,6 @@ accept
 reject
 enabled
 disabled
-ConfigParser. optionxform ( option )
-This method transforms option names on every read, get, or set
-operation.  The default converts the name to lowercase.  This also
-means that when a configuration file gets written, all keys will be
-lowercase.  Override this method if that’s unsuitable.
-For example: >>> config = """ ... [Section1] ... Key = Value ... ... [Section2] ... AnotherKey = Value ... """ >>> typical = configparser . ConfigParser () >>> typical . read_string ( config ) >>> list ( typical [ 'Section1' ] . keys ()) ['key'] >>> list ( typical [ 'Section2' ] . keys ()) ['anotherkey'] >>> custom = configparser . RawConfigParser () >>> custom . optionxform = lambda option : option >>> custom . read_string ( config ) >>> list ( custom [ 'Section1' ] . keys ()) ['Key'] >>> list ( custom [ 'Section2' ] . keys ()) ['AnotherKey'] Note The optionxform function transforms option names to a canonical form.
-This should be an idempotent function: if the name is already in
-canonical form, it should be returned unchanged.
 This method transforms option names on every read, get, or set
 operation.  The default converts the name to lowercase.  This also
 means that when a configuration file gets written, all keys will be
@@ -633,18 +568,9 @@ For example:
 >>> config = """ ... [Section1] ... Key = Value ... ... [Section2] ... AnotherKey = Value ... """ >>> typical = configparser . ConfigParser () >>> typical . read_string ( config ) >>> list ( typical [ 'Section1' ] . keys ()) ['key'] >>> list ( typical [ 'Section2' ] . keys ()) ['anotherkey'] >>> custom = configparser . RawConfigParser () >>> custom . optionxform = lambda option : option >>> custom . read_string ( config ) >>> list ( custom [ 'Section1' ] . keys ()) ['Key'] >>> list ( custom [ 'Section2' ] . keys ()) ['AnotherKey']
 [/CODE]
 
-Note
 The optionxform function transforms option names to a canonical form.
 This should be an idempotent function: if the name is already in
 canonical form, it should be returned unchanged.
-ConfigParser. SECTCRE
-A compiled regular expression used to parse section headers.  The default
-matches [section] to the name "section" .  Whitespace is considered
-part of the section name, thus [ larch ] will be read as a section of
-name " larch " .  Override this attribute if that’s unsuitable.  For
-example: >>> import re >>> config = """ ... [Section 1] ... option = value ... ... [  Section 2  ] ... another = val ... """ >>> typical = configparser . ConfigParser () >>> typical . read_string ( config ) >>> typical . sections () ['Section 1', '  Section 2  '] >>> custom = configparser . ConfigParser () >>> custom . SECTCRE = re . compile ( r "\[ *(?P<header>[^]]+?) *\]" ) >>> custom . read_string ( config ) >>> custom . sections () ['Section 1', 'Section 2'] Note While ConfigParser objects also use an OPTCRE attribute for recognizing
-option lines, it’s not recommended to override it because that would
-interfere with constructor options allow_no_value and delimiters .
 A compiled regular expression used to parse section headers.  The default
 matches [section] to the name "section" .  Whitespace is considered
 part of the section name, thus [ larch ] will be read as a section of
@@ -659,7 +585,6 @@ example:
 >>> import re >>> config = """ ... [Section 1] ... option = value ... ... [  Section 2  ] ... another = val ... """ >>> typical = configparser . ConfigParser () >>> typical . read_string ( config ) >>> typical . sections () ['Section 1', '  Section 2  '] >>> custom = configparser . ConfigParser () >>> custom . SECTCRE = re . compile ( r "\[ *(?P<header>[^]]+?) *\]" ) >>> custom . read_string ( config ) >>> custom . sections () ['Section 1', 'Section 2']
 [/CODE]
 
-Note
 While ConfigParser objects also use an OPTCRE attribute for recognizing
 option lines, it’s not recommended to override it because that would
 interfere with constructor options allow_no_value and delimiters .
@@ -672,8 +597,6 @@ are valid use cases for the methods outlined below, mapping protocol access is
 preferred for new projects.  The legacy API is at times more advanced,
 low-level and downright counterintuitive.
 configparser
-get
-set
 An example of writing to a configuration file:
 
 [CODE]
@@ -702,98 +625,6 @@ import configparser # New instance with 'bar' and 'baz' defaulting to 'Life' and
 
 ## ConfigParser Objects
 
-class configparser. ConfigParser ( defaults = None , dict_type = dict , allow_no_value = False , * , delimiters = ('=', ':') , comment_prefixes = ('#', ';') , inline_comment_prefixes = None , strict = True , empty_lines_in_values = True , default_section = configparser.DEFAULTSECT , interpolation = BasicInterpolation() , converters = {} , allow_unnamed_section = False )
-The main configuration parser.  When defaults is given, it is initialized
-into the dictionary of intrinsic defaults.  When dict_type is given, it
-will be used to create the dictionary objects for the list of sections, for
-the options within a section, and for the default values. When delimiters is given, it is used as the set of substrings that
-divide keys from values.  When comment_prefixes is given, it will be used
-as the set of substrings that prefix comments in otherwise empty lines.
-Comments can be indented.  When inline_comment_prefixes is given, it will
-be used as the set of substrings that prefix comments in non-empty lines. When strict is True (the default), the parser won’t allow for
-any section or option duplicates while reading from a single source (file,
-string or dictionary), raising DuplicateSectionError or DuplicateOptionError .  When empty_lines_in_values is False (default: True ), each empty line marks the end of an option.  Otherwise,
-internal empty lines of a multiline option are kept as part of the value.
-When allow_no_value is True (default: False ), options without
-values are accepted; the value held for these is None and they are
-serialized without the trailing delimiter. When default_section is given, it specifies the name for the special
-section holding default values for other sections and interpolation purposes
-(normally named "DEFAULT" ).  This value can be retrieved and changed at
-runtime using the default_section instance attribute. This won’t
-re-evaluate an already parsed config file, but will be used when writing
-parsed settings to a new config file. Interpolation behaviour may be customized by providing a custom handler
-through the interpolation argument. None can be used to turn off
-interpolation completely, ExtendedInterpolation() provides a more
-advanced variant inspired by zc.buildout .  More on the subject in the dedicated documentation section . All option names used in interpolation will be passed through the optionxform() method just like any other option name reference.  For
-example, using the default implementation of optionxform() (which
-converts option names to lower case), the values foo %(bar)s and foo %(BAR)s are equivalent. When converters is given, it should be a dictionary where each key
-represents the name of a type converter and each value is a callable
-implementing the conversion from string to the desired datatype.  Every
-converter gets its own corresponding get*() method on the parser
-object and section proxies. When allow_unnamed_section is True (default: False ),
-the first section name can be omitted. See the “Unnamed Sections” section . It is possible to read several configurations into a single ConfigParser , where the most recently added configuration has the
-highest priority. Any conflicting keys are taken from the more recent
-configuration while the previously existing keys are retained. The example
-below reads in an override.ini file, which will override any conflicting
-keys from the example.ini file. [DEFAULT] ServerAliveInterval = -1 >>> config_override = configparser . ConfigParser () >>> config_override [ 'DEFAULT' ] = { 'ServerAliveInterval' : '-1' } >>> with open ( 'override.ini' , 'w' ) as configfile : ... config_override . write ( configfile ) ... >>> config_override = configparser . ConfigParser () >>> config_override . read ([ 'example.ini' , 'override.ini' ]) ['example.ini', 'override.ini'] >>> print ( config_override . get ( 'DEFAULT' , 'ServerAliveInterval' )) -1 Changed in version 3.1: The default dict_type is collections.OrderedDict . Changed in version 3.2: allow_no_value , delimiters , comment_prefixes , strict , empty_lines_in_values , default_section and interpolation were
-added. Changed in version 3.5: The converters argument was added. Changed in version 3.7: The defaults argument is read with read_dict() ,
-providing consistent behavior across the parser: non-string
-keys and values are implicitly converted to strings. Changed in version 3.8: The default dict_type is dict , since it now preserves
-insertion order. Changed in version 3.13: Raise a MultilineContinuationError when allow_no_value is True , and a key without a value is continued with an indented line. Changed in version 3.13: The allow_unnamed_section argument was added. defaults ( ) Return a dictionary containing the instance-wide defaults. sections ( ) Return a list of the sections available; the default section is not
-included in the list. add_section ( section ) Add a section named section to the instance.  If a section by the given
-name already exists, DuplicateSectionError is raised.  If the default section name is passed, ValueError is raised.  The name
-of the section must be a string; if not, TypeError is raised. Changed in version 3.2: Non-string section names raise TypeError . has_section ( section ) Indicates whether the named section is present in the configuration.
-The default section is not acknowledged. options ( section ) Return a list of options available in the specified section . has_option ( section , option ) If the given section exists, and contains the given option , return True ; otherwise return False .  If the specified section is None or an empty string, DEFAULT is assumed. read ( filenames , encoding = None ) Attempt to read and parse an iterable of filenames, returning a list of
-filenames which were successfully parsed. If filenames is a string, a bytes object or a path-like object , it is treated as
-a single filename.  If a file named in filenames cannot be opened, that
-file will be ignored.  This is designed so that you can specify an
-iterable of potential configuration file locations (for example, the
-current directory, the user’s home directory, and some system-wide
-directory), and all existing configuration files in the iterable will be
-read. If none of the named files exist, the ConfigParser instance will contain an empty dataset.  An application which requires
-initial values to be loaded from a file should load the required file or
-files using read_file() before calling read() for any
-optional files: import configparser , os config = configparser . ConfigParser () config . read_file ( open ( 'defaults.cfg' )) config . read ([ 'site.cfg' , os . path . expanduser ( '~/.myapp.cfg' )], encoding = 'cp1250' ) Changed in version 3.2: Added the encoding parameter.
-Previously, all files were read using the default encoding for open() . Changed in version 3.6.1: The filenames parameter accepts a path-like object . Changed in version 3.7: The filenames parameter accepts a bytes object. read_file ( f , source = None ) Read and parse configuration data from f which must be an iterable
-yielding Unicode strings (for example files opened in text mode). Optional argument source specifies the name of the file being read.  If
-not given and f has a name attribute, that is used for source ; the default is '<???>' . Added in version 3.2: Replaces readfp() . read_string ( string , source = '<string>' ) Parse configuration data from a string. Optional argument source specifies a context-specific name of the
-string passed.  If not given, '<string>' is used.  This should
-commonly be a filesystem path or a URL. Added in version 3.2. read_dict ( dictionary , source = '<dict>' ) Load configuration from any object that provides a dict-like items() method.  Keys are section names, values are dictionaries with keys and
-values that should be present in the section.  If the used dictionary
-type preserves order, sections and their keys will be added in order.
-Values are automatically converted to strings. Optional argument source specifies a context-specific name of the
-dictionary passed.  If not given, <dict> is used. This method can be used to copy state between parsers. Added in version 3.2. get ( section , option , * , raw=False , vars=None [ , fallback ] ) Get an option value for the named section .  If vars is provided, it
-must be a dictionary.  The option is looked up in vars (if provided), section , and in DEFAULTSECT in that order.  If the key is not found
-and fallback is provided, it is used as a fallback value. None can
-be provided as a fallback value. All the '%' interpolations are expanded in the return values, unless
-the raw argument is true.  Values for interpolation keys are looked up
-in the same manner as the option. Changed in version 3.2: Arguments raw , vars and fallback are keyword only to protect
-users from trying to use the third argument as the fallback fallback
-(especially when using the mapping protocol). getint ( section , option , * , raw=False , vars=None [ , fallback ] ) A convenience method which coerces the option in the specified section to an integer.  See get() for explanation of raw , vars and fallback . getfloat ( section , option , * , raw=False , vars=None [ , fallback ] ) A convenience method which coerces the option in the specified section to a floating-point number.  See get() for explanation of raw , vars and fallback . getboolean ( section , option , * , raw=False , vars=None [ , fallback ] ) A convenience method which coerces the option in the specified section to a Boolean value.  Note that the accepted values for the option are '1' , 'yes' , 'true' , and 'on' , which cause this method to
-return True , and '0' , 'no' , 'false' , and 'off' , which
-cause it to return False .  These string values are checked in a
-case-insensitive manner.  Any other value will cause it to raise ValueError .  See get() for explanation of raw , vars and fallback . items ( raw = False , vars = None ) items ( section , raw = False , vars = None ) When section is not given, return a list of section_name , section_proxy pairs, including DEFAULTSECT. Otherwise, return a list of name , value pairs for the options in the
-given section .  Optional arguments have the same meaning as for the get() method. Changed in version 3.8: Items present in vars no longer appear in the result.  The previous
-behaviour mixed actual parser options with variables provided for
-interpolation. set ( section , option , value ) If the given section exists, set the given option to the specified value;
-otherwise raise NoSectionError . option and value must be
-strings; if not, TypeError is raised. write ( fileobject , space_around_delimiters = True ) Write a representation of the configuration to the specified file
-object , which must be opened in text mode (accepting strings).  This
-representation can be parsed by a future read() call.  If space_around_delimiters is true, delimiters between
-keys and values are surrounded by spaces. Changed in version 3.14: Raises InvalidWriteError if this would write a representation which cannot
-be accurately parsed by a future read() call from this parser. Note Comments in the original configuration file are not preserved when
-writing the configuration back.
-What is considered a comment, depends on the given values for comment_prefix and inline_comment_prefix . remove_option ( section , option ) Remove the specified option from the specified section .  If the
-section does not exist, raise NoSectionError .  If the option
-existed to be removed, return True ; otherwise return False . remove_section ( section ) Remove the specified section from the configuration.  If the section in
-fact existed, return True .  Otherwise return False . optionxform ( option ) Transforms the option name option as found in an input file or as passed
-in by client code to the form that should be used in the internal
-structures.  The default implementation returns a lower-case version of option ; subclasses may override this or client code can set an attribute
-of this name on instances to affect this behavior. You don’t need to subclass the parser to use this method, you can also
-set it on an instance, to a function that takes a string argument and
-returns a string.  Setting it to str , for example, would make option
-names case sensitive: cfgparser = ConfigParser () cfgparser . optionxform = str Note that when reading configuration files, whitespace around the option
-names is stripped before optionxform() is called.
 The main configuration parser.  When defaults is given, it is initialized
 into the dictionary of intrinsic defaults.  When dict_type is given, it
 will be used to create the dictionary objects for the list of sections, for
@@ -810,14 +641,10 @@ internal empty lines of a multiline option are kept as part of the value.
 When allow_no_value is True (default: False ), options without
 values are accepted; the value held for these is None and they are
 serialized without the trailing delimiter.
-True
 DuplicateSectionError
 DuplicateOptionError
 False
-True
-True
 False
-None
 When default_section is given, it specifies the name for the special
 section holding default values for other sections and interpolation purposes
 (normally named "DEFAULT" ).  This value can be retrieved and changed at
@@ -830,7 +657,6 @@ Interpolation behaviour may be customized by providing a custom handler
 through the interpolation argument. None can be used to turn off
 interpolation completely, ExtendedInterpolation() provides a more
 advanced variant inspired by zc.buildout .  More on the subject in the dedicated documentation section .
-None
 ExtendedInterpolation()
 zc.buildout
 All option names used in interpolation will be passed through the optionxform() method just like any other option name reference.  For
@@ -848,7 +674,6 @@ object and section proxies.
 get*()
 When allow_unnamed_section is True (default: False ),
 the first section name can be omitted. See the “Unnamed Sections” section .
-True
 False
 It is possible to read several configurations into a single ConfigParser , where the most recently added configuration has the
 highest priority. Any conflicting keys are taken from the more recent
@@ -878,23 +703,12 @@ keys and values are implicitly converted to strings.
 read_dict()
 Changed in version 3.8: The default dict_type is dict , since it now preserves
 insertion order.
-dict
 Changed in version 3.13: Raise a MultilineContinuationError when allow_no_value is True , and a key without a value is continued with an indented line.
 MultilineContinuationError
-True
 Changed in version 3.13: The allow_unnamed_section argument was added.
-defaults ( )
 Return a dictionary containing the instance-wide defaults.
-Return a dictionary containing the instance-wide defaults.
-sections ( )
 Return a list of the sections available; the default section is not
 included in the list.
-Return a list of the sections available; the default section is not
-included in the list.
-add_section ( section )
-Add a section named section to the instance.  If a section by the given
-name already exists, DuplicateSectionError is raised.  If the default section name is passed, ValueError is raised.  The name
-of the section must be a string; if not, TypeError is raised. Changed in version 3.2: Non-string section names raise TypeError .
 Add a section named section to the instance.  If a section by the given
 name already exists, DuplicateSectionError is raised.  If the default section name is passed, ValueError is raised.  The name
 of the section must be a string; if not, TypeError is raised.
@@ -903,33 +717,11 @@ ValueError
 TypeError
 Changed in version 3.2: Non-string section names raise TypeError .
 TypeError
-has_section ( section )
 Indicates whether the named section is present in the configuration.
 The default section is not acknowledged.
-Indicates whether the named section is present in the configuration.
-The default section is not acknowledged.
-options ( section )
 Return a list of options available in the specified section .
-Return a list of options available in the specified section .
-has_option ( section , option )
 If the given section exists, and contains the given option , return True ; otherwise return False .  If the specified section is None or an empty string, DEFAULT is assumed.
-If the given section exists, and contains the given option , return True ; otherwise return False .  If the specified section is None or an empty string, DEFAULT is assumed.
-True
 False
-None
-read ( filenames , encoding = None )
-Attempt to read and parse an iterable of filenames, returning a list of
-filenames which were successfully parsed. If filenames is a string, a bytes object or a path-like object , it is treated as
-a single filename.  If a file named in filenames cannot be opened, that
-file will be ignored.  This is designed so that you can specify an
-iterable of potential configuration file locations (for example, the
-current directory, the user’s home directory, and some system-wide
-directory), and all existing configuration files in the iterable will be
-read. If none of the named files exist, the ConfigParser instance will contain an empty dataset.  An application which requires
-initial values to be loaded from a file should load the required file or
-files using read_file() before calling read() for any
-optional files: import configparser , os config = configparser . ConfigParser () config . read_file ( open ( 'defaults.cfg' )) config . read ([ 'site.cfg' , os . path . expanduser ( '~/.myapp.cfg' )], encoding = 'cp1250' ) Changed in version 3.2: Added the encoding parameter.
-Previously, all files were read using the default encoding for open() . Changed in version 3.6.1: The filenames parameter accepts a path-like object . Changed in version 3.7: The filenames parameter accepts a bytes object.
 Attempt to read and parse an iterable of filenames, returning a list of
 filenames which were successfully parsed.
 If filenames is a string, a bytes object or a path-like object , it is treated as
@@ -958,34 +750,19 @@ open()
 Changed in version 3.6.1: The filenames parameter accepts a path-like object .
 Changed in version 3.7: The filenames parameter accepts a bytes object.
 bytes
-read_file ( f , source = None )
-Read and parse configuration data from f which must be an iterable
-yielding Unicode strings (for example files opened in text mode). Optional argument source specifies the name of the file being read.  If
-not given and f has a name attribute, that is used for source ; the default is '<???>' . Added in version 3.2: Replaces readfp() .
 Read and parse configuration data from f which must be an iterable
 yielding Unicode strings (for example files opened in text mode).
 Optional argument source specifies the name of the file being read.  If
 not given and f has a name attribute, that is used for source ; the default is '<???>' .
-name
 '<???>'
 Added in version 3.2: Replaces readfp() .
 readfp()
-read_string ( string , source = '<string>' )
-Parse configuration data from a string. Optional argument source specifies a context-specific name of the
-string passed.  If not given, '<string>' is used.  This should
-commonly be a filesystem path or a URL. Added in version 3.2.
 Parse configuration data from a string.
 Optional argument source specifies a context-specific name of the
 string passed.  If not given, '<string>' is used.  This should
 commonly be a filesystem path or a URL.
 '<string>'
 Added in version 3.2.
-read_dict ( dictionary , source = '<dict>' )
-Load configuration from any object that provides a dict-like items() method.  Keys are section names, values are dictionaries with keys and
-values that should be present in the section.  If the used dictionary
-type preserves order, sections and their keys will be added in order.
-Values are automatically converted to strings. Optional argument source specifies a context-specific name of the
-dictionary passed.  If not given, <dict> is used. This method can be used to copy state between parsers. Added in version 3.2.
 Load configuration from any object that provides a dict-like items() method.  Keys are section names, values are dictionaries with keys and
 values that should be present in the section.  If the used dictionary
 type preserves order, sections and their keys will be added in order.
@@ -996,62 +773,31 @@ dictionary passed.  If not given, <dict> is used.
 <dict>
 This method can be used to copy state between parsers.
 Added in version 3.2.
-get ( section , option , * , raw=False , vars=None [ , fallback ] )
-Get an option value for the named section .  If vars is provided, it
-must be a dictionary.  The option is looked up in vars (if provided), section , and in DEFAULTSECT in that order.  If the key is not found
-and fallback is provided, it is used as a fallback value. None can
-be provided as a fallback value. All the '%' interpolations are expanded in the return values, unless
-the raw argument is true.  Values for interpolation keys are looked up
-in the same manner as the option. Changed in version 3.2: Arguments raw , vars and fallback are keyword only to protect
-users from trying to use the third argument as the fallback fallback
-(especially when using the mapping protocol).
 Get an option value for the named section .  If vars is provided, it
 must be a dictionary.  The option is looked up in vars (if provided), section , and in DEFAULTSECT in that order.  If the key is not found
 and fallback is provided, it is used as a fallback value. None can
 be provided as a fallback value.
-None
 All the '%' interpolations are expanded in the return values, unless
 the raw argument is true.  Values for interpolation keys are looked up
 in the same manner as the option.
-'%'
 Changed in version 3.2: Arguments raw , vars and fallback are keyword only to protect
 users from trying to use the third argument as the fallback fallback
 (especially when using the mapping protocol).
-getint ( section , option , * , raw=False , vars=None [ , fallback ] )
-A convenience method which coerces the option in the specified section to an integer.  See get() for explanation of raw , vars and fallback .
 A convenience method which coerces the option in the specified section to an integer.  See get() for explanation of raw , vars and fallback .
 get()
-getfloat ( section , option , * , raw=False , vars=None [ , fallback ] )
-A convenience method which coerces the option in the specified section to a floating-point number.  See get() for explanation of raw , vars and fallback .
 A convenience method which coerces the option in the specified section to a floating-point number.  See get() for explanation of raw , vars and fallback .
 get()
-getboolean ( section , option , * , raw=False , vars=None [ , fallback ] )
 A convenience method which coerces the option in the specified section to a Boolean value.  Note that the accepted values for the option are '1' , 'yes' , 'true' , and 'on' , which cause this method to
 return True , and '0' , 'no' , 'false' , and 'off' , which
 cause it to return False .  These string values are checked in a
 case-insensitive manner.  Any other value will cause it to raise ValueError .  See get() for explanation of raw , vars and fallback .
-A convenience method which coerces the option in the specified section to a Boolean value.  Note that the accepted values for the option are '1' , 'yes' , 'true' , and 'on' , which cause this method to
-return True , and '0' , 'no' , 'false' , and 'off' , which
-cause it to return False .  These string values are checked in a
-case-insensitive manner.  Any other value will cause it to raise ValueError .  See get() for explanation of raw , vars and fallback .
-'1'
 'yes'
 'true'
-'on'
-True
-'0'
-'no'
 'false'
 'off'
 False
 ValueError
 get()
-items ( raw = False , vars = None )
-items ( section , raw = False , vars = None )
-When section is not given, return a list of section_name , section_proxy pairs, including DEFAULTSECT. Otherwise, return a list of name , value pairs for the options in the
-given section .  Optional arguments have the same meaning as for the get() method. Changed in version 3.8: Items present in vars no longer appear in the result.  The previous
-behaviour mixed actual parser options with variables provided for
-interpolation.
 When section is not given, return a list of section_name , section_proxy pairs, including DEFAULTSECT.
 Otherwise, return a list of name , value pairs for the options in the
 given section .  Optional arguments have the same meaning as for the get() method.
@@ -1059,21 +805,11 @@ get()
 Changed in version 3.8: Items present in vars no longer appear in the result.  The previous
 behaviour mixed actual parser options with variables provided for
 interpolation.
-set ( section , option , value )
-If the given section exists, set the given option to the specified value;
-otherwise raise NoSectionError . option and value must be
-strings; if not, TypeError is raised.
 If the given section exists, set the given option to the specified value;
 otherwise raise NoSectionError . option and value must be
 strings; if not, TypeError is raised.
 NoSectionError
 TypeError
-write ( fileobject , space_around_delimiters = True )
-Write a representation of the configuration to the specified file
-object , which must be opened in text mode (accepting strings).  This
-representation can be parsed by a future read() call.  If space_around_delimiters is true, delimiters between
-keys and values are surrounded by spaces. Changed in version 3.14: Raises InvalidWriteError if this would write a representation which cannot
-be accurately parsed by a future read() call from this parser.
 Write a representation of the configuration to the specified file
 object , which must be opened in text mode (accepting strings).  This
 representation can be parsed by a future read() call.  If space_around_delimiters is true, delimiters between
@@ -1082,36 +818,17 @@ read()
 Changed in version 3.14: Raises InvalidWriteError if this would write a representation which cannot
 be accurately parsed by a future read() call from this parser.
 read()
-Note
 Comments in the original configuration file are not preserved when
 writing the configuration back.
 What is considered a comment, depends on the given values for comment_prefix and inline_comment_prefix .
-remove_option ( section , option )
-Remove the specified option from the specified section .  If the
-section does not exist, raise NoSectionError .  If the option
-existed to be removed, return True ; otherwise return False .
 Remove the specified option from the specified section .  If the
 section does not exist, raise NoSectionError .  If the option
 existed to be removed, return True ; otherwise return False .
 NoSectionError
-True
 False
-remove_section ( section )
 Remove the specified section from the configuration.  If the section in
 fact existed, return True .  Otherwise return False .
-Remove the specified section from the configuration.  If the section in
-fact existed, return True .  Otherwise return False .
-True
 False
-optionxform ( option )
-Transforms the option name option as found in an input file or as passed
-in by client code to the form that should be used in the internal
-structures.  The default implementation returns a lower-case version of option ; subclasses may override this or client code can set an attribute
-of this name on instances to affect this behavior. You don’t need to subclass the parser to use this method, you can also
-set it on an instance, to a function that takes a string argument and
-returns a string.  Setting it to str , for example, would make option
-names case sensitive: cfgparser = ConfigParser () cfgparser . optionxform = str Note that when reading configuration files, whitespace around the option
-names is stripped before optionxform() is called.
 Transforms the option name option as found in an input file or as passed
 in by client code to the form that should be used in the internal
 structures.  The default implementation returns a lower-case version of option ; subclasses may override this or client code can set an attribute
@@ -1120,7 +837,6 @@ You don’t need to subclass the parser to use this method, you can also
 set it on an instance, to a function that takes a string argument and
 returns a string.  Setting it to str , for example, would make option
 names case sensitive:
-str
 
 [CODE]
 cfgparser = ConfigParser () cfgparser . optionxform = str
@@ -1129,60 +845,30 @@ cfgparser = ConfigParser () cfgparser . optionxform = str
 Note that when reading configuration files, whitespace around the option
 names is stripped before optionxform() is called.
 optionxform()
-configparser. UNNAMED_SECTION
 A special object representing a section name used to reference the unnamed section (see Unnamed Sections ).
-A special object representing a section name used to reference the unnamed section (see Unnamed Sections ).
-configparser. MAX_INTERPOLATION_DEPTH
-The maximum depth for recursive interpolation for get() when the raw parameter is false.  This is relevant only when the default interpolation is used.
 The maximum depth for recursive interpolation for get() when the raw parameter is false.  This is relevant only when the default interpolation is used.
 get()
 
 ## RawConfigParser Objects
 
-class configparser. RawConfigParser ( defaults = None , dict_type = dict , allow_no_value = False , * , delimiters = ('=', ':') , comment_prefixes = ('#', ';') , inline_comment_prefixes = None , strict = True , empty_lines_in_values = True , default_section = configparser.DEFAULTSECT , interpolation = BasicInterpolation() , converters = {} , allow_unnamed_section = False )
-Legacy variant of the ConfigParser .  It has interpolation
-disabled by default and allows for non-string section names, option
-names, and values via its unsafe add_section and set methods,
-as well as the legacy defaults= keyword argument handling. Changed in version 3.2: allow_no_value , delimiters , comment_prefixes , strict , empty_lines_in_values , default_section and interpolation were
-added. Changed in version 3.5: The converters argument was added. Changed in version 3.8: The default dict_type is dict , since it now preserves
-insertion order. Changed in version 3.13: The allow_unnamed_section argument was added. Note Consider using ConfigParser instead which checks types of
-the values to be stored internally.  If you don’t want interpolation, you
-can use ConfigParser(interpolation=None) . add_section ( section ) Add a section named section or UNNAMED_SECTION to the instance. If the given section already exists, DuplicateSectionError is
-raised. If the default section name is passed, ValueError is
-raised. If UNNAMED_SECTION is passed and support is disabled, UnnamedSectionDisabledError is raised. Type of section is not checked which lets users create non-string named
-sections.  This behaviour is unsupported and may cause internal errors. Changed in version 3.14: Added support for UNNAMED_SECTION . set ( section , option , value ) If the given section exists, set the given option to the specified value;
-otherwise raise NoSectionError .  While it is possible to use RawConfigParser (or ConfigParser with raw parameters
-set to true) for internal storage of non-string values, full
-functionality (including interpolation and output to files) can only be
-achieved using string values. This method lets users assign non-string values to keys internally.  This
-behaviour is unsupported and will cause errors when attempting to write
-to a file or get it in non-raw mode. Use the mapping protocol API which does not allow such assignments to take place.
 Legacy variant of the ConfigParser .  It has interpolation
 disabled by default and allows for non-string section names, option
 names, and values via its unsafe add_section and set methods,
 as well as the legacy defaults= keyword argument handling.
 ConfigParser
 add_section
-set
 defaults=
 Changed in version 3.2: allow_no_value , delimiters , comment_prefixes , strict , empty_lines_in_values , default_section and interpolation were
 added.
 Changed in version 3.5: The converters argument was added.
 Changed in version 3.8: The default dict_type is dict , since it now preserves
 insertion order.
-dict
 Changed in version 3.13: The allow_unnamed_section argument was added.
-Note
 Consider using ConfigParser instead which checks types of
 the values to be stored internally.  If you don’t want interpolation, you
 can use ConfigParser(interpolation=None) .
 ConfigParser
 ConfigParser(interpolation=None)
-add_section ( section )
-Add a section named section or UNNAMED_SECTION to the instance. If the given section already exists, DuplicateSectionError is
-raised. If the default section name is passed, ValueError is
-raised. If UNNAMED_SECTION is passed and support is disabled, UnnamedSectionDisabledError is raised. Type of section is not checked which lets users create non-string named
-sections.  This behaviour is unsupported and may cause internal errors.
 Add a section named section or UNNAMED_SECTION to the instance.
 UNNAMED_SECTION
 If the given section already exists, DuplicateSectionError is
@@ -1196,14 +882,6 @@ Type of section is not checked which lets users create non-string named
 sections.  This behaviour is unsupported and may cause internal errors.
 Changed in version 3.14: Added support for UNNAMED_SECTION .
 UNNAMED_SECTION
-set ( section , option , value )
-If the given section exists, set the given option to the specified value;
-otherwise raise NoSectionError .  While it is possible to use RawConfigParser (or ConfigParser with raw parameters
-set to true) for internal storage of non-string values, full
-functionality (including interpolation and output to files) can only be
-achieved using string values. This method lets users assign non-string values to keys internally.  This
-behaviour is unsupported and will cause errors when attempting to write
-to a file or get it in non-raw mode. Use the mapping protocol API which does not allow such assignments to take place.
 If the given section exists, set the given option to the specified value;
 otherwise raise NoSectionError .  While it is possible to use RawConfigParser (or ConfigParser with raw parameters
 set to true) for internal storage of non-string values, full
@@ -1218,91 +896,47 @@ to a file or get it in non-raw mode. Use the mapping protocol API which does not
 
 ## Exceptions
 
-exception configparser. Error
-Base class for all other configparser exceptions.
 Base class for all other configparser exceptions.
 configparser
-exception configparser. NoSectionError
 Exception raised when a specified section is not found.
-Exception raised when a specified section is not found.
-exception configparser. DuplicateSectionError
-Exception raised if add_section() is called with the name of a section
-that is already present or in strict parsers when a section if found more
-than once in a single input file, string or dictionary. Changed in version 3.2: Added the optional source and lineno attributes and parameters to __init__() .
 Exception raised if add_section() is called with the name of a section
 that is already present or in strict parsers when a section if found more
 than once in a single input file, string or dictionary.
 add_section()
 Changed in version 3.2: Added the optional source and lineno attributes and parameters to __init__() .
 __init__()
-exception configparser. DuplicateOptionError
 Exception raised by strict parsers if a single option appears twice during
 reading from a single file, string or dictionary. This catches misspellings
 and case sensitivity-related errors, e.g. a dictionary may have two keys
 representing the same case-insensitive configuration key.
-Exception raised by strict parsers if a single option appears twice during
-reading from a single file, string or dictionary. This catches misspellings
-and case sensitivity-related errors, e.g. a dictionary may have two keys
-representing the same case-insensitive configuration key.
-exception configparser. NoOptionError
 Exception raised when a specified option is not found in the specified
 section.
-Exception raised when a specified option is not found in the specified
-section.
-exception configparser. InterpolationError
 Base class for exceptions raised when problems occur performing string
 interpolation.
-Base class for exceptions raised when problems occur performing string
-interpolation.
-exception configparser. InterpolationDepthError
-Exception raised when string interpolation cannot be completed because the
-number of iterations exceeds MAX_INTERPOLATION_DEPTH .  Subclass of InterpolationError .
 Exception raised when string interpolation cannot be completed because the
 number of iterations exceeds MAX_INTERPOLATION_DEPTH .  Subclass of InterpolationError .
 MAX_INTERPOLATION_DEPTH
 InterpolationError
-exception configparser. InterpolationMissingOptionError
-Exception raised when an option referenced from a value does not exist.
-Subclass of InterpolationError .
 Exception raised when an option referenced from a value does not exist.
 Subclass of InterpolationError .
 InterpolationError
-exception configparser. InterpolationSyntaxError
-Exception raised when the source text into which substitutions are made does
-not conform to the required syntax.  Subclass of InterpolationError .
 Exception raised when the source text into which substitutions are made does
 not conform to the required syntax.  Subclass of InterpolationError .
 InterpolationError
-exception configparser. MissingSectionHeaderError
 Exception raised when attempting to parse a file which has no section
 headers.
-Exception raised when attempting to parse a file which has no section
-headers.
-exception configparser. ParsingError
-Exception raised when errors occur attempting to parse a file. Changed in version 3.12: The filename attribute and __init__() constructor argument were
-removed.  They have been available using the name source since 3.2.
 Exception raised when errors occur attempting to parse a file.
 Changed in version 3.12: The filename attribute and __init__() constructor argument were
 removed.  They have been available using the name source since 3.2.
 filename
 __init__()
 source
-exception configparser. MultilineContinuationError
-Exception raised when a key without a corresponding value is continued with
-an indented line. Added in version 3.13.
 Exception raised when a key without a corresponding value is continued with
 an indented line.
 Added in version 3.13.
-exception configparser. UnnamedSectionDisabledError
-Exception raised when attempting to use the UNNAMED_SECTION without enabling it. Added in version 3.14.
 Exception raised when attempting to use the UNNAMED_SECTION without enabling it.
 UNNAMED_SECTION
 Added in version 3.14.
-exception configparser. InvalidWriteError
-Exception raised when an attempted ConfigParser.write() would not be parsed
-accurately with a future ConfigParser.read() call. Ex: Writing a key beginning with the ConfigParser.SECTCRE pattern
-would parse as a section header when read. Attempting to write this will raise
-this exception. Added in version 3.14.
 Exception raised when an attempted ConfigParser.write() would not be parsed
 accurately with a future ConfigParser.read() call.
 ConfigParser.write()

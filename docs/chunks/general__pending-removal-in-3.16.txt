@@ -35,9 +35,7 @@ has been deprecated in documentation since Python 3.3
 and at runtime since Python 3.13.
 Use the 'w' format code ( Py_UCS4 )
 for Unicode characters instead.
-'u'
 wchar_t
-'w'
 Py_UCS4
 asyncio : asyncio.iscoroutinefunction() is deprecated
 and will be removed in Python 3.16;
@@ -110,7 +108,6 @@ the underlying integer, convert to int explicitly ( ~int(x) ).
 ~True
 ~False
 not x
-int
 ~int(x)
 functools : Calling the Python implementation of functools.reduce() with function or sequence as keyword arguments has been deprecated since Python 3.14.
 functools :
@@ -170,7 +167,6 @@ sys : The _enablelegacywindowsfsencoding() function
 has been deprecated since Python 3.13.
 Use the PYTHONLEGACYWINDOWSFSENCODING environment variable instead.
 sys :
-sys
 The _enablelegacywindowsfsencoding() function
 has been deprecated since Python 3.13.
 Use the PYTHONLEGACYWINDOWSFSENCODING environment variable instead.
@@ -191,7 +187,6 @@ The sysconfig.expand_makefile_vars() function
 has been deprecated since Python 3.14.
 Use the vars argument of sysconfig.get_paths() instead.
 sysconfig.expand_makefile_vars()
-vars
 sysconfig.get_paths()
 tarfile : The undocumented and unused TarFile.tarfile attribute
 has been deprecated since Python 3.13.

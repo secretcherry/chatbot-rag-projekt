@@ -12,10 +12,8 @@ Included are the FIPS secure hash algorithms SHA224, SHA256, SHA384, SHA512,
 (defined in the FIPS 180-4 standard ), the SHA-3 series (defined in the FIPS
 202 standard ) as well as the legacy algorithms SHA1 ( formerly part of FIPS )
 and the MD5 algorithm (defined in internet RFC 1321 ).
-Note
 If you want the adler32 or crc32 hash functions, they are available in
 the zlib module.
-zlib
 
 ## Hash algorithms
 
@@ -70,7 +68,6 @@ Changed in version 3.9: All hashlib constructors take a keyword-only argument us
 blocked hashing algorithms in restricted environments. False indicates
 that the hashing algorithm is not used in a security context, e.g. as a
 non-cryptographic one-way compression function.
-True
 False
 Changed in version 3.9: Hashlib now uses SHA3 and SHAKE from OpenSSL if it provides it.
 Changed in version 3.12: For any of the MD5, SHA1, SHA2, or SHA3 algorithms that the linked
@@ -94,11 +91,6 @@ More condensed:
 
 ## Constructors
 
-hashlib. new ( name , [ data , ] * , usedforsecurity=True )
-Is a generic constructor that takes the string name of the desired
-algorithm as its first parameter.  It also exists to allow access to the
-above listed hashes as well as any other algorithms that your OpenSSL
-library may offer.
 Is a generic constructor that takes the string name of the desired
 algorithm as its first parameter.  It also exists to allow access to the
 above listed hashes as well as any other algorithms that your OpenSSL
@@ -110,37 +102,17 @@ new()
 >>> h = hashlib . new ( 'sha256' ) >>> h . update ( b "Nobody inspects the spammish repetition" ) >>> h . hexdigest () '031edd7d41651593c5fe5c006fa5752b37fddff7bc4e843aa6af0c950f4b9406'
 [/CODE]
 
-hashlib. md5 ( [ data , ] * , usedforsecurity=True )
-hashlib. sha1 ( [ data , ] * , usedforsecurity=True )
-hashlib. sha224 ( [ data , ] * , usedforsecurity=True )
-hashlib. sha256 ( [ data , ] * , usedforsecurity=True )
-hashlib. sha384 ( [ data , ] * , usedforsecurity=True )
-hashlib. sha512 ( [ data , ] * , usedforsecurity=True )
-hashlib. sha3_224 ( [ data , ] * , usedforsecurity=True )
-hashlib. sha3_256 ( [ data , ] * , usedforsecurity=True )
-hashlib. sha3_384 ( [ data , ] * , usedforsecurity=True )
-hashlib. sha3_512 ( [ data , ] * , usedforsecurity=True )
 Named constructors such as these are faster than passing an algorithm name to new() .
 new()
 
 ## Attributes
 
 Hashlib provides the following constant module attributes:
-hashlib. algorithms_guaranteed
-A set containing the names of the hash algorithms guaranteed to be supported
-by this module on all platforms.  Note that ‘md5’ is in this list despite
-some upstream vendors offering an odd “FIPS compliant” Python build that
-excludes it. Added in version 3.2.
 A set containing the names of the hash algorithms guaranteed to be supported
 by this module on all platforms.  Note that ‘md5’ is in this list despite
 some upstream vendors offering an odd “FIPS compliant” Python build that
 excludes it.
 Added in version 3.2.
-hashlib. algorithms_available
-A set containing the names of the hash algorithms that are available in the
-running Python interpreter.  These names will be recognized when passed to new() . algorithms_guaranteed will always be a subset.  The
-same algorithm may appear multiple times in this set under different names
-(thanks to OpenSSL). Added in version 3.2.
 A set containing the names of the hash algorithms that are available in the
 running Python interpreter.  These names will be recognized when passed to new() . algorithms_guaranteed will always be a subset.  The
 same algorithm may appear multiple times in this set under different names
@@ -153,18 +125,9 @@ Added in version 3.2.
 
 The following values are provided as constant attributes of the hash objects
 returned by the constructors:
-hash. digest_size
 The size of the resulting hash in bytes.
-The size of the resulting hash in bytes.
-hash. block_size
-The internal block size of the hash algorithm in bytes.
 The internal block size of the hash algorithm in bytes.
 A hash object has the following attributes:
-hash. name
-The canonical name of this hash, always lowercase and always suitable as a
-parameter to new() to create another hash of this type. Changed in version 3.4: The name attribute has been present in CPython since its inception, but
-until Python 3.4 was not formally specified, so may not exist on some
-platforms.
 The canonical name of this hash, always lowercase and always suitable as a
 parameter to new() to create another hash of this type.
 new()
@@ -172,62 +135,36 @@ Changed in version 3.4: The name attribute has been present in CPython since its
 until Python 3.4 was not formally specified, so may not exist on some
 platforms.
 A hash object has the following methods:
-hash. update ( data )
-Update the hash object with the bytes-like object .
-Repeated calls are equivalent to a single call with the
-concatenation of all the arguments: m.update(a); m.update(b) is
-equivalent to m.update(a+b) .
 Update the hash object with the bytes-like object .
 Repeated calls are equivalent to a single call with the
 concatenation of all the arguments: m.update(a); m.update(b) is
 equivalent to m.update(a+b) .
 m.update(a); m.update(b)
 m.update(a+b)
-hash. digest ( )
-Return the digest of the data passed to the update() method so far.
-This is a bytes object of size digest_size which may contain bytes in
-the whole range from 0 to 255.
 Return the digest of the data passed to the update() method so far.
 This is a bytes object of size digest_size which may contain bytes in
 the whole range from 0 to 255.
 update()
 digest_size
-hash. hexdigest ( )
-Like digest() except the digest is returned as a string object of
-double length, containing only hexadecimal digits.  This may be used to
-exchange the value safely in email or other non-binary environments.
 Like digest() except the digest is returned as a string object of
 double length, containing only hexadecimal digits.  This may be used to
 exchange the value safely in email or other non-binary environments.
 digest()
-hash. copy ( )
-Return a copy (“clone”) of the hash object.  This can be used to efficiently
-compute the digests of data sharing a common initial substring.
 Return a copy (“clone”) of the hash object.  This can be used to efficiently
 compute the digests of data sharing a common initial substring.
 
 ## SHAKE variable length digests
 
-hashlib. shake_128 ( [ data , ] * , usedforsecurity=True )
-hashlib. shake_256 ( [ data , ] * , usedforsecurity=True )
 The shake_128() and shake_256() algorithms provide variable
 length digests with length_in_bits//2 up to 128 or 256 bits of security.
 As such, their digest methods require a length. Maximum length is not limited
 by the SHAKE algorithm.
 shake_128()
 shake_256()
-shake. digest ( length )
-Return the digest of the data passed to the update() method so far.
-This is a bytes object of size length which may contain bytes in
-the whole range from 0 to 255.
 Return the digest of the data passed to the update() method so far.
 This is a bytes object of size length which may contain bytes in
 the whole range from 0 to 255.
 update()
-shake. hexdigest ( length )
-Like digest() except the digest is returned as a string object of
-double length, containing only hexadecimal digits.  This may be used to
-exchange the value in email or other non-binary environments.
 Like digest() except the digest is returned as a string object of
 double length, containing only hexadecimal digits.  This may be used to
 exchange the value in email or other non-binary environments.
@@ -242,15 +179,6 @@ Example use:
 
 The hashlib module provides a helper function for efficient hashing of
 a file or file-like object.
-hashlib. file_digest ( fileobj , digest , / )
-Return a digest object that has been updated with contents of file object. fileobj must be a file-like object opened for reading in binary mode.
-It accepts file objects from  builtin open() , BytesIO instances, SocketIO objects from socket.socket.makefile() , and
-similar. fileobj must be opened in blocking mode, otherwise a BlockingIOError may be raised. The function may bypass Python’s I/O and use the file descriptor
-from fileno() directly. fileobj must be assumed to be
-in an unknown state after this function returns or raises. It is up to
-the caller to close fileobj . digest must either be a hash algorithm name as a str , a hash
-constructor, or a callable that returns a hash object. Example: >>> import io , hashlib , hmac >>> with open ( "library/hashlib.rst" , "rb" ) as f : ... digest = hashlib . file_digest ( f , "sha256" ) ... >>> digest . hexdigest () '...' >>> buf = io . BytesIO ( b "somedata" ) >>> mac1 = hmac . HMAC ( b "key" , digestmod = hashlib . sha512 ) >>> digest = hashlib . file_digest ( buf , lambda : mac1 ) >>> digest is mac1 True >>> mac2 = hmac . HMAC ( b "key" , b "somedata" , digestmod = hashlib . sha512 ) >>> mac1 . digest () == mac2 . digest () True Added in version 3.11. Changed in version 3.14: Now raises a BlockingIOError if the file is opened in non-blocking
-mode. Previously, spurious null bytes were added to the digest.
 Return a digest object that has been updated with contents of file object.
 fileobj must be a file-like object opened for reading in binary mode.
 It accepts file objects from  builtin open() , BytesIO instances, SocketIO objects from socket.socket.makefile() , and
@@ -292,19 +220,6 @@ hashing. Naive algorithms such as sha1(password) are not resistant against
 brute-force attacks. A good password hashing function must be tunable, slow, and
 include a salt .
 sha1(password)
-hashlib. pbkdf2_hmac ( hash_name , password , salt , iterations , dklen = None )
-The function provides PKCS#5 password-based key derivation function 2. It
-uses HMAC as pseudorandom function. The string hash_name is the desired name of the hash digest algorithm for
-HMAC, e.g. ‘sha1’ or ‘sha256’. password and salt are interpreted as
-buffers of bytes. Applications and libraries should limit password to
-a sensible length (e.g. 1024). salt should be about 16 or more bytes from
-a proper source, e.g. os.urandom() . The number of iterations should be chosen based on the hash algorithm and
-computing power. As of 2022, hundreds of thousands of iterations of SHA-256
-are suggested. For rationale as to why and how to choose what is best for
-your application, read Appendix A.2.2 of NIST-SP-800-132 . The answers
-on the stackexchange pbkdf2 iterations question explain in detail. dklen is the length of the derived key in bytes. If dklen is None then the
-digest size of the hash algorithm hash_name is used, e.g. 64 for SHA-512. >>> from hashlib import pbkdf2_hmac >>> our_app_iters = 500_000 # Application specific, read above. >>> dk = pbkdf2_hmac ( 'sha256' , b 'password' , b 'bad salt' * 2 , our_app_iters ) >>> dk . hex () '15530bba69924174860db778f2c6f8104d3aaf9d26241840c8c4a641c8d000a9' Function only available when Python is compiled with OpenSSL. Added in version 3.4. Changed in version 3.12: Function now only available when Python is built with OpenSSL. The slow
-pure Python implementation has been removed.
 The function provides PKCS#5 password-based key derivation function 2. It
 uses HMAC as pseudorandom function.
 The string hash_name is the desired name of the hash digest algorithm for
@@ -320,7 +235,6 @@ your application, read Appendix A.2.2 of NIST-SP-800-132 . The answers
 on the stackexchange pbkdf2 iterations question explain in detail.
 dklen is the length of the derived key in bytes. If dklen is None then the
 digest size of the hash algorithm hash_name is used, e.g. 64 for SHA-512.
-None
 
 [CODE]
 >>> from hashlib import pbkdf2_hmac >>> our_app_iters = 500_000 # Application specific, read above. >>> dk = pbkdf2_hmac ( 'sha256' , b 'password' , b 'bad salt' * 2 , our_app_iters ) >>> dk . hex () '15530bba69924174860db778f2c6f8104d3aaf9d26241840c8c4a641c8d000a9'
@@ -330,11 +244,6 @@ Function only available when Python is compiled with OpenSSL.
 Added in version 3.4.
 Changed in version 3.12: Function now only available when Python is built with OpenSSL. The slow
 pure Python implementation has been removed.
-hashlib. scrypt ( password , * , salt , n , r , p , maxmem = 0 , dklen = 64 )
-The function provides scrypt password-based key derivation function as
-defined in RFC 7914 . password and salt must be bytes-like objects .  Applications and libraries should limit password to a sensible length (e.g. 1024). salt should be about 16 or more
-bytes from a proper source, e.g. os.urandom() . n is the CPU/Memory cost factor, r the block size, p parallelization
-factor and maxmem limits memory (OpenSSL 1.1.0 defaults to 32 MiB). dklen is the length of the derived key in bytes. Added in version 3.6.
 The function provides scrypt password-based key derivation function as
 defined in RFC 7914 .
 password and salt must be bytes-like objects .  Applications and libraries should limit password to a sensible length (e.g. 1024). salt should be about 16 or more
@@ -363,8 +272,6 @@ hashlib
 ### Creating hash objects
 
 New hash objects are created by calling constructor functions:
-hashlib. blake2b ( data = b'' , * , digest_size = 64 , key = b'' , salt = b'' , person = b'' , fanout = 1 , depth = 1 , leaf_size = 0 , node_offset = 0 , node_depth = 0 , inner_size = 0 , last_node = False , usedforsecurity = True )
-hashlib. blake2s ( data = b'' , * , digest_size = 32 , key = b'' , salt = b'' , person = b'' , fanout = 1 , depth = 1 , leaf_size = 0 , node_offset = 0 , node_depth = 0 , inner_size = 0 , last_node = False , usedforsecurity = True )
 These functions return the corresponding hash objects for calculating
 BLAKE2b or BLAKE2s. They optionally take these general parameters:
 data : initial chunk of data to hash, which must be bytes-like object .  It can be passed only as positional argument.
@@ -384,14 +291,12 @@ for BLAKE2s).
 person : personalization string (up to 16 bytes for BLAKE2b, up to 8 bytes
 for BLAKE2s).
 The following table shows limits for general parameters (in bytes):
-Hash
 digest_size
 len(key)
 len(salt)
 len(person)
 BLAKE2b
 BLAKE2s
-Note
 BLAKE2 specification defines constant lengths for salt and personalization
 parameters, however, for convenience, this implementation accepts byte
 strings of any size up to the specified length. If the length of the
@@ -435,17 +340,9 @@ hashing.
 
 ### Constants
 
-blake2b. SALT_SIZE
-blake2s. SALT_SIZE
 Salt length (maximum length accepted by constructors).
-blake2b. PERSON_SIZE
-blake2s. PERSON_SIZE
 Personalization string length (maximum length accepted by constructors).
-blake2b. MAX_KEY_SIZE
-blake2s. MAX_KEY_SIZE
 Maximum key size.
-blake2b. MAX_DIGEST_SIZE
-blake2s. MAX_DIGEST_SIZE
 Maximum digest size that the hash function can output.
 
 ### Examples
@@ -522,7 +419,6 @@ to users and later verify them to make sure they weren’t tampered with:
 
 Even though there’s a native keyed hashing mode, BLAKE2 can, of course, be used
 in HMAC construction with hmac module:
-hmac
 
 [CODE]
 >>> import hmac , hashlib >>> m = hmac . new ( b 'secret key' , digestmod = hashlib . blake2s ) >>> m . update ( b 'message' ) >>> m . hexdigest () 'e3c8102868d28b5ff85fc35dda07329970d1a01e273c37481326fe0c861c8142'
@@ -626,31 +522,13 @@ Domain Dedication 1.0 Universal:
 Alexandr Sokolovskiy
 Alexandr Sokolovskiy
 See also
-Module hmac
-hmac
 A module to generate message authentication codes using hashes.
-A module to generate message authentication codes using hashes.
-Module base64
 base64
 Another way to encode binary hashes for non-binary environments.
-Another way to encode binary hashes for non-binary environments.
-https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.180-4.pdf
 The FIPS 180-4 publication on Secure Hash Algorithms.
-The FIPS 180-4 publication on Secure Hash Algorithms.
-https://csrc.nist.gov/pubs/fips/202/final
 The FIPS 202 publication on the SHA-3 Standard.
-The FIPS 202 publication on the SHA-3 Standard.
-https://www.blake2.net/
 Official BLAKE2 website.
-Official BLAKE2 website.
-https://en.wikipedia.org/wiki/Cryptographic_hash_function
 Wikipedia article with information on which algorithms have known issues
 and what that means regarding their use.
-Wikipedia article with information on which algorithms have known issues
-and what that means regarding their use.
-https://www.ietf.org/rfc/rfc8018.txt
 PKCS #5: Password-Based Cryptography Specification Version 2.1
-PKCS #5: Password-Based Cryptography Specification Version 2.1
-https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-132.pdf
-NIST Recommendation for Password-Based Key Derivation.
 NIST Recommendation for Password-Based Key Derivation.

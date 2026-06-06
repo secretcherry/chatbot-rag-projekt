@@ -30,7 +30,6 @@ Some examples:
 
 Let’s try some simple Python commands.  Start the interpreter and wait for the
 primary prompt, >>> .  (It shouldn’t take long.)
->>>
 
 ### 3.1.1. Numbers
 
@@ -46,9 +45,6 @@ For example:
 
 The integer numbers (e.g. 2 , 4 , 20 ) have type int ,
 the ones with a fractional part (e.g. 5.0 , 1.6 ) have type float .  We will see more about numeric types later in the tutorial.
-int
-5.0
-1.6
 float
 Division ( / ) always returns a float.  To do floor division and
 get an integer result you can use the // operator; to calculate
@@ -100,11 +96,9 @@ numbers, such as Decimal and Fraction .
 Python also has built-in support for complex numbers ,
 and uses the j or J suffix to indicate the imaginary part
 (e.g. 3+5j ).
-int
 float
 Decimal
 Fraction
-3+5j
 
 ### 3.1.2. Text
 
@@ -113,7 +107,6 @@ Python can manipulate text (represented by type str , so-called
 “ rabbit ”, names “ Paris ”, sentences “ Got your back. ”, etc.
 “ Yay! :) ”. They can be enclosed in single quotes ( '...' ) or double
 quotes ( "..." ) with the same result [ 2 ] .
-str
 rabbit
 Paris
 Got your back.
@@ -281,26 +274,13 @@ len()
 [/CODE]
 
 See also
-Text Sequence Type — str
 Strings are examples of sequence types , and support the common
 operations supported by such types.
-Strings are examples of sequence types , and support the common
-operations supported by such types.
-String Methods
 Strings support a large number of methods for
 basic transformations and searching.
-Strings support a large number of methods for
-basic transformations and searching.
-f-strings
 String literals that have embedded expressions.
-String literals that have embedded expressions.
-Format string syntax
-Information about string formatting with str.format() .
 Information about string formatting with str.format() .
 str.format()
-printf-style String Formatting
-The old formatting operations invoked when strings are
-the left operand of the % operator are described in more detail here.
 The old formatting operations invoked when strings are
 the left operand of the % operator are described in more detail here.
 

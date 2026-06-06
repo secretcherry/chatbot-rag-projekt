@@ -23,7 +23,6 @@ Producing more informative usage messages.
 Producing more informative usage messages.
 Providing a much simpler interface for custom type and action .
 Providing a much simpler interface for custom type and action .
-type
 action
 Originally, the argparse module attempted to maintain compatibility
 with optparse .  However, the fundamental design differences between
@@ -59,7 +58,6 @@ args = parser.parse_args()
 ArgumentParser.add_argument()
 options
 argparse
-args
 Replace optparse.OptionParser.disable_interspersed_args() by using parse_intermixed_args() instead of parse_args() .
 Replace optparse.OptionParser.disable_interspersed_args() by using parse_intermixed_args() instead of parse_args() .
 optparse.OptionParser.disable_interspersed_args()
@@ -68,13 +66,11 @@ parse_args()
 Replace callback actions and the callback_* keyword arguments with type or action arguments.
 Replace callback actions and the callback_* keyword arguments with type or action arguments.
 callback_*
-type
 action
 Replace string names for type keyword arguments with the corresponding
 type objects (e.g. int, float, complex, etc).
 Replace string names for type keyword arguments with the corresponding
 type objects (e.g. int, float, complex, etc).
-type
 Replace optparse.Values with Namespace and optparse.OptionError and optparse.OptionValueError with ArgumentError .
 Replace optparse.Values with Namespace and optparse.OptionError and optparse.OptionValueError with ArgumentError .
 optparse.Values

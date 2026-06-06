@@ -250,10 +250,8 @@ unhandled exception during asyncio . run () shutdown task : < Task finished name
 
 The cursor() asynchronous generator was finalized before the rows generator - an unexpected behavior.
 cursor()
-rows
 The example can be fixed by explicitly closing the cursor and rows async-generators:
 cursor
-rows
 
 [CODE]
 async def main (): async with contextlib . aclosing ( cursor ()) as cursor_gen : async for c in cursor_gen : async with contextlib . aclosing ( rows ()) as rows_gen : async for r in rows_gen : break break

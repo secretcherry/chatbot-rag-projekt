@@ -39,7 +39,6 @@ dealing with untrusted sources
 shelve
 ssl : SSL/TLS security considerations
 ssl : SSL/TLS security considerations
-ssl
 subprocess : Subprocess security considerations
 subprocess : Subprocess security considerations
 subprocess
@@ -50,7 +49,6 @@ conditions
 tempfile
 xml : XML security
 xml : XML security
-xml
 zipfile : maliciously prepared .zip files can cause disk volume
 exhaustion
 zipfile : maliciously prepared .zip files can cause disk volume

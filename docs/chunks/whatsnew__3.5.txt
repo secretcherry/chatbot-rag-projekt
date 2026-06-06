@@ -5,8 +5,6 @@ SOURCE: whatsnew\3.5.html
 
 # What’s New In Python 3.5
 
-Editors :
-Elvis Pranskevichus < elvis @ magic . io >, Yury Selivanov < yury @ magic . io >
 Elvis Pranskevichus < elvis @ magic . io >, Yury Selivanov < yury @ magic . io >
 This article explains the new features in Python 3.5, compared to 3.4.
 Python 3.5 was released on September 13, 2015.  See the changelog for a full
@@ -79,8 +77,6 @@ scheme that includes the optimization level explicitly in .pyc name.
 .pyo files are no longer used and have been replaced by a more flexible
 scheme that includes the optimization level explicitly in .pyc name.
 (See PEP 488 overview .)
-.pyo
-.pyc
 Builtin and extension modules are now initialized in a multi-phase process,
 which is similar to how Python modules are loaded.
 (See PEP 489 overview .)
@@ -97,7 +93,6 @@ The ssl module gained support for Memory BIO , which decouples SSL
 protocol handling from network IO.
 The ssl module gained support for Memory BIO , which decouples SSL
 protocol handling from network IO.
-ssl
 The new os.scandir() function provides a better and significantly faster way of directory traversal.
 The new os.scandir() function provides a better and significantly faster way of directory traversal.
 os.scandir()
@@ -190,7 +185,6 @@ async with
 async def
 Coroutine functions are intended to be run inside a compatible event loop,
 such as the asyncio loop .
-Note
 Changed in version 3.5.2: Starting with CPython 3.5.2, __aiter__ can directly return asynchronous iterators .  Returning
 an awaitable object will result in a PendingDeprecationWarning .
 __aiter__
@@ -198,8 +192,6 @@ PendingDeprecationWarning
 See more details in the Asynchronous Iterators documentation
 section.
 See also
-PEP 492 – Coroutines with async and await syntax
-PEP written and implemented by Yury Selivanov.
 PEP written and implemented by Yury Selivanov.
 
 ### PEP 465 - A dedicated infix operator for matrix multiplication
@@ -234,8 +226,6 @@ NumPy 1.10 has support for the new operator:
 [/CODE]
 
 See also
-PEP 465 – A dedicated infix operator for matrix multiplication
-PEP written by Nathaniel J. Smith; implemented by Benjamin Peterson.
 PEP written by Nathaniel J. Smith; implemented by Benjamin Peterson.
 
 ### PEP 448 - Additional Unpacking Generalizations
@@ -256,9 +246,6 @@ unpackings (see Expression lists and Dictionary displays ):
 [/CODE]
 
 See also
-PEP 448 – Additional Unpacking Generalizations
-PEP written by Joshua Landau; implemented by Neil Girdhar,
-Thomas Wouters, and Joshua Landau.
 PEP written by Joshua Landau; implemented by Neil Girdhar,
 Thomas Wouters, and Joshua Landau.
 
@@ -291,9 +278,6 @@ repr(obj).encode('ascii', 'backslashreplace')
 Note that %s and %r conversion types, although supported, should
 only be used in codebases that need compatibility with Python 2.
 See also
-PEP 461 – Adding % formatting to bytes and bytearray
-PEP written by Ethan Furman; implemented by Neil Schemenauer and
-Ethan Furman.
 PEP written by Ethan Furman; implemented by Neil Schemenauer and
 Ethan Furman.
 
@@ -323,21 +307,15 @@ __annotations__
 The type system supports unions, generic types, and a special type
 named Any which is consistent with (i.e. assignable to
 and from) all types.
-Any
 See also
 typing module documentation
 typing module documentation
 typing
 PEP 484 – Type Hints PEP written by Guido van Rossum, Jukka Lehtosalo, and Łukasz Langa;
 implemented by Guido van Rossum.
-PEP 484 – Type Hints
-PEP written by Guido van Rossum, Jukka Lehtosalo, and Łukasz Langa;
-implemented by Guido van Rossum.
 PEP written by Guido van Rossum, Jukka Lehtosalo, and Łukasz Langa;
 implemented by Guido van Rossum.
 PEP 483 – The Theory of Type Hints PEP written by Guido van Rossum
-PEP 483 – The Theory of Type Hints
-PEP written by Guido van Rossum
 PEP written by Guido van Rossum
 
 ### PEP 471 - os.scandir() function – a better and faster directory iterator
@@ -359,7 +337,6 @@ The following example shows a simple use of os.scandir() to display all
 the files (excluding directories) in the given path that don’t start with '.' . The entry.is_file() call will generally
 not make an additional system call:
 os.scandir()
-'.'
 entry.is_file()
 
 [CODE]
@@ -367,8 +344,6 @@ for entry in os . scandir ( path ): if not entry . name . startswith ( '.' ) and
 [/CODE]
 
 See also
-PEP 471 – os.scandir() function – a better and faster directory iterator
-PEP written and implemented by Ben Hoyt with the help of Victor Stinner.
 PEP written and implemented by Ben Hoyt with the help of Victor Stinner.
 
 ### PEP 475: Retry system calls failing with EINTR
@@ -394,8 +369,6 @@ code nearly unreadable.  Compare:
 [CODE]
 print ( "Hello World" )
 [/CODE]
-
-and:
 
 [CODE]
 while True : try : print ( "Hello World" ) break except InterruptedError : continue
@@ -479,9 +452,6 @@ time.sleep() .
 time.sleep() .
 time.sleep()
 See also
-PEP 475 – Retry system calls failing with EINTR
-PEP and implementation written by Charles-François Natali and
-Victor Stinner, with the help of Antoine Pitrou (the French connection).
 PEP and implementation written by Charles-François Natali and
 Victor Stinner, with the help of Antoine Pitrou (the French connection).
 
@@ -515,9 +485,6 @@ __future__
 PendingDeprecationWarning
 StopIteration
 See also
-PEP 479 – Change StopIteration handling inside generators
-PEP written by Chris Angelico and Guido van Rossum. Implemented by
-Chris Angelico, Yury Selivanov and Nick Coghlan.
 PEP written by Chris Angelico and Guido van Rossum. Implemented by
 Chris Angelico, Yury Selivanov and Nick Coghlan.
 
@@ -543,9 +510,6 @@ must be a non-negative value:
 [/CODE]
 
 See also
-PEP 485 – A function for testing approximate equality
-PEP written by Christopher Barker; implemented by Chris Barker and
-Tal Einat.
 PEP written by Christopher Barker; implemented by Chris Barker and
 Tal Einat.
 
@@ -556,8 +520,6 @@ virtual environment. When the default interpreter would be used and the VIRTUAL_
 environment will be used.
 VIRTUAL_ENV
 See also
-PEP 486 – Make the Python Launcher aware of virtual environments
-PEP written and implemented by Paul Moore.
 PEP written and implemented by Paul Moore.
 
 ### PEP 488: Elimination of PYO files
@@ -567,16 +529,8 @@ need to constantly regenerate bytecode files, .pyc files now have an
 optional opt- tag in their name when the bytecode is optimized. This has the
 side-effect of no more bytecode file name clashes when running under either -O or -OO . Consequently, bytecode files generated from -O , and -OO may now exist simultaneously. importlib.util.cache_from_source() has an updated API to help with
 this change.
-.pyo
-.pyc
-.pyc
-opt-
--OO
--OO
 importlib.util.cache_from_source()
 See also
-PEP 488 – Elimination of PYO files
-PEP written and implemented by Brett Cannon.
 PEP written and implemented by Brett Cannon.
 
 ### PEP 489: Multi-phase extension module initialization
@@ -588,9 +542,6 @@ using the new mechanism much closer to those of Python source and bytecode
 modules, including the ability to use any valid identifier as a module name,
 rather than being restricted to ASCII.
 See also
-PEP 489 – Multi-phase extension module initialization
-PEP written by Petr Viktorin, Stefan Behnel, and Nick Coghlan;
-implemented by Petr Viktorin.
 PEP written by Petr Viktorin, Stefan Behnel, and Nick Coghlan;
 implemented by Petr Viktorin.
 
@@ -606,7 +557,6 @@ Added the "namereplace" error handlers.  The "backslashreplace" error handlers n
 The -b option now affects comparisons of bytes with int .  (Contributed by Serhiy Storchaka in bpo-23681 .)
 The -b option now affects comparisons of bytes with int .  (Contributed by Serhiy Storchaka in bpo-23681 .)
 bytes
-int
 New Kazakh kz1048 and Tajik koi8_t codecs .
 (Contributed by Serhiy Storchaka in bpo-22682 and bpo-22681 .)
 New Kazakh kz1048 and Tajik koi8_t codecs .
@@ -692,7 +642,6 @@ A new loop.create_task() to conveniently create and schedule a new Task for a co
 asyncio functions that wrap coroutines into tasks, such as asyncio.wait() , asyncio.gather() , etc.
 (Contributed by Victor Stinner.)
 loop.create_task()
-Task
 create_task
 asyncio.wait()
 asyncio.gather()
@@ -789,15 +738,9 @@ The loop.sock_connect(sock, address) no longer requires the address to be resolv
 The loop.sock_connect(sock, address) no longer requires the address to be resolved prior to the call.
 (Contributed by A. Jesse Jiryu Davis.)
 loop.sock_connect(sock, address)
-
-### bz2
-
 The BZ2Decompressor.decompress method now accepts an optional max_length argument to limit the maximum
 size of decompressed data. (Contributed by Nikolaus Rath in bpo-15955 .)
 BZ2Decompressor.decompress
-
-### cgi
-
 The FieldStorage class now supports the context manager protocol.  (Contributed by Berker Peksag in bpo-20289 .)
 FieldStorage
 
@@ -806,9 +749,6 @@ FieldStorage
 A new function isclose() provides a way to test for approximate
 equality.  (Contributed by Chris Barker and Tal Einat in bpo-24270 .)
 isclose()
-
-### code
-
 The InteractiveInterpreter.showtraceback() method now prints the full chained traceback, just like the interactive
 interpreter.  (Contributed by Claudiu Popa in bpo-17442 .)
 InteractiveInterpreter.showtraceback()
@@ -850,7 +790,6 @@ casefold()
 format_map()
 isprintable()
 maketrans()
-str
 
 ### collections.abc
 
@@ -860,7 +799,6 @@ of tuple , list , etc.
 (Contributed by Devin Jeanpierre in bpo-23086 .)
 Sequence.index()
 tuple
-list
 A new Generator abstract base class. (Contributed
 by Stefan Behnel in bpo-24018 .)
 Generator
@@ -879,7 +817,6 @@ A new compileall option, -j N , allows running N workers
 simultaneously to perform parallel bytecode compilation.
 The compile_dir() function has a corresponding workers parameter.  (Contributed by Claudiu Popa in bpo-16104 .)
 compileall
--j N
 compile_dir()
 workers
 Another new option, -r , allows controlling the maximum recursion
@@ -934,9 +871,6 @@ sys.stderr
 [/CODE]
 
 (Contributed by Berker Peksag in bpo-22389 .)
-
-### csv
-
 The writerow() method now supports arbitrary iterables,
 not just sequences.  (Contributed by Serhiy Storchaka in bpo-23171 .)
 writerow()
@@ -947,14 +881,9 @@ The new update_lines_cols() function updates the LINES and COLS module variables
 manual screen resizing.  (Contributed by Arnon Yaari in bpo-4254 .)
 update_lines_cols()
 LINES
-COLS
-
-### dbm
-
 dumb.open always creates a new database when the flag
 has the value "n" .  (Contributed by Claudiu Popa in bpo-18039 .)
 dumb.open
-"n"
 
 ### difflib
 
@@ -998,8 +927,6 @@ prefixed with a ">" character by generators.  The default is True for compat32 a
 (Contributed by Milan Oberkirch in bpo-20098 .)
 Policy.mangle_from_
 "From "
-">"
-True
 compat32
 False
 A new Message.get_content_disposition() method provides easy access to a canonical value for the Content-Disposition header.
@@ -1008,7 +935,6 @@ Message.get_content_disposition()
 A new policy option EmailPolicy.utf8 can be set to True to encode email headers using the UTF-8 charset instead
 of using encoded words.  This allows Messages to be formatted according to RFC 6532 and used with an SMTP server that supports the RFC 6531 SMTPUTF8 extension.  (Contributed by R. David Murray in bpo-24211 .)
 EmailPolicy.utf8
-True
 Messages
 SMTPUTF8
 The mime.text.MIMEText constructor now
@@ -1016,12 +942,8 @@ accepts a charset.Charset instance.
 (Contributed by Claude Paroz and Berker Peksag in bpo-16324 .)
 mime.text.MIMEText
 charset.Charset
-
-### enum
-
 The Enum callable has a new parameter start to
 specify the initial number of enum values if only names are provided:
-Enum
 
 [CODE]
 >>> Animal = enum . Enum ( 'Animal' , 'cat dog' , start = 10 ) >>> Animal . cat <Animal.cat: 10> >>> Animal . dog <Animal.dog: 11>
@@ -1045,23 +967,15 @@ Most of the lru_cache() machinery is now implemented in C, making
 it significantly faster.  (Contributed by Matt Joiner, Alexey Kachayev, and
 Serhiy Storchaka in bpo-14373 .)
 lru_cache()
-
-### glob
-
 The iglob() and glob() functions now support recursive
 search in subdirectories, using the "**" pattern.
 (Contributed by Serhiy Storchaka in bpo-13968 .)
 iglob()
 glob()
-"**"
-
-### gzip
-
 The mode argument of the GzipFile constructor now
 accepts "x" to request exclusive creation.
 (Contributed by Tim Heaney in bpo-19222 .)
 GzipFile
-"x"
 
 ### heapq
 
@@ -1076,9 +990,6 @@ merge()
 [/CODE]
 
 (Contributed by Raymond Hettinger in bpo-13742 .)
-
-### http
-
 A new HTTPStatus enum that defines a set of
 HTTP status codes, reason phrases and long descriptions written in English.
 (Contributed by Demian Brecht in bpo-21793 .)
@@ -1114,7 +1025,6 @@ The IMAP4 class now supports the context manager protocol.
 When used in a with statement, the IMAP4 LOGOUT command will be called automatically at the end of the block.
 (Contributed by Tarek Ziadé and Serhiy Storchaka in bpo-4972 .)
 IMAP4
-with
 LOGOUT
 The imaplib module now supports RFC 5161 (ENABLE Extension)
 and RFC 6855 (UTF-8 Support) via the IMAP4.enable() method.  A new IMAP4.utf8_enabled attribute tracks whether or not RFC 6855 support is enabled.
@@ -1223,9 +1133,6 @@ IPv6Address
 [/CODE]
 
 (Contributed by Leon Weber in bpo-20480 .)
-
-### json
-
 The json.tool command line interface now preserves the order of keys in
 JSON objects passed in input.  The new --sort-keys option can be used
 to sort the keys alphabetically. (Contributed by Berker Peksag
@@ -1286,21 +1193,11 @@ takes a respect_handler_level keyword argument which, if set to True ,
 will pass messages to handlers taking handler levels into account.
 (Contributed by Vinay Sajip.)
 handlers.QueueListener
-True
-
-### lzma
-
 The LZMADecompressor.decompress() method now accepts an optional max_length argument to limit the maximum
 size of decompressed data.
 (Contributed by Martin Panter in bpo-15955 .)
 LZMADecompressor.decompress()
-
-### math
-
 Two new constants have been added to the math module: inf and nan .  (Contributed by Mark Dickinson in bpo-23185 .)
-math
-inf
-nan
 A new function isclose() provides a way to test for approximate
 equality. (Contributed by Chris Barker and Tal Einat in bpo-24270 .)
 isclose()
@@ -1377,7 +1274,6 @@ The new Path.samefile() method can be used
 to check whether the path points to the same file as another path, which can
 be either another Path object, or a string:
 Path.samefile()
-Path
 
 [CODE]
 >>> import pathlib >>> p1 = pathlib . Path ( '/etc/hosts' ) >>> p2 = pathlib . Path ( '/etc/../etc/hosts' ) >>> p1 . samefile ( p2 ) True
@@ -1398,7 +1294,6 @@ a Path instance representing the user’s home
 directory.
 (Contributed by Victor Salgado and Mayank Tripathi in bpo-19777 .)
 Path.home()
-Path
 New Path.write_text() , Path.read_text() , Path.write_bytes() , Path.read_bytes() methods to simplify
 read/write operations on files.
 Path.write_text()
@@ -1445,9 +1340,7 @@ The re.error exceptions have new attributes, msg , pattern , pos , lineno ,
 and colno , that provide better context
 information about the error:
 re.error
-msg
 pattern
-pos
 lineno
 colno
 
@@ -1493,7 +1386,6 @@ set_wakeup_fd()
 Various SIG* constants in the signal module have been converted into Enums .  This allows meaningful names to be printed
 during debugging, instead of integer “magic numbers”.
 (Contributed by Giampaolo Rodola’ in bpo-21076 .)
-SIG*
 signal
 Enums
 
@@ -1509,10 +1401,8 @@ arguments.
 (Contributed by Maciej Szulik in bpo-19662 .)
 SMTPServer
 SMTPChannel
-DATA
 "utf-8"
 SMTPServer.process_message()
-True
 False
 False
 process_message
@@ -1522,16 +1412,13 @@ specifies BODY=8BITMIME on the MAIL command, it is passed to SMTPServer.process_
 (Contributed by Milan Oberkirch and R.  David Murray in bpo-21795 .)
 SMTPServer
 8BITMIME
-True
 BODY=8BITMIME
-MAIL
 SMTPServer.process_message()
 The SMTPServer class now also supports the SMTPUTF8 extension ( RFC 6531 : Internationalized Email).  If the client specified SMTPUTF8 BODY=8BITMIME on the MAIL command, they are passed to SMTPServer.process_message() via the mail_options keyword.  It is the responsibility of the process_message method to correctly handle the SMTPUTF8 data.
 (Contributed by Milan Oberkirch in bpo-21725 .)
 SMTPServer
 SMTPUTF8
 SMTPUTF8 BODY=8BITMIME
-MAIL
 SMTPServer.process_message()
 process_message
 SMTPUTF8
@@ -1584,9 +1471,6 @@ The backlog argument of the socket.listen() method is now optional.  By default 
 (Contributed by Charles-François Natali in bpo-21455 .)
 socket.listen()
 SOMAXCONN
-128
-
-### ssl
 
 #### Memory BIO Support
 
@@ -1614,7 +1498,6 @@ SSLObject
 Where OpenSSL support is present, the ssl module now implements
 the Application-Layer Protocol Negotiation TLS extension as described
 in RFC 7301 .
-ssl
 The new SSLContext.set_alpn_protocols() can be used to specify which protocols a socket should advertise during
 the TLS handshake.
 SSLContext.set_alpn_protocols()
@@ -1644,7 +1527,6 @@ The cert_time_to_seconds() function now interprets the input time
 as UTC and not as local time, per RFC 5280 .  Additionally, the return
 value is always an int . (Contributed by Akira Li in bpo-19940 .)
 cert_time_to_seconds()
-int
 New SSLObject.shared_ciphers() and SSLSocket.shared_ciphers() methods return
 the list of ciphers sent by the client during the handshake.
 (Contributed by Benjamin Peterson in bpo-23186 .)
@@ -1668,7 +1550,6 @@ The Row class now fully supports the sequence protocol,
 in particular reversed() iteration and slice indexing.
 (Contributed by Claudiu Popa in bpo-10203 ; by Lucas Sinclair,
 Jessica McKellar, and  Serhiy Storchaka in bpo-13583 .)
-Row
 reversed()
 
 ### subprocess
@@ -1686,8 +1567,6 @@ Examples:
 [CODE]
 >>> subprocess . run ([ "ls" , "-l" ]) # doesn't capture output CompletedProcess(args=['ls', '-l'], returncode=0) >>> subprocess . run ( "exit 1" , shell = True , check = True ) Traceback (most recent call last): ... subprocess.CalledProcessError : Command 'exit 1' returned non-zero exit status 1 >>> subprocess . run ([ "ls" , "-l" , "/dev/null" ], stdout = subprocess . PIPE ) CompletedProcess(args=['ls', '-l', '/dev/null'], returncode=0, stdout=b'crw-rw-rw- 1 root root 1, 3 Jan 23 16:23 /dev/null\n')
 [/CODE]
-
-### sys
 
 A new set_coroutine_wrapper() function allows setting a global
 hook that will be called whenever a coroutine object is created by an async def function.  A corresponding get_coroutine_wrapper() can be used to obtain a currently set
@@ -1712,7 +1591,6 @@ in bpo-23437 .)
 
 The mode argument of the open() function now accepts "x" to request exclusive creation.  (Contributed by Berker Peksag in bpo-21717 .)
 open()
-"x"
 The TarFile.extractall() and TarFile.extract() methods now take a keyword
 argument numeric_owner .  If set to True , the extracted files and
 directories will be owned by the numeric uid and gid from the tarfile.
@@ -1721,9 +1599,6 @@ they will be owned by the named user and group in the tarfile.
 (Contributed by Michael Vogt and Eric Smith in bpo-23193 .)
 TarFile.extractall()
 TarFile.extract()
-True
-uid
-gid
 False
 The TarFile.list() now accepts an optional members keyword argument that can be set to a subset of the list returned
 by TarFile.getmembers() .
@@ -1738,9 +1613,6 @@ now use a monotonic clock for timeout management.
 (Contributed by Victor Stinner in bpo-22043 .)
 Lock.acquire()
 RLock.acquire()
-
-### time
-
 The monotonic() function is now always available.
 (Contributed by Victor Stinner in bpo-22043 .)
 monotonic()
@@ -1751,9 +1623,6 @@ A new command line option -u or --unit= U can be used to specify the time
 unit for the timer output.  Supported options are usec , msec ,
 or sec .  (Contributed by Julian Gindi in bpo-18983 .)
 --unit= U
-usec
-msec
-sec
 The timeit() function has a new globals parameter for
 specifying the namespace in which the code will be running.
 (Contributed by Ben Roberts in bpo-2527 .)
@@ -1819,7 +1688,6 @@ tracebacks.  (Contributed by Robert Collins in bpo-22936 .)
 ### unittest.mock
 
 The Mock class has the following improvements:
-Mock
 The class constructor has a new unsafe parameter, which causes mock
 objects to raise AttributeError on attribute names starting
 with "assert" .
@@ -1855,9 +1723,6 @@ credentials on the first request in order to communicate with servers that
 return a 404 response instead of a 401 if the Authorization header
 is not sent. (Contributed by Matej Cepl in bpo-19494 and Akshit Khurana in bpo-7159 .)
 request.HTTPPasswordMgrWithPriorAuth
-401
-404
-401
 Authorization
 A new quote_via argument for the parse.urlencode() function provides a way to control the encoding of query parts if needed.
 (Contributed by Samwyse and Arnon Yaari in bpo-13866 .)
@@ -1896,7 +1761,6 @@ xmlreader.InputSource
 parseString() now accepts a str instance.
 (Contributed by Serhiy Storchaka in bpo-10590 .)
 parseString()
-str
 
 ### zipfile
 
@@ -1906,16 +1770,13 @@ The mode argument of ZipFile.open() method now
 accepts "x" to request exclusive creation.
 (Contributed by Serhiy Storchaka in bpo-21717 .)
 ZipFile.open()
-"x"
 
 ## Other module-level changes
 
 Many functions in the mmap , ossaudiodev , socket , ssl , and codecs modules now accept writable bytes-like objects .
 (Contributed by Serhiy Storchaka in bpo-23001 .)
-mmap
 ossaudiodev
 socket
-ssl
 codecs
 
 ## Optimizations
@@ -1970,7 +1831,6 @@ has type as its metaclass.
 (Contributed Georg Brandl by in bpo-22540 .)
 PyObject_IsInstance()
 PyObject_IsSubclass()
-type
 Method caching was slightly improved, yielding up to 5% performance
 improvement in some benchmarks.
 (Contributed by Antoine Pitrou in bpo-22847 .)
@@ -2074,13 +1934,11 @@ platforms or x86_64 for 64-bit Intel (and AMD) platforms.
 was built to run on. It’s most commonly either i386 for 32-bit Intel
 platforms or x86_64 for 64-bit Intel (and AMD) platforms.
 <architecture>
-i386
 x86_64
 <os> is always linux-gnu , except for extensions built to
 talk to the 32-bit ABI on 64-bit platforms, in which case it is linux-gnu32 (and <architecture> will be x86_64 ).
 <os> is always linux-gnu , except for extensions built to
 talk to the 32-bit ABI on 64-bit platforms, in which case it is linux-gnu32 (and <architecture> will be x86_64 ).
-<os>
 linux-gnu
 linux-gnu32
 <architecture>
@@ -2166,10 +2024,8 @@ with an appropriate value to avoid the deprecation warning.
 smtpd
 utf-8
 SMTPServer
-True
 Directly assigning values to the key , value and coded_value of http.cookies.Morsel objects is deprecated.  Use the set() method
 instead.  In addition, the undocumented LegalChars parameter of set() is deprecated, and is now ignored.
-key
 value
 coded_value
 http.cookies.Morsel
@@ -2213,7 +2069,6 @@ Use of unrecognized special sequences consisting of '\' and an ASCII letter
 in regular expression patterns and replacement patterns now raises a
 deprecation warning and will be forbidden in Python 3.6.
 (Contributed by Serhiy Storchaka in bpo-23622 .)
-'\'
 The undocumented and unofficial use_load_tests default argument of the unittest.TestLoader.loadTestsFromModule() method now is
 deprecated and ignored.
 (Contributed by Robert Collins and Barry A. Warsaw in bpo-16662 .)
@@ -2243,7 +2098,6 @@ Netrc
 ftplib
 The concept of .pyo files has been removed.
 The concept of .pyo files has been removed.
-.pyo
 The JoinableQueue class in the provisional asyncio module was
 deprecated in 3.4.4 and is now removed.
 (Contributed by A. Jesse Jiryu Davis in bpo-23464 .)
@@ -2324,7 +2178,6 @@ HTMLParser
 HTMLParser.error()
 HTMLParserError
 HTMLParser
-True
 Although it is not formally part of the API, it is worth noting for porting
 purposes (ie: fixing tests) that error messages that were previously of the
 form “‘sometype’ does not support the buffer protocol” are now of the form “a bytes-like object is required, not ‘sometype’”.
@@ -2339,8 +2192,6 @@ If the current directory is set to a directory that no longer exists then FileNo
 different than the typical case ( bpo-22834 ).
 FileNotFoundError
 find_spec()
-None
-None
 sys.path_importer_cache
 HTTP status code and messages from http.client and http.server were refactored into a common HTTPStatus enum.  The values in http.client and http.server remain available for backwards
 compatibility.  (Contributed by Demian Brecht in bpo-21793 .)
@@ -2362,7 +2213,6 @@ create_module()
 DeprecationWarning
 importlib.abc.Loader
 create_module()
-None
 The re.split() function always ignored empty pattern matches, so the "x*" pattern worked the same as "x+" , and the "\b" pattern never
 worked.  Now re.split() raises a warning if the pattern could match
 an empty string.  For compatibility, use patterns that never match an empty
@@ -2376,13 +2226,7 @@ string (e.g. "x+" instead of "x*" ).  Patterns that could only match
 an empty string (such as "\b" ) now raise an error.
 (Contributed by Serhiy Storchaka in bpo-22818 .)
 re.split()
-"x*"
-"x+"
-"\b"
 re.split()
-"x+"
-"x*"
-"\b"
 The http.cookies.Morsel dict-like interface has been made self
 consistent:  morsel comparison now takes the key and value into account, copy() now results in a Morsel instance rather than a dict , and update() will now raise an exception if any of the
 keys in the update dictionary are invalid.  In addition, the undocumented LegalChars parameter of set() is deprecated and
@@ -2392,11 +2236,9 @@ consistent:  morsel comparison now takes the key and value into account, copy() 
 keys in the update dictionary are invalid.  In addition, the undocumented LegalChars parameter of set() is deprecated and
 is now ignored.  (Contributed by Demian Brecht in bpo-2211 .)
 http.cookies.Morsel
-key
 value
 copy()
 Morsel
-dict
 update()
 set()
 PEP 488 has removed .pyo files from Python and introduced the optional opt- tag in .pyc file names. The importlib.util.cache_from_source() has gained an optimization parameter to help control the opt- tag. Because of this, the debug_override parameter of the function is now deprecated. .pyo files
@@ -2411,13 +2253,7 @@ thus serve no purpose when distributed on their own (i.e. sourceless code
 distribution). Due to the fact that the magic number for bytecode has changed
 in Python 3.5, all old .pyo files from previous versions of Python are
 invalid regardless of this PEP.
-.pyo
-opt-
-.pyc
 importlib.util.cache_from_source()
-opt-
-.pyo
-.pyo
 The socket module now exports the CAN_RAW_FD_FRAMES constant on linux 3.6 and greater.
 The socket module now exports the CAN_RAW_FD_FRAMES constant on linux 3.6 and greater.
 socket
@@ -2429,7 +2265,6 @@ The ssl.cert_time_to_seconds() function now interprets the input time
 as UTC and not as local time, per RFC 5280 .  Additionally, the return
 value is always an int . (Contributed by Akira Li in bpo-19940 .)
 ssl.cert_time_to_seconds()
-int
 The pygettext.py Tool now uses the standard +NNNN format for timezones in
 the POT-Creation-Date header.
 The pygettext.py Tool now uses the standard +NNNN format for timezones in
@@ -2452,7 +2287,6 @@ The str.startswith() and str.endswith() methods no longer return True when findi
 range.  (Contributed by Serhiy Storchaka in bpo-24284 .)
 str.startswith()
 str.endswith()
-True
 The inspect.getdoc() function now returns documentation strings
 inherited from base classes.  Documentation strings no longer need to be
 duplicated if the inherited documentation is appropriate.  To suppress an

@@ -35,11 +35,9 @@ some cases of running out of memory.  All error messages are written to the
 standard error stream; normal output from executed commands is written to
 standard output.
 except
-try
 Typing the interrupt character (usually Control - C or Delete ) to the primary or
 secondary prompt cancels the input and returns to the primary prompt. [ 1 ] Typing an interrupt while a command is executing raises the KeyboardInterrupt exception, which may be handled by a try statement.
 KeyboardInterrupt
-try
 
 ### 16.1.2. Executable Python Scripts
 
@@ -56,10 +54,7 @@ first two characters of the file.  On some platforms, this first line must end
 with a Unix-style line ending ( '\n' ), not a Windows ( '\r\n' ) line
 ending.  Note that the hash, or pound, character, '#' , is used to start a
 comment in Python.
-PATH
-'\n'
 '\r\n'
-'#'
 The script can be given an executable mode, or permission, using the chmod command.
 
 [CODE]
@@ -71,9 +66,7 @@ installer automatically associates .py files with python.exe so that
 a double-click on a Python file will run it as a script.  The extension can
 also be .pyw , in that case, the console window that normally appears is
 suppressed.
-.py
 python.exe
-.pyw
 
 ### 16.1.3. The Interactive Startup File
 
@@ -119,6 +112,5 @@ usercustomize.py
 sitecustomize works in the same way, but is typically created by an
 administrator of the computer in the global site-packages directory, and is
 imported before usercustomize.  See the documentation of the site module for more details.
-site
 Footnotes
 A problem with the GNU Readline package may prevent this.

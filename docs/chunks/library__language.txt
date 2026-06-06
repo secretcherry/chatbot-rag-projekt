@@ -10,7 +10,6 @@ language.  These modules support tokenizing, parsing, syntax analysis, bytecode
 disassembly, and various other facilities.
 These modules include:
 ast — Abstract syntax trees Abstract grammar Node classes Root nodes Literals Variables Expressions Subscripting Comprehensions Statements Imports Control flow Pattern matching Type annotations Type parameters Function and class definitions Async and await ast helpers Compiler flags Command-line usage
-ast
 Abstract grammar
 Node classes Root nodes Literals Variables Expressions Subscripting Comprehensions Statements Imports Control flow Pattern matching Type annotations Type parameters Function and class definitions Async and await
 Root nodes
@@ -28,7 +27,6 @@ Type parameters
 Function and class definitions
 Async and await
 ast helpers
-ast
 Compiler flags
 Command-line usage
 symtable — Access to the compiler’s symbol tables Generating Symbol Tables Examining Symbol Tables Command-Line Usage
@@ -59,7 +57,6 @@ compileall
 Command-line use
 Public functions
 dis — Disassembler for Python bytecode Command-line interface Bytecode analysis Analysis functions Python Bytecode Instructions Opcode collections
-dis
 Command-line interface
 Bytecode analysis
 Analysis functions

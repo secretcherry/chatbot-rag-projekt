@@ -5,8 +5,6 @@ SOURCE: whatsnew\3.12.html
 
 # What’s New In Python 3.12
 
-Editor :
-Adam Turner
 Adam Turner
 This article explains the new features in Python 3.12, compared to 3.11.
 Python 3.12 was released on October 2, 2023.
@@ -28,7 +26,6 @@ The language changes focus on usability,
 as f-strings have had many limitations removed
 and ‘Did you mean …’ suggestions continue to improve.
 The new type parameter syntax and type statement improve ergonomics for using generic types and type aliases with static type checkers.
-type
 This article doesn’t attempt to provide a complete specification of all new features,
 but instead gives a convenient overview.
 For full details, you should refer to the documentation,
@@ -40,7 +37,6 @@ once a feature has been fully implemented.
 New syntax features:
 PEP 695 , type parameter syntax and the type statement
 PEP 695 , type parameter syntax and the type statement
-type
 New grammar features:
 PEP 701 , f-strings in the grammar
 PEP 701 , f-strings in the grammar
@@ -77,7 +73,6 @@ with some benchmarks showing a 75% speed up.
 asyncio
 A command-line interface has been added to the uuid module
 A command-line interface has been added to the uuid module
-uuid
 Due to the changes in PEP 701 ,
 producing tokens via the tokenize module is up to 64% faster.
 Due to the changes in PEP 701 ,
@@ -103,7 +98,6 @@ PEP 709 , comprehension inlining
 PEP 709 , comprehension inlining
 CPython support for the Linux perf profiler
 CPython support for the Linux perf profiler
-perf
 Implement stack overflow protection on supported platforms
 Implement stack overflow protection on supported platforms
 New typing features:
@@ -120,8 +114,6 @@ PEP 623 : Remove wstr from Unicode objects in Python’s C API,
 reducing the size of every str object by at least 8 bytes.
 PEP 623 : Remove wstr from Unicode objects in Python’s C API,
 reducing the size of every str object by at least 8 bytes.
-wstr
-str
 PEP 632 : Remove the distutils package.
 See the migration guide for advice replacing the APIs it provided.
 The third-party Setuptools package continues to provide distutils ,
@@ -143,7 +135,6 @@ This means that distutils , setuptools , pkg_resources ,
 and easy_install will no longer available by default; to access these
 run pip install setuptools in the activated virtual environment.
 setuptools
-venv
 distutils
 setuptools
 pkg_resources
@@ -155,7 +146,6 @@ The asynchat , asyncore , and imp modules have been
 removed, along with several unittest.TestCase method aliases .
 asynchat
 asyncore
-imp
 unittest.TestCase
 
 ## New Features
@@ -172,7 +162,6 @@ def max [ T ]( args : Iterable [ T ]) -> T : ... class list [ T ]: def __getitem
 [/CODE]
 
 In addition, the PEP introduces a new way to declare type aliases using the type statement, which creates an instance of TypeAliasType :
-type
 TypeAliasType
 
 [CODE]
@@ -348,7 +337,6 @@ returns, lines, exceptions, jumps, and more.
 This means that you only pay for what you use, providing support
 for near-zero overhead debuggers and coverage tools.
 See sys.monitoring for details.
-API
 sys.monitoring
 (Contributed by Mark Shannon in gh-103082 .)
 
@@ -527,7 +515,6 @@ SyntaxWarning
 DeprecationWarning
 re.compile("\d+\.\d+")
 SyntaxWarning
-"\d"
 re.compile(r"\d+\.\d+")
 SyntaxError
 SyntaxWarning
@@ -587,8 +574,6 @@ arguments of any type instead of just bool and int .
 All builtin and extension callables expecting boolean parameters now accept
 arguments of any type instead of just bool and int .
 (Contributed by Serhiy Storchaka in gh-60203 .)
-bool
-int
 memoryview now supports the half-float type (the “e” format code).
 (Contributed by Donghee Na and Antoine Pitrou in gh-90751 .)
 memoryview now supports the half-float type (the “e” format code).
@@ -747,21 +732,14 @@ Add enums calendar.Month and calendar.Day defining months of the year and days o
 (Contributed by Prince Roshan in gh-103636 .)
 calendar.Month
 calendar.Day
-
-### csv
-
 Add csv.QUOTE_NOTNULL and csv.QUOTE_STRINGS flags to
 provide finer grained control of None and empty strings by reader and writer objects.
 Add csv.QUOTE_NOTNULL and csv.QUOTE_STRINGS flags to
 provide finer grained control of None and empty strings by reader and writer objects.
 csv.QUOTE_NOTNULL
 csv.QUOTE_STRINGS
-None
 reader
 writer
-
-### dis
-
 Pseudo instruction opcodes (which are used by the compiler but
 do not appear in executable bytecode) are now exposed in the dis module. HAVE_ARGUMENT is still relevant to real opcodes,
 but it is not useful for pseudo instructions. Use the new dis.hasarg collection instead.
@@ -770,7 +748,6 @@ Pseudo instruction opcodes (which are used by the compiler but
 do not appear in executable bytecode) are now exposed in the dis module. HAVE_ARGUMENT is still relevant to real opcodes,
 but it is not useful for pseudo instructions. Use the new dis.hasarg collection instead.
 (Contributed by Irit Katriel in gh-94216 .)
-dis
 HAVE_ARGUMENT
 dis.hasarg
 Add the dis.hasexc collection to signify instructions that set
@@ -833,9 +810,6 @@ Add itertools.batched() for collecting into even-sized
 tuples where the last batch may be shorter than the rest.
 (Contributed by Raymond Hettinger in gh-98363 .)
 itertools.batched()
-
-### math
-
 Add math.sumprod() for computing a sum of products.
 (Contributed by Raymond Hettinger in gh-100485 .)
 Add math.sumprod() for computing a sum of products.
@@ -957,9 +931,6 @@ Previously, lookups on Windows Server platforms newer than Windows Server 2012
 and on Windows 11 would return Windows-10 .
 (Contributed by Steve Dower in gh-89545 .)
 Windows-10
-
-### pdb
-
 Add convenience variables to hold values temporarily for debug session
 and provide quick access to values like the current frame or the return
 value.
@@ -1073,9 +1044,6 @@ for computing the Spearman correlation of ranked data.
 (Contributed by Raymond Hettinger in gh-95861 .)
 statistics.correlation()
 ranked
-
-### sys
-
 Add the sys.monitoring namespace to expose the new PEP 669 monitoring API.
 (Contributed by Mark Shannon in gh-103082 .)
 Add the sys.monitoring namespace to expose the new PEP 669 monitoring API.
@@ -1278,9 +1246,6 @@ python3 - m unittest -- durations = 3 lib . tests . test_threading ..... Slowest
 [/CODE]
 
 (Contributed by Giampaolo Rodola in gh-48330 )
-
-### uuid
-
 Add a command-line interface .
 (Contributed by Adam Chhina in gh-88597 .)
 Add a command-line interface .
@@ -1294,7 +1259,6 @@ It reduces object size by 8 or 16 bytes on 64bit platform. ( PEP 623 )
 Remove wstr and wstr_length members from Unicode objects.
 It reduces object size by 8 or 16 bytes on 64bit platform. ( PEP 623 )
 (Contributed by Inada Naoki in gh-92536 .)
-wstr
 wstr_length
 Add experimental support for using the BOLT binary optimizer in the build
 process, which improves performance by 1-5%.
@@ -1448,8 +1412,6 @@ when they are accessed or used, and will be removed in Python 3.14: ast.Num ast.
 ast : The following ast features have been deprecated in documentation since
 Python 3.8, now cause a DeprecationWarning to be emitted at runtime
 when they are accessed or used, and will be removed in Python 3.14:
-ast
-ast
 DeprecationWarning
 ast.Num
 ast.Num
@@ -1539,7 +1501,6 @@ the buffer protocol at runtime. For use in type
 annotations, either use Buffer or a union
 that explicitly specifies the types your code supports (e.g., bytes | bytearray | memoryview ).
 isinstance(obj, collections.abc.Buffer)
-obj
 Buffer
 bytes | bytearray | memoryview
 ByteString was originally intended to be an abstract class that
@@ -1644,7 +1605,6 @@ proper DeprecationWarning in 3.12. Remove them in 3.14.
 pty : The module has two undocumented master_open() and slave_open() functions that have been deprecated since Python 2 but only gained a
 proper DeprecationWarning in 3.12. Remove them in 3.14.
 (Contributed by Soumendra Ganguly and Gregory P. Smith in gh-85984 .)
-pty
 master_open()
 slave_open()
 DeprecationWarning
@@ -1658,7 +1618,6 @@ We added the warning to raise awareness as issues encountered by code doing
 this are becoming more frequent. See the os.fork() documentation for
 more details along with this discussion on fork being incompatible with threads for why we’re now surfacing this
 longstanding platform compatibility problem to developers. When this warning appears due to usage of multiprocessing or concurrent.futures the fix is to use a different multiprocessing start method such as "spawn" or "forkserver" .
-os :
 The st_ctime fields return by os.stat() and os.lstat() on
 Windows are deprecated. In a future release, they will contain the last
 metadata change time, consistent with other platforms. For now, they still
@@ -1730,13 +1689,11 @@ as a sequence will raise a ProgrammingError .
 (Contributed by Erlend E. Aasland in gh-101698 .)
 execute()
 DeprecationWarning
-dict
 ProgrammingError
 sys : The sys.last_type , sys.last_value and sys.last_traceback fields are deprecated. Use sys.last_exc instead.
 (Contributed by Irit Katriel in gh-102778 .)
 sys : The sys.last_type , sys.last_value and sys.last_traceback fields are deprecated. Use sys.last_exc instead.
 (Contributed by Irit Katriel in gh-102778 .)
-sys
 sys.last_type
 sys.last_value
 sys.last_traceback
@@ -1817,8 +1774,6 @@ The bitwise inversion operator ( ~ ) on bool is deprecated. It will throw an
 error in Python 3.16. Use not for logical negation of bools instead.
 In the rare case that you really need the bitwise inversion of the underlying int , convert to int explicitly: ~int(x) . (Contributed by Tim Hoffmann
 in gh-103487 .)
-not
-int
 ~int(x)
 Accessing co_lnotab on code objects was deprecated in
 Python 3.10 via PEP 626 ,
@@ -1836,15 +1791,9 @@ DeprecationWarning
 ### Pending removal in Python 3.13
 
 Modules (see PEP 594 ):
-aifc
-aifc
-aifc
 audioop
 audioop
 audioop
-cgi
-cgi
-cgi
 cgitb
 cgitb
 cgitb
@@ -1863,9 +1812,6 @@ mailcap
 msilib
 msilib
 msilib
-nis
-nis
-nis
 nntplib
 nntplib
 nntplib
@@ -1878,9 +1824,6 @@ pipes
 sndhdr
 sndhdr
 sndhdr
-spwd
-spwd
-spwd
 sunau
 sunau
 sunau
@@ -1942,7 +1885,6 @@ runtime when they are accessed or used, and will be removed in Python 3.14: ast.
 ast : The following features have been deprecated in documentation
 since Python 3.8, now cause a DeprecationWarning to be emitted at
 runtime when they are accessed or used, and will be removed in Python 3.14:
-ast
 DeprecationWarning
 ast.Num
 ast.Num
@@ -2075,7 +2017,6 @@ DeprecationWarning
 importlib.util.find_spec()
 pty : master_open() : use pty.openpty() . slave_open() : use pty.openpty() .
 pty :
-pty
 master_open() : use pty.openpty() .
 master_open() : use pty.openpty() .
 master_open()
@@ -2095,7 +2036,6 @@ execute() and executemany() if named placeholders are used and parameters is a s
 execute() and executemany() if named placeholders are used and parameters is a sequence instead of a dict .
 execute()
 executemany()
-dict
 urllib : urllib.parse.Quoter is deprecated: it was not intended to be a
 public API.
 (Contributed by Gregory P. Smith in gh-88168 .)
@@ -2293,7 +2233,6 @@ since Python 3.13.
 Use class TD(TypedDict): pass or TD = TypedDict("TD", {}) to create a TypedDict with zero field.
 TypedDict
 TD = TypedDict("TD")
-None
 TD = TypedDict("TD", None)
 class TD(TypedDict): pass
 TD = TypedDict("TD", {})
@@ -2312,7 +2251,6 @@ and getmarkers() methods of
 the Wave_read and Wave_write classes
 have been deprecated since Python 3.13.
 wave :
-wave
 The getmark() , setmark() ,
 and getmarkers() methods of
 the Wave_read and Wave_write classes
@@ -2372,9 +2310,7 @@ has been deprecated in documentation since Python 3.3
 and at runtime since Python 3.13.
 Use the 'w' format code ( Py_UCS4 )
 for Unicode characters instead.
-'u'
 wchar_t
-'w'
 Py_UCS4
 asyncio : asyncio.iscoroutinefunction() is deprecated
 and will be removed in Python 3.16;
@@ -2447,7 +2383,6 @@ the underlying integer, convert to int explicitly ( ~int(x) ).
 ~True
 ~False
 not x
-int
 ~int(x)
 functools : Calling the Python implementation of functools.reduce() with function or sequence as keyword arguments has been deprecated since Python 3.14.
 functools :
@@ -2507,7 +2442,6 @@ sys : The _enablelegacywindowsfsencoding() function
 has been deprecated since Python 3.13.
 Use the PYTHONLEGACYWINDOWSFSENCODING environment variable instead.
 sys :
-sys
 The _enablelegacywindowsfsencoding() function
 has been deprecated since Python 3.13.
 Use the PYTHONLEGACYWINDOWSFSENCODING environment variable instead.
@@ -2528,7 +2462,6 @@ The sysconfig.expand_makefile_vars() function
 has been deprecated since Python 3.14.
 Use the vars argument of sysconfig.get_paths() instead.
 sysconfig.expand_makefile_vars()
-vars
 sysconfig.get_paths()
 tarfile : The undocumented and unused TarFile.tarfile attribute
 has been deprecated since Python 3.13.
@@ -2568,7 +2501,6 @@ Use isinstance(obj, collections.abc.Buffer) to test if obj implements the buffer
 in type annotations, either use Buffer or a union
 that explicitly specifies the types your code supports (e.g., bytes | bytearray | memoryview ).
 isinstance(obj, collections.abc.Buffer)
-obj
 Buffer
 bytes | bytearray | memoryview
 ByteString was originally intended to be an abstract class that
@@ -2625,7 +2557,6 @@ Use isinstance(obj, collections.abc.Buffer) to test if obj implements the buffer
 in type annotations, either use Buffer or a union
 that explicitly specifies the types your code supports (e.g., bytes | bytearray | memoryview ).
 isinstance(obj, collections.abc.Buffer)
-obj
 Buffer
 bytes | bytearray | memoryview
 ByteString was originally intended to be an abstract class that
@@ -2699,16 +2630,12 @@ will be changed to a syntax error. ( gh-87999 )
 [0x1for x in y]
 [0x1 for x in y]
 [0x1f or x in y]
-and
-else
-for
 Support for __index__() and __int__() method returning non-int type:
 these methods will be required to return an instance of a strict subclass of int .
 Support for __index__() and __int__() method returning non-int type:
 these methods will be required to return an instance of a strict subclass of int .
 __index__()
 __int__()
-int
 Support for __float__() method returning a strict subclass of float : these methods will be required to return an instance of float .
 Support for __float__() method returning a strict subclass of float : these methods will be required to return an instance of float .
 __float__()
@@ -2785,7 +2712,6 @@ EntryPoints tuple interface.
 EntryPoints
 Implicit None on return values.
 Implicit None on return values.
-None
 logging : the warn() method has been deprecated
 since Python 3.3, use warning() instead.
 logging : the warn() method has been deprecated
@@ -2832,7 +2758,6 @@ rmtree()
 ssl options and protocols: ssl.SSLContext without protocol argument is deprecated. ssl.SSLContext : set_npn_protocols() and selected_npn_protocol() are deprecated: use ALPN
 instead. ssl.OP_NO_SSL* options ssl.OP_NO_TLS* options ssl.PROTOCOL_SSLv3 ssl.PROTOCOL_TLS ssl.PROTOCOL_TLSv1 ssl.PROTOCOL_TLSv1_1 ssl.PROTOCOL_TLSv1_2 ssl.TLSVersion.SSLv3 ssl.TLSVersion.TLSv1 ssl.TLSVersion.TLSv1_1
 ssl options and protocols:
-ssl
 ssl.SSLContext without protocol argument is deprecated.
 ssl.SSLContext without protocol argument is deprecated.
 ssl.SSLContext
@@ -2924,7 +2849,6 @@ that is not None from a test case.
 unittest.IsolatedAsyncioTestCase : it is deprecated to return a value
 that is not None from a test case.
 unittest.IsolatedAsyncioTestCase
-None
 urllib.parse deprecated functions: urlparse() instead splitattr() splithost() splitnport() splitpasswd() splitport() splitquery() splittag() splittype() splituser() splitvalue() to_bytes()
 urllib.parse deprecated functions: urlparse() instead
 urllib.parse
@@ -2974,7 +2898,6 @@ xml.etree.ElementTree : Testing the truth value of an Element is deprecated. In 
 will always return True . Prefer explicit len(elem) or elem is not None tests instead.
 xml.etree.ElementTree
 Element
-True
 len(elem)
 elem is not None
 sys._clear_type_cache() is deprecated:
@@ -3056,7 +2979,6 @@ installed separately (typically, using pip). (Contributed by Pradyun Gedam in gh
 Remove the bundled setuptools wheel from ensurepip ,
 and stop installing setuptools in environments created by venv .
 ensurepip
-venv
 pip (>= 22.1) does not require setuptools to be installed in the
 environment. setuptools -based (and distutils -based) packages
 can still be used with pip install , since pip will provide setuptools in the build environment it uses for building a
@@ -3074,21 +2996,16 @@ easy_install
 pkg_resources
 setuptools
 distutils
-venv
 ensurepip
 setuptools
 setuptools
 (Contributed by Pradyun Gedam in gh-95299 .)
-
-### enum
-
 Remove enum ’s EnumMeta.__getattr__ , which is no longer needed for
 enum attribute access.
 (Contributed by Ethan Furman in gh-95083 .)
 Remove enum ’s EnumMeta.__getattr__ , which is no longer needed for
 enum attribute access.
 (Contributed by Ethan Furman in gh-95083 .)
-enum
 EnumMeta.__getattr__
 
 ### ftplib
@@ -3099,9 +3016,6 @@ Remove ftplib ’s FTP_TLS.ssl_version class attribute: use the context paramete
 (Contributed by Victor Stinner in gh-94172 .)
 ftplib
 FTP_TLS.ssl_version
-
-### gzip
-
 Remove the filename attribute of gzip ’s gzip.GzipFile ,
 deprecated since Python 2.6, use the name attribute
 instead. In write mode, the filename attribute added '.gz' file
@@ -3113,9 +3027,7 @@ instead. In write mode, the filename attribute added '.gz' file
 extension if it was not present.
 (Contributed by Victor Stinner in gh-94196 .)
 filename
-gzip
 gzip.GzipFile
-name
 filename
 '.gz'
 
@@ -3166,19 +3078,13 @@ importlib.abc.Finder , pkgutil.ImpImporter , and pkgutil.ImpLoader have been rem
 importlib.abc.Finder
 pkgutil.ImpImporter
 pkgutil.ImpLoader
-
-### imp
-
 The imp module has been removed.  (Contributed by Barry Warsaw in gh-98040 .) To migrate, consult the following correspondence table: imp importlib imp.NullImporter Insert None into sys.path_importer_cache imp.cache_from_source() importlib.util.cache_from_source() imp.find_module() importlib.util.find_spec() imp.get_magic() importlib.util.MAGIC_NUMBER imp.get_suffixes() importlib.machinery.SOURCE_SUFFIXES , importlib.machinery.EXTENSION_SUFFIXES , and importlib.machinery.BYTECODE_SUFFIXES imp.get_tag() sys.implementation.cache_tag imp.load_module() importlib.import_module() imp.new_module(name) types.ModuleType(name) imp.reload() importlib.reload() imp.source_from_cache() importlib.util.source_from_cache() imp.load_source() See below Replace imp.load_source() with: import importlib.util import importlib.machinery def load_source ( modname , filename ): loader = importlib . machinery . SourceFileLoader ( modname , filename ) spec = importlib . util . spec_from_file_location ( modname , filename , loader = loader ) module = importlib . util . module_from_spec ( spec ) # The module is always executed and not cached in sys.modules. # Uncomment the following line to cache the module. # sys.modules[module.__name__] = module loader . exec_module ( module ) return module
 The imp module has been removed.  (Contributed by Barry Warsaw in gh-98040 .)
-imp
 To migrate, consult the following correspondence table:
-imp
 importlib
 imp.NullImporter
 imp.NullImporter
 Insert None into sys.path_importer_cache
-None
 sys.path_importer_cache
 imp.cache_from_source()
 imp.cache_from_source()
@@ -3231,7 +3137,6 @@ import importlib.util import importlib.machinery def load_source ( modname , fil
 Remove imp functions and attributes with no replacements: Undocumented functions: imp.init_builtin() imp.load_compiled() imp.load_dynamic() imp.load_package() imp.lock_held() , imp.acquire_lock() , imp.release_lock() :
 the locking scheme has changed in Python 3.3 to per-module locks. imp.find_module() constants: SEARCH_ERROR , PY_SOURCE , PY_COMPILED , C_EXTENSION , PY_RESOURCE , PKG_DIRECTORY , C_BUILTIN , PY_FROZEN , PY_CODERESOURCE , IMP_HOOK .
 Remove imp functions and attributes with no replacements:
-imp
 Undocumented functions: imp.init_builtin() imp.load_compiled() imp.load_dynamic() imp.load_package()
 Undocumented functions:
 imp.init_builtin()
@@ -3327,21 +3232,14 @@ cache=shared
 The sqlite3.OptimizedUnicode text factory has been an alias for str since Python 3.3. Code that previously set the text factory to OptimizedUnicode can either use str explicitly, or rely on the
 default value which is also str .
 sqlite3.OptimizedUnicode
-str
 OptimizedUnicode
-str
-str
 (Contributed by Erlend E. Aasland in gh-92548 .)
-
-### ssl
-
 Remove ssl ’s ssl.RAND_pseudo_bytes() function, deprecated in Python 3.6:
 use os.urandom() or ssl.RAND_bytes() instead.
 (Contributed by Victor Stinner in gh-94199 .)
 Remove ssl ’s ssl.RAND_pseudo_bytes() function, deprecated in Python 3.6:
 use os.urandom() or ssl.RAND_bytes() instead.
 (Contributed by Victor Stinner in gh-94199 .)
-ssl
 ssl.RAND_pseudo_bytes()
 os.urandom()
 ssl.RAND_bytes()
@@ -3385,77 +3283,62 @@ failUnless
 failUnless
 assertTrue()
 assertTrue()
-3.1
 failIf
 failIf
 assertFalse()
 assertFalse()
-3.1
 failUnlessEqual
 failUnlessEqual
 assertEqual()
 assertEqual()
-3.1
 failIfEqual
 failIfEqual
 assertNotEqual()
 assertNotEqual()
-3.1
 failUnlessAlmostEqual
 failUnlessAlmostEqual
 assertAlmostEqual()
 assertAlmostEqual()
-3.1
 failIfAlmostEqual
 failIfAlmostEqual
 assertNotAlmostEqual()
 assertNotAlmostEqual()
-3.1
 failUnlessRaises
 failUnlessRaises
 assertRaises()
 assertRaises()
-3.1
 assert_
 assert_
 assertTrue()
 assertTrue()
-3.2
 assertEquals
 assertEquals
 assertEqual()
 assertEqual()
-3.2
 assertNotEquals
 assertNotEquals
 assertNotEqual()
 assertNotEqual()
-3.2
 assertAlmostEquals
 assertAlmostEquals
 assertAlmostEqual()
 assertAlmostEqual()
-3.2
 assertNotAlmostEquals
 assertNotAlmostEquals
 assertNotAlmostEqual()
 assertNotAlmostEqual()
-3.2
 assertRegexpMatches
 assertRegexpMatches
 assertRegex()
 assertRegex()
-3.2
 assertRaisesRegexp
 assertRaisesRegexp
 assertRaisesRegex()
 assertRaisesRegex()
-3.2
 assertNotRegexpMatches
 assertNotRegexpMatches
 assertNotRegex()
 assertNotRegex()
-3.5
 You can use https://github.com/isidentical/teyit to automatically modernise
 your unit tests.
 Undocumented and broken TestCase method assertDictContainsSubset (deprecated in Python 3.2).
@@ -3611,7 +3494,6 @@ exception, rather than reading sys.stdin . The feature was deprecated
 in Python 3.9.
 (Contributed by Victor Stinner in gh-94352 .)
 shlex.split()
-None
 sys.stdin
 The os module no longer accepts bytes-like paths, like bytearray and memoryview types: only the exact bytes type is accepted for bytes strings.
 (Contributed by Victor Stinner in gh-98393 .)
@@ -3709,7 +3591,6 @@ The type attribute of the tokens emitted when tokenizing some invalid Python
 characters such as ! has changed from ERRORTOKEN to OP .
 The type attribute of the tokens emitted when tokenizing some invalid Python
 characters such as ! has changed from ERRORTOKEN to OP .
-type
 ERRORTOKEN
 Incomplete single-line strings now also raise tokenize.TokenError as incomplete
 multiline strings do.
@@ -3740,7 +3621,6 @@ main interpreter.
 threading
 _thread
 _is_main_interpreter
-True
 Any library or application that provides a custom _thread module
 should provide _is_main_interpreter() .
 (See gh-112826 .)
@@ -3781,7 +3661,6 @@ optimization levels (0, 1, 2) at once.
 COMPILEALL_OPTS
 Makefile
 compileall
--j0
 make install
 compileall
 Add platform triplets for 64-bit LoongArch: loongarch64-linux-gnusf loongarch64-linux-gnuf32 loongarch64-linux-gnu (Contributed by Zhang Na in gh-90656 .)
@@ -4013,7 +3892,6 @@ the args passed to the exception’s constructor.
 (Contributed by Mark Shannon in gh-101578 .)
 PyException_GetArgs()
 PyException_SetArgs()
-args
 Add PyErr_DisplayException() , which takes an exception instance,
 to replace the legacy-api PyErr_Display() . (Contributed by
 Irit Katriel in gh-102755 ).
@@ -4028,36 +3906,25 @@ correctly track reference counts and allocated blocks (Contributed by Eddie Eliz
 PEP 683 : Introduce Immortal Objects , which allows objects
 to bypass reference counts, and related changes to the C-API:
 _Py_IMMORTAL_REFCNT : The reference count that defines an object as immortal.
-_Py_IMMORTAL_REFCNT : The reference count that defines an object
 _Py_IMMORTAL_REFCNT
-as immortal.
 as immortal.
 _Py_IsImmortal Checks if an object has the immortal reference count.
 _Py_IsImmortal Checks if an object has the immortal reference count.
 _Py_IsImmortal
 PyObject_HEAD_INIT This will now initialize reference count to _Py_IMMORTAL_REFCNT when used with Py_BUILD_CORE .
-PyObject_HEAD_INIT This will now initialize reference count to
 PyObject_HEAD_INIT
-_Py_IMMORTAL_REFCNT when used with Py_BUILD_CORE .
 _Py_IMMORTAL_REFCNT when used with Py_BUILD_CORE .
 _Py_IMMORTAL_REFCNT
 Py_BUILD_CORE
 SSTATE_INTERNED_IMMORTAL An identifier for interned unicode objects that are immortal.
-SSTATE_INTERNED_IMMORTAL An identifier for interned unicode objects
 SSTATE_INTERNED_IMMORTAL
 that are immortal.
-that are immortal.
 SSTATE_INTERNED_IMMORTAL_STATIC An identifier for interned unicode objects that are immortal and static
-SSTATE_INTERNED_IMMORTAL_STATIC An identifier for interned unicode
 SSTATE_INTERNED_IMMORTAL_STATIC
-objects that are immortal and static
 objects that are immortal and static
 sys.getunicodeinternedsize This returns the total number of unicode objects that have been interned. This is now needed for refleak.py to
 correctly track reference counts and allocated blocks
-sys.getunicodeinternedsize This returns the total number of unicode
 sys.getunicodeinternedsize
-objects that have been interned. This is now needed for refleak.py to
-correctly track reference counts and allocated blocks
 objects that have been interned. This is now needed for refleak.py to
 correctly track reference counts and allocated blocks
 refleak.py
@@ -4106,7 +3973,6 @@ accessing the field directly anyway.  To avoid breakage, consider
 using the existing public C-API instead, or, if necessary, the
 (internal-only) _PyObject_GET_WEAKREFS_LISTPTR() macro.
 tp_weaklist
-NULL
 PyTypeObject
 _PyObject_GET_WEAKREFS_LISTPTR()
 This internal-only PyTypeObject.tp_subclasses may now not be
@@ -4278,7 +4144,6 @@ set its tp_new to NULL using
 the Py_TPFLAGS_DISALLOW_INSTANTIATION flag.
 This makes it acceptable for PyType_From* functions.
 tp_new
-NULL
 Py_TPFLAGS_DISALLOW_INSTANTIATION
 PyType_From*
 Avoid PyType_From* functions: if you don’t need C-specific features
@@ -4595,7 +4460,6 @@ Use PyCodec_Decode() instead; Note that some codecs (for example, “base64”)
 may return a type other than str , such as bytes .
 PyUnicode_AsDecodedUnicode()
 PyCodec_Decode()
-str
 bytes
 PyUnicode_AsEncodedObject() :
 Use PyCodec_Encode() instead.
@@ -4612,7 +4476,6 @@ may return a type other than bytes , such as str .
 PyUnicode_AsEncodedUnicode()
 PyCodec_Encode()
 bytes
-str
 Python initialization functions, deprecated in Python 3.13: Py_GetPath() :
 Use PyConfig_Get("module_search_paths") ( sys.path ) instead. Py_GetPrefix() :
 Use PyConfig_Get("base_prefix") ( sys.base_prefix ) instead. Use PyConfig_Get("prefix") ( sys.prefix ) if virtual environments need to be handled. Py_GetExecPrefix() :

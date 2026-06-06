@@ -191,7 +191,6 @@ since Python 3.13.
 Use class TD(TypedDict): pass or TD = TypedDict("TD", {}) to create a TypedDict with zero field.
 TypedDict
 TD = TypedDict("TD")
-None
 TD = TypedDict("TD", None)
 class TD(TypedDict): pass
 TD = TypedDict("TD", {})
@@ -210,7 +209,6 @@ and getmarkers() methods of
 the Wave_read and Wave_write classes
 have been deprecated since Python 3.13.
 wave :
-wave
 The getmark() , setmark() ,
 and getmarkers() methods of
 the Wave_read and Wave_write classes

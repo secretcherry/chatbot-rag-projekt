@@ -17,8 +17,6 @@ Create event loop, run a coroutine, close the loop.
 Runner
 Runner
 A context manager that simplifies multiple async function calls.
-Task
-Task
 Task object.
 TaskGroup
 TaskGroup
@@ -68,7 +66,6 @@ for in as_completed()
 for in
 as_completed()
 Monitor for completion with a for loop.
-for
 Examples
 Using asyncio.gather() to run things in parallel .
 Using asyncio.gather() to run things in parallel .
@@ -153,8 +150,6 @@ See also the streams APIs documentation.
 ## Synchronization
 
 Threading-like synchronization primitives that can be used in Tasks.
-Lock
-Lock
 A mutex lock.
 Event
 Event

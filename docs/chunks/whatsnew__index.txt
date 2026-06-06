@@ -235,7 +235,6 @@ Optimizations
 Unicode
 Codecs
 Documentation
-IDLE
 Code Repository
 Build and C API Changes
 Porting to Python 3.2
@@ -245,7 +244,6 @@ PEP 378: Format Specifier for Thousands Separator
 Other Language Changes
 New, Improved, and Deprecated Modules
 Optimizations
-IDLE
 Build and C API Changes
 Porting to Python 3.1
 What’s New In Python 3.0 Common Stumbling Blocks Overview Of Syntax Changes Changes Already Present In Python 2.6 Library Changes PEP 3101 : A New Approach To String Formatting Changes To Exceptions Miscellaneous Other Changes Build and C API Changes Performance Porting To Python 3.0

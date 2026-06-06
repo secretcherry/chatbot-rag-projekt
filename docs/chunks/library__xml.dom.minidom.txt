@@ -13,7 +13,6 @@ to be simpler than the full DOM and also significantly smaller.  Users who are
 not already proficient with the DOM should consider using the xml.etree.ElementTree module for their XML processing instead.
 xml.dom.minidom
 xml.etree.ElementTree
-Note
 If you need to parse untrusted or unauthenticated data, see XML security .
 DOM applications typically start by parsing some XML into a DOM.  With xml.dom.minidom , this is done through the parse functions:
 xml.dom.minidom
@@ -24,12 +23,6 @@ from xml.dom.minidom import parse , parseString dom1 = parse ( 'c: \\ temp \\ my
 
 The parse() function can take either a filename or an open file object.
 parse()
-xml.dom.minidom. parse ( filename_or_file , parser = None , bufsize = None )
-Return a Document from the given input. filename_or_file may be
-either a file name, or a file-like object. parser , if given, must be a SAX2
-parser object. This function will change the document handler of the parser and
-activate namespace support; other parser configuration (like setting an entity
-resolver) must have been done in advance.
 Return a Document from the given input. filename_or_file may be
 either a file name, or a file-like object. parser , if given, must be a SAX2
 parser object. This function will change the document handler of the parser and
@@ -39,8 +32,6 @@ Document
 If you have XML in a string, you can use the parseString() function
 instead:
 parseString()
-xml.dom.minidom. parseString ( string , parser = None )
-Return a Document that represents the string . This method creates an io.StringIO object for the string and passes that on to parse() .
 Return a Document that represents the string . This method creates an io.StringIO object for the string and passes that on to parse() .
 Document
 io.StringIO
@@ -88,8 +79,6 @@ unlink()
 unlink()
 xml.dom.minidom
 See also
-Document Object Model (DOM) Level 1 Specification
-The W3C recommendation for the DOM supported by xml.dom.minidom .
 The W3C recommendation for the DOM supported by xml.dom.minidom .
 xml.dom.minidom
 
@@ -98,13 +87,6 @@ xml.dom.minidom
 The definition of the DOM API for Python is given as part of the xml.dom module documentation.  This section lists the differences between the API and xml.dom.minidom .
 xml.dom
 xml.dom.minidom
-Node. unlink ( )
-Break internal references within the DOM so that it will be garbage collected on
-versions of Python without cyclic GC.  Even when cyclic GC is available, using
-this can make large amounts of memory available sooner, so calling this on DOM
-objects as soon as they are no longer needed is good practice.  This only needs
-to be called on the Document object, but may be called on child nodes
-to discard children of that node. You can avoid calling this method explicitly by using the with statement. The following code will automatically unlink dom when the with block is exited: with xml . dom . minidom . parse ( datasource ) as dom : ... # Work with dom.
 Break internal references within the DOM so that it will be garbage collected on
 versions of Python without cyclic GC.  Even when cyclic GC is available, using
 this can make large amounts of memory available sooner, so calling this on DOM
@@ -113,27 +95,11 @@ to be called on the Document object, but may be called on child nodes
 to discard children of that node.
 Document
 You can avoid calling this method explicitly by using the with statement. The following code will automatically unlink dom when the with block is exited:
-with
-with
 
 [CODE]
 with xml . dom . minidom . parse ( datasource ) as dom : ... # Work with dom.
 [/CODE]
 
-Node. writexml ( writer , indent = '' , addindent = '' , newl = '' , encoding = None , standalone = None )
-Write XML to the writer object.  The writer receives texts but not bytes as input,
-it should have a write() method which matches that of the file object
-interface.  The indent parameter is the indentation of the current node.
-The addindent parameter is the incremental indentation to use for subnodes
-of the current one.  The newl parameter specifies the string to use to
-terminate newlines. For the Document node, an additional keyword argument encoding can
-be used to specify the encoding field of the XML header. Similarly, explicitly stating the standalone argument causes the
-standalone document declarations to be added to the prologue of the XML
-document.
-If the value is set to True , standalone="yes" is added,
-otherwise it is set to "no" .
-Not stating the argument will omit the declaration from the document. Changed in version 3.8: The writexml() method now preserves the attribute order specified
-by the user. Changed in version 3.9: The standalone parameter was added.
 Write XML to the writer object.  The writer receives texts but not bytes as input,
 it should have a write() method which matches that of the file object
 interface.  The indent parameter is the indentation of the current node.
@@ -150,22 +116,11 @@ document.
 If the value is set to True , standalone="yes" is added,
 otherwise it is set to "no" .
 Not stating the argument will omit the declaration from the document.
-True
 standalone="yes"
-"no"
 Changed in version 3.8: The writexml() method now preserves the attribute order specified
 by the user.
 writexml()
 Changed in version 3.9: The standalone parameter was added.
-Node. toxml ( encoding = None , standalone = None )
-Return a string or byte string containing the XML represented by
-the DOM node. With an explicit encoding [ 1 ] argument, the result is a byte
-string in the specified encoding.
-With no encoding argument, the result is a Unicode string, and the
-XML declaration in the resulting string does not specify an
-encoding. Encoding this string in an encoding other than UTF-8 is
-likely incorrect, since UTF-8 is the default encoding of XML. The standalone argument behaves exactly as in writexml() . Changed in version 3.8: The toxml() method now preserves the attribute order specified
-by the user. Changed in version 3.9: The standalone parameter was added.
 Return a string or byte string containing the XML represented by
 the DOM node.
 With an explicit encoding [ 1 ] argument, the result is a byte
@@ -180,11 +135,6 @@ Changed in version 3.8: The toxml() method now preserves the attribute order spe
 by the user.
 toxml()
 Changed in version 3.9: The standalone parameter was added.
-Node. toprettyxml ( indent = '\t' , newl = '\n' , encoding = None , standalone = None )
-Return a pretty-printed version of the document. indent specifies the
-indentation string and defaults to a tabulator; newl specifies the string
-emitted at the end of each line and defaults to \n . The encoding argument behaves like the corresponding argument of toxml() . The standalone argument behaves exactly as in writexml() . Changed in version 3.8: The toprettyxml() method now preserves the attribute order specified
-by the user. Changed in version 3.9: The standalone parameter was added.
 Return a pretty-printed version of the document. indent specifies the
 indentation string and defaults to a tabulator; newl specifies the string
 emitted at the end of each line and defaults to \n .
@@ -226,15 +176,12 @@ Operations are used as methods. Since the DOM uses only in parameters, the argum
 There are no optional arguments. void operations return None .
 Operations are used as methods. Since the DOM uses only in parameters, the arguments are passed in normal order (from left to right).
 There are no optional arguments. void operations return None .
-void
-None
 IDL attributes map to instance attributes. For compatibility with the OMG IDL
 language mapping for Python, an attribute foo can also be accessed through
 accessor methods _get_foo() and _set_foo() . readonly attributes must not be changed; this is not enforced at runtime.
 IDL attributes map to instance attributes. For compatibility with the OMG IDL
 language mapping for Python, an attribute foo can also be accessed through
 accessor methods _get_foo() and _set_foo() . readonly attributes must not be changed; this is not enforced at runtime.
-foo
 _get_foo()
 _set_foo()
 readonly
@@ -253,8 +200,6 @@ Values of type DOMString may also be None where allowed to have the IDL null val
 DOMString
 xml.dom.minidom
 DOMString
-None
-null
 const declarations map to variables in their respective scope (e.g. xml.dom.minidom.Node.PROCESSING_INSTRUCTION_NODE ); they must not be changed.
 const declarations map to variables in their respective scope (e.g. xml.dom.minidom.Node.PROCESSING_INSTRUCTION_NODE ); they must not be changed.
 const

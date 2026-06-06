@@ -32,19 +32,12 @@ AbstractEventLoopPolicy
 
 The following functions can be used to get and set the policy
 for the current process:
-asyncio. get_event_loop_policy ( )
-Return the current process-wide policy. Deprecated since version 3.14: The get_event_loop_policy() function is deprecated and
-will be removed in Python 3.16.
 Return the current process-wide policy.
 Deprecated since version 3.14: The get_event_loop_policy() function is deprecated and
 will be removed in Python 3.16.
 get_event_loop_policy()
-asyncio. set_event_loop_policy ( policy )
-Set the current process-wide policy to policy . If policy is set to None , the default policy is restored. Deprecated since version 3.14: The set_event_loop_policy() function is deprecated and
-will be removed in Python 3.16.
 Set the current process-wide policy to policy .
 If policy is set to None , the default policy is restored.
-None
 Deprecated since version 3.14: The set_event_loop_policy() function is deprecated and
 will be removed in Python 3.16.
 set_event_loop_policy()
@@ -52,35 +45,19 @@ set_event_loop_policy()
 ## Policy Objects
 
 The abstract event loop policy base class is defined as follows:
-class asyncio. AbstractEventLoopPolicy
-An abstract base class for asyncio policies. get_event_loop ( ) Get the event loop for the current context. Return an event loop object implementing the AbstractEventLoop interface. This method should never return None . Changed in version 3.6. set_event_loop ( loop ) Set the event loop for the current context to loop . new_event_loop ( ) Create and return a new event loop object. This method should never return None . Deprecated since version 3.14: The AbstractEventLoopPolicy class is deprecated and
-will be removed in Python 3.16.
 An abstract base class for asyncio policies.
-get_event_loop ( )
-Get the event loop for the current context. Return an event loop object implementing the AbstractEventLoop interface. This method should never return None . Changed in version 3.6.
 Get the event loop for the current context.
 Return an event loop object implementing the AbstractEventLoop interface.
 AbstractEventLoop
 This method should never return None .
-None
 Changed in version 3.6.
-set_event_loop ( loop )
 Set the event loop for the current context to loop .
-Set the event loop for the current context to loop .
-new_event_loop ( )
-Create and return a new event loop object. This method should never return None .
 Create and return a new event loop object.
 This method should never return None .
-None
 Deprecated since version 3.14: The AbstractEventLoopPolicy class is deprecated and
 will be removed in Python 3.16.
 AbstractEventLoopPolicy
 asyncio ships with the following built-in policies:
-class asyncio. DefaultEventLoopPolicy
-The default asyncio policy.  Uses SelectorEventLoop on Unix and ProactorEventLoop on Windows. There is no need to install the default policy manually. asyncio
-is configured to use the default policy automatically. Changed in version 3.8: On Windows, ProactorEventLoop is now used by default. Changed in version 3.14: The get_event_loop() method of the default asyncio policy now
-raises a RuntimeError if there is no set event loop. Deprecated since version 3.14: The DefaultEventLoopPolicy class is deprecated and
-will be removed in Python 3.16.
 The default asyncio policy.  Uses SelectorEventLoop on Unix and ProactorEventLoop on Windows.
 SelectorEventLoop
 ProactorEventLoop
@@ -95,18 +72,12 @@ RuntimeError
 Deprecated since version 3.14: The DefaultEventLoopPolicy class is deprecated and
 will be removed in Python 3.16.
 DefaultEventLoopPolicy
-class asyncio. WindowsSelectorEventLoopPolicy
-An alternative event loop policy that uses the SelectorEventLoop event loop implementation. Availability : Windows. Deprecated since version 3.14: The WindowsSelectorEventLoopPolicy class is deprecated and
-will be removed in Python 3.16.
 An alternative event loop policy that uses the SelectorEventLoop event loop implementation.
 SelectorEventLoop
 Availability : Windows.
 Deprecated since version 3.14: The WindowsSelectorEventLoopPolicy class is deprecated and
 will be removed in Python 3.16.
 WindowsSelectorEventLoopPolicy
-class asyncio. WindowsProactorEventLoopPolicy
-An alternative event loop policy that uses the ProactorEventLoop event loop implementation. Availability : Windows. Deprecated since version 3.14: The WindowsProactorEventLoopPolicy class is deprecated and
-will be removed in Python 3.16.
 An alternative event loop policy that uses the ProactorEventLoop event loop implementation.
 ProactorEventLoop
 Availability : Windows.

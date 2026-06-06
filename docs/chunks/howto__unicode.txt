@@ -5,9 +5,6 @@ SOURCE: howto\unicode.html
 
 # Unicode HOWTO
 
-Release :
-1.12
-1.12
 This HOWTO discusses Python’s support for the Unicode specification
 for representing textual data, and explains various problems that
 people commonly encounter when trying to work with Unicode.
@@ -112,7 +109,6 @@ ASCII representation.  Increased RAM usage doesn’t matter too much (desktop
 computers have gigabytes of RAM, and strings aren’t usually that large), but
 expanding our usage of disk and network bandwidth by a factor of 4 is
 intolerable.
-0x00
 It’s not compatible with existing C functions such as strlen() , so a new
 family of wide string functions would need to be used.
 It’s not compatible with existing C functions such as strlen() , so a new
@@ -192,7 +188,6 @@ Unicode features.
 
 Since Python 3.0, the language’s str type contains Unicode
 characters, meaning any string created using "unicode rocks!" , 'unicode rocks!' , or the triple-quoted string syntax is stored as Unicode.
-str
 "unicode rocks!"
 'unicode rocks!'
 The default encoding for Python source code is UTF-8, so you can simply
@@ -233,7 +228,6 @@ U+FFFD
 REPLACEMENT CHARACTER
 'ignore'
 'backslashreplace'
-\xNN
 
 [CODE]
 >>> b ' \x80 abc' . decode ( "utf-8" , "strict" ) Traceback (most recent call last): ... UnicodeDecodeError : 'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte >>> b ' \x80 abc' . decode ( "utf-8" , "replace" ) '\ufffdabc' >>> b ' \x80 abc' . decode ( "utf-8" , "backslashreplace" ) '\\x80abc' >>> b ' \x80 abc' . decode ( "utf-8" , "ignore" ) 'abc'
@@ -324,7 +318,6 @@ The syntax is inspired by Emacs’s notation for specifying variables local to a
 file.  Emacs supports many different variables, but Python only supports
 ‘coding’.  The -*- symbols indicate to Emacs that the comment is special;
 they have no significance to Python but are a convention.  Python looks for coding: name or coding=name in the comment.
--*-
 coding: name
 coding=name
 If you don’t include such a comment, the default encoding used will be UTF-8 as
@@ -364,10 +357,6 @@ from the above output, 'Ll' means ‘Letter, lowercase’, 'No' means
 “Number, other”, 'Mn' is “Mark, nonspacing”, and 'So' is “Symbol,
 other”.  See the General Category Values section of the Unicode Character Database documentation for a
 list of category codes.
-'Ll'
-'No'
-'Mn'
-'So'
 
 ### Comparing Strings
 
@@ -422,7 +411,6 @@ This will print True .  (Why is NFD() invoked twice?  Because
 there are a few characters that make casefold() return a
 non-normalized string, so the result needs to be normalized again. See
 section 3.13 of the Unicode Standard for a discussion and an example.)
-True
 NFD()
 casefold()
 
@@ -433,7 +421,6 @@ either as bytes or strings.  Some of the special character sequences such as \d 
 the pattern is supplied as bytes or a string.  For example, \d will match the characters [0-9] in bytes but
 in strings will match any character that’s in the 'Nd' category.
 [0-9]
-'Nd'
 The string in this example has the number 57 written in both Thai and
 Arabic numerals:
 
@@ -443,10 +430,8 @@ import re p = re . compile ( r '\d+' ) s = "Over \u0e55\u0e57 57 flavours" m = p
 
 When executed, \d+ will match the Thai numerals and print them
 out.  If you supply the re.ASCII flag to compile() , \d+ will match the substring “57” instead.
-\d+
 re.ASCII
 compile()
-\d+
 Similarly, \w matches a wide variety of Unicode characters but
 only [a-zA-Z0-9_] in bytes or if re.ASCII is supplied,
 and \s will match either Unicode whitespace characters or [ \t\n\r\f\v] .
@@ -462,7 +447,6 @@ Processing Text Files in Python 3 , by Nick Coghlan.
 Pragmatic Unicode , a PyCon 2012 presentation by Ned Batchelder.
 Pragmatic Unicode , a PyCon 2012 presentation by Ned Batchelder.
 The str type is described in the Python library reference at Text Sequence Type — str .
-str
 The documentation for the unicodedata module.
 unicodedata
 The documentation for the codecs module.
@@ -545,7 +529,6 @@ UTF-8: Python on MacOS has used UTF-8 for several versions, and Python
 3.6 switched to using UTF-8 on Windows as well.  On Unix systems,
 there will only be a filesystem encoding . if you’ve set the LANG or LC_CTYPE environment variables; if
 you haven’t, the default encoding is again UTF-8.
-LANG
 LC_CTYPE
 The sys.getfilesystemencoding() function returns the encoding to use on
 your current system, in case you want to do the encoding manually, but there’s

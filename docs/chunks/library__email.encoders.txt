@@ -33,33 +33,17 @@ Note that these functions are not meaningful for a multipart message.  They
 must be applied to individual subparts instead, and will raise a TypeError if passed a message whose type is multipart.
 TypeError
 Here are the encoding functions provided:
-email.encoders. encode_quopri ( msg )
-Encodes the payload into quoted-printable form and sets the Content-Transfer-Encoding header to quoted-printable [ 1 ] .
-This is a good encoding to use when most of your payload is normal printable
-data, but contains a few unprintable characters.
 Encodes the payload into quoted-printable form and sets the Content-Transfer-Encoding header to quoted-printable [ 1 ] .
 This is a good encoding to use when most of your payload is normal printable
 data, but contains a few unprintable characters.
 quoted-printable
-email.encoders. encode_base64 ( msg )
-Encodes the payload into base64 form and sets the Content-Transfer-Encoding header to base64 .  This is a good
-encoding to use when most of your payload is unprintable data since it is a more
-compact form than quoted-printable.  The drawback of base64 encoding is that it
-renders the text non-human readable.
 Encodes the payload into base64 form and sets the Content-Transfer-Encoding header to base64 .  This is a good
 encoding to use when most of your payload is unprintable data since it is a more
 compact form than quoted-printable.  The drawback of base64 encoding is that it
 renders the text non-human readable.
 base64
-email.encoders. encode_7or8bit ( msg )
 This doesn’t actually modify the message’s payload, but it does set the Content-Transfer-Encoding header to either 7bit or 8bit as
 appropriate, based on the payload data.
-This doesn’t actually modify the message’s payload, but it does set the Content-Transfer-Encoding header to either 7bit or 8bit as
-appropriate, based on the payload data.
-7bit
-8bit
-email.encoders. encode_noop ( msg )
-This does nothing; it doesn’t even set the Content-Transfer-Encoding header.
 This does nothing; it doesn’t even set the Content-Transfer-Encoding header.
 Footnotes
 Note that encoding with encode_quopri() also encodes all tabs and space

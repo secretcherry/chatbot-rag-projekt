@@ -25,62 +25,28 @@ Source Definition). Historically, most, but not all, Python releases have also
 been GPL-compatible; the table below summarizes the various releases.
 Release
 Derived from
-Year
 Owner
 GPL-compatible? (1)
 0.9.0 thru 1.2
-n/a
 1991-1995
-CWI
-yes
 1.3 thru 1.5.2
-1.2
 1995-1999
-CNRI
-yes
-1.6
 1.5.2
-2000
-CNRI
-2.0
-1.6
-2000
 BeOpen.com
 1.6.1
-1.6
-2001
-CNRI
 yes (2)
-2.1
 2.0+1.6.1
-2001
-PSF
 2.0.1
 2.0+1.6.1
-2001
-PSF
-yes
 2.1.1
 2.1+2.0.1
-2001
-PSF
-yes
 2.1.2
 2.1.1
-2002
-PSF
-yes
 2.1.3
 2.1.2
-2002
-PSF
-yes
 2.2 and above
 2.1.1
 2001-now
-PSF
-yes
-Note
 GPL-compatible doesn’t mean that we’re distributing Python under the GPL.
 All Python licenses, unlike the GPL, let you distribute a modified version
 without making your changes open source. The GPL-compatible licenses make
@@ -680,7 +646,6 @@ of the OpenSSL license here. For the OpenSSL 3.0 release,
 and later releases derived from that, the Apache License v2 applies:
 hashlib
 posix
-ssl
 
 [CODE]
 Apache License
@@ -925,12 +890,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 [/CODE]
 
-### zlib
-
 The zlib extension is built using an included copy of the zlib
 sources if the zlib version found on the system is too old to be
 used for the build:
-zlib
 
 [CODE]
 Copyright (C) 1995-2011 Jean-loup Gailly and Mark Adler
@@ -1040,7 +1002,6 @@ SUCH DAMAGE.
 The C14N 2.0 test suite in the test package
 ( Lib/test/xmltestdata/c14n-20/ ) was retrieved from the W3C website at https://www.w3.org/TR/xml-c14n2-testcases/ and is distributed under the
 3-clause BSD license:
-test
 Lib/test/xmltestdata/c14n-20/
 
 [CODE]

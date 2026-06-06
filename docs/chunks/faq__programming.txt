@@ -9,7 +9,6 @@ SOURCE: faq\programming.html
 
 ### Is there a source code-level debugger with breakpoints and single-stepping?
 
-Yes.
 Several debuggers for Python are described below, and the built-in function breakpoint() allows you to drop into any of them.
 breakpoint()
 The pdb module is a simple but adequate console-mode debugger for Python. It is
@@ -38,7 +37,6 @@ PyCharm
 
 ### Are there tools to help find bugs or perform static analysis?
 
-Yes.
 Ruff , Pylint and Pyflakes do basic checking that will
 help you catch bugs sooner.
 Static type checkers such as mypy , ty , Pyrefly , and pytype can check type hints in Python
@@ -165,7 +163,6 @@ functions), for example:
 This gives you a list that contains 5 lambdas that calculate x**2 .  You
 might expect that, when called, they would return, respectively, 0 , 1 , 4 , 9 , and 16 .  However, when you actually try you will see that
 they all return 16 :
-x**2
 
 [CODE]
 >>> squares [ 2 ]() 16 >>> squares [ 4 ]() 16
@@ -176,7 +173,6 @@ the outer scope, and it is accessed when the lambda is called — not when it
 is defined.  At the end of the loop, the value of x is 4 , so all the
 functions now return 4**2 , that is 16 .  You can also verify this by
 changing the value of x and see how the results of the lambdas change:
-4**2
 
 [CODE]
 >>> x = 8 >>> squares [ 2 ]() 64
@@ -193,7 +189,6 @@ Here, n=x creates a new variable n local to the lambda and computed
 when the lambda is defined so that it has the same value that x had at
 that point in the loop.  This means that the value of n will be 0 in the first lambda, 1 in the second, 2 in the third, and so on.
 Therefore each lambda will now return the correct result:
-n=x
 
 [CODE]
 >>> squares [ 2 ]() 4 >>> squares [ 4 ]() 16
@@ -243,7 +238,6 @@ using multiple imports per line uses less screen space.
 It’s good practice if you import modules in the following order:
 standard library modules – such as sys , os , argparse , re
 standard library modules – such as sys , os , argparse , re
-sys
 argparse
 third-party library modules (anything installed in Python’s site-packages
 directory) – such as dateutil , requests , tzdata
@@ -300,19 +294,14 @@ example, subsequent calls to the function will refer to this changed object.
 By definition, immutable objects such as numbers, strings, tuples, and None ,
 are safe from change. Changes to mutable objects such as dictionaries, lists,
 and class instances can lead to confusion.
-None
 Because of this feature, it is good programming practice to not use mutable
 objects as default values.  Instead, use None as the default value and
 inside the function, check if the parameter is None and create a new
 list/dictionary/whatever if it is.  For example, don’t write:
-None
-None
 
 [CODE]
 def foo ( mydict = {}): ...
 [/CODE]
-
-but:
 
 [CODE]
 def foo ( mydict = None ): if mydict is None : mydict = {} # create a new dict for local namespace
@@ -353,15 +342,12 @@ def func ( foo , bar = None , ** kwargs ): pass
 [/CODE]
 
 foo , bar and kwargs are parameters of func .  However, when calling func , for example:
-func
-func
 
 [CODE]
 func ( 42 , bar = 314 , extra = somevar )
 [/CODE]
 
 the values 42 , 314 , and somevar are arguments.
-314
 somevar
 
 ### Why did changing list ‘y’ also change list ‘x’?
@@ -389,8 +375,6 @@ After the call to append() , the content of the mutable object has
 changed from [] to [10] .  Since both the variables refer to the same
 object, using either name accesses the modified value [10] .
 append()
-[10]
-[10]
 If we instead assign an immutable object to x :
 
 [CODE]
@@ -413,9 +397,7 @@ y.append(10)
 y.sort()
 y = y + [10]
 sorted(y)
-None
 y.sort()
-None
 However, there is one class of operations where the same operation sometimes
 has different behaviors with different types:  the augmented assignment
 operators.  For example, += mutates lists but not tuples or ints ( a_list += [1, 2, 3] is equivalent to a_list.extend([1, 2, 3]) and mutates a_list , whereas some_tuple += (1, 2, 3) and some_int += 1 create
@@ -432,9 +414,6 @@ that refer to it will see the change.
 If we have a mutable object (such as list , dict , set ),
 we can use some specific operations to mutate it and all the variables
 that refer to it will see the change.
-list
-dict
-set
 If we have an immutable object (such as str , int , tuple ),
 all the variables that refer to it will always see the same value,
 but operations that transform that value into a new value always return a new
@@ -443,12 +422,9 @@ If we have an immutable object (such as str , int , tuple ),
 all the variables that refer to it will always see the same value,
 but operations that transform that value into a new value always return a new
 object.
-str
-int
 tuple
 If you want to know if two variables refer to the same object or not, you can
 use the is operator, or the built-in function id() .
-id()
 
 ### How do I write a function with output parameters (call by reference)?
 
@@ -496,7 +472,6 @@ You have two choices: you can use nested scopes or you can use callable objects.
 For example, suppose you wanted to define linear(a,b) which returns a
 function f(x) that computes the value a*x+b .  Using nested scopes:
 linear(a,b)
-f(x)
 a*x+b
 
 [CODE]
@@ -568,7 +543,6 @@ dir(x)
 Generally speaking, it can’t, because objects don’t really have names.
 Essentially, assignment always binds a name to a value; the same is true of def and class statements, but in that case the value is a
 callable. Consider the following code:
-def
 class
 
 [CODE]
@@ -605,8 +579,6 @@ above is evaluated as if you had entered:
 [CODE]
 ( "a" in "b" ), "a"
 [/CODE]
-
-not:
 
 [CODE]
 "a" in ( "b" , "a" )
@@ -709,7 +681,6 @@ ago? -190 % 12 == 2 is useful; -190 % 12 == -10 is a bug waiting to
 bite.
 i % j
 i % j
->= 0
 -190 % 12 == 2
 -190 % 12 == -10
 
@@ -717,7 +688,6 @@ i % j
 
 Trying to lookup an int literal attribute in the normal manner gives
 a SyntaxError because the period is seen as a decimal point:
-int
 SyntaxError
 
 [CODE]
@@ -768,7 +738,6 @@ constructor str() .  If you want a hexadecimal or octal representation, use
 the built-in functions hex() or oct() .  For fancy formatting, see
 the f-strings and Format string syntax sections.
 For example, "{:04d}".format(144) yields '0144' and "{:.3f}".format(1.0/3.0) yields '0.333' .
-144
 '144'
 str()
 hex()
@@ -995,11 +964,9 @@ str and bytes objects are immutable, therefore concatenating
 many strings together is inefficient as each concatenation creates a new
 object.  In the general case, the total runtime cost is quadratic in the
 total string length.
-str
 bytes
 To accumulate many str objects, the recommended idiom is to place
 them into a list and call str.join() at the end:
-str
 str.join()
 
 [CODE]
@@ -1178,7 +1145,6 @@ result = [ obj . method () for obj in mylist ] result = [ function ( obj ) for o
 
 To just run the method or function without saving the return values,
 a plain for loop will suffice:
-for
 
 [CODE]
 for obj in mylist : obj . method () for obj in mylist : function ( obj )
@@ -1192,7 +1158,6 @@ immutable objects in Python.
 This discussion applies in general when augmented assignment operators are
 applied to elements of a tuple that point to mutable objects, but we’ll use
 a list and += as our exemplar.
-list
 If you wrote:
 
 [CODE]
@@ -1268,7 +1233,6 @@ a_tuple[0]
 The technique, attributed to Randal Schwartz of the Perl community, sorts the
 elements of a list by a metric which maps each element to its “sort value”. In
 Python, use the key argument for the list.sort() method:
-key
 list.sort()
 
 [CODE]
@@ -1338,7 +1302,6 @@ registered class even if hasn’t directly or indirectly inherited from it.  To
 test for “true inheritance”, scan the method resolution order (MRO) of
 the class:
 isinstance()
-True
 
 [CODE]
 from collections.abc import Mapping class P : pass class C ( P ): pass Mapping . register ( P )
@@ -1426,10 +1389,8 @@ In the example, super() will automatically determine the instance from
 which it was called (the self value), look up the method resolution
 order (MRO) with type(self).__mro__ , and return the next in line after Derived in the MRO: Base .
 super()
-self
 type(self).__mro__
 Derived
-Base
 
 ### How can I organize my code to make it easier to change the base class?
 
@@ -1464,7 +1425,6 @@ new and unrelated instance named “count” in self ’s own dict.  Rebinding o
 class-static data name must always specify the class whether inside a method or
 not:
 self.count = 42
-self
 
 [CODE]
 C . count = 314
@@ -1539,7 +1499,6 @@ The private name mangling specifications for details and special cases.
 There are several possible reasons for this.
 The del statement does not necessarily call __del__() – it simply
 decrements the object’s reference count, and if this reaches zero __del__() is called.
-del
 __del__()
 __del__()
 If your data structures contain circular links (for example, a tree where each child has
@@ -1581,13 +1540,11 @@ keeping a list of weak references to each instance.
 
 ### Why does the result of id() appear to be not unique?
 
-id()
 The id() builtin returns an integer that is guaranteed to be unique during
 the lifetime of the object.  Since in CPython, this is the object’s memory
 address, it happens frequently that after an object is deleted from memory, the
 next freshly created object is allocated at the same position in memory.  This
 is illustrated by this example:
-id()
 
 [CODE]
 >>> id ( 1000 ) 13901272 >>> id ( 2000 ) 13901272
@@ -1597,7 +1554,6 @@ The two ids belong to different integer objects that are created before, and
 deleted immediately after execution of the id() call.  To be sure that
 objects whose id you want to examine are still alive, create another reference
 to the object:
-id()
 
 [CODE]
 >>> a = 1000 ; b = 2000 >>> id ( a ) 13901272 >>> id ( b ) 13891296
@@ -1614,8 +1570,6 @@ identical to itself, a is a always returns True .  Identity tests are
 usually faster than equality tests.  And unlike equality tests, identity tests
 are guaranteed to return a boolean True or False .
 a is a
-True
-True
 False
 However, identity tests can only be substituted for equality tests when
 object identity is assured.  Generally, there are three circumstances where
@@ -1643,13 +1597,10 @@ guaranteed that a is b because None is a singleton.
 a = None
 b = None
 a is b
-None
 In most other circumstances, identity tests are inadvisable and equality tests
 are preferred.  In particular, identity tests should not be used to check
 constants such as int and str which aren’t guaranteed to be
 singletons:
-int
-str
 
 [CODE]
 >>> a = 10_000_000 >>> b = 5_000_000 >>> c = b + 5_000_000 >>> a is c False >>> a = 'Python' >>> b = 'Py' >>> c = b + 'thon' >>> a is c False
@@ -1669,7 +1620,6 @@ with other objects that may have boolean values that evaluate to false.
 As recommended by PEP 8 , an identity test is the preferred way to check
 for None .  This reads like plain English in code and avoids confusion
 with other objects that may have boolean values that evaluate to false.
-None
 Detecting optional arguments can be tricky when None is a valid input
 value.  In those situations, you can create a singleton sentinel object
 guaranteed to be distinct from other objects.  For example, here is how
@@ -1678,7 +1628,6 @@ Detecting optional arguments can be tricky when None is a valid input
 value.  In those situations, you can create a singleton sentinel object
 guaranteed to be distinct from other objects.  For example, here is how
 to implement a method that behaves like dict.pop() :
-None
 dict.pop()
 
 [CODE]
@@ -1772,17 +1721,11 @@ changed since the current compiled file was created) a .pyc file containing
 the compiled code should be created in a __pycache__ subdirectory of the
 directory containing the .py file.  The .pyc file will have a
 filename that starts with the same name as the .py file, and ends with .pyc , with a middle component that depends on the particular python binary that created it.  (See PEP 3147 for details.)
-.pyc
 __pycache__
-.py
-.pyc
-.py
-.pyc
 python
 One reason that a .pyc file may not be created is a permissions problem
 with the directory containing the source file, meaning that the __pycache__ subdirectory cannot be created. This can happen, for example, if you develop as
 one user but run as another, such as if you are testing with a web server.
-.pyc
 __pycache__
 Unless the PYTHONDONTWRITEBYTECODE environment variable is set,
 creation of a .pyc file is automatic if you’re importing a module and Python
@@ -1791,21 +1734,11 @@ PYTHONDONTWRITEBYTECODE
 __pycache__
 Running Python on a top-level script is not considered an import and no .pyc will be created.  For example, if you have a top-level module foo.py that imports another module xyz.py , when you run foo (by
 typing python foo.py as a shell command), a .pyc will be created for xyz because xyz is imported, but no .pyc file will be created for foo since foo.py isn’t being imported.
-.pyc
 foo.py
 xyz.py
-foo
 python foo.py
-.pyc
-xyz
-xyz
-.pyc
-foo
 foo.py
 If you need to create a .pyc file for foo – that is, to create a .pyc file for a module that is not imported – you can, using the py_compile and compileall modules.
-.pyc
-foo
-.pyc
 py_compile
 compileall
 The py_compile module can manually compile any module.  One way is to use
@@ -1819,7 +1752,6 @@ compile()
 
 This will write the .pyc to a __pycache__ subdirectory in the same
 location as foo.py (or you can override that with the optional parameter cfile ).
-.pyc
 __pycache__
 foo.py
 You can also automatically compile all files in a directory or directories using
@@ -1867,37 +1799,24 @@ from foo import foo_var bar_var = 2
 The problem is that the interpreter will perform the following steps:
 main imports foo
 main imports foo
-foo
 Empty globals for foo are created
 Empty globals for foo are created
-foo
 foo is compiled and starts executing
 foo is compiled and starts executing
-foo
 foo imports bar
 foo imports bar
-foo
-bar
 Empty globals for bar are created
 Empty globals for bar are created
-bar
 bar is compiled and starts executing
 bar is compiled and starts executing
-bar
 bar imports foo (which is a no-op since there already is a module named foo )
 bar imports foo (which is a no-op since there already is a module named foo )
-bar
-foo
-foo
 The import mechanism tries to read foo_var from foo globals, to set bar.foo_var = foo.foo_var
 The import mechanism tries to read foo_var from foo globals, to set bar.foo_var = foo.foo_var
 foo_var
-foo
 bar.foo_var = foo.foo_var
 The last step fails, because Python isn’t done with interpreting foo yet and
 the global symbol dictionary for foo is still empty.
-foo
-foo
 The same thing happens when you use import foo , and then try to access foo.foo_var in global code.
 import foo
 foo.foo_var

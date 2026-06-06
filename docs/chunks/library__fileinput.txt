@@ -23,7 +23,6 @@ replaced by sys.stdin and the optional arguments mode and openhook are ignored. 
 first argument to input() .  A single file name is also allowed.
 sys.argv[1:]
 sys.stdin
-'-'
 sys.stdin
 input()
 All files are opened in text mode by default, but you can override this by
@@ -52,11 +51,6 @@ fileinput.input()
 FileInput()
 hook_compressed()
 The following function is the primary interface of this module:
-fileinput. input ( files = None , inplace = False , backup = '' , * , mode = 'r' , openhook = None , encoding = None , errors = None )
-Create an instance of the FileInput class.  The instance will be used
-as global state for the functions of this module, and is also returned to use
-during iteration.  The parameters to this function will be passed along to the
-constructor of the FileInput class. The FileInput instance can be used as a context manager in the with statement.  In this example, input is closed after the with statement is exited, even if an exception occurs: with fileinput . input ( files = ( 'spam.txt' , 'eggs.txt' ), encoding = "utf-8" ) as f : for line in f : process ( line ) Changed in version 3.2: Can be used as a context manager. Changed in version 3.8: The keyword parameters mode and openhook are now keyword-only. Changed in version 3.10: The keyword-only parameter encoding and errors are added.
 Create an instance of the FileInput class.  The instance will be used
 as global state for the functions of this module, and is also returned to use
 during iteration.  The parameters to this function will be passed along to the
@@ -65,8 +59,6 @@ FileInput
 FileInput
 The FileInput instance can be used as a context manager in the with statement.  In this example, input is closed after the with statement is exited, even if an exception occurs:
 FileInput
-with
-with
 
 [CODE]
 with fileinput . input ( files = ( 'spam.txt' , 'eggs.txt' ), encoding = "utf-8" ) as f : for line in f : process ( line )
@@ -79,70 +71,31 @@ The following functions use the global state created by fileinput.input() ;
 if there is no active state, RuntimeError is raised.
 fileinput.input()
 RuntimeError
-fileinput. filename ( )
 Return the name of the file currently being read.  Before the first line has
 been read, returns None .
-Return the name of the file currently being read.  Before the first line has
-been read, returns None .
-None
-fileinput. fileno ( )
 Return the integer “file descriptor” for the current file. When no file is
 opened (before the first line and between files), returns -1 .
-Return the integer “file descriptor” for the current file. When no file is
-opened (before the first line and between files), returns -1 .
-fileinput. lineno ( )
 Return the cumulative line number of the line that has just been read.  Before
 the first line has been read, returns 0 .  After the last line of the last
 file has been read, returns the line number of that line.
-Return the cumulative line number of the line that has just been read.  Before
-the first line has been read, returns 0 .  After the last line of the last
-file has been read, returns the line number of that line.
-fileinput. filelineno ( )
 Return the line number in the current file.  Before the first line has been
 read, returns 0 .  After the last line of the last file has been read,
 returns the line number of that line within the file.
-Return the line number in the current file.  Before the first line has been
-read, returns 0 .  After the last line of the last file has been read,
-returns the line number of that line within the file.
-fileinput. isfirstline ( )
 Return True if the line just read is the first line of its file, otherwise
 return False .
-Return True if the line just read is the first line of its file, otherwise
-return False .
-True
 False
-fileinput. isstdin ( )
 Return True if the last line was read from sys.stdin , otherwise return False .
-Return True if the last line was read from sys.stdin , otherwise return False .
-True
 sys.stdin
 False
-fileinput. nextfile ( )
 Close the current file so that the next iteration will read the first line from
 the next file (if any); lines not read from the file will not count towards the
 cumulative line count.  The filename is not changed until after the first line
 of the next file has been read.  Before the first line has been read, this
 function has no effect; it cannot be used to skip the first file.  After the
 last line of the last file has been read, this function has no effect.
-Close the current file so that the next iteration will read the first line from
-the next file (if any); lines not read from the file will not count towards the
-cumulative line count.  The filename is not changed until after the first line
-of the next file has been read.  Before the first line has been read, this
-function has no effect; it cannot be used to skip the first file.  After the
-last line of the last file has been read, this function has no effect.
-fileinput. close ( )
-Close the sequence.
 Close the sequence.
 The class which implements the sequence behavior provided by the module is
 available for subclassing as well:
-class fileinput. FileInput ( files = None , inplace = False , backup = '' , * , mode = 'r' , openhook = None , encoding = None , errors = None )
-Class FileInput is the implementation; its methods filename() , fileno() , lineno() , filelineno() , isfirstline() , isstdin() , nextfile() and close() correspond to the
-functions of the same name in the module. In addition it is iterable and has a readline() method which returns the next
-input line. The sequence must be accessed in strictly sequential order;
-random access and readline() cannot be mixed. With mode you can specify which file mode will be passed to open() . It
-must be one of 'r' and 'rb' . The openhook , when given, must be a function that takes two arguments, filename and mode , and returns an accordingly opened file-like object. You
-cannot use inplace and openhook together. You can specify encoding and errors that is passed to open() or openhook . A FileInput instance can be used as a context manager in the with statement.  In this example, input is closed after the with statement is exited, even if an exception occurs: with FileInput ( files = ( 'spam.txt' , 'eggs.txt' )) as input : process ( input ) Changed in version 3.2: Can be used as a context manager. Changed in version 3.8: The keyword parameter mode and openhook are now keyword-only. Changed in version 3.10: The keyword-only parameter encoding and errors are added. Changed in version 3.11: The 'rU' and 'U' modes and the __getitem__() method have
-been removed.
 Class FileInput is the implementation; its methods filename() , fileno() , lineno() , filelineno() , isfirstline() , isstdin() , nextfile() and close() correspond to the
 functions of the same name in the module. In addition it is iterable and has a readline() method which returns the next
 input line. The sequence must be accessed in strictly sequential order;
@@ -161,16 +114,12 @@ readline()
 With mode you can specify which file mode will be passed to open() . It
 must be one of 'r' and 'rb' .
 open()
-'r'
-'rb'
 The openhook , when given, must be a function that takes two arguments, filename and mode , and returns an accordingly opened file-like object. You
 cannot use inplace and openhook together.
 You can specify encoding and errors that is passed to open() or openhook .
 open()
 A FileInput instance can be used as a context manager in the with statement.  In this example, input is closed after the with statement is exited, even if an exception occurs:
 FileInput
-with
-with
 
 [CODE]
 with FileInput ( files = ( 'spam.txt' , 'eggs.txt' )) as input : process ( input )
@@ -181,8 +130,6 @@ Changed in version 3.8: The keyword parameter mode and openhook are now keyword-
 Changed in version 3.10: The keyword-only parameter encoding and errors are added.
 Changed in version 3.11: The 'rU' and 'U' modes and the __getitem__() method have
 been removed.
-'rU'
-'U'
 __getitem__()
 Optional in-place filtering: if the keyword argument inplace=True is
 passed to fileinput.input() or to the FileInput constructor, the
@@ -199,17 +146,11 @@ FileInput
 backup='.<some extension>'
 '.bak'
 The two following opening hooks are provided by this module:
-fileinput. hook_compressed ( filename , mode , * , encoding = None , errors = None )
-Transparently opens files compressed with gzip and bzip2 (recognized by the
-extensions '.gz' and '.bz2' ) using the gzip and bz2 modules.  If the filename extension is not '.gz' or '.bz2' , the file is
-opened normally (ie, using open() without any decompression). The encoding and errors values are passed to io.TextIOWrapper for compressed files and open for normal files. Usage example: fi = fileinput.FileInput(openhook=fileinput.hook_compressed, encoding="utf-8") Changed in version 3.10: The keyword-only parameter encoding and errors are added.
 Transparently opens files compressed with gzip and bzip2 (recognized by the
 extensions '.gz' and '.bz2' ) using the gzip and bz2 modules.  If the filename extension is not '.gz' or '.bz2' , the file is
 opened normally (ie, using open() without any decompression).
 '.gz'
 '.bz2'
-gzip
-bz2
 '.gz'
 '.bz2'
 open()
@@ -218,8 +159,6 @@ io.TextIOWrapper
 Usage example: fi = fileinput.FileInput(openhook=fileinput.hook_compressed, encoding="utf-8")
 fi = fileinput.FileInput(openhook=fileinput.hook_compressed, encoding="utf-8")
 Changed in version 3.10: The keyword-only parameter encoding and errors are added.
-fileinput. hook_encoded ( encoding , errors = None )
-Returns a hook which opens each file with open() , using the given encoding and errors to read the file. Usage example: fi = fileinput.FileInput(openhook=fileinput.hook_encoded("utf-8", "surrogateescape")) Changed in version 3.6: Added the optional errors parameter. Deprecated since version 3.10: This function is deprecated since fileinput.input() and FileInput now have encoding and errors parameters.
 Returns a hook which opens each file with open() , using the given encoding and errors to read the file.
 open()
 Usage example: fi = fileinput.FileInput(openhook=fileinput.hook_encoded("utf-8", "surrogateescape"))

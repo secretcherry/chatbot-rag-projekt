@@ -12,49 +12,26 @@ and adds some new things as well.
 
 The list data type has some more methods. Here are all
 of the methods of list objects:
-list. append ( value , / )
-Add an item to the end of the list.  Similar to a[len(a):] = [x] .
 Add an item to the end of the list.  Similar to a[len(a):] = [x] .
 a[len(a):] = [x]
-list. extend ( iterable , / )
-Extend the list by appending all the items from the iterable.  Similar to a[len(a):] = iterable .
 Extend the list by appending all the items from the iterable.  Similar to a[len(a):] = iterable .
 a[len(a):] = iterable
-list. insert ( index , value , / )
-Insert an item at a given position.  The first argument is the index of the
-element before which to insert, so a.insert(0, x) inserts at the front of
-the list, and a.insert(len(a), x) is equivalent to a.append(x) .
 Insert an item at a given position.  The first argument is the index of the
 element before which to insert, so a.insert(0, x) inserts at the front of
 the list, and a.insert(len(a), x) is equivalent to a.append(x) .
 a.insert(0, x)
 a.insert(len(a), x)
 a.append(x)
-list. remove ( value , / )
-Remove the first item from the list whose value is equal to value .  It raises a ValueError if there is no such item.
 Remove the first item from the list whose value is equal to value .  It raises a ValueError if there is no such item.
 ValueError
-list. pop ( index = -1 , / )
-Remove the item at the given position in the list, and return it.  If no index
-is specified, a.pop() removes and returns the last item in the list.
-It raises an IndexError if the list is empty or the index is
-outside the list range.
 Remove the item at the given position in the list, and return it.  If no index
 is specified, a.pop() removes and returns the last item in the list.
 It raises an IndexError if the list is empty or the index is
 outside the list range.
 a.pop()
 IndexError
-list. clear ( )
-Remove all items from the list.  Similar to del a[:] .
 Remove all items from the list.  Similar to del a[:] .
 del a[:]
-list. index ( value [ , start [ , stop ] ] )
-Return zero-based index of the first occurrence of value in the list.
-Raises a ValueError if there is no such item. The optional arguments start and end are interpreted as in the slice
-notation and are used to limit the search to a particular subsequence of
-the list.  The returned index is computed relative to the beginning of the full
-sequence rather than the start argument.
 Return zero-based index of the first occurrence of value in the list.
 Raises a ValueError if there is no such item.
 ValueError
@@ -62,22 +39,12 @@ The optional arguments start and end are interpreted as in the slice
 notation and are used to limit the search to a particular subsequence of
 the list.  The returned index is computed relative to the beginning of the full
 sequence rather than the start argument.
-list. count ( value , / )
 Return the number of times value appears in the list.
-Return the number of times value appears in the list.
-list. sort ( * , key = None , reverse = False )
-Sort the items of the list in place (the arguments can be used for sort
-customization, see sorted() for their explanation).
 Sort the items of the list in place (the arguments can be used for sort
 customization, see sorted() for their explanation).
 sorted()
-list. reverse ( )
 Reverse the elements of the list in place.
-Reverse the elements of the list in place.
-list. copy ( )
 Return a shallow copy of the list.  Similar to a[:] .
-Return a shallow copy of the list.  Similar to a[:] .
-a[:]
 An example that uses most of the list methods:
 
 [CODE]
@@ -89,8 +56,6 @@ only modify the list have no return value printed – they return the default No
 Python.
 insert
 remove
-sort
-None
 Another thing you might notice is that not all data can be sorted or
 compared.  For instance, [None, 'hello', 10] doesn’t sort because
 integers can’t be compared to strings and None can’t be compared to
@@ -98,7 +63,6 @@ other types.  Also, there are some types that don’t have a defined
 ordering relation.  For example, 3+4j < 5+7j isn’t a valid
 comparison.
 [None, 'hello', 10]
-None
 3+4j < 5+7j
 
 ### 5.1.1. Using Lists as Stacks
@@ -161,9 +125,6 @@ by a for clause, then zero or more for or if clauses.  The result will be a new 
 in the context of the for and if clauses which follow it.
 For example, this listcomp combines the elements of two lists if they are not
 equal:
-for
-for
-for
 
 [CODE]
 >>> [( x , y ) for x in [ 1 , 2 , 3 ] for y in [ 3 , 1 , 4 ] if x != y ] [(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
@@ -177,7 +138,6 @@ and it’s equivalent to:
 
 Note how the order of the for and if statements is the
 same in both these snippets.
-for
 If the expression is a tuple (e.g. the (x, y) in the previous example),
 it must be parenthesized.
 (x, y)
@@ -212,7 +172,6 @@ The following list comprehension will transpose rows and columns:
 As we saw in the previous section, the inner list comprehension is evaluated in
 the context of the for that follows it, so this example is
 equivalent to:
-for
 
 [CODE]
 >>> transposed = [] >>> for i in range ( 4 ): ... transposed . append ([ row [ i ] for row in matrix ]) ... >>> transposed [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
@@ -236,22 +195,18 @@ See Unpacking Argument Lists for details on the asterisk in this line.
 
 ## 5.2. The del statement
 
-del
 There is a way to remove an item from a list given its index instead of its
 value: the del statement.  This differs from the pop() method
 which returns a value.  The del statement can also be used to remove
 slices from a list or clear the entire list (which we did earlier by assignment
 of an empty list to the slice).  For example:
-del
 pop()
-del
 
 [CODE]
 >>> a = [ - 1 , 1 , 66.25 , 333 , 333 , 1234.5 ] >>> del a [ 0 ] >>> a [1, 66.25, 333, 333, 1234.5] >>> del a [ 2 : 4 ] >>> a [1, 66.25, 1234.5] >>> del a [:] >>> a []
 [/CODE]
 
 del can also be used to delete entire variables:
-del
 
 [CODE]
 >>> del a
@@ -259,7 +214,6 @@ del
 
 Referencing the name a hereafter is an error (at least until another value
 is assigned to it).  We’ll find other uses for del later.
-del
 
 ## 5.3. Tuples and Sequences
 
@@ -362,13 +316,11 @@ The main operations on a dictionary are storing a value with some key and
 extracting the value given the key.  It is also possible to delete a key:value
 pair with del . If you store using a key that is already in use, the old
 value associated with that key is forgotten.
-del
 Extracting a value for a non-existent key by subscripting ( d[key] ) raises a KeyError . To avoid getting this error when trying to access a possibly
 non-existent key, use the get() method instead, which returns None (or a specified default value) if the key is not in the dictionary.
 d[key]
 KeyError
 get()
-None
 Performing list(d) on a dictionary returns a list of all the keys
 used in the dictionary, in insertion order (if you want it sorted, just use sorted(d) instead). To check whether a single key is in the
 dictionary, use the in keyword.
@@ -480,16 +432,12 @@ the outcome of a comparison (or of any other Boolean expression) may be negated
 with not .  These have lower priorities than comparison operators; between
 them, not has the highest priority and or the lowest, so that A and not B or C is equivalent to (A and (not B)) or C . As always, parentheses
 can be used to express the desired composition.
-and
-not
-not
 A and not B or C
 (A and (not B)) or C
 The Boolean operators and and or are so-called short-circuit operators: their arguments are evaluated from left to right, and evaluation
 stops as soon as the outcome is determined.  For example, if A and C are
 true but B is false, A and B and C does not evaluate the expression C .  When used as a general value and not as a Boolean, the return value of a
 short-circuit operator is the last evaluated argument.
-and
 A and B and C
 It is possible to assign the result of a comparison or other Boolean expression
 to a variable.  For example,

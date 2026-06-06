@@ -42,7 +42,6 @@ shutil
 
 The glob module provides a function for making file lists from directory
 wildcard searches:
-glob
 
 [CODE]
 >>> import glob >>> glob . glob ( '*.py' ) ['primes.py', 'random.py', 'quote.py']
@@ -53,7 +52,6 @@ glob
 Common utility scripts often need to process command line arguments. These
 arguments are stored in the sys module’s argv attribute as a list.  For
 instance, let’s take the following demo.py file:
-sys
 demo.py
 
 [CODE]
@@ -88,7 +86,6 @@ args.filenames
 The sys module also has attributes for stdin , stdout , and stderr .
 The latter is useful for emitting warnings and error messages to make them
 visible even when stdout has been redirected:
-sys
 
 [CODE]
 >>> sys . stderr . write ( 'Warning, log file not found starting a new one \n ' ) Warning, log file not found starting a new one
@@ -118,7 +115,6 @@ they are easier to read and debug:
 
 The math module gives access to the underlying C library functions for
 floating-point math:
-math
 
 [CODE]
 >>> import math >>> math . cos ( math . pi / 4 ) 0.70710678118654757 >>> math . log ( 1024 , 2 ) 10.0
@@ -173,10 +169,6 @@ datetime
 
 Common data archiving and compression formats are directly supported by modules
 including: zlib , gzip , bz2 , lzma , zipfile and tarfile .
-zlib
-gzip
-bz2
-lzma
 zipfile
 tarfile
 
@@ -269,8 +261,6 @@ commonly supported by databases and spreadsheets.  XML processing is
 supported by the xml.etree.ElementTree , xml.dom and xml.sax packages. Together, these modules and packages
 greatly simplify data interchange between Python applications and
 other tools.
-json
-csv
 xml.etree.ElementTree
 xml.dom
 xml.sax

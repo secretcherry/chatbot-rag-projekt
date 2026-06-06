@@ -5,18 +5,11 @@ SOURCE: howto\mro.html
 
 # The Python 2.3 Method Resolution Order
 
-Note
 This is a historical document, provided as an appendix to the official
 documentation.
 The Method Resolution Order discussed here was introduced in Python 2.3,
 but it is still used in later versions – including Python 3.
 By Michele Simionato .
-Abstract :
-This document is intended for Python programmers who want to
-understand the C3 Method Resolution Order used in Python 2.3.
-Although it is not intended for newbies, it is quite pedagogical with
-many worked out examples.  I am not aware of other publicly available
-documents with the same scope, therefore it should be useful.
 This document is intended for Python programmers who want to
 understand the C3 Method Resolution Order used in Python 2.3.
 Although it is not intended for newbies, it is quite pedagogical with

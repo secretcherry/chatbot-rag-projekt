@@ -15,20 +15,9 @@ information about object constructors which are not classes.
 Such constructors may be factory functions or class instances.
 copyreg
 pickle
-copy
-copyreg. constructor ( object )
-Declares object to be a valid constructor.  If object is not callable (and
-hence not valid as a constructor), raises TypeError .
 Declares object to be a valid constructor.  If object is not callable (and
 hence not valid as a constructor), raises TypeError .
 TypeError
-copyreg. pickle ( type , function , constructor_ob = None )
-Declares that function should be used as a “reduction” function for objects
-of type type . function must return either a string or a tuple
-containing between two and six elements. See the dispatch_table for more details on the interface of function . The constructor_ob parameter is a legacy feature and is now ignored, but if
-passed it must be a callable. Note that the dispatch_table attribute of a pickler
-object or subclass of pickle.Pickler can also be used for
-declaring reduction functions.
 Declares that function should be used as a “reduction” function for objects
 of type type . function must return either a string or a tuple
 containing between two and six elements. See the dispatch_table for more details on the interface of function .

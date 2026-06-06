@@ -7,7 +7,6 @@ SOURCE: library\asyncio-extending.html
 
 The main direction for asyncio extending is writing custom event loop classes. Asyncio has helpers that could be used to simplify this task.
 asyncio
-Note
 Third-parties should reuse existing asyncio code with caution,
 a new Python version is free to break backward compatibility
 in internal part of API.
@@ -42,12 +41,8 @@ asyncio.create_task()
 However, third-party event loops may reuse built-in future and task implementations
 for the sake of getting a complex and highly optimized code for free.
 For this purpose the following, private constructors are listed:
-Future. __init__ ( * , loop = None )
-Create a built-in future instance. loop is an optional event loop instance.
 Create a built-in future instance.
 loop is an optional event loop instance.
-Task. __init__ ( coro , * , loop = None , name = None , context = None )
-Create a built-in task instance. loop is an optional event loop instance. The rest of arguments are described in loop.create_task() description. Changed in version 3.11: context argument is added.
 Create a built-in task instance.
 loop is an optional event loop instance. The rest of arguments are described in loop.create_task() description.
 loop.create_task()
@@ -59,24 +54,15 @@ A third party task implementation should call the following functions to keep a 
 visible by asyncio.all_tasks() and asyncio.current_task() :
 asyncio.all_tasks()
 asyncio.current_task()
-asyncio. _register_task ( task )
-Register a new task as managed by asyncio . Call the function from a task constructor.
 Register a new task as managed by asyncio .
 Call the function from a task constructor.
-asyncio. _unregister_task ( task )
-Unregister a task from asyncio internal structures. The function should be called when a task is about to finish.
 Unregister a task from asyncio internal structures.
 The function should be called when a task is about to finish.
-asyncio. _enter_task ( loop , task )
-Switch the current task to the task argument. Call the function just before executing a portion of embedded coroutine ( coroutine.send() or coroutine.throw() ).
 Switch the current task to the task argument.
 Call the function just before executing a portion of embedded coroutine ( coroutine.send() or coroutine.throw() ).
 coroutine.send()
 coroutine.throw()
-asyncio. _leave_task ( loop , task )
-Switch the current task back from task to None . Call the function just after coroutine.send() or coroutine.throw() execution.
 Switch the current task back from task to None .
-None
 Call the function just after coroutine.send() or coroutine.throw() execution.
 coroutine.send()
 coroutine.throw()

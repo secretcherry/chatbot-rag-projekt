@@ -11,12 +11,8 @@ queues, and enumerations.
 Python also provides some built-in data types, in particular, dict , list , set and frozenset , and tuple .  The str class is used to hold
 Unicode strings, and the bytes and bytearray classes are used
 to hold binary data.
-dict
-list
-set
 frozenset
 tuple
-str
 bytes
 bytearray
 The following modules are documented in this chapter:
@@ -32,17 +28,13 @@ timedelta
 Examples of usage: timedelta
 timedelta
 date objects Examples of usage: date
-date
 Examples of usage: date
-date
 datetime objects Examples of usage: datetime
 datetime
 Examples of usage: datetime
 datetime
 time objects Examples of usage: time
-time
 Examples of usage: time
-time
 tzinfo objects
 tzinfo
 timezone objects
@@ -133,7 +125,6 @@ Standard Interpreter Types
 Additional Utility Classes and Functions
 Coroutine Utility Functions
 copy — Shallow and deep copy operations
-copy
 pprint — Data pretty printer Functions PrettyPrinter Objects Example
 pprint
 Functions
@@ -145,7 +136,6 @@ repr()
 Repr Objects
 Subclassing Repr Objects
 enum — Support for enumerations Module contents Data types Supported __dunder__ names Supported _sunder_ names Utilities and decorators Notes
-enum
 Module contents
 Data types Supported __dunder__ names Supported _sunder_ names
 Supported __dunder__ names

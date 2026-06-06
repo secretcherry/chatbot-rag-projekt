@@ -19,7 +19,6 @@ Relationship to other Python modules Comparison with marshal Comparison with jso
 Comparison with marshal
 marshal
 Comparison with json
-json
 Data stream format
 Module Interface
 What can be pickled and unpickled?
@@ -47,7 +46,6 @@ Example
 marshal — Internal Python object serialization
 marshal
 dbm — Interfaces to Unix “databases” dbm.sqlite3 — SQLite backend for dbm dbm.gnu — GNU database manager dbm.ndbm — New Database Manager dbm.dumb — Portable DBM implementation
-dbm
 dbm.sqlite3 — SQLite backend for dbm
 dbm.sqlite3
 dbm.gnu — GNU database manager

@@ -16,19 +16,15 @@ The PYTHONPATH environment variable is often used to add directories
 to the search path. If this environment variable is found then the contents are
 added to the module search path.
 PYTHONPATH
-Note
 PYTHONPATH will affect all installed Python versions/environments.
 Be wary of setting this in your shell profile or global environment variables.
 The site module offers more nuanced techniques as mentioned below.
 PYTHONPATH
-site
 The next items added are the directories containing standard Python modules as
 well as any extension module s that these modules depend on. Extension
 modules are .pyd files on Windows and .so files on other platforms. The
 directory with the platform-independent Python modules is called prefix .
 The directory with the extension modules is called exec_prefix .
-.pyd
-.so
 prefix
 exec_prefix
 The PYTHONHOME environment variable may be used to set the prefix and exec_prefix locations. Otherwise these directories are found by using
@@ -39,7 +35,6 @@ executable location is called home .
 PYTHONHOME
 prefix
 exec_prefix
-home
 Once home is determined, the prefix directory is found by first looking
 for python majorversion minorversion .zip ( python311.zip ). On Windows
 the zip archive is searched for in home and on Unix the archive is expected
@@ -49,12 +44,9 @@ Python on Windows will continue the search for prefix by looking for Lib\os.py .
 Python on Unix will look for lib/python majorversion . minorversion /os.py ( lib/python3.11/os.py ). On Windows prefix and exec_prefix are the same,
 however on other platforms lib/python majorversion . minorversion /lib-dynload ( lib/python3.11/lib-dynload ) is searched for and used as an anchor for exec_prefix . On some platforms lib may be lib64 or another value,
 see sys.platlibdir and PYTHONPLATLIBDIR .
-home
 prefix
 python majorversion minorversion .zip
 python311.zip
-home
-lib
 prefix
 Lib\os.py
 lib/python majorversion . minorversion /os.py
@@ -64,7 +56,6 @@ exec_prefix
 lib/python majorversion . minorversion /lib-dynload
 lib/python3.11/lib-dynload
 exec_prefix
-lib
 lib64
 sys.platlibdir
 PYTHONPLATLIBDIR
@@ -88,12 +79,9 @@ Finally, the site module is processed and site-packages directories
 are added to the module search path. A common way to customize the search path is
 to create sitecustomize or usercustomize modules as described in
 the site module documentation.
-site
 site-packages
 sitecustomize
 usercustomize
-site
-Note
 Certain command line options may further affect path calculations.
 See -E , -I , -s and -S for further details.
 Changed in version 3.14: sys.prefix and sys.exec_prefix are now set to the pyvenv.cfg directory during the path initialization. This was previously
@@ -101,7 +89,6 @@ done by site , therefore affected by -S .
 sys.prefix
 sys.exec_prefix
 pyvenv.cfg
-site
 
 ## Virtual Environments
 
@@ -119,21 +106,15 @@ sys.base_exec_prefix
 As well as being used as a marker to identify virtual environments, pyvenv.cfg may also be used to configure the site initialization.
 Please refer to site ’s virtual environments documentation .
 pyvenv.cfg
-site
-site
-Note
 PYTHONHOME overrides the pyvenv.cfg detection.
 PYTHONHOME
 pyvenv.cfg
-Note
 There are other ways how “virtual environments” could be implemented, this
 documentation refers implementations based on the pyvenv.cfg mechanism,
 such as venv . Most virtual environment implementations follow the
 model set by venv , but there may be exotic implementations that
 diverge from it.
 pyvenv.cfg
-venv
-venv
 
 ## _pth files
 
@@ -156,13 +137,9 @@ file specifies import site . Blank paths and lines starting with # are
 ignored. Each path may be absolute or relative to the location of the file.
 Import statements other than to site are not permitted, and arbitrary code
 cannot be specified.
-site
 import site
-site
 Note that .pth files (without leading underscore) will be processed normally
 by the site module when import site has been specified.
-.pth
-site
 import site
 
 ## Embedded Python

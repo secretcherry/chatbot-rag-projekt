@@ -17,17 +17,9 @@ In the event that the latest version of Python doesn’t come preinstalled and i
 in the repositories as well, you can make packages for your own distro.  Have a
 look at the following links:
 See also
-https://www.debian.org/doc/manuals/maint-guide/first.en.html
 for Debian users
-for Debian users
-https://en.opensuse.org/Portal:Packaging
 for OpenSuse users
-for OpenSuse users
-https://docs.fedoraproject.org/en-US/package-maintainers/Packaging_Tutorial_GNU_Hello/
 for Fedora users
-for Fedora users
-https://slackbook.org/html/package-management-making-packages.html
-for Slackware users
 for Slackware users
 
 #### 2.1.1.1. Installing IDLE
@@ -123,7 +115,6 @@ may be the same.
 prefix
 exec_prefix
 For example, on most Linux systems, the default for both is /usr .
-/usr
 File/directory
 Meaning
 exec_prefix /bin/python3
@@ -160,7 +151,6 @@ usually
 
 which searches for the Python interpreter in the whole PATH .  However,
 some Unices may not have the env command, so you may need to hardcode /usr/bin/python3 as the interpreter path.
-PATH
 /usr/bin/python3
 To use shell commands in your Python scripts, look at the subprocess module.
 subprocess
@@ -176,7 +166,6 @@ the directory with openssl.cnf file or symlink in /etc . On most
 distribution the file is either in /etc/ssl or /etc/pki/tls . The
 directory should also contain a cert.pem file and/or a certs directory.
 openssl.cnf
-/etc
 /etc/ssl
 /etc/pki/tls
 cert.pem
@@ -210,7 +199,6 @@ Build Python with custom OpenSSL
 $ pushd python-3.x.x $ ./configure -C \ --with-openssl = /usr/local/custom-openssl \ --with-openssl-rpath = auto \ --prefix = /usr/local/python-3.x.x $ make -j8 $ make altinstall
 [/CODE]
 
-Note
 Patch releases of OpenSSL have a backwards compatible ABI. You don’t need
 to recompile Python to update OpenSSL. It’s sufficient to replace the
 custom OpenSSL installation with a newer version.

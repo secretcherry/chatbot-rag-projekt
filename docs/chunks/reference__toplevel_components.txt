@@ -19,9 +19,7 @@ built-in and standard modules are available, but none have been initialized,
 except for sys (various system services), builtins (built-in
 functions, exceptions and None ) and __main__ .  The latter is used to
 provide the local and global namespace for execution of the complete program.
-sys
 builtins
-None
 __main__
 The syntax for a complete Python program is that for file input, described in
 the next section.

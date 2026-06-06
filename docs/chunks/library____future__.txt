@@ -45,45 +45,25 @@ feature
 optional in
 mandatory in
 effect
-__future__. nested_scopes
 2.1.0b1
-2.2
 PEP 227 : Statically Nested Scopes
-__future__. generators
 2.2.0a1
-2.3
 PEP 255 : Simple Generators
-__future__. division
 2.2.0a2
-3.0
 PEP 238 : Changing the Division Operator
-__future__. absolute_import
 2.5.0a1
-3.0
 PEP 328 : Imports: Multi-Line and Absolute/Relative
-__future__. with_statement
 2.5.0a1
-2.6
 PEP 343 : The “with” Statement
-__future__. print_function
 2.6.0a2
-3.0
 PEP 3105 : Make print a function
-__future__. unicode_literals
 2.6.0a2
-3.0
 PEP 3112 : Bytes literals in Python 3000
-__future__. generator_stop
 3.5.0b1
-3.7
 PEP 479 : StopIteration handling inside generators
-__future__. annotations
 3.7.0b1
 Never [ 1 ]
 PEP 563 : Postponed evaluation of annotations , PEP 649 : Deferred evaluation of annotations using descriptors
-class __future__. _Feature
-Each statement in __future__.py is of the form: FeatureName = _Feature ( OptionalRelease , MandatoryRelease , CompilerFlag ) where, normally, OptionalRelease is less than MandatoryRelease , and both are
-5-tuples of the same form as sys.version_info : ( PY_MAJOR_VERSION , # the 2 in 2.1.0a3; an int PY_MINOR_VERSION , # the 1; an int PY_MICRO_VERSION , # the 0; an int PY_RELEASE_LEVEL , # "alpha", "beta", "candidate" or "final"; string PY_RELEASE_SERIAL # the 3; an int )
 Each statement in __future__.py is of the form:
 __future__.py
 
@@ -99,15 +79,7 @@ sys.version_info
 ( PY_MAJOR_VERSION , # the 2 in 2.1.0a3; an int PY_MINOR_VERSION , # the 1; an int PY_MICRO_VERSION , # the 0; an int PY_RELEASE_LEVEL , # "alpha", "beta", "candidate" or "final"; string PY_RELEASE_SERIAL # the 3; an int )
 [/CODE]
 
-_Feature. getOptionalRelease ( )
 OptionalRelease records the first release in which the feature was accepted.
-OptionalRelease records the first release in which the feature was accepted.
-_Feature. getMandatoryRelease ( )
-In the case of a MandatoryRelease that has not yet occurred, MandatoryRelease predicts the release in which the feature will become part of
-the language. Else MandatoryRelease records when the feature became part of the language; in
-releases at or after that, modules no longer need a future statement to use the
-feature in question, but may continue to use such imports. MandatoryRelease may also be None , meaning that a planned feature got
-dropped or that it is not yet decided.
 In the case of a MandatoryRelease that has not yet occurred, MandatoryRelease predicts the release in which the feature will become part of
 the language.
 Else MandatoryRelease records when the feature became part of the language; in
@@ -115,11 +87,6 @@ releases at or after that, modules no longer need a future statement to use the
 feature in question, but may continue to use such imports.
 MandatoryRelease may also be None , meaning that a planned feature got
 dropped or that it is not yet decided.
-None
-_Feature. compiler_flag
-CompilerFlag is the (bitfield) flag that should be passed in the fourth
-argument to the built-in function compile() to enable the feature in
-dynamically compiled code.  This flag is stored in the _Feature.compiler_flag attribute on _Feature instances.
 CompilerFlag is the (bitfield) flag that should be passed in the fourth
 argument to the built-in function compile() to enable the feature in
 dynamically compiled code.  This flag is stored in the _Feature.compiler_flag attribute on _Feature instances.
@@ -131,9 +98,5 @@ become mandatory in Python 3.10, but the change was delayed and ultimately
 canceled. This feature will eventually be deprecated and removed. See PEP 649 and PEP 749 .
 from __future__ import annotations
 See also
-Future statements
 How the compiler treats future imports.
-How the compiler treats future imports.
-PEP 236 - Back to the __future__
-The original proposal for the __future__ mechanism.
 The original proposal for the __future__ mechanism.

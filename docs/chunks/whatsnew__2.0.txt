@@ -5,8 +5,6 @@ SOURCE: whatsnew\2.0.html
 
 # What’s New in Python 2.0
 
-Author :
-A.M. Kuchling and Moshe Zadka
 A.M. Kuchling and Moshe Zadka
 
 ## Introduction
@@ -130,7 +128,6 @@ characters up to U+01FF, which is represented by \777 .
 u"string"
 \u HHHH
 \x HH
-\777
 Unicode strings, just like regular strings, are an immutable sequence type.
 They can be indexed and sliced, but not modified in place. Unicode strings have
 an encode( [encoding] ) method that returns an 8-bit string in the desired
@@ -186,7 +183,6 @@ The exec statement, and various built-ins such as eval() , getattr() , and setat
 regular strings.  (It’s possible that the process of fixing this missed some
 built-ins; if you find a built-in function that accepts strings but doesn’t
 accept Unicode strings at all, please report it as a bug.)
-exec
 eval()
 getattr()
 setattr()
@@ -302,7 +298,6 @@ more clearly in the following paragraphs.  The elements of the generated list
 will be the successive values of expression .  The final if clause
 is optional; if present, expression is only evaluated and added to the result
 if condition is true.
-for
 To make the semantics very clear, a list comprehension is equivalent to the
 following Python code:
 
@@ -313,7 +308,6 @@ for expr1 in sequence1 : for expr2 in sequence2 : ... for exprN in sequenceN : i
 This means that when there are multiple for … in clauses, the resulting list will be equal to the product of the lengths of all
 the sequences.  If you have two lists of length 3, the output list is 9 elements
 long:
-for
 
 [CODE]
 seq1 = 'abc' seq2 = ( 1 , 2 , 3 ) >>> [ ( x , y ) for x in seq1 for y in seq2 ] [( 'a' , 1 ), ( 'a' , 2 ), ( 'a' , 3 ), ( 'b' , 1 ), ( 'b' , 2 ), ( 'b' , 3 ), ( 'c' , 1 ), ( 'c' , 2 ), ( 'c' , 3 )]
@@ -345,9 +339,6 @@ The full list of supported assignment operators is += , -= , *= , /= , %= , **= 
 classes can override the augmented assignment operators by defining methods
 named __iadd__() , __isub__() , etc.  For example, the following Number class stores a number and supports using += to create a new
 instance with an incremented value.
-**=
->>=
-<<=
 __iadd__()
 __isub__()
 Number
@@ -484,7 +475,6 @@ same effect.  This syntax is symmetrical with the syntax for defining
 functions:
 apply()
 apply(f, args, kw)
-f()
 apply()
 f(*args, **kw)
 
@@ -544,7 +534,6 @@ implementation, and some useful relevant links.    Note that comparisons can now
 also raise exceptions. In earlier versions of Python, a comparison operation
 such as cmp(a,b) would always produce an answer, even if a user-defined __cmp__() method encountered an error, since the resulting exception would
 simply be silently swallowed.
-a==b
 cmp(a,b)
 __cmp__()
 Work has been done on porting Python to 64-bit Windows on the Itanium processor,
@@ -590,7 +579,6 @@ zip()
 zip()
 map(None, seq1, seq2)
 map()
-None
 zip()
 The int() and long() functions now accept an optional “base”
 parameter when the first argument is a string. int('123', 10) returns 123,
@@ -603,7 +591,6 @@ int('123', 16)
 int(123, 16)
 TypeError
 A new variable holding more detailed version information has been added to the sys module. sys.version_info is a tuple (major, minor, micro, level, serial) For example, in a hypothetical 2.0.1beta1, sys.version_info would be (2, 0, 1, 'beta', 1) . level is a string such as "alpha" , "beta" , or "final" for a final release.
-sys
 sys.version_info
 (major, minor, micro, level, serial)
 sys.version_info
@@ -683,7 +670,6 @@ The \x escape in string literals now takes exactly 2 hex digits.  Previously
 it would consume all the hex digits following the ‘x’ and take the lowest 8 bits
 of the result, so \x123456 was equivalent to \x56 .
 \x123456
-\x56
 The AttributeError and NameError exceptions have a more friendly
 error message, whose text will be something like 'Spam' instance has no attribute 'eggs' or name 'eggs' is not defined .  Previously the error
 message was just the missing attribute name eggs , and code written to take
@@ -692,7 +678,6 @@ AttributeError
 NameError
 'Spam' instance has no attribute 'eggs'
 name 'eggs' is not defined
-eggs
 Some work has been done to make integers and long integers a bit more
 interchangeable.  In 1.5.2, large-file support was added for Solaris, to allow
 reading files larger than 2 GiB; this made the tell() method of file
@@ -785,7 +770,6 @@ Recent versions of the GUSI development environment for MacOS support POSIX
 threads.  Therefore, Python’s POSIX threading support now works on the
 Macintosh.  Threading support using the user-space GNU pth library was also
 contributed.
-pth
 Threading support on Windows was enhanced, too.  Windows supports thread locks
 that use kernel objects only in case of contention; in the common case when
 there’s no contention, they use simpler functions which are an order of
@@ -870,7 +854,6 @@ Debian packages and Solaris .pkg files are in various stages of
 development.
 python setup.py sdist
 foo-1.0.tar.gz
-.pkg
 All this is documented in a new manual, Distributing Python Modules , that
 joins the basic set of Python documentation.
 
@@ -887,7 +870,6 @@ code for complete details. The Python XML SIG is also working on improved
 documentation.
 xmllib
 xmllib
-xml
 
 ### SAX2 Support
 
@@ -949,12 +931,9 @@ common methods, such as toxml() which returns a string containing the XML
 representation of the node and its children.  Each class also has special
 methods of its own; for example, Element and Document instances have a method to find all child elements with a given tag name.
 Continuing from the previous 2-line example:
-doc
 Document
 Document
 Element
-Text
-Node
 toxml()
 Element
 Document
@@ -979,7 +958,6 @@ root = doc . documentElement # Remove the first child root . removeChild ( root 
 
 Again, I will refer you to the Python documentation for a complete listing of
 the different Node classes and their various methods.
-Node
 
 ### Relationship to PyXML
 
@@ -988,8 +966,6 @@ while.  Its code distribution, called PyXML, is available from the SIG’s web
 pages at https://www.python.org/community/sigs/current/xml-sig . The PyXML distribution also used
 the package name xml .  If you’ve written programs that used PyXML, you’re
 probably wondering about its compatibility with the 2.0 xml package.
-xml
-xml
 The answer is that Python 2.0’s xml package isn’t compatible with PyXML,
 but can be made compatible by installing a recent version PyXML.  Many
 applications can get by with the XML support that is included with Python 2.0,
@@ -997,8 +973,6 @@ but more complicated applications will require that the full PyXML package will
 be installed.  When installed, PyXML versions 0.6.0 or greater will replace the xml package shipped with Python, and will be a strict superset of the
 standard package, adding a bunch of additional features.  Some of the additional
 features in PyXML include:
-xml
-xml
 4DOM, a full DOM implementation from FourThought, Inc.
 4DOM, a full DOM implementation from FourThought, Inc.
 The xmlproc validating parser, written by Lars Marius Garshol.
@@ -1014,14 +988,11 @@ library; some of the affected modules include readline , ConfigParser , cgi , ca
 and nntplib .  Consult the CVS logs for the exact patch-by-patch details.
 readline
 ConfigParser
-cgi
 calendar
 posix
 readline
 xmllib
-aifc
 chunk
-wave
 random
 shelve
 nntplib
@@ -1096,7 +1067,6 @@ MacMillan and Moshe Zadka.)
 filecmp : Supersedes the old cmp , cmpcache and dircmp modules, which have now become deprecated. (Contributed by Gordon
 MacMillan and Moshe Zadka.)
 filecmp
-cmp
 cmpcache
 dircmp
 gettext : This module provides internationalization (I18N) and
@@ -1125,7 +1095,6 @@ mmap : An interface to memory-mapped files on both Windows and Unix.  A
 file’s contents can be mapped directly into memory, at which point it behaves
 like a mutable string, so its contents can be read and modified.  They can even
 be passed to functions that expect ordinary strings, such as the re module. (Contributed by Sam Rushing, with some extensions by A.M. Kuchling.)
-mmap
 pyexpat : An interface to the Expat XML parser. (Contributed by Paul
 Prescod.)
 pyexpat : An interface to the Expat XML parser. (Contributed by Paul
@@ -1187,7 +1156,6 @@ are archives produced by PKZIP on DOS/Windows or zip on
 Unix, not to be confused with gzip -format files (which are
 supported by the gzip module) (Contributed by James C. Ahlstrom.)
 zipfile
-gzip
 imputil : A module that provides a simpler way for writing customized
 import hooks, in comparison to the existing ihooks module.  (Implemented
 by Greg Stein, with much discussion on python-dev along the way.)
@@ -1242,17 +1210,10 @@ stdwin
 A number of modules have been moved to the lib-old subdirectory: cmp , cmpcache , dircmp , dump , find , grep , packmail , poly , util , whatsound , zmod .  If you have code which relies on a module  that’s been moved to lib-old , you can simply add that directory to sys.path to get them
 back, but you’re encouraged to update any code that uses these modules.
 lib-old
-cmp
 cmpcache
 dircmp
-dump
-find
-grep
 packmail
-poly
-util
 whatsound
-zmod
 lib-old
 sys.path
 

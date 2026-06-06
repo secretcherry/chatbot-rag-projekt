@@ -5,10 +5,8 @@ SOURCE: library\dbm.html
 
 # dbm — Interfaces to Unix “databases”
 
-dbm
 Source code: Lib/dbm/__init__.py
 dbm is a generic interface to variants of the DBM database:
-dbm
 dbm.sqlite3
 dbm.sqlite3
 dbm.sqlite3
@@ -23,19 +21,11 @@ slow-but-simple implementation in module dbm.dumb will be used.  There
 is a third party interface to
 the Oracle Berkeley DB.
 dbm.dumb
-exception dbm. error
-A tuple containing the exceptions that can be raised by each of the supported
-modules, with a unique exception also named dbm.error as the first
-item — the latter is used when dbm.error is raised.
 A tuple containing the exceptions that can be raised by each of the supported
 modules, with a unique exception also named dbm.error as the first
 item — the latter is used when dbm.error is raised.
 dbm.error
 dbm.error
-dbm. whichdb ( filename )
-This function attempts to guess which of the several simple database modules
-available — dbm.sqlite3 , dbm.gnu , dbm.ndbm ,
-or dbm.dumb — should be used to open a given file. Return one of the following values: None if the file can’t be opened because it’s unreadable or doesn’t exist the empty string ( '' ) if the file’s format can’t be guessed a string containing the required module name, such as 'dbm.ndbm' or 'dbm.gnu' Changed in version 3.11: filename accepts a path-like object .
 This function attempts to guess which of the several simple database modules
 available — dbm.sqlite3 , dbm.gnu , dbm.ndbm ,
 or dbm.dumb — should be used to open a given file.
@@ -46,7 +36,6 @@ dbm.dumb
 Return one of the following values:
 None if the file can’t be opened because it’s unreadable or doesn’t exist
 None if the file can’t be opened because it’s unreadable or doesn’t exist
-None
 the empty string ( '' ) if the file’s format can’t be guessed
 the empty string ( '' ) if the file’s format can’t be guessed
 a string containing the required module name, such as 'dbm.ndbm' or 'dbm.gnu'
@@ -54,17 +43,7 @@ a string containing the required module name, such as 'dbm.ndbm' or 'dbm.gnu'
 'dbm.ndbm'
 'dbm.gnu'
 Changed in version 3.11: filename accepts a path-like object .
-dbm. open ( file , flag = 'r' , mode = 0o666 )
-Open a database and return the corresponding database object. Parameters : file ( path-like object ) – The database file to open. If the database file already exists, the whichdb() function is used to
-determine its type and the appropriate module is used; if it does not exist,
-the first submodule listed above that can be imported is used. flag ( str ) – 'r' (default): Open existing database for reading only. 'w' : Open existing database for reading and writing. 'c' : Open database for reading and writing, creating it if it doesn’t exist. 'n' : Always create a new, empty database, open for reading and writing. mode ( int ) – The Unix file access mode of the file (default: octal 0o666 ),
-used only when the database has to be created. Changed in version 3.11: file accepts a path-like object .
 Open a database and return the corresponding database object.
-Parameters :
-file ( path-like object ) – The database file to open. If the database file already exists, the whichdb() function is used to
-determine its type and the appropriate module is used; if it does not exist,
-the first submodule listed above that can be imported is used. flag ( str ) – 'r' (default): Open existing database for reading only. 'w' : Open existing database for reading and writing. 'c' : Open database for reading and writing, creating it if it doesn’t exist. 'n' : Always create a new, empty database, open for reading and writing. mode ( int ) – The Unix file access mode of the file (default: octal 0o666 ),
-used only when the database has to be created.
 file ( path-like object ) – The database file to open. If the database file already exists, the whichdb() function is used to
 determine its type and the appropriate module is used; if it does not exist,
 the first submodule listed above that can be imported is used.
@@ -80,16 +59,12 @@ flag ( str ) – 'r' (default): Open existing database for reading only. 'w' : O
 flag ( str ) – 'r' (default): Open existing database for reading only. 'w' : Open existing database for reading and writing. 'c' : Open database for reading and writing, creating it if it doesn’t exist. 'n' : Always create a new, empty database, open for reading and writing.
 'r' (default): Open existing database for reading only.
 'r' (default): Open existing database for reading only.
-'r'
 'w' : Open existing database for reading and writing.
 'w' : Open existing database for reading and writing.
-'w'
 'c' : Open database for reading and writing, creating it if it doesn’t exist.
 'c' : Open database for reading and writing, creating it if it doesn’t exist.
-'c'
 'n' : Always create a new, empty database, open for reading and writing.
 'n' : Always create a new, empty database, open for reading and writing.
-'n'
 mode ( int ) – The Unix file access mode of the file (default: octal 0o666 ),
 used only when the database has to be created.
 mode ( int ) – The Unix file access mode of the file (default: octal 0o666 ),
@@ -115,11 +90,9 @@ being stored.
 bytes
 These objects also support being used in a with statement, which
 will automatically close them when done.
-with
 Changed in version 3.2: get() and setdefault() methods are now available for all dbm backends.
 get()
 setdefault()
-dbm
 Changed in version 3.4: Added native support for the context management protocol to the objects
 returned by open() .
 open()
@@ -128,7 +101,6 @@ instead of KeyError .
 KeyError
 Changed in version 3.13: clear() methods are now available for all dbm backends.
 clear()
-dbm
 The following example records some hostnames and a corresponding title,  and
 then prints out the contents of the database:
 
@@ -137,9 +109,7 @@ import dbm # Open database, creating it if necessary. with dbm . open ( 'cache' 
 [/CODE]
 
 See also
-Module shelve
 shelve
-Persistence module which stores non-string data.
 Persistence module which stores non-string data.
 The individual submodules are described in the following sections.
 
@@ -153,37 +123,23 @@ SQLite backend for the dbm module.
 The files created by dbm.sqlite3 can thus be opened by sqlite3 ,
 or any other SQLite browser, including the SQLite CLI.
 sqlite3
-dbm
 dbm.sqlite3
 sqlite3
 Availability : not WASI.
 This module does not work or is not available on WebAssembly. See WebAssembly platforms for more information.
-dbm.sqlite3. open ( filename , / , flag = 'r' , mode = 0o666 )
-Open an SQLite database. Parameters : filename ( path-like object ) – The path to the database to be opened. flag ( str ) – 'r' (default): Open existing database for reading only. 'w' : Open existing database for reading and writing. 'c' : Open database for reading and writing, creating it if it doesn’t exist. 'n' : Always create a new, empty database, open for reading and writing. mode – The Unix file access mode of the file (default: octal 0o666 ),
-used only when the database has to be created. The returned database object behaves similar to a mutable mapping ,
-but the keys() method returns a list, and
-the setdefault() method requires two arguments.
-It also supports a “closing” context manager via the with keyword. The following method is also provided: sqlite3. close ( ) Close the SQLite database.
 Open an SQLite database.
-Parameters :
-filename ( path-like object ) – The path to the database to be opened. flag ( str ) – 'r' (default): Open existing database for reading only. 'w' : Open existing database for reading and writing. 'c' : Open database for reading and writing, creating it if it doesn’t exist. 'n' : Always create a new, empty database, open for reading and writing. mode – The Unix file access mode of the file (default: octal 0o666 ),
-used only when the database has to be created.
 filename ( path-like object ) – The path to the database to be opened.
 filename ( path-like object ) – The path to the database to be opened.
 flag ( str ) – 'r' (default): Open existing database for reading only. 'w' : Open existing database for reading and writing. 'c' : Open database for reading and writing, creating it if it doesn’t exist. 'n' : Always create a new, empty database, open for reading and writing.
 flag ( str ) – 'r' (default): Open existing database for reading only. 'w' : Open existing database for reading and writing. 'c' : Open database for reading and writing, creating it if it doesn’t exist. 'n' : Always create a new, empty database, open for reading and writing.
 'r' (default): Open existing database for reading only.
 'r' (default): Open existing database for reading only.
-'r'
 'w' : Open existing database for reading and writing.
 'w' : Open existing database for reading and writing.
-'w'
 'c' : Open database for reading and writing, creating it if it doesn’t exist.
 'c' : Open database for reading and writing, creating it if it doesn’t exist.
-'c'
 'n' : Always create a new, empty database, open for reading and writing.
 'n' : Always create a new, empty database, open for reading and writing.
-'n'
 mode – The Unix file access mode of the file (default: octal 0o666 ),
 used only when the database has to be created.
 mode – The Unix file access mode of the file (default: octal 0o666 ),
@@ -195,10 +151,7 @@ the setdefault() method requires two arguments.
 It also supports a “closing” context manager via the with keyword.
 keys()
 setdefault()
-with
 The following method is also provided:
-sqlite3. close ( )
-Close the SQLite database.
 Close the SQLite database.
 
 ## dbm.gnu — GNU database manager
@@ -209,7 +162,6 @@ The dbm.gnu module provides an interface to the GDBM library, similar to the dbm
 functionality like crash tolerance.
 dbm.gnu
 dbm.ndbm
-Note
 The file formats created by dbm.gnu and dbm.ndbm are incompatible
 and can not be used interchangeably.
 dbm.gnu
@@ -217,46 +169,13 @@ dbm.ndbm
 Availability : not Android, not iOS, not WASI.
 This module is not supported on mobile platforms or WebAssembly platforms .
 Availability : Unix.
-exception dbm.gnu. error
-Raised on dbm.gnu -specific errors, such as I/O errors. KeyError is
-raised for general mapping errors like specifying an incorrect key.
 Raised on dbm.gnu -specific errors, such as I/O errors. KeyError is
 raised for general mapping errors like specifying an incorrect key.
 dbm.gnu
 KeyError
-dbm.gnu. open_flags
-A string of characters the flag parameter of open() supports.
 A string of characters the flag parameter of open() supports.
 open()
-dbm.gnu. open ( filename , flag = 'r' , mode = 0o666 , / )
-Open a GDBM database and return a gdbm object. Parameters : filename ( path-like object ) – The database file to open. flag ( str ) – 'r' (default): Open existing database for reading only. 'w' : Open existing database for reading and writing. 'c' : Open database for reading and writing, creating it if it doesn’t exist. 'n' : Always create a new, empty database, open for reading and writing. The following additional characters may be appended
-to control how the database is opened: 'f' : Open the database in fast mode.
-Writes to the database will not be synchronized. 's' : Synchronized mode.
-Changes to the database will be written immediately to the file. 'u' : Do not lock database. Not all flags are valid for all versions of GDBM.
-See the open_flags member for a list of supported flag characters. mode ( int ) – The Unix file access mode of the file (default: octal 0o666 ),
-used only when the database has to be created. Raises : error – If an invalid flag argument is passed. Changed in version 3.11: filename accepts a path-like object . gdbm objects behave similar to mutable mappings ,
-but methods items() , values() , pop() , popitem() ,
-and update() are not supported,
-the keys() method returns a list, and
-the setdefault() method requires two arguments.
-It also supports a “closing” context manager via the with keyword. Changed in version 3.2: Added the get() and setdefault() methods. Changed in version 3.13: Added the clear() method. The following methods are also provided: gdbm. close ( ) Close the GDBM database. gdbm. firstkey ( ) It’s possible to loop over every key in the database using this method  and the nextkey() method.  The traversal is ordered by GDBM’s internal
-hash values, and won’t be sorted by the key values.  This method returns
-the starting key. gdbm. nextkey ( key ) Returns the key that follows key in the traversal.  The following code prints
-every key in the database db , without having to create a list in memory that
-contains them all: k = db . firstkey () while k is not None : print ( k ) k = db . nextkey ( k ) gdbm. reorganize ( ) If you have carried out a lot of deletions and would like to shrink the space
-used by the GDBM file, this routine will reorganize the database. gdbm objects will not shorten the length of a database file except by using this
-reorganization; otherwise, deleted file space will be kept and reused as new
-(key, value) pairs are added. gdbm. sync ( ) When the database has been opened in fast mode, this method forces any
-unwritten data to be written to the disk.
 Open a GDBM database and return a gdbm object.
-gdbm
-Parameters :
-filename ( path-like object ) – The database file to open. flag ( str ) – 'r' (default): Open existing database for reading only. 'w' : Open existing database for reading and writing. 'c' : Open database for reading and writing, creating it if it doesn’t exist. 'n' : Always create a new, empty database, open for reading and writing. The following additional characters may be appended
-to control how the database is opened: 'f' : Open the database in fast mode.
-Writes to the database will not be synchronized. 's' : Synchronized mode.
-Changes to the database will be written immediately to the file. 'u' : Do not lock database. Not all flags are valid for all versions of GDBM.
-See the open_flags member for a list of supported flag characters. mode ( int ) – The Unix file access mode of the file (default: octal 0o666 ),
-used only when the database has to be created.
 filename ( path-like object ) – The database file to open.
 filename ( path-like object ) – The database file to open.
 flag ( str ) – 'r' (default): Open existing database for reading only. 'w' : Open existing database for reading and writing. 'c' : Open database for reading and writing, creating it if it doesn’t exist. 'n' : Always create a new, empty database, open for reading and writing. The following additional characters may be appended
@@ -271,31 +190,24 @@ Changes to the database will be written immediately to the file. 'u' : Do not lo
 See the open_flags member for a list of supported flag characters.
 'r' (default): Open existing database for reading only.
 'r' (default): Open existing database for reading only.
-'r'
 'w' : Open existing database for reading and writing.
 'w' : Open existing database for reading and writing.
-'w'
 'c' : Open database for reading and writing, creating it if it doesn’t exist.
 'c' : Open database for reading and writing, creating it if it doesn’t exist.
-'c'
 'n' : Always create a new, empty database, open for reading and writing.
 'n' : Always create a new, empty database, open for reading and writing.
-'n'
 The following additional characters may be appended
 to control how the database is opened:
 'f' : Open the database in fast mode.
 Writes to the database will not be synchronized.
 'f' : Open the database in fast mode.
 Writes to the database will not be synchronized.
-'f'
 's' : Synchronized mode.
 Changes to the database will be written immediately to the file.
 's' : Synchronized mode.
 Changes to the database will be written immediately to the file.
-'s'
 'u' : Do not lock database.
 'u' : Do not lock database.
-'u'
 Not all flags are valid for all versions of GDBM.
 See the open_flags member for a list of supported flag characters.
 open_flags
@@ -304,8 +216,6 @@ used only when the database has to be created.
 mode ( int ) – The Unix file access mode of the file (default: octal 0o666 ),
 used only when the database has to be created.
 0o666
-Raises :
-error – If an invalid flag argument is passed.
 error – If an invalid flag argument is passed.
 Changed in version 3.11: filename accepts a path-like object .
 gdbm objects behave similar to mutable mappings ,
@@ -314,7 +224,6 @@ and update() are not supported,
 the keys() method returns a list, and
 the setdefault() method requires two arguments.
 It also supports a “closing” context manager via the with keyword.
-gdbm
 items()
 values()
 pop()
@@ -322,28 +231,17 @@ popitem()
 update()
 keys()
 setdefault()
-with
 Changed in version 3.2: Added the get() and setdefault() methods.
 get()
 setdefault()
 Changed in version 3.13: Added the clear() method.
 clear()
 The following methods are also provided:
-gdbm. close ( )
 Close the GDBM database.
-Close the GDBM database.
-gdbm. firstkey ( )
-It’s possible to loop over every key in the database using this method  and the nextkey() method.  The traversal is ordered by GDBM’s internal
-hash values, and won’t be sorted by the key values.  This method returns
-the starting key.
 It’s possible to loop over every key in the database using this method  and the nextkey() method.  The traversal is ordered by GDBM’s internal
 hash values, and won’t be sorted by the key values.  This method returns
 the starting key.
 nextkey()
-gdbm. nextkey ( key )
-Returns the key that follows key in the traversal.  The following code prints
-every key in the database db , without having to create a list in memory that
-contains them all: k = db . firstkey () while k is not None : print ( k ) k = db . nextkey ( k )
 Returns the key that follows key in the traversal.  The following code prints
 every key in the database db , without having to create a list in memory that
 contains them all:
@@ -352,19 +250,10 @@ contains them all:
 k = db . firstkey () while k is not None : print ( k ) k = db . nextkey ( k )
 [/CODE]
 
-gdbm. reorganize ( )
 If you have carried out a lot of deletions and would like to shrink the space
 used by the GDBM file, this routine will reorganize the database. gdbm objects will not shorten the length of a database file except by using this
 reorganization; otherwise, deleted file space will be kept and reused as new
 (key, value) pairs are added.
-If you have carried out a lot of deletions and would like to shrink the space
-used by the GDBM file, this routine will reorganize the database. gdbm objects will not shorten the length of a database file except by using this
-reorganization; otherwise, deleted file space will be kept and reused as new
-(key, value) pairs are added.
-gdbm
-gdbm. sync ( )
-When the database has been opened in fast mode, this method forces any
-unwritten data to be written to the disk.
 When the database has been opened in fast mode, this method forces any
 unwritten data to be written to the disk.
 
@@ -375,7 +264,6 @@ Source code: Lib/dbm/ndbm.py
 The dbm.ndbm module provides an interface to the NDBM library.
 This module can be used with the “classic” NDBM interface or the GDBM compatibility interface.
 dbm.ndbm
-Note
 The file formats created by dbm.gnu and dbm.ndbm are incompatible
 and can not be used interchangeably.
 dbm.gnu
@@ -388,51 +276,26 @@ result in a hard crash (segmentation fault).
 Availability : not Android, not iOS, not WASI.
 This module is not supported on mobile platforms or WebAssembly platforms .
 Availability : Unix.
-exception dbm.ndbm. error
-Raised on dbm.ndbm -specific errors, such as I/O errors. KeyError is raised
-for general mapping errors like specifying an incorrect key.
 Raised on dbm.ndbm -specific errors, such as I/O errors. KeyError is raised
 for general mapping errors like specifying an incorrect key.
 dbm.ndbm
 KeyError
-dbm.ndbm. library
 Name of the NDBM implementation library used.
-Name of the NDBM implementation library used.
-dbm.ndbm. open ( filename , flag = 'r' , mode = 0o666 , / )
-Open an NDBM database and return an ndbm object. Parameters : filename ( path-like object ) – The basename of the database file
-(without the .dir or .pag extensions). flag ( str ) – 'r' (default): Open existing database for reading only. 'w' : Open existing database for reading and writing. 'c' : Open database for reading and writing, creating it if it doesn’t exist. 'n' : Always create a new, empty database, open for reading and writing. mode ( int ) – The Unix file access mode of the file (default: octal 0o666 ),
-used only when the database has to be created. Changed in version 3.11: Accepts path-like object for filename. ndbm objects behave similar to mutable mappings ,
-but methods items() , values() , pop() , popitem() ,
-and update() are not supported,
-the keys() method returns a list, and
-the setdefault() method requires two arguments.
-It also supports a “closing” context manager via the with keyword. Changed in version 3.2: Added the get() and setdefault() methods. Changed in version 3.13: Added the clear() method. The following method is also provided: ndbm. close ( ) Close the NDBM database.
 Open an NDBM database and return an ndbm object.
-ndbm
-Parameters :
-filename ( path-like object ) – The basename of the database file
-(without the .dir or .pag extensions). flag ( str ) – 'r' (default): Open existing database for reading only. 'w' : Open existing database for reading and writing. 'c' : Open database for reading and writing, creating it if it doesn’t exist. 'n' : Always create a new, empty database, open for reading and writing. mode ( int ) – The Unix file access mode of the file (default: octal 0o666 ),
-used only when the database has to be created.
 filename ( path-like object ) – The basename of the database file
 (without the .dir or .pag extensions).
 filename ( path-like object ) – The basename of the database file
 (without the .dir or .pag extensions).
-.dir
-.pag
 flag ( str ) – 'r' (default): Open existing database for reading only. 'w' : Open existing database for reading and writing. 'c' : Open database for reading and writing, creating it if it doesn’t exist. 'n' : Always create a new, empty database, open for reading and writing.
 flag ( str ) – 'r' (default): Open existing database for reading only. 'w' : Open existing database for reading and writing. 'c' : Open database for reading and writing, creating it if it doesn’t exist. 'n' : Always create a new, empty database, open for reading and writing.
 'r' (default): Open existing database for reading only.
 'r' (default): Open existing database for reading only.
-'r'
 'w' : Open existing database for reading and writing.
 'w' : Open existing database for reading and writing.
-'w'
 'c' : Open database for reading and writing, creating it if it doesn’t exist.
 'c' : Open database for reading and writing, creating it if it doesn’t exist.
-'c'
 'n' : Always create a new, empty database, open for reading and writing.
 'n' : Always create a new, empty database, open for reading and writing.
-'n'
 mode ( int ) – The Unix file access mode of the file (default: octal 0o666 ),
 used only when the database has to be created.
 mode ( int ) – The Unix file access mode of the file (default: octal 0o666 ),
@@ -445,7 +308,6 @@ and update() are not supported,
 the keys() method returns a list, and
 the setdefault() method requires two arguments.
 It also supports a “closing” context manager via the with keyword.
-ndbm
 items()
 values()
 pop()
@@ -453,61 +315,36 @@ popitem()
 update()
 keys()
 setdefault()
-with
 Changed in version 3.2: Added the get() and setdefault() methods.
 get()
 setdefault()
 Changed in version 3.13: Added the clear() method.
 clear()
 The following method is also provided:
-ndbm. close ( )
-Close the NDBM database.
 Close the NDBM database.
 
 ## dbm.dumb — Portable DBM implementation
 
 dbm.dumb
 Source code: Lib/dbm/dumb.py
-Note
 The dbm.dumb module is intended as a last resort fallback for the dbm module when a more robust module is not available. The dbm.dumb module is not written for speed and is not nearly as heavily used as the other
 database modules.
 dbm.dumb
-dbm
 dbm.dumb
 The dbm.dumb module provides a persistent dict -like
 interface which is written entirely in Python.
 Unlike other dbm backends, such as dbm.gnu , no
 external library is required.
 dbm.dumb
-dict
-dbm
 dbm.gnu
 The dbm.dumb module defines the following:
 dbm.dumb
-exception dbm.dumb. error
-Raised on dbm.dumb -specific errors, such as I/O errors. KeyError is
-raised for general mapping errors like specifying an incorrect key.
 Raised on dbm.dumb -specific errors, such as I/O errors. KeyError is
 raised for general mapping errors like specifying an incorrect key.
 dbm.dumb
 KeyError
-dbm.dumb. open ( filename , flag = 'c' , mode = 0o666 )
-Open a dbm.dumb database. Parameters : filename – The basename of the database file (without extensions).
-A new database creates the following files: filename .dat filename .dir flag ( str ) – 'r' : Open existing database for reading only. 'w' : Open existing database for reading and writing. 'c' (default): Open database for reading and writing, creating it if it doesn’t exist. 'n' : Always create a new, empty database, open for reading and writing. mode ( int ) – The Unix file access mode of the file (default: octal 0o666 ),
-used only when the database has to be created. Warning It is possible to crash the Python interpreter when loading a database
-with a sufficiently large/complex entry due to stack depth limitations in
-Python’s AST compiler. Changed in version 3.5: open() always creates a new database when flag is 'n' . Changed in version 3.8: A database opened read-only if flag is 'r' .
-A database is not created if it does not exist if flag is 'r' or 'w' . Changed in version 3.11: filename accepts a path-like object . The returned database object behaves similar to a mutable mapping ,
-but the keys() and items() methods return lists, and
-the setdefault() method requires two arguments.
-It also supports a “closing” context manager via the with keyword. The following methods are also provided: dumbdbm. close ( ) Close the database. dumbdbm. sync ( ) Synchronize the on-disk directory and data files.  This method is called
-by the shelve.Shelf.sync() method.
 Open a dbm.dumb database.
 dbm.dumb
-Parameters :
-filename – The basename of the database file (without extensions).
-A new database creates the following files: filename .dat filename .dir flag ( str ) – 'r' : Open existing database for reading only. 'w' : Open existing database for reading and writing. 'c' (default): Open database for reading and writing, creating it if it doesn’t exist. 'n' : Always create a new, empty database, open for reading and writing. mode ( int ) – The Unix file access mode of the file (default: octal 0o666 ),
-used only when the database has to be created.
 filename – The basename of the database file (without extensions).
 A new database creates the following files: filename .dat filename .dir
 filename – The basename of the database file (without extensions).
@@ -524,16 +361,12 @@ flag ( str ) – 'r' : Open existing database for reading only. 'w' : Open exist
 flag ( str ) – 'r' : Open existing database for reading only. 'w' : Open existing database for reading and writing. 'c' (default): Open database for reading and writing, creating it if it doesn’t exist. 'n' : Always create a new, empty database, open for reading and writing.
 'r' : Open existing database for reading only.
 'r' : Open existing database for reading only.
-'r'
 'w' : Open existing database for reading and writing.
 'w' : Open existing database for reading and writing.
-'w'
 'c' (default): Open database for reading and writing, creating it if it doesn’t exist.
 'c' (default): Open database for reading and writing, creating it if it doesn’t exist.
-'c'
 'n' : Always create a new, empty database, open for reading and writing.
 'n' : Always create a new, empty database, open for reading and writing.
-'n'
 mode ( int ) – The Unix file access mode of the file (default: octal 0o666 ),
 used only when the database has to be created.
 mode ( int ) – The Unix file access mode of the file (default: octal 0o666 ),
@@ -545,12 +378,8 @@ with a sufficiently large/complex entry due to stack depth limitations in
 Python’s AST compiler.
 Changed in version 3.5: open() always creates a new database when flag is 'n' .
 open()
-'n'
 Changed in version 3.8: A database opened read-only if flag is 'r' .
 A database is not created if it does not exist if flag is 'r' or 'w' .
-'r'
-'r'
-'w'
 Changed in version 3.11: filename accepts a path-like object .
 The returned database object behaves similar to a mutable mapping ,
 but the keys() and items() methods return lists, and
@@ -559,14 +388,8 @@ It also supports a “closing” context manager via the with keyword.
 keys()
 items()
 setdefault()
-with
 The following methods are also provided:
-dumbdbm. close ( )
 Close the database.
-Close the database.
-dumbdbm. sync ( )
-Synchronize the on-disk directory and data files.  This method is called
-by the shelve.Shelf.sync() method.
 Synchronize the on-disk directory and data files.  This method is called
 by the shelve.Shelf.sync() method.
 shelve.Shelf.sync()

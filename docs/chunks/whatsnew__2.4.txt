@@ -5,8 +5,6 @@ SOURCE: whatsnew\2.4.html
 
 # What’s New in Python 2.4
 
-Author :
-A.M. Kuchling
 A.M. Kuchling
 This article explains the new features in Python 2.4.1, released on March 30,
 2005.
@@ -30,7 +28,6 @@ types have now been added to the Python core as two new built-in types, set(iter
 operations for membership testing, for eliminating duplicates from sequences,
 and for mathematical operations like unions, intersections, differences, and
 symmetric differences.
-sets
 set(iterable)
 frozenset(iterable)
 
@@ -46,13 +43,8 @@ set()
 The sets module remains in the standard library, and may be useful if you
 wish to subclass the Set or ImmutableSet classes.  There are
 currently no plans to deprecate the module.
-sets
-Set
 ImmutableSet
 See also
-PEP 218 - Adding a Built-In Set Object Type
-Originally proposed by Greg Wilson and ultimately implemented by Raymond
-Hettinger.
 Originally proposed by Greg Wilson and ultimately implemented by Raymond
 Hettinger.
 
@@ -70,9 +62,6 @@ evaluating to 0 on 32-bit platforms.  In Python 2.4, this expression now returns
 the correct answer, 8589934592.
 2 << 32
 See also
-PEP 237 - Unifying Long Integers and Integers
-Original PEP written by Moshe Zadka and GvR.  The changes for 2.4 were
-implemented by  Kalle Svensson.
 Original PEP written by Moshe Zadka and GvR.  The changes for 2.4 were
 implemented by  Kalle Svensson.
 
@@ -123,9 +112,6 @@ outside of the generator expression.  List comprehensions leave the variable
 assigned to its last value; future versions of Python will change this, making
 list comprehensions match generator expressions in this respect.
 See also
-PEP 289 - Generator Expressions
-Proposed by Raymond Hettinger and implemented by Jiwon Seo with early efforts
-steered by Hye-Shik Chang.
 Proposed by Raymond Hettinger and implemented by Jiwon Seo with early efforts
 steered by Hye-Shik Chang.
 
@@ -167,8 +153,6 @@ safe_substitute()
 [/CODE]
 
 See also
-PEP 292 - Simpler String Substitutions
-Written and implemented  by Barry Warsaw.
 Written and implemented  by Barry Warsaw.
 
 ## PEP 318: Decorators for Functions and Methods
@@ -178,7 +162,6 @@ methods, but it didn’t extend Python’s syntax to provide any new way of defi
 static or class methods.  Instead, you had to write a def statement
 in the usual way, and pass the resulting method to a staticmethod() or classmethod() function that would wrap up the function as a method of the
 new type. Your code would look like this:
-def
 staticmethod()
 classmethod()
 
@@ -200,7 +183,6 @@ classmethod()
 staticmethod()
 The notation borrows from Java and uses the '@' character as an indicator.
 Using the new syntax, the example above would be written:
-'@'
 
 [CODE]
 class C : @classmethod def meth ( cls ): ...
@@ -262,15 +244,9 @@ decorators should change the name of any new function that’s constructed and
 returned.
 func_name
 See also
-PEP 318 - Decorators for Functions, Methods and Classes
 Written  by Kevin D. Smith, Jim Jewett, and Skip Montanaro.  Several people
 wrote patches implementing function decorators, but the one that was actually
 checked in was patch #979728, written by Mark Russell.
-Written  by Kevin D. Smith, Jim Jewett, and Skip Montanaro.  Several people
-wrote patches implementing function decorators, but the one that was actually
-checked in was patch #979728, written by Mark Russell.
-https://wiki.python.org/moin/PythonDecoratorLibrary
-This Wiki page contains several examples of decorators.
 This Wiki page contains several examples of decorators.
 
 ## PEP 322: Reverse Iteration
@@ -297,8 +273,6 @@ list()
 [/CODE]
 
 See also
-PEP 322 - Reverse Iteration
-Written and implemented by Raymond Hettinger.
 Written and implemented by Raymond Hettinger.
 
 ## PEP 324: New subprocess Module
@@ -382,9 +356,6 @@ translated into Python code that uses subprocess .  Reading this section
 of the PEP is highly recommended.
 subprocess
 See also
-PEP 324 - subprocess - New process module
-Written and implemented by Peter Åstrand, with assistance from Fredrik Lundh and
-others.
 Written and implemented by Peter Åstrand, with assistance from Fredrik Lundh and
 others.
 
@@ -410,7 +381,6 @@ decimal notation.
 The mantissa, which is a single-digit binary number   followed by a fractional
 part.  For example, 1.01 in base-2 notation is 1 + 0/2 + 1/4 , or 1.25 in
 decimal notation.
-1.01
 1 + 0/2 + 1/4
 The exponent, which tells where the decimal point is located in the number
 represented.
@@ -518,7 +488,6 @@ numbers before the operation is performed, resulting in a possible loss of
 precision and accuracy.  You’ll also get back a regular floating-point number
 and not a Decimal .
 Decimal
-math
 cmath
 Decimal
 
@@ -544,7 +513,6 @@ decimal operations:
 Context
 prec is the precision, the number of decimal places.
 prec is the precision, the number of decimal places.
-prec
 rounding specifies the rounding mode.  The decimal module has
 constants for the various possibilities: ROUND_DOWN , ROUND_CEILING , ROUND_HALF_EVEN , and various others.
 rounding specifies the rounding mode.  The decimal module has
@@ -590,20 +558,10 @@ For more information, see the documentation for the decimal module, which
 includes a quick-start tutorial and a reference.
 decimal
 See also
-PEP 327 - Decimal Data Type
 Written by Facundo Batista and implemented by Facundo Batista, Eric Price,
 Raymond Hettinger, Aahz, and Tim Peters.
-Written by Facundo Batista and implemented by Facundo Batista, Eric Price,
-Raymond Hettinger, Aahz, and Tim Peters.
-http://www.lahey.com/float.htm
 The article uses Fortran code to illustrate many of the problems that
 floating-point inaccuracy can cause.
-The article uses Fortran code to illustrate many of the problems that
-floating-point inaccuracy can cause.
-https://speleotrove.com/decimal/
-A description of a decimal-based representation.  This representation is being
-proposed as a standard, and underlies the new Python decimal type.  Much of this
-material was written by Mike Cowlishaw, designer of the Rexx language.
 A description of a decimal-based representation.  This representation is being
 proposed as a standard, and underlies the new Python decimal type.  Much of this
 material was written by Mike Cowlishaw, designer of the Rexx language.
@@ -633,8 +591,6 @@ with a leading . character to indicate a relative import.  This part of the
 PEP was not implemented for Python 2.4, but was completed for Python 2.5.
 import
 See also
-PEP 328 - Imports: Multi-Line and Absolute/Relative
-Written by Aahz.  Multi-line imports were implemented by Dima Dorfman.
 Written by Aahz.  Multi-line imports were implemented by Dima Dorfman.
 
 ## PEP 331: Locale-Independent Float/String Conversions
@@ -646,7 +602,6 @@ functions in Python’s implementation required that the numeric locale remain s
 to the 'C' locale.  Often this was because the code was using the C
 library’s atof() function.
 locale
-'C'
 atof()
 Not setting the numeric locale caused trouble for extensions that used third-party
 C libraries, however, because they wouldn’t have the correct locale set.
@@ -668,8 +623,6 @@ Foundation.  The locale module  can now change the numeric locale,
 letting extensions such as GTK+  produce the correct results.
 locale
 See also
-PEP 331 - Locale-Independent Float/String Conversions
-Written by Christian R. Reis, and implemented by Gustavo Carneiro.
 Written by Christian R. Reis, and implemented by Gustavo Carneiro.
 
 ## Other Language Changes
@@ -698,7 +651,6 @@ pairs, and keyword arguments. (Contributed by Raymond Hettinger.)
 The dict.update() method now accepts the same argument forms as the dict constructor.  This includes any mapping, any iterable of key/value
 pairs, and keyword arguments. (Contributed by Raymond Hettinger.)
 dict.update()
-dict
 The string methods ljust() , rjust() , and center() now take
 an optional argument for specifying a fill character other than a space.
 (Contributed by Raymond Hettinger.)
@@ -821,7 +773,6 @@ for the locals parameter.  Previously this had to be a regular Python
 dictionary.  (Contributed by Raymond Hettinger.)
 eval(expr, globals, locals)
 execfile(filename, globals, locals)
-exec
 The zip() built-in function and itertools.izip() now return an
 empty list if called with no arguments. Previously they raised a TypeError exception.  This makes them more suitable for use with variable
 length argument lists: >>> def transpose ( array ): ... return zip ( * array ) ... >>> transpose ([( 1 , 2 , 3 ), ( 4 , 5 , 6 )]) [(1, 4), (2, 5), (3, 6)] >>> transpose ([]) [] (Contributed by Raymond Hettinger.)
@@ -848,8 +799,6 @@ confusing errors.   (Fixed by Tim Peters.)
 sys.modules
 None is now a constant; code that binds a new value to  the name None is now a syntax error. (Contributed by Raymond Hettinger.)
 None is now a constant; code that binds a new value to  the name None is now a syntax error. (Contributed by Raymond Hettinger.)
-None
-None
 
 ### Optimizations
 
@@ -971,9 +920,6 @@ Chinese (PRC): gb2312, gbk, gb18030, big5hkscs, hz
 Chinese (ROC): big5, cp950
 Chinese (ROC): big5, cp950
 Japanese: cp932, euc-jis-2004, euc-jp, euc-jisx0213, iso-2022-jp, iso-2022-jp-1, iso-2022-jp-2, iso-2022-jp-3, iso-2022-jp-ext, iso-2022-jp-2004,
-shift-jis, shift-jisx0213, shift-jis-2004
-Japanese: cp932, euc-jis-2004, euc-jp, euc-jisx0213, iso-2022-jp,
-iso-2022-jp-1, iso-2022-jp-2, iso-2022-jp-3, iso-2022-jp-ext, iso-2022-jp-2004,
 shift-jis, shift-jisx0213, shift-jis-2004
 iso-2022-jp-1, iso-2022-jp-2, iso-2022-jp-3, iso-2022-jp-ext, iso-2022-jp-2004,
 shift-jis, shift-jisx0213, shift-jis-2004
@@ -1120,7 +1066,6 @@ groupby() is typically used with sorted input.  The logic for groupby() is simil
 eliminating, counting, or identifying duplicate elements:
 groupby()
 groupby()
-uniq
 
 [CODE]
 >>> word = 'abracadabra' >>> letters = sorted ( word ) # Turn string into a sorted list of letters >>> letters ['a', 'a', 'a', 'a', 'a', 'b', 'b', 'c', 'd', 'r', 'r'] >>> for k , g in itertools . groupby ( letters ): ... print k , list ( g ) ... a ['a', 'a', 'a', 'a', 'a'] b ['b', 'b'] c ['c'] d ['d'] r ['r', 'r'] >>> # List unique letters >>> [ k for k , g in groupby ( letters )] ['a', 'b', 'c', 'd', 'r'] >>> # Count letter occurrences >>> [( k , len ( list ( g ))) for k , g in groupby ( letters )] [('a', 5), ('b', 2), ('c', 1), ('d', 1), ('r', 2)]
@@ -1202,13 +1147,11 @@ structure.  This may shrink the size of certain pickle strings, but the primary
 effect is to make .pyc files significantly smaller. (Contributed by
 Martin von Löwis.)
 marshal
-.pyc
 The nntplib module’s NNTP class gained description() and descriptions() methods to retrieve  newsgroup descriptions for a single
 group or for a range of groups. (Contributed by Jürgen A. Erhard.)
 The nntplib module’s NNTP class gained description() and descriptions() methods to retrieve  newsgroup descriptions for a single
 group or for a range of groups. (Contributed by Jürgen A. Erhard.)
 nntplib
-NNTP
 description()
 descriptions()
 Two new functions were added to the operator module, attrgetter(attr) and itemgetter(index) . Both functions return
@@ -1388,7 +1331,6 @@ import threading data = threading . local () data . number = 42 data . url = ( '
 Other threads can assign and retrieve their own values for the number and url attributes.  You can subclass local to initialize
 attributes or to add methods. (Contributed by Jim Fulton.)
 number
-url
 local
 The timeit module now automatically disables periodic garbage
 collection during the timing loop.  This change makes consecutive timings more
@@ -1417,7 +1359,6 @@ The mpz , rotor , and xreadlines modules have  been
 removed.
 The mpz , rotor , and xreadlines modules have  been
 removed.
-mpz
 rotor
 xreadlines
 
@@ -1483,7 +1424,6 @@ with the doctest.ELLIPSIS option flag, an ellipsis ( ... ) in the
 expected output matches any substring,  making it easier to accommodate outputs
 that vary in minor ways:
 doctest.ELLIPSIS
-...
 
 [CODE]
 def o ( n ): """>>> o(1) <__main__.C instance at 0x...> >>> """
@@ -1639,7 +1579,6 @@ You can no longer compare the date and datetime instances
 provided by the datetime module.  Two  instances of different classes
 will now always be unequal, and  relative comparisons ( < , > ) will raise
 a TypeError .
-date
 datetime
 datetime
 TypeError
@@ -1670,8 +1609,6 @@ partially initialized module object in sys.modules .
 sys.modules
 None is now a constant; code that binds a new value to  the name None is now a syntax error.
 None is now a constant; code that binds a new value to  the name None is now a syntax error.
-None
-None
 The signals.signal() function now raises a RuntimeError exception
 for certain illegal values; previously these errors would pass silently.  For
 example, you can no longer set a handler on the SIGKILL signal.

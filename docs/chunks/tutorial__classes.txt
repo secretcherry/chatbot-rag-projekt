@@ -73,7 +73,6 @@ object and funcname is an attribute of it.  In this case there happens to be
 a straightforward mapping between the module’s attributes and the global names
 defined in the module: they share the same namespace! [ 1 ]
 z.real
-real
 modname.funcname
 modname
 funcname
@@ -81,7 +80,6 @@ Attributes may be read-only or writable.  In the latter case, assignment to
 attributes is possible.  Module attributes are writable: you can write modname.the_answer = 42 .  Writable attributes may also be deleted with the del statement.  For example, del modname.the_answer will remove
 the attribute the_answer from the object named by modname .
 modname.the_answer = 42
-del
 del modname.the_answer
 the_answer
 modname
@@ -197,7 +195,6 @@ class ClassName : < statement - 1 > . . . < statement - N >
 Class definitions, like function definitions ( def statements) must be
 executed before they have any effect.  (You could conceivably place a class
 definition in a branch of an if statement, or inside a function.)
-def
 In practice, the statements inside a class definition will usually be function
 definitions, but other statements are allowed, and sometimes useful — we’ll
 come back to this later.  The function definitions inside a class normally have
@@ -300,11 +297,8 @@ all attributes of a class that are function  objects define corresponding
 methods of its instances.  So in our example, x.f is a valid method
 reference, since MyClass.f is a function, but x.i is not, since MyClass.i is not.  But x.f is not the same thing as MyClass.f — it
 is a method object , not a function object.
-x.f
 MyClass.f
-x.i
 MyClass.i
-x.f
 MyClass.f
 
 ### 9.3.4. Method Objects
@@ -320,7 +314,6 @@ However, it is not necessary to call a method right away: x.f is a method
 object, and can be stored away and called at a later time.  For example:
 x = MyClass()
 'hello world'
-x.f
 
 [CODE]
 xf = x . f while True : print ( xf ())
@@ -333,7 +326,6 @@ definition for f() specified an argument.  What happened to the argument?
 Surely Python raises an exception when a function that requires an argument is
 called without any — even if the argument isn’t actually used…
 x.f()
-f()
 Actually, you may have guessed the answer: the special thing about methods is
 that the instance object is passed as the first argument of the function.  In our
 example, the call x.f() is exactly equivalent to MyClass.f(x) .  In
@@ -405,8 +397,6 @@ Often, the first argument of a method is called self .  This is nothing more
 than a convention: the name self has absolutely no special meaning to
 Python.  Note, however, that by not following the convention your code may be
 less readable to other Python programmers, and it is also conceivable that a class browser program might be written that relies upon such a convention.
-self
-self
 Any function object that is a class attribute defines a method for instances of
 that class.  It is not necessary that the function definition is textually
 enclosed in the class definition: assigning a function object to a local
@@ -420,7 +410,6 @@ Now f , g and h are all attributes of class C that refer to
 function objects, and consequently they are all methods of instances of C — h being exactly equivalent to g .  Note that this practice
 usually only serves to confuse the reader of a program.
 Methods may call other methods by using method attributes of the self argument:
-self
 
 [CODE]
 class Bag : def __init__ ( self ): self . data = [] def add ( self , x ): self . data . append ( x ) def addtwice ( self , x ): self . add ( x ) self . add ( x )
@@ -490,23 +479,16 @@ Use isinstance() to check an instance’s type: isinstance(obj, int) will be Tru
 derived from int .
 isinstance()
 isinstance(obj, int)
-True
 obj.__class__
-int
-int
 Use issubclass() to check class inheritance: issubclass(bool, int) is True since bool is a subclass of int .  However, issubclass(float, int) is False since float is not a
 subclass of int .
 Use issubclass() to check class inheritance: issubclass(bool, int) is True since bool is a subclass of int .  However, issubclass(float, int) is False since float is not a
 subclass of int .
 issubclass()
 issubclass(bool, int)
-True
-bool
-int
 issubclass(float, int)
 False
 float
-int
 
 ### 9.5.1. Multiple Inheritance
 
@@ -623,14 +605,12 @@ Instance method objects have attributes, too: m.__self__ is the instance
 object with the method m() , and m.__func__ is
 the function object corresponding to the method.
 m.__self__
-m()
 m.__func__
 
 ## 9.8. Iterators
 
 By now you have probably noticed that most container objects can be looped over
 using a for statement:
-for
 
 [CODE]
 for element in [ 1 , 2 , 3 ]: print ( element ) for element in ( 1 , 2 , 3 ): print ( element ) for key in { 'one' : 1 , 'two' : 2 }: print ( key ) for char in "123" : print ( char ) for line in open ( "myfile.txt" ): print ( line , end = '' )
@@ -642,12 +622,10 @@ calls iter() on the container object.  The function returns an iterator
 object that defines the method __next__() which accesses
 elements in the container one at a time.  When there are no more elements, __next__() raises a StopIteration exception which tells the for loop to terminate.  You can call the __next__() method
 using the next() built-in function; this example shows how it all works:
-for
 iter()
 __next__()
 __next__()
 StopIteration
-for
 __next__()
 next()
 
@@ -663,7 +641,6 @@ __iter__()
 __next__()
 __next__()
 __iter__()
-self
 
 [CODE]
 class Reverse : """Iterator for looping over a sequence backwards.""" def __init__ ( self , data ): self . data = data self . index = len ( data ) def __iter__ ( self ): return self def __next__ ( self ): if self . index == 0 : raise StopIteration self . index = self . index - 1 return self . data [ self . index ]

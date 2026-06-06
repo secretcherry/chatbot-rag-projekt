@@ -5,8 +5,6 @@ SOURCE: whatsnew\2.2.html
 
 # What’s New in Python 2.2
 
-Author :
-A.M. Kuchling
 A.M. Kuchling
 
 ## Introduction
@@ -201,7 +199,6 @@ wrapped up in a descriptor so it can be stored in the class object.  You might
 expect there to be special syntax for creating such methods ( def static f , defstatic f() , or something like that) but no such syntax has been defined
 yet; that’s been left for future versions of Python.
 staticmethod()
-f()
 def static f
 defstatic f()
 More new features, such as slots and properties, are also implemented as new
@@ -297,7 +294,6 @@ is made to access obj.foo and no attribute named foo is found in the
 instance’s dictionary.
 __getattr__(attr_name)
 obj.foo
-foo
 New-style classes also support a new method, __getattribute__(attr_name) .  The difference between the two methods is
 that __getattribute__() is always called whenever any attribute is
 accessed, while the old __getattr__() is only called if foo isn’t
@@ -305,7 +301,6 @@ found in the instance’s dictionary.
 __getattribute__(attr_name)
 __getattribute__()
 __getattr__()
-foo
 However, Python 2.2’s support for properties will often be a simpler way
 to trap attribute references.  Writing a __getattr__() method is
 complicated because to avoid recursion you can’t use regular attribute accesses
@@ -323,7 +318,6 @@ get, set, or delete an attribute, and a docstring.  For example, if you want to
 define a size attribute that’s computed, but also settable, you could
 write:
 property
-size
 
 [CODE]
 class C ( object ): def get_size ( self ): result = ... computation ... return result def set_size ( self , size ): ... compute something based on the size and set internal state appropriately ... # Define a property.  The 'delete this attribute' # method is defined as None, so the attribute # can't be deleted. size = property ( get_size , set_size , None , "Storage size of this instance" )
@@ -335,9 +329,7 @@ which have to perform the work of calling a function, so references to other
 attributes run at their usual speed.
 __getattr__()
 __setattr__()
-size
 __dict__
-size
 Finally, it’s possible to constrain the list of attributes that can be
 referenced on an object using the new __slots__ class attribute. Python
 objects are usually very dynamic; at any time it’s possible to define a new
@@ -402,7 +394,6 @@ doesn’t mean that using file[5] to randomly access the sixth element will
 work, though it really should.
 __getitem__()
 obj[5]
-for
 __getitem__()
 __getitem__()
 file[5]
@@ -422,7 +413,6 @@ method can just return self .  In particular, iterators will usually be their
 own iterators.  Extension types implemented in C can implement a tp_iter function in order to return an iterator, and extension types that want to behave
 as iterators can define a tp_iternext function.
 __iter__()
-self
 tp_iter
 tp_iternext
 So, after all this, what do iterators actually do?  They have one required
@@ -442,7 +432,6 @@ compatibility and convenience, an iterator is automatically constructed for
 sequences that don’t implement __iter__() or a tp_iter slot, so for i in [1,2,3] will still work.  Wherever the Python interpreter loops
 over a sequence, it’s been changed to use the iterator protocol.  This means you
 can do things like this:
-for
 iter()
 __iter__()
 tp_iter
@@ -483,9 +472,6 @@ could provide such additional capabilities, but the iterator protocol only
 requires a next() method.
 next()
 See also
-PEP 234 - Iterators
-Written by Ka-Ping Yee and GvR; implemented  by the Python Labs crew, mostly by
-GvR and Tim Peters.
 Written by Ka-Ping Yee and GvR; implemented  by the Python Labs crew, mostly by
 GvR and Tim Peters.
 
@@ -533,8 +519,6 @@ yield
 next()
 yield
 yield
-try
-try
 finally
 yield
 Here’s a sample usage of the generate_ints() generator:
@@ -603,9 +587,6 @@ compared to Icon’s is that a generator’s state is represented as a concrete
 object (the iterator) that can be passed around to other functions or stored in
 a data structure.
 See also
-PEP 255 - Simple Generators
-Written by Neil Schemenauer, Tim Peters, Magnus Lie Hetland.  Implemented mostly
-by Neil Schemenauer and Tim Peters, with other fixes from the Python Labs crew.
 Written by Neil Schemenauer, Tim Peters, Magnus Lie Hetland.  Implemented mostly
 by Neil Schemenauer and Tim Peters, with other fixes from the Python Labs crew.
 
@@ -639,9 +620,6 @@ can still distinguish them with the type() built-in function, but that’s
 rarely needed.
 type()
 See also
-PEP 237 - Unifying Long Integers and Integers
-Written by Moshe Zadka and Guido van Rossum.  Implemented mostly by Guido van
-Rossum.
 Written by Moshe Zadka and Guido van Rossum.  Implemented mostly by Guido van
 Rossum.
 
@@ -656,7 +634,6 @@ truncated down when there would be a fractional part.  For example, 3/2 is
 division can vary unexpectedly depending on the type of the two operands and
 because Python is dynamically typed, it can be difficult to determine the
 possible types of the operands.
-3/2
 (-1)/2
 (The controversy is over whether this is really a design flaw, and whether
 it’s worth breaking existing code to fix this.  It’s caused endless discussions
@@ -694,7 +671,6 @@ By including a from __future__ import division in a module, the / operator will 
 0.5.  Without the __future__ statement, / still means classic division.
 The default meaning of / will not change until Python 3.0.
 from __future__ import division
-1/2
 __future__
 Classes can define methods called __truediv__() and __floordiv__() to overload the two division operators.  At the C level, there are also slots in
 the PyNumberMethods structure so extension types can define the two
@@ -717,8 +693,6 @@ it.  By default, Python 2.2 will simply perform classic division without a
 warning; the warning will be turned on by default in Python 2.3.
 -Q warn
 See also
-PEP 238 - Changing the Division Operator
-Written by Moshe Zadka and  Guido van Rossum.  Implemented by Guido van Rossum..
 Written by Moshe Zadka and  Guido van Rossum.  Implemented by Guido van Rossum..
 
 ## Unicode Changes
@@ -751,7 +725,6 @@ decode()
 Using this new feature, codecs have been added for tasks not directly related to
 Unicode.  For example, codecs have been added for uu-encoding, MIME’s base64
 encoding, and compression with the zlib module:
-zlib
 
 [CODE]
 >>> s = """Here is a lengthy piece of redundant, overly verbose, ... and repetitive text. ... """ >>> data = s . encode ( 'zlib' ) >>> data 'x\x9c\r\xc9\xc1\r\x80 \x10\x04\xc0?Ul...' >>> data . decode ( 'zlib' ) 'Here is a lengthy piece of redundant, overly verbose,\nand repetitive text.\n' >>> print s . encode ( 'uu' ) begin 666 <data> M2&5R92!I<R!A(&QE;F=T:'D@<&EE8V4@;V8@<F5D=6YD86YT+"!O=F5R;'D@ >=F5R8F]S92P*86YD(')E<&5T:71I=F4@=&5X="X* end >>> "sheesh" . encode ( 'rot-13' ) 'furrfu'
@@ -768,8 +741,6 @@ encode()
 decode()
 __unicode__()
 See also
-PEP 261 - Support for ‘wide’ Unicode characters
-Written by Paul Prescod.
 Written by Paul Prescod.
 
 ## PEP 227: Nested Scopes
@@ -799,7 +770,6 @@ you recursively define interior functions like this?), but this also made using
 the lambda expression clumsier, and this was a problem in practice.
 In code which uses lambda you can often find local variables being
 copied by passing them as the default values of arguments.
-g()
 NameError
 lambda
 lambda
@@ -818,7 +788,6 @@ references to the variable will be looked up in the local namespace of the
 enclosing scope.  A more detailed explanation of the rules, and a dissection of
 the implementation, can be found in the PEP.
 name=name
-def
 class
 import
 This change may cause some compatibility problems for code where the same
@@ -836,10 +805,8 @@ unknowable at compile time. Therefore, if a function contains function
 definitions or lambda expressions with free variables, the compiler
 will flag this by raising a SyntaxError exception.
 from module import *
-exec
 from module import *
 from module import *
-exec
 lambda
 SyntaxError
 To make the preceding explanation a bit clearer, here’s an example:
@@ -850,16 +817,10 @@ x = 1 def f (): # The next line is a syntax error exec 'x=2' def g (): return x
 
 Line 4 containing the exec statement is a syntax error, since exec would define a new local variable named x whose value should
 be accessed by g() .
-exec
-exec
-g()
 This shouldn’t be much of a limitation, since exec is rarely used in
 most Python code (and when it is used, it’s often a sign of a poor design
 anyway).
-exec
 See also
-PEP 227 - Statically Nested Scopes
-Written and implemented by Jeremy Hylton.
 Written and implemented by Jeremy Hylton.
 
 ## New and Improved Modules
@@ -886,7 +847,6 @@ XML-RPC servers.  See http://xmlrpc.scripting.com/ for more information about XM
 SimpleXMLRPCServer
 The new hmac module implements the HMAC algorithm described by RFC 2104 . (Contributed by Gerhard Häring.)
 The new hmac module implements the HMAC algorithm described by RFC 2104 . (Contributed by Gerhard Häring.)
-hmac
 Several functions that originally returned lengthy tuples now return
 pseudo-sequences that still behave like tuples but also have mnemonic attributes such
 as memberst_mtime or tm_year . The enhanced functions include stat() , fstat() , statvfs() , and fstatvfs() in the os module, and localtime() , gmtime() , and strptime() in
@@ -906,7 +866,6 @@ fstatvfs()
 localtime()
 gmtime()
 strptime()
-time
 For example, to obtain a file’s size using the old tuples, you’d end up writing
 something like file_size = os.stat(filename)[stat.ST_SIZE] , but now this can
 be written more clearly as file_size = os.stat(filename).st_size .
@@ -1092,10 +1051,8 @@ Rename Py_TPFLAGS_GC to Py_TPFLAGS_HAVE_GC .
 Py_TPFLAGS_GC
 Py_TPFLAGS_HAVE_GC
 Use PyObject_GC_New() or PyObject_GC_NewVar() to allocate objects, and PyObject_GC_Del() to deallocate them.
-Use PyObject_GC_New() or PyObject_GC_NewVar() to allocate
 PyObject_GC_New()
 PyObject_GC_NewVar()
-objects, and PyObject_GC_Del() to deallocate them.
 objects, and PyObject_GC_Del() to deallocate them.
 PyObject_GC_Del()
 Rename PyObject_GC_Init() to PyObject_GC_Track() and PyObject_GC_Fini() to PyObject_GC_UnTrack() .
@@ -1284,8 +1241,6 @@ xrange()
 xrange
 tolist()
 start
-stop
-step
 PyRange_New()
 repeat
 There were a bunch of patches to the dictionary implementation, mostly to fix
@@ -1322,8 +1277,6 @@ Windows-only thing, used to indicate that a script needs to be run using
 PYTHONW.EXE instead of PYTHON.EXE in order to prevent a DOS console from popping
 up to display the output.  This patch makes it possible to import such scripts,
 in case they’re also usable as modules.  (Implemented by David Bolen.)
-.pyw
-.pyw
 On platforms where Python uses the C dlopen() function  to load
 extension modules, it’s now possible to set the flags used  by dlopen() using the sys.getdlopenflags() and sys.setdlopenflags() functions.
 (Contributed by Bram Stolk.)

@@ -5,8 +5,6 @@ SOURCE: whatsnew\3.14.html
 
 # What’s new in Python 3.14
 
-Editors :
-Adam Turner and Hugo van Kemenade
 Adam Turner and Hugo van Kemenade
 This article explains the new features in Python 3.14, compared to 3.13.
 Python 3.14 was released on 7 October 2025.
@@ -118,11 +116,7 @@ on changes that may be needed due to these changes, though in the majority of
 cases, code will continue working as-is.
 (Contributed by Jelle Zijlstra in PEP 749 and gh-119180 ; PEP 649 was written by Larry Hastings.)
 See also
-PEP 649
 Deferred Evaluation Of Annotations Using Descriptors
-Deferred Evaluation Of Annotations Using Descriptors
-PEP 749
-Implementing PEP 649
 Implementing PEP 649
 
 ### PEP 734 : Multiple interpreters in the standard library
@@ -220,10 +214,7 @@ Template strings are a new mechanism for custom string processing.
 They share the familiar syntax of f-strings but, unlike f-strings,
 return an object representing the static and interpolated parts of
 the string, instead of a simple str .
-str
 To write a t-string, use a 't' prefix instead of an 'f' :
-'t'
-'f'
 
 [CODE]
 >>> variety = 'Stilton' >>> template = t 'Try some { variety } cheese!' >>> type ( template ) <class 'string.templatelib.Template'>
@@ -258,7 +249,6 @@ a dict of HTML attributes directly in the template:
 Template
 html()
 html()
-dict
 
 [CODE]
 attributes = { 'src' : 'limburger.jpg' , 'alt' : 'lovely cheese' } template = t '<img { attributes } >' assert html ( template ) == '<img src="limburger.jpg" alt="lovely cheese" />'
@@ -330,7 +320,6 @@ significantly better performance. Preliminary benchmarks suggest a geometric
 mean of 3-5% faster on the standard pyperformance benchmark suite,
 depending on platform and architecture.
 The baseline is Python 3.14 built with Clang 19, without this new interpreter.
-case
 pyperformance
 This interpreter currently only works with Clang 19 and newer
 on x86-64 and AArch64 architectures.
@@ -340,7 +329,6 @@ recommended when using the new interpreter as it is the only configuration
 that has been tested and validated for improved performance.
 For further information, see --with-tail-call-interp .
 --with-tail-call-interp
-Note
 This is not to be confused with tail call optimization of Python
 functions, which is currently not implemented in CPython.
 This new interpreter type is an internal implementation detail of the CPython
@@ -419,8 +407,6 @@ a specific error message.
 elif statements that follow an else block now have
 a specific error message.
 (Contributed by Steele Farnsworth in gh-129902 .)
-elif
-else
 
 [CODE]
 >>> if who == "me" : ... print ( "It's me!" ) ... else : ... print ( "It's not me!" ) ... elif who is None : ... print ( "Who is it?" ) File "<stdin>", line 5 elif who is None: ^^^^ SyntaxError: 'elif' block follows an 'else' block
@@ -434,8 +420,6 @@ If a statement is passed to the Conditional expressions after else ,
 or one of pass , break , or continue is passed before if , then the
 error message highlights where the expression is
 required. (Contributed by Sergey Miryanov in gh-129515 .)
-else
-pass
 break
 continue
 expression
@@ -487,8 +471,6 @@ a dict or set .
 Improved error message when trying to add an instance of an unhashable type to
 a dict or set .
 (Contributed by CF Bolz-Tereick and Victor Stinner in gh-132828 .)
-dict
-set
 
 [CODE]
 >>> s = set () >>> s . add ({ 'pages' : 12 , 'grade' : 'A' }) Traceback (most recent call last): File "<python-input-1>" , line 1 , in <module> s . add ({ 'pages' : 12 , 'grade' : 'A' }) ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TypeError : cannot use 'dict' as a set element (unhashable type: 'dict') >>> d = {} >>> l = [ 1 , 2 , 3 ] >>> d [ l ] = 12 Traceback (most recent call last): File "<python-input-4>" , line 1 , in <module> d [ l ] = 12 ~^^^ TypeError : cannot use 'list' as a dict key (unhashable type: 'list')
@@ -503,7 +485,6 @@ context manager protocol is entered using async with instead of with ,
 and vice versa for the asynchronous context manager protocol.
 (Contributed by Bénédikt Tran in gh-128398 .)
 async with
-with
 
 ### PEP 784 : Zstandard support in the standard library
 
@@ -517,10 +498,6 @@ compression.lzma
 compression.bz2
 compression.gzip
 compression.zlib
-lzma
-bz2
-gzip
-zlib
 compression
 The new compression.zstd module provides compression and decompression
 APIs for the Zstandard format via bindings to Meta’s zstd library . Zstandard is a widely adopted, highly
@@ -538,8 +515,6 @@ from compression import zstd import math data = str ( math . pi ) . encode () * 
 [/CODE]
 
 As can be seen, the API is similar to the APIs of the lzma and bz2 modules.
-lzma
-bz2
 (Contributed by Emma Harper Smith, Adam Turner, Gregory P. Smith, Tomas Roun,
 Victor Stinner, and Rogdham in gh-132983 .)
 See also
@@ -743,7 +718,6 @@ via the new -X importtime=2 .
 When such a module is imported, the self and cumulative times
 are replaced by the string cached .
 -X importtime=2
-self
 cumulative
 cached
 Values above 2 for -X importtime are now reserved for future use.
@@ -945,9 +919,6 @@ Enable color for help text, which can be disabled with the optional color parame
 This can also be controlled by environment variables .
 (Contributed by Hugo van Kemenade in gh-130645 .)
 argparse.ArgumentParser
-
-### ast
-
 Add compare() , a function for comparing two ASTs.
 (Contributed by Batuhan Taskaya and Jeremy Hylton in gh-60191 .)
 Add compare() , a function for comparing two ASTs.
@@ -997,13 +968,9 @@ The name and context keyword arguments are no longer special;
 the name should now be set using the name keyword argument of the factory,
 and context may be None .
 create_task()
-Task
 set_task_factory()
-name
 context
-name
 context
-None
 This affects the following function and methods: asyncio.create_task() , asyncio.loop.create_task() , asyncio.TaskGroup.create_task() .
 asyncio.create_task()
 asyncio.loop.create_task()
@@ -1257,9 +1224,6 @@ Comparison pages with highlighted changes generated by the HtmlDiff class now su
 Comparison pages with highlighted changes generated by the HtmlDiff class now support ‘dark mode’.
 (Contributed by Jiahao Li in gh-129939 .)
 HtmlDiff
-
-### dis
-
 Add support for rendering full source location information of instructions , rather than only the line number.
 This feature is added to the following interfaces via the show_positions keyword argument: dis.Bytecode dis.dis() dis.distb() dis.disassemble() This feature is also exposed via dis --show-positions .
 (Contributed by Bénédikt Tran in gh-123165 .)
@@ -1413,9 +1377,6 @@ heapreplace_max()
 heappushpop_max()
 heappushpop_max()
 heappushpop_max()
-
-### hmac
-
 Add a built-in implementation for HMAC ( RFC 2104 ) using formally verified
 code from the HACL* project.
 This implementation is used as a fallback when the OpenSSL implementation
@@ -1426,9 +1387,6 @@ code from the HACL* project.
 This implementation is used as a fallback when the OpenSSL implementation
 of HMAC is not available.
 (Contributed by Bénédikt Tran in gh-99108 .)
-
-### http
-
 Directory lists and error pages generated by the http.server module allow the browser to apply its default dark mode.
 (Contributed by Yorik Hansen in gh-123430 .)
 Directory lists and error pages generated by the http.server module allow the browser to apply its default dark mode.
@@ -1470,7 +1428,6 @@ Add IMAP4.idle() , implementing the IMAP4 IDLE command as defined in RFC 2177 .
 Add IMAP4.idle() , implementing the IMAP4 IDLE command as defined in RFC 2177 .
 (Contributed by Forest in gh-55454 .)
 IMAP4.idle()
-IDLE
 
 ### inspect
 
@@ -1500,7 +1457,6 @@ Reading text from a non-blocking stream with read may now raise a BlockingIOErro
 (Contributed by Giovanni Siragusa in gh-109523 .)
 Reading text from a non-blocking stream with read may now raise a BlockingIOError if the operation cannot immediately return bytes.
 (Contributed by Giovanni Siragusa in gh-109523 .)
-read
 BlockingIOError
 Add the Reader and Writer protocols as simpler
 alternatives to the pseudo-protocols typing.IO , typing.TextIO , and typing.BinaryIO .
@@ -1513,9 +1469,6 @@ Writer
 typing.IO
 typing.TextIO
 typing.BinaryIO
-
-### json
-
 Add exception notes for JSON serialization errors that allow
 identifying the source of the error.
 (Contributed by Serhiy Storchaka in gh-122163 .)
@@ -1532,7 +1485,6 @@ This is now preferred to python -m json.tool ,
 which is soft deprecated .
 See the JSON command-line interface documentation.
 (Contributed by Trey Hunner in gh-122873 .)
-json
 By default, the output of the JSON command-line interface is highlighted in color.
 This can be controlled by environment variables .
 (Contributed by Tomas Roun in gh-131952 .)
@@ -1563,9 +1515,6 @@ raises a RuntimeError if the listener is already started.
 (Contributed by Charles Machalow in gh-132106 .)
 QueueListener.start
 RuntimeError
-
-### math
-
 Added more detailed error messages for domain errors in the module.
 (Contributed by Charlie Zhao and Sergey B Kirpichev in gh-101410 .)
 Added more detailed error messages for domain errors in the module.
@@ -1609,11 +1558,9 @@ data container structures
 audio with no video: audio/matroska ( .mka )
 audio with no video: audio/matroska ( .mka )
 audio/matroska
-.mka
 video: video/matroska ( .mkv )
 video: video/matroska ( .mkv )
 video/matroska
-.mkv
 stereoscopic video: video/matroska-3d ( .mk3d )
 stereoscopic video: video/matroska-3d ( .mk3d )
 video/matroska-3d
@@ -1621,45 +1568,30 @@ video/matroska-3d
 Images with RFCs
 RFC 1494 : CCITT Group 3 ( .g3 )
 RFC 1494 : CCITT Group 3 ( .g3 )
-.g3
 RFC 3362 : Real-time Facsimile, T.38 ( .t38 )
 RFC 3362 : Real-time Facsimile, T.38 ( .t38 )
-.t38
 RFC 3745 : JPEG 2000 ( .jp2 ), extension ( .jpx ) and compound ( .jpm )
 RFC 3745 : JPEG 2000 ( .jp2 ), extension ( .jpx ) and compound ( .jpm )
-.jp2
-.jpx
-.jpm
 RFC 3950 : Tag Image File Format Fax eXtended, TIFF-FX ( .tfx )
 RFC 3950 : Tag Image File Format Fax eXtended, TIFF-FX ( .tfx )
-.tfx
 RFC 4047 : Flexible Image Transport System ( .fits )
 RFC 4047 : Flexible Image Transport System ( .fits )
 .fits
 RFC 7903 : Enhanced Metafile ( .emf ) and Windows Metafile ( .wmf )
 RFC 7903 : Enhanced Metafile ( .emf ) and Windows Metafile ( .wmf )
-.emf
-.wmf
 Other MIME type additions and changes
 RFC 2361 : Change type for .avi to video/vnd.avi and for .wav to audio/vnd.wave
 RFC 2361 : Change type for .avi to video/vnd.avi and for .wav to audio/vnd.wave
-.avi
 video/vnd.avi
-.wav
 audio/vnd.wave
 RFC 4337 : Add MPEG-4 audio/mp4 ( .m4a )
 RFC 4337 : Add MPEG-4 audio/mp4 ( .m4a )
 audio/mp4
-.m4a
 RFC 5334 : Add Ogg media ( .oga , .ogg and .ogx )
 RFC 5334 : Add Ogg media ( .oga , .ogg and .ogx )
-.oga
-.ogg
-.ogx
 RFC 6713 : Add gzip application/gzip ( .gz )
 RFC 6713 : Add gzip application/gzip ( .gz )
 application/gzip
-.gz
 RFC 9639 : Add FLAC audio/flac ( .flac )
 RFC 9639 : Add FLAC audio/flac ( .flac )
 audio/flac
@@ -1668,25 +1600,20 @@ RFC 9512 application/yaml MIME type for YAML files ( .yaml and .yml )
 RFC 9512 application/yaml MIME type for YAML files ( .yaml and .yml )
 application/yaml
 .yaml
-.yml
 Add 7z application/x-7z-compressed ( .7z )
 Add 7z application/x-7z-compressed ( .7z )
 application/x-7z-compressed
-.7z
 Add Android Package application/vnd.android.package-archive ( .apk )
 when not strict
 Add Android Package application/vnd.android.package-archive ( .apk )
 when not strict
 application/vnd.android.package-archive
-.apk
 Add deb application/x-debian-package ( .deb )
 Add deb application/x-debian-package ( .deb )
 application/x-debian-package
-.deb
 Add glTF binary model/gltf-binary ( .glb )
 Add glTF binary model/gltf-binary ( .glb )
 model/gltf-binary
-.glb
 Add glTF JSON/ASCII model/gltf+json ( .gltf )
 Add glTF JSON/ASCII model/gltf+json ( .gltf )
 model/gltf+json
@@ -1694,27 +1621,21 @@ model/gltf+json
 Add M4V video/x-m4v ( .m4v )
 Add M4V video/x-m4v ( .m4v )
 video/x-m4v
-.m4v
 Add PHP application/x-httpd-php ( .php )
 Add PHP application/x-httpd-php ( .php )
 application/x-httpd-php
-.php
 Add RAR application/vnd.rar ( .rar )
 Add RAR application/vnd.rar ( .rar )
 application/vnd.rar
-.rar
 Add RPM application/x-rpm ( .rpm )
 Add RPM application/x-rpm ( .rpm )
 application/x-rpm
-.rpm
 Add STL model/stl ( .stl )
 Add STL model/stl ( .stl )
 model/stl
-.stl
 Add Windows Media Video video/x-ms-wmv ( .wmv )
 Add Windows Media Video video/x-ms-wmv ( .wmv )
 video/x-ms-wmv
-.wmv
 De facto: Add WebM audio/webm ( .weba )
 De facto: Add WebM audio/webm ( .weba )
 audio/webm
@@ -1730,10 +1651,6 @@ OASIS :
 Add OpenDocument .odg , .odp , .ods and .odt types
 OASIS :
 Add OpenDocument .odg , .odp , .ods and .odt types
-.odg
-.odp
-.ods
-.odt
 W3C :
 Add EPUB application/epub+zip ( .epub )
 W3C :
@@ -1784,7 +1701,6 @@ clear() and copy() for proxies of list
 clear() and copy() for proxies of list
 clear()
 copy()
-list
 fromkeys() , reversed(d) , d | {} , {} | d , d |= {'b': 2} for proxies of dict
 fromkeys() , reversed(d) , d | {} , {} | d , d |= {'b': 2} for proxies of dict
 fromkeys()
@@ -1792,7 +1708,6 @@ reversed(d)
 d | {}
 {} | d
 d |= {'b': 2}
-dict
 (Contributed by Roy Hyunjin Han for gh-103134 .)
 Add support for shared set objects via SyncManager.set() .
 The set() in Manager() method is now available.
@@ -1800,7 +1715,6 @@ The set() in Manager() method is now available.
 Add support for shared set objects via SyncManager.set() .
 The set() in Manager() method is now available.
 (Contributed by Mingyu Park in gh-129949 .)
-set
 SyncManager.set()
 set()
 Manager()
@@ -1902,13 +1816,9 @@ implementing the new pathlib.types.PathInfo protocol. The
 object supports querying the file type and internally caching stat() results. Path objects generated by iterdir() are initialized with file type information
 gleaned from scanning the parent directory.
 (Contributed by Barney Gale in gh-125413 .)
-info
 pathlib.types.PathInfo
 stat()
 iterdir()
-
-### pdb
-
 The pdb module now supports remote attaching to a running Python process
 using a new -p PID command-line option: python -m pdb -p 1234 This will connect to the Python process with the given PID and allow you to
 debug it interactively. Notice that due to how the Python interpreter works
@@ -1918,7 +1828,6 @@ process receives a signal. This feature uses PEP 768 and the new sys.remote_exec
 and send the PDB commands to it. (Contributed by Matt Wozniski and Pablo Galindo in gh-131591 .)
 The pdb module now supports remote attaching to a running Python process
 using a new -p PID command-line option:
-pdb
 -p PID
 
 [CODE]
@@ -1944,7 +1853,6 @@ As a result, all the instance specific data like display and commands are preser
 (Contributed by Tian Gao in gh-121450 .)
 breakpoint()
 set_trace()
-Pdb
 set_trace()
 display
 commands
@@ -1954,7 +1862,6 @@ Add a new argument mode to pdb.Pdb . Disable the restart command when pdb is in 
 (Contributed by Tian Gao in gh-123757 .)
 pdb.Pdb
 restart
-pdb
 inline
 A confirmation prompt will be shown when the user tries to quit pdb in inline mode. y , Y , <Enter> or EOF will confirm
 the quit and call sys.exit() , instead of raising bdb.BdbQuit .
@@ -1962,10 +1869,8 @@ the quit and call sys.exit() , instead of raising bdb.BdbQuit .
 A confirmation prompt will be shown when the user tries to quit pdb in inline mode. y , Y , <Enter> or EOF will confirm
 the quit and call sys.exit() , instead of raising bdb.BdbQuit .
 (Contributed by Tian Gao in gh-124704 .)
-pdb
 inline
 <Enter>
-EOF
 sys.exit()
 bdb.BdbQuit
 Inline breakpoints like breakpoint() or pdb.set_trace() will
@@ -1978,7 +1883,6 @@ always stop the program at calling frame, ignoring the skip pattern
 (Contributed by Tian Gao in gh-130493 .)
 breakpoint()
 pdb.set_trace()
-skip
 <tab> at the beginning of the line in pdb multi-line input will
 fill in a 4-space indentation now, instead of inserting a \t character.
 (Contributed by Tian Gao in gh-130471 .)
@@ -1986,7 +1890,6 @@ fill in a 4-space indentation now, instead of inserting a \t character.
 fill in a 4-space indentation now, instead of inserting a \t character.
 (Contributed by Tian Gao in gh-130471 .)
 <tab>
-pdb
 Auto-indent is introduced in pdb multi-line input. It will either
 keep the indentation of the last line or insert a 4-space indentation when
 it detects a new code block.
@@ -1995,7 +1898,6 @@ Auto-indent is introduced in pdb multi-line input. It will either
 keep the indentation of the last line or insert a 4-space indentation when
 it detects a new code block.
 (Contributed by Tian Gao in gh-133350 .)
-pdb
 $_asynctask is added to access the current asyncio task if applicable.
 (Contributed by Tian Gao in gh-124367 .)
 $_asynctask is added to access the current asyncio task if applicable.
@@ -2017,7 +1919,6 @@ can be controlled using the same methods as the default interactive shell, in ad
 Source code displayed in pdb will be syntax-highlighted. This feature
 can be controlled using the same methods as the default interactive shell, in addition to the newly added colorize argument of pdb.Pdb .
 (Contributed by Tian Gao and Łukasz Langa in gh-133355 .)
-pdb
 colorize
 pdb.Pdb
 
@@ -2122,15 +2023,11 @@ Add many new constants.
 (Contributed by Serhiy Storchaka in gh-132734 .)
 Add many new constants.
 (Contributed by Serhiy Storchaka in gh-132734 .)
-
-### ssl
-
 Indicate through the HAS_PHA Boolean whether the ssl module supports TLSv1.3 post-handshake client authentication (PHA).
 (Contributed by Will Childs-Klein in gh-128036 .)
 Indicate through the HAS_PHA Boolean whether the ssl module supports TLSv1.3 post-handshake client authentication (PHA).
 (Contributed by Will Childs-Klein in gh-128036 .)
 HAS_PHA
-ssl
 
 ### struct
 
@@ -2141,8 +2038,6 @@ Support the float complex and double complex C types in
 the struct module (formatting characters 'F' and 'D' respectively).
 (Contributed by Sergey B Kirpichev in gh-121249 .)
 struct
-'F'
-'D'
 
 ### symtable
 
@@ -2159,9 +2054,6 @@ is_free_class()
 is_free_class()
 is_free_class()
 (Contributed by Bénédikt Tran in gh-120029 .)
-
-### sys
-
 The previously undocumented special function sys.getobjects() ,
 which only exists in specialized builds of Python, may now return objects
 from other interpreters than the one it’s called in.
@@ -2403,7 +2295,6 @@ It is therefore unlikely that this change will cause a significant increase
 in memory usage for most users.
 Union[int, str]
 Union[int, str] is Union[int, str]
-True
 typing.Union
 types.UnionType
 Union[]
@@ -2431,7 +2322,6 @@ previously this raised TypeError .
 typing.Union
 isinstance()
 isinstance(int | str, typing.Union)
-True
 TypeError
 The __args__ attribute of typing.Union objects is
 no longer writable.
@@ -2546,9 +2436,6 @@ example, the path /etc/hosts is converted to the URL ///etc/hosts .
 On Windows, drive letters are no longer converted to uppercase, and : characters not following a drive letter no longer cause an OSError exception to be raised.
 OSError
 (Contributed by Barney Gale in gh-125866 .)
-
-### uuid
-
 Add support for UUID versions 6, 7, and 8 via uuid6() , uuid7() , and uuid8() respectively, as specified
 in RFC 9562 .
 (Contributed by Bénédikt Tran in gh-89083 .)
@@ -2564,8 +2451,6 @@ Nil and Max UUID formats as defined by RFC 9562 .
 NIL and MAX are now available to represent the
 Nil and Max UUID formats as defined by RFC 9562 .
 (Contributed by Nick Pope in gh-128427 .)
-NIL
-MAX
 Allow generating multiple UUIDs simultaneously on the command-line via python -m uuid --count .
 (Contributed by Simon Legner in gh-131236 .)
 Allow generating multiple UUIDs simultaneously on the command-line via python -m uuid --count .
@@ -2615,11 +2500,8 @@ Hugo van Kemenade, Jelle Zijlstra, and others in gh-118761 .)
 The import time for several standard library modules has been improved,
 including annotationlib , ast , asyncio , base64 , cmd , csv , gettext , importlib.util , locale , mimetypes , optparse , pickle , pprint , pstats , shlex , socket , string , subprocess , threading , tomllib , types , and zipfile .
 annotationlib
-ast
 asyncio
 base64
-cmd
-csv
 gettext
 importlib.util
 locale
@@ -2682,9 +2564,6 @@ b16decode() is now up to six times faster.
 (Contributed by Bénédikt Tran, Chris Markiewicz, and Adam Turner
 in gh-118761 .)
 b16decode()
-
-### bdb
-
 The basic debugger now has a sys.monitoring -based backend,
 which can be selected via the passing 'monitoring' to the Bdb class’s new backend parameter.
 (Contributed by Tian Gao in gh-124533 .)
@@ -2693,7 +2572,6 @@ which can be selected via the passing 'monitoring' to the Bdb class’s new back
 (Contributed by Tian Gao in gh-124533 .)
 sys.monitoring
 'monitoring'
-Bdb
 
 ### difflib
 
@@ -2790,9 +2668,6 @@ Path.read_bytes now uses unbuffered mode
 to open files, which is between 9% and 17% faster to read in full.
 (Contributed by Cody Maloney in gh-120754 .)
 Path.read_bytes
-
-### pdb
-
 pdb now supports two backends, based on either sys.settrace() or sys.monitoring .
 Using the pdb CLI or breakpoint() will always use the sys.monitoring backend.
 Explicitly instantiating pdb.Pdb and its derived classes
@@ -2803,7 +2678,6 @@ Using the pdb CLI or breakpoint() will always use the sys.monitoring backend.
 Explicitly instantiating pdb.Pdb and its derived classes
 will use the sys.settrace() backend by default, which is configurable.
 (Contributed by Tian Gao in gh-124533 .)
-pdb
 sys.settrace()
 sys.monitoring
 breakpoint()
@@ -2822,9 +2696,6 @@ an average of 2.4x, with larger improvements for bigger inputs,
 and fix a bug with incomplete normalization of blank lines with whitespace
 characters other than space and tab.
 dedent()
-
-### uuid
-
 uuid3() and uuid5() are now both roughly 40% faster
 for 16-byte names and 20% faster for 1024-byte names.
 Performance for longer names remains unchanged.
@@ -2840,9 +2711,6 @@ uuid4() is now c. 30% faster.
 uuid4() is now c. 30% faster.
 (Contributed by Bénédikt Tran in gh-128150 .)
 uuid4()
-
-### zlib
-
 On Windows, zlib-ng is now used as the implementation of the zlib module
 in the default binaries.
 There are no known incompatibilities between zlib-ng and the previously-used zlib implementation.
@@ -2853,9 +2721,7 @@ On Windows, zlib-ng is now used as the implementation of the zlib module
 in the default binaries.
 There are no known incompatibilities between zlib-ng and the previously-used zlib implementation.
 This should result in better performance at all compression levels.
-zlib
 zlib-ng
-zlib
 It is worth noting that zlib.Z_BEST_SPEED ( 1 ) may result in
 significantly less compression than the previous implementation,
 whilst also significantly reducing the time taken to compress.
@@ -2892,9 +2758,6 @@ ValueError
 add_argument_group()
 add_mutually_exclusive_group()
 ValueError
-
-### ast
-
 Remove the following classes, which have been deprecated aliases of Constant since Python 3.8 and have emitted
 deprecation warnings since Python 3.12: Bytes Ellipsis NameConstant Num Str As a consequence of these removals, user-defined visit_Num , visit_Str , visit_Bytes , visit_NameConstant and visit_Ellipsis methods
 on custom NodeVisitor subclasses will no longer be called
@@ -2912,12 +2775,6 @@ Ellipsis
 NameConstant
 NameConstant
 NameConstant
-Num
-Num
-Num
-Str
-Str
-Str
 As a consequence of these removals, user-defined visit_Num , visit_Str , visit_Bytes , visit_NameConstant and visit_Ellipsis methods
 on custom NodeVisitor subclasses will no longer be called
 when the NodeVisitor subclass is visiting an AST.
@@ -3095,7 +2952,6 @@ Remove support for passing additional keyword arguments
 to Path .
 In previous versions, any such arguments are ignored.
 (Contributed by Barney Gale in gh-74033 .)
-Path
 Remove support for passing additional positional arguments to PurePath.relative_to() and is_relative_to() .
 In previous versions, any such arguments are joined onto other .
 (Contributed by Barney Gale in gh-78707 .)
@@ -3115,9 +2971,6 @@ which have been deprecated since Python 3.12.
 (Contributed by Bénédikt Tran in gh-97850 .)
 get_loader()
 find_loader()
-
-### pty
-
 Remove the master_open() and slave_open() functions,
 which have been deprecated since Python 3.12.
 Use pty.openpty() instead.
@@ -3306,7 +3159,6 @@ MSVC-compatible default memory layout is now deprecated in favor of setting Stru
 (Contributed by Petr Viktorin in gh-131747 .)
 Structure._pack_
 Structure._layout_
-'ms'
 Calling ctypes.POINTER() on a string is now deprecated.
 Use incomplete types for self-referential structures.
 Also, the internal ctypes._pointer_type_cache is deprecated.
@@ -3401,7 +3253,6 @@ read-only property, which will be removed in a future version of Python.
 The low overhead dynamic frame locals access added in Python 3.13 by PEP 667 means the frame locals cache reference previously stored in this attribute
 is no longer needed. Derived debuggers should access pdb.Pdb.curframe.f_locals directly in Python 3.13 and later versions.
 (Contributed by Tian Gao in gh-124369 and gh-125951 .)
-pdb
 pdb.Pdb.curframe_locals
 pdb.Pdb.curframe.f_locals
 symtable :
@@ -3439,7 +3290,6 @@ Accepting objects with false values (like 0 and [] ) except empty
 strings, bytes-like objects and None in parse_qsl() and parse_qs() is now deprecated.
 (Contributed by Serhiy Storchaka in gh-116897 .)
 urllib.parse
-None
 parse_qsl()
 parse_qs()
 
@@ -3631,7 +3481,6 @@ since Python 3.13.
 Use class TD(TypedDict): pass or TD = TypedDict("TD", {}) to create a TypedDict with zero field.
 TypedDict
 TD = TypedDict("TD")
-None
 TD = TypedDict("TD", None)
 class TD(TypedDict): pass
 TD = TypedDict("TD", {})
@@ -3650,7 +3499,6 @@ and getmarkers() methods of
 the Wave_read and Wave_write classes
 have been deprecated since Python 3.13.
 wave :
-wave
 The getmark() , setmark() ,
 and getmarkers() methods of
 the Wave_read and Wave_write classes
@@ -3710,9 +3558,7 @@ has been deprecated in documentation since Python 3.3
 and at runtime since Python 3.13.
 Use the 'w' format code ( Py_UCS4 )
 for Unicode characters instead.
-'u'
 wchar_t
-'w'
 Py_UCS4
 asyncio : asyncio.iscoroutinefunction() is deprecated
 and will be removed in Python 3.16;
@@ -3785,7 +3631,6 @@ the underlying integer, convert to int explicitly ( ~int(x) ).
 ~True
 ~False
 not x
-int
 ~int(x)
 functools : Calling the Python implementation of functools.reduce() with function or sequence as keyword arguments has been deprecated since Python 3.14.
 functools :
@@ -3845,7 +3690,6 @@ sys : The _enablelegacywindowsfsencoding() function
 has been deprecated since Python 3.13.
 Use the PYTHONLEGACYWINDOWSFSENCODING environment variable instead.
 sys :
-sys
 The _enablelegacywindowsfsencoding() function
 has been deprecated since Python 3.13.
 Use the PYTHONLEGACYWINDOWSFSENCODING environment variable instead.
@@ -3866,7 +3710,6 @@ The sysconfig.expand_makefile_vars() function
 has been deprecated since Python 3.14.
 Use the vars argument of sysconfig.get_paths() instead.
 sysconfig.expand_makefile_vars()
-vars
 sysconfig.get_paths()
 tarfile : The undocumented and unused TarFile.tarfile attribute
 has been deprecated since Python 3.13.
@@ -3906,7 +3749,6 @@ Use isinstance(obj, collections.abc.Buffer) to test if obj implements the buffer
 in type annotations, either use Buffer or a union
 that explicitly specifies the types your code supports (e.g., bytes | bytearray | memoryview ).
 isinstance(obj, collections.abc.Buffer)
-obj
 Buffer
 bytes | bytearray | memoryview
 ByteString was originally intended to be an abstract class that
@@ -3963,7 +3805,6 @@ Use isinstance(obj, collections.abc.Buffer) to test if obj implements the buffer
 in type annotations, either use Buffer or a union
 that explicitly specifies the types your code supports (e.g., bytes | bytearray | memoryview ).
 isinstance(obj, collections.abc.Buffer)
-obj
 Buffer
 bytes | bytearray | memoryview
 ByteString was originally intended to be an abstract class that
@@ -3998,7 +3839,6 @@ specifier 'N' , which is only supported in the decimal module’s
 C implementation, has been deprecated since Python 3.13.
 (Contributed by Serhiy Storchaka in gh-89902 .)
 Decimal
-'N'
 decimal
 
 ### Pending removal in Python 3.19
@@ -4067,16 +3907,12 @@ will be changed to a syntax error. ( gh-87999 )
 [0x1for x in y]
 [0x1 for x in y]
 [0x1f or x in y]
-and
-else
-for
 Support for __index__() and __int__() method returning non-int type:
 these methods will be required to return an instance of a strict subclass of int .
 Support for __index__() and __int__() method returning non-int type:
 these methods will be required to return an instance of a strict subclass of int .
 __index__()
 __int__()
-int
 Support for __float__() method returning a strict subclass of float : these methods will be required to return an instance of float .
 Support for __float__() method returning a strict subclass of float : these methods will be required to return an instance of float .
 __float__()
@@ -4153,7 +3989,6 @@ EntryPoints tuple interface.
 EntryPoints
 Implicit None on return values.
 Implicit None on return values.
-None
 logging : the warn() method has been deprecated
 since Python 3.3, use warning() instead.
 logging : the warn() method has been deprecated
@@ -4200,7 +4035,6 @@ rmtree()
 ssl options and protocols: ssl.SSLContext without protocol argument is deprecated. ssl.SSLContext : set_npn_protocols() and selected_npn_protocol() are deprecated: use ALPN
 instead. ssl.OP_NO_SSL* options ssl.OP_NO_TLS* options ssl.PROTOCOL_SSLv3 ssl.PROTOCOL_TLS ssl.PROTOCOL_TLSv1 ssl.PROTOCOL_TLSv1_1 ssl.PROTOCOL_TLSv1_2 ssl.TLSVersion.SSLv3 ssl.TLSVersion.TLSv1 ssl.TLSVersion.TLSv1_1
 ssl options and protocols:
-ssl
 ssl.SSLContext without protocol argument is deprecated.
 ssl.SSLContext without protocol argument is deprecated.
 ssl.SSLContext
@@ -4292,7 +4126,6 @@ that is not None from a test case.
 unittest.IsolatedAsyncioTestCase : it is deprecated to return a value
 that is not None from a test case.
 unittest.IsolatedAsyncioTestCase
-None
 urllib.parse deprecated functions: urlparse() instead splitattr() splithost() splitnport() splitpasswd() splitport() splitquery() splittag() splittype() splituser() splitvalue() to_bytes()
 urllib.parse deprecated functions: urlparse() instead
 urllib.parse
@@ -4342,7 +4175,6 @@ xml.etree.ElementTree : Testing the truth value of an Element is deprecated. In 
 will always return True . Prefer explicit len(elem) or elem is not None tests instead.
 xml.etree.ElementTree
 Element
-True
 len(elem)
 elem is not None
 sys._clear_type_cache() is deprecated:
@@ -4414,7 +4246,6 @@ using the new instruction.
 Removed the BEFORE_WITH and BEFORE_ASYNC_WITH instructions.
 (Contributed by Mark Shannon in gh-120507 .)
 LOAD_SPECIAL
-with
 async with
 BEFORE_WITH
 BEFORE_ASYNC_WITH
@@ -4645,7 +4476,6 @@ Add PyLong_GetSign() function to get the sign of int objects.
 Add PyLong_GetSign() function to get the sign of int objects.
 (Contributed by Sergey B Kirpichev in gh-116560 .)
 PyLong_GetSign()
-int
 Add PyLong_IsPositive() , PyLong_IsNegative() and PyLong_IsZero() for checking if PyLongObject is positive, negative, or zero, respectively.
 (Contributed by James Roy and Sergey B Kirpichev in gh-126061 .)
 Add PyLong_IsPositive() , PyLong_IsNegative() and PyLong_IsZero() for checking if PyLongObject is positive, negative, or zero, respectively.
@@ -4659,7 +4489,6 @@ Python int objects: PyLong_AsInt32() PyLong_AsInt64() PyLong_AsUInt32() PyLong_A
 Add new functions to convert C <stdint.h> numbers to/from
 Python int objects:
 <stdint.h>
-int
 PyLong_AsInt32()
 PyLong_AsInt32()
 PyLong_AsInt32()
@@ -4689,7 +4518,6 @@ Add a new import and export API for Python int objects
 ( PEP 757 ): PyLong_GetNativeLayout() PyLong_Export() PyLong_FreeExport() PyLongWriter_Create() PyLongWriter_Finish() PyLongWriter_Discard() (Contributed by Sergey B Kirpichev and Victor Stinner in gh-102471 .)
 Add a new import and export API for Python int objects
 ( PEP 757 ):
-int
 PyLong_GetNativeLayout()
 PyLong_GetNativeLayout()
 PyLong_GetNativeLayout()
@@ -4744,7 +4572,6 @@ PyUnicode_Equal()
 Add a new PyUnicodeWriter API to create a Python str object, with the following functions: PyUnicodeWriter_Create() PyUnicodeWriter_DecodeUTF8Stateful() PyUnicodeWriter_Discard() PyUnicodeWriter_Finish() PyUnicodeWriter_Format() PyUnicodeWriter_WriteASCII() PyUnicodeWriter_WriteChar() PyUnicodeWriter_WriteRepr() PyUnicodeWriter_WriteStr() PyUnicodeWriter_WriteSubstring() PyUnicodeWriter_WriteUCS4() PyUnicodeWriter_WriteUTF8() PyUnicodeWriter_WriteWideChar() (Contributed by Victor Stinner in gh-119182 .)
 Add a new PyUnicodeWriter API to create a Python str object, with the following functions:
 PyUnicodeWriter
-str
 PyUnicodeWriter_Create()
 PyUnicodeWriter_Create()
 PyUnicodeWriter_Create()
@@ -4800,7 +4627,6 @@ Add support for a new p format unit in Py_BuildValue() that produces a Python bo
 Add support for a new p format unit in Py_BuildValue() that produces a Python bool object from a C integer.
 (Contributed by Pablo Galindo in bpo-45325 .)
 Py_BuildValue()
-bool
 Add PyUnstable_IsImmortal() for determining if
 an object is immortal , for debugging purposes.
 (Contributed by Peter Bierma in gh-128509 .)
@@ -4993,7 +4819,6 @@ Use PyCodec_Decode() instead; Note that some codecs (for example, “base64”)
 may return a type other than str , such as bytes .
 PyUnicode_AsDecodedUnicode()
 PyCodec_Decode()
-str
 bytes
 PyUnicode_AsEncodedObject() :
 Use PyCodec_Encode() instead.
@@ -5010,7 +4835,6 @@ may return a type other than bytes , such as str .
 PyUnicode_AsEncodedUnicode()
 PyCodec_Encode()
 bytes
-str
 Python initialization functions, deprecated in Python 3.13: Py_GetPath() :
 Use PyConfig_Get("module_search_paths") ( sys.path ) instead. Py_GetPrefix() :
 Use PyConfig_Get("base_prefix") ( sys.base_prefix ) instead. Use PyConfig_Get("prefix") ( sys.prefix ) if virtual environments need to be handled. Py_GetExecPrefix() :
@@ -5674,9 +5498,6 @@ Currently, the most significant missing functionality is that native debuggers
 and profilers like gdb and perf are unable to unwind through JIT frames
 (Python debuggers and profilers, like pdb or profile , continue to
 work without modification). Free-threaded builds do not support JIT compilation.
-gdb
-perf
-pdb
 profile
 Please report any bugs or major performance regressions that you encounter!
 See also

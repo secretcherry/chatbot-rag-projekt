@@ -5,8 +5,6 @@ SOURCE: whatsnew\3.9.html
 
 # What’s New In Python 3.9
 
-Editor :
-Łukasz Langa
 Łukasz Langa
 This article explains the new features in Python 3.9, compared to 3.8.
 Python 3.9 was released on October 5, 2020.
@@ -19,7 +17,6 @@ PEP 596 - Python 3.9 Release Schedule
 New syntax features:
 PEP 584 , union operators added to dict ;
 PEP 584 , union operators added to dict ;
-dict
 PEP 585 , type hinting generics in standard collections;
 PEP 585 , type hinting generics in standard collections;
 PEP 614 , relaxed grammar restrictions on decorators.
@@ -52,35 +49,27 @@ a number of Python modules ( _abc , audioop , _bz2 , _codecs , _contextvars , _c
 by PEP 489;
 a number of Python modules ( _abc , audioop , _bz2 , _codecs , _contextvars , _crypt , _functools , _json , _locale , math , operator , resource , time , _weakref ) now use multiphase initialization as defined
 by PEP 489;
-_abc
 audioop
-_bz2
 _codecs
 _contextvars
 _crypt
 _functools
 _json
 _locale
-math
 operator
 resource
-time
 _weakref
 a number of standard library modules ( audioop , ast , grp , _hashlib , pwd , _posixsubprocess , random , select , struct , termios , zlib ) are now using
 the stable ABI defined by PEP 384.
 a number of standard library modules ( audioop , ast , grp , _hashlib , pwd , _posixsubprocess , random , select , struct , termios , zlib ) are now using
 the stable ABI defined by PEP 384.
 audioop
-ast
-grp
 _hashlib
-pwd
 _posixsubprocess
 random
 select
 struct
 termios
-zlib
 New library modules:
 PEP 615 , the IANA Time Zone Database is now present in the standard
 library in the zoneinfo module;
@@ -132,7 +121,6 @@ Python as well. Consult the Removed section.
 ### Dictionary Merge & Update Operators
 
 Merge ( | ) and update ( |= ) operators have been added to the built-in dict class. Those complement the existing dict.update and {**d1, **d2} methods of merging dictionaries.
-dict
 dict.update
 {**d1, **d2}
 Example:
@@ -160,10 +148,6 @@ collections.UserString
 In type annotations you can now use built-in collection types such as list and dict as generic types instead of importing the
 corresponding capitalized types (e.g. List or Dict ) from typing .  Some other types in the standard library are also now generic,
 for example queue.Queue .
-list
-dict
-List
-Dict
 typing
 queue.Queue
 Example:
@@ -185,7 +169,6 @@ designing new language features.  We’ll start using this flexibility
 in Python 3.10 and later.
 The ast module uses the new parser and produces the same AST as
 the old parser.
-ast
 In Python 3.10, the old parser will be deleted and so will all
 functionality that depends on it (primarily the parser module,
 which has long been deprecated).  In Python 3.9 only , you can switch
@@ -270,10 +253,8 @@ for the correspondent concrete type ( list in this case).
 (Contributed by Serhiy Storchaka in bpo-40257 .)
 typing
 Union
-List
 help()
 List[int]
-list
 Parallel running of aclose() / asend() / athrow() is now prohibited, and ag_running now reflects
 the actual running status of the async generator.
 (Contributed by Yury Selivanov in bpo-30773 .)
@@ -316,8 +297,6 @@ As a fall-back source of data for platforms that don’t ship the IANA database,
 the tzdata module was released as a first-party package – distributed via
 PyPI and maintained by the CPython core team.
 See also
-PEP 615 – Support for the IANA Time Zone Database in the Standard Library
-PEP written and implemented by Paul Ganssle
 PEP written and implemented by Paul Ganssle
 
 ### graphlib
@@ -330,8 +309,6 @@ graphlib.TopologicalSorter
 
 ## Improved Modules
 
-### ast
-
 Added the indent option to dump() which allows it to produce a
 multiline indented output.
 (Contributed by Serhiy Storchaka in bpo-37995 .)
@@ -341,7 +318,6 @@ be used to unparse an ast.AST object and produce a string with code
 that would produce an equivalent ast.AST object when parsed.
 (Contributed by Pablo Galindo and Batuhan Taskaya in bpo-38870 .)
 ast.unparse()
-ast
 ast.AST
 ast.AST
 Added docstrings to AST nodes that contains the ASDL signature used to
@@ -386,11 +362,9 @@ ssl.SSLSocket
 
 Added new possibility to use hardlinks for duplicated .pyc files: hardlink_dupes parameter and –hardlink-dupes command line option.
 (Contributed by  Lumír ‘Frenzy’ Balhar in bpo-40495 .)
-.pyc
 Added new options for path manipulation in resulting .pyc files: stripdir , prependdir , limit_sl_dest parameters and -s, -p, -e command line options.
 Added the possibility to specify the option for an optimization level multiple times.
 (Contributed by Lumír ‘Frenzy’ Balhar in bpo-38112 .)
-.pyc
 
 ### concurrent.futures
 
@@ -448,7 +422,6 @@ fcntl.F_OFD_SETLKW
 
 FTP and FTP_TLS now raise a ValueError if the given timeout for their constructor is zero to prevent the creation of
 a non-blocking socket. (Contributed by Donghee Na in bpo-39259 .)
-FTP
 FTP_TLS
 ValueError
 When the garbage collector makes a collection in which some objects resurrect
@@ -471,9 +444,6 @@ of OpenSSL based implementation.
 (Contributed by Christian Heimes in bpo-40479 )
 ./configure --without-builtin-hashlib-hashes
 ./configure --with-builtin-hashlib-hashes=sha3,blake2
-
-### http
-
 HTTP status codes 103 EARLY_HINTS , 418 IM_A_TEAPOT and 425 TOO_EARLY are added to http.HTTPStatus . (Contributed by Donghee Na in bpo-39509 and Ross Rhodes in bpo-39507 .)
 103 EARLY_HINTS
 418 IM_A_TEAPOT
@@ -501,7 +471,6 @@ Reedy in bpo-40468 .)  Move the indent space setting from the Font tab to
 the new Windows tab.  (Contributed by Mark Roseman and Terry Jan Reedy in bpo-33962 .)
 Apply syntax highlighting to .pyi files. (Contributed by Alex
 Waygood and Terry Jan Reedy in bpo-45447 .)
-.pyi
 
 ### imaplib
 
@@ -565,9 +534,6 @@ Starting with Python 3.9.5 the ipaddress module no longer
 accepts any leading zeros in IPv4 address strings.
 (Contributed by Christian Heimes in bpo-36384 ).
 ipaddress
-
-### math
-
 Expanded the math.gcd() function to handle multiple arguments.
 Formerly, it only supported two arguments.
 (Contributed by Serhiy Storchaka in bpo-39648 .)
@@ -595,7 +561,6 @@ close()
 
 NNTP and NNTP_SSL now raise a ValueError if the given timeout for their constructor is zero to prevent the creation of
 a non-blocking socket. (Contributed by Donghee Na in bpo-39259 .)
-NNTP
 NNTP_SSL
 ValueError
 Added CLD_KILLED and CLD_STOPPED for si_code .
@@ -626,19 +591,14 @@ Added pathlib.Path.readlink() which acts similarly to os.readlink() .
 (Contributed by Girts Folkmanis in bpo-30618 )
 pathlib.Path.readlink()
 os.readlink()
-
-### pdb
-
 On Windows now Pdb supports ~/.pdbrc .
 (Contributed by Tim Hopper and Dan Lidral-Porter in bpo-20523 .)
-Pdb
 ~/.pdbrc
 
 ### poplib
 
 POP3 and POP3_SSL now raise a ValueError if the given timeout for their constructor is zero to prevent the creation of
 a non-blocking socket. (Contributed by Donghee Na in bpo-39259 .)
-POP3
 POP3_SSL
 ValueError
 
@@ -672,12 +632,10 @@ signal.pidfd_send_signal()
 
 SMTP and SMTP_SSL now raise a ValueError if the given timeout for their constructor is zero to prevent the creation of
 a non-blocking socket. (Contributed by Donghee Na in bpo-39259 .)
-SMTP
 SMTP_SSL
 ValueError
 LMTP constructor  now has an optional timeout parameter.
 (Contributed by Donghee Na in bpo-39329 .)
-LMTP
 
 ### socket
 
@@ -692,17 +650,11 @@ The socket module now has the socket.send_fds() and socket.recv_fds() functions.
 Okano and Victor Stinner in bpo-28724 .)
 socket.send_fds()
 socket.recv_fds()
-
-### time
-
 On AIX, thread_time() is now implemented with thread_cputime() which has nanosecond resolution, rather than clock_gettime(CLOCK_THREAD_CPUTIME_ID) which has a resolution of 10 milliseconds.
 (Contributed by Batuhan Taskaya in bpo-40192 )
 thread_time()
 thread_cputime()
 clock_gettime(CLOCK_THREAD_CPUTIME_ID)
-
-### sys
-
 Added a new sys.platlibdir attribute: name of the platform-specific
 library directory. It is used to build the path of standard library and the
 paths of installed extension modules. It is equal to "lib" on most
@@ -735,20 +687,13 @@ typing.get_type_hints()
 ### unicodedata
 
 The Unicode database has been updated to version 13.0.0. ( bpo-39926 ).
-
-### venv
-
 The activation scripts provided by venv now all specify their prompt
 customization consistently by always using the value specified by __VENV_PROMPT__ . Previously some scripts unconditionally used __VENV_PROMPT__ , others only if it happened to be set (which was the default
 case), and one used __VENV_NAME__ instead.
 (Contributed by Brett Cannon in bpo-37663 .)
-venv
 __VENV_PROMPT__
 __VENV_PROMPT__
 __VENV_NAME__
-
-### xml
-
 White space characters within attributes are now preserved when serializing xml.etree.ElementTree to XML file. EOLNs are no longer normalized
 to “n”. This is the result of discussion about how to interpret
 section 2.11 of XML spec.
@@ -804,10 +749,7 @@ A number of Python builtins ( range , tuple , set , frozenset , list , dict ) ar
 (Contributed by Donghee Na, Mark Shannon, Jeroen Demeyer and Petr Viktorin in bpo-37207 .)
 range
 tuple
-set
 frozenset
-list
-dict
 Optimized set.difference_update() for the case when the other set
 is much larger than the base set.
 (Suggested by Evgeny Kapun with code contributed by Michele Orrù in bpo-8425 .)
@@ -906,7 +848,6 @@ Python versions it will raise a TypeError for all floats.
 (Contributed by Serhiy Storchaka in bpo-37315 .)
 math.factorial()
 float
-5.0
 ValueError
 TypeError
 The parser and symbol modules are deprecated and will be
@@ -919,7 +860,6 @@ users can leverage the Abstract Syntax Tree (AST) generation and compilation
 stage, using the ast module.
 parser
 symbol
-ast
 The Public C API functions PyParser_SimpleParseStringFlags() , PyParser_SimpleParseStringFlagsFilename() , PyParser_SimpleParseFileFlags() and PyNode_Compile() are deprecated and will be removed in Python 3.10 together with the old parser.
 The Public C API functions PyParser_SimpleParseStringFlags() , PyParser_SimpleParseStringFlagsFilename() , PyParser_SimpleParseFileFlags() and PyNode_Compile() are deprecated and will be removed in Python 3.10 together with the old parser.
 PyParser_SimpleParseStringFlags()
@@ -947,10 +887,7 @@ possible seed value.  Unfortunately, some of those types are not
 guaranteed to have a deterministic hash value.  After Python 3.9,
 the module will restrict its seeds to None , int , float , str , bytes , and bytearray .
 random
-None
-int
 float
-str
 bytes
 bytearray
 Opening the GzipFile file for writing without specifying
@@ -1007,7 +944,6 @@ and will be removed in future Python versions. value itself should be
 used instead of Index(value) . Tuple(slices, Load()) should be
 used instead of ExtSlice(slices) .
 (Contributed by Serhiy Storchaka in bpo-34822 .)
-ast
 slice
 Index
 ExtSlice
@@ -1023,7 +959,6 @@ ast classes Suite , Param , AugLoad and AugStore are considered deprecated and w
 They were not generated by the parser and not accepted by the code
 generator in Python 3.
 (Contributed by Batuhan Taskaya in bpo-39639 and bpo-39969 and Serhiy Storchaka in bpo-39988 .)
-ast
 Suite
 Param
 AugLoad
@@ -1042,7 +977,6 @@ Passing None as the first argument to the shlex.split() function
 has been deprecated.  (Contributed by Zackery Spytz in bpo-33262 .)
 Passing None as the first argument to the shlex.split() function
 has been deprecated.  (Contributed by Zackery Spytz in bpo-33262 .)
-None
 shlex.split()
 smtpd.MailmanProxy() is now deprecated as it is unusable without
 an external module, mailman .  (Contributed by Samuel Colvin in bpo-35800 .)
@@ -1114,7 +1048,6 @@ The undocumented sys.callstats() function has been removed. Since Python
 build option CALL_PROFILE which was already removed in Python 3.7.
 (Contributed by Victor Stinner in bpo-37414 .)
 sys.callstats()
-None
 CALL_PROFILE
 The sys.getcheckinterval() and sys.setcheckinterval() functions have
 been removed. They were deprecated since Python 3.2. Use sys.getswitchinterval() and sys.setswitchinterval() instead.
@@ -1319,7 +1252,6 @@ ValueError
 except (ImportError, ValueError):
 The venv activation scripts no longer special-case when __VENV_PROMPT__ is set to "" .
 The venv activation scripts no longer special-case when __VENV_PROMPT__ is set to "" .
-venv
 __VENV_PROMPT__
 The select.epoll.unregister() method no longer ignores the EBADF error.
 (Contributed by Victor Stinner in bpo-39239 .)
@@ -1411,7 +1343,6 @@ compatible classes that don’t inherit from those mentioned types.
 PurePath
 NotImplemented
 TypeError
-str
 PurePath
 Starting with Python 3.9.5 the ipaddress module no longer
 accepts any leading zeros in IPv4 address strings. Leading zeros are
@@ -1748,7 +1679,6 @@ PyModuleDef
 Py_mod_exec
 m_size
 PyModule_GetState()
-NULL
 Extension modules without module state ( m_size <= 0 ) are not affected.
 m_size <= 0
 If Py_AddPendingCall() is called in a subinterpreter, the function is
@@ -2047,7 +1977,6 @@ now False .  To support this change, the internally used type cache now
 supports differentiating types.
 Literal
 Literal[0] == Literal[False]
-True
 False
 Literal objects will now raise a TypeError exception during
 equality comparisons if any of their parameters are not hashable .
@@ -2133,7 +2062,6 @@ channel.  We reuse the ftp server IP address instead.  For unusual code
 requiring the old behavior, set a trust_server_pasv_ipv4_address attribute on your FTP instance to True .  (See gh-87451 )
 ftplib.FTP
 trust_server_pasv_ipv4_address
-True
 
 ## Notable changes in Python 3.9.5
 
@@ -2158,10 +2086,7 @@ This limit can be configured or disabled by environment variable, command
 line flag, or sys APIs. See the integer string conversion
 length limitation documentation.  The default limit
 is 4300 digits in string form.
-int
-str
 ValueError
-sys
 
 ## Notable changes in 3.9.17
 

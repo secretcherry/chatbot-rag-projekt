@@ -5,11 +5,7 @@ SOURCE: howto\instrumentation.html
 
 # Instrumenting CPython with DTrace and SystemTap
 
-author :
 David Malcolm
-David Malcolm
-author :
-Łukasz Langa
 Łukasz Langa
 DTrace and SystemTap are monitoring tools, each providing a way to inspect
 what the processes on a computer system are doing.  They both use
@@ -39,8 +35,6 @@ On a Linux machine, this can be done via:
 [CODE]
 $ yum install systemtap-sdt-devel
 [/CODE]
-
-or:
 
 [CODE]
 $ sudo apt-get install systemtap-sdt-dev
@@ -229,10 +223,6 @@ probe process("python").library("libpython3.6dm.so.1.0").mark("function__entry")
 
 ## Available static markers
 
-function__entry(str filename, str funcname, int lineno)
-This marker indicates that execution of a Python function has begun.
-It is only triggered for pure-Python (bytecode) functions. The filename, function name, and line number are provided back to the
-tracing script as positional arguments, which must be accessed using $arg1 , $arg2 , $arg3 : $arg1 : (const char *) filename, accessible using user_string($arg1) $arg2 : (const char *) function name, accessible using user_string($arg2) $arg3 : int line number
 This marker indicates that execution of a Python function has begun.
 It is only triggered for pure-Python (bytecode) functions.
 The filename, function name, and line number are provided back to the
@@ -253,11 +243,6 @@ user_string($arg2)
 $arg3 : int line number
 $arg3 : int line number
 $arg3
-int
-function__return(str filename, str funcname, int lineno)
-This marker is the converse of function__entry() , and indicates that
-execution of a Python function has ended (either via return , or via an
-exception).  It is only triggered for pure-Python (bytecode) functions. The arguments are the same as for function__entry()
 This marker is the converse of function__entry() , and indicates that
 execution of a Python function has ended (either via return , or via an
 exception).  It is only triggered for pure-Python (bytecode) functions.
@@ -265,48 +250,25 @@ function__entry()
 return
 The arguments are the same as for function__entry()
 function__entry()
-line(str filename, str funcname, int lineno)
-This marker indicates a Python line is about to be executed.  It is
-the equivalent of line-by-line tracing with a Python profiler.  It is
-not triggered within C functions. The arguments are the same as for function__entry() .
 This marker indicates a Python line is about to be executed.  It is
 the equivalent of line-by-line tracing with a Python profiler.  It is
 not triggered within C functions.
 The arguments are the same as for function__entry() .
 function__entry()
-gc__start(int generation)
 Fires when the Python interpreter starts a garbage collection cycle. arg0 is the generation to scan, like gc.collect() .
-Fires when the Python interpreter starts a garbage collection cycle. arg0 is the generation to scan, like gc.collect() .
-arg0
 gc.collect()
-gc__done(long collected)
 Fires when the Python interpreter finishes a garbage collection
 cycle. arg0 is the number of collected objects.
-Fires when the Python interpreter finishes a garbage collection
-cycle. arg0 is the number of collected objects.
-arg0
-import__find__load__start(str modulename)
-Fires before importlib attempts to find and load the module. arg0 is the module name. Added in version 3.7.
 Fires before importlib attempts to find and load the module. arg0 is the module name.
 importlib
-arg0
 Added in version 3.7.
-import__find__load__done(str modulename, int found)
-Fires after importlib ’s find_and_load function is called. arg0 is the module name, arg1 indicates if module was
-successfully loaded. Added in version 3.7.
 Fires after importlib ’s find_and_load function is called. arg0 is the module name, arg1 indicates if module was
 successfully loaded.
 importlib
-arg0
-arg1
 Added in version 3.7.
-audit(str event, void *tuple)
-Fires when sys.audit() or PySys_Audit() is called. arg0 is the event name as C string, arg1 is a PyObject pointer to a tuple object. Added in version 3.8.
 Fires when sys.audit() or PySys_Audit() is called. arg0 is the event name as C string, arg1 is a PyObject pointer to a tuple object.
 sys.audit()
 PySys_Audit()
-arg0
-arg1
 PyObject
 Added in version 3.8.
 
@@ -320,64 +282,37 @@ it for you.
 C API Function
 Static Marker
 Notes
-void PyDTrace_LINE ( const char * arg0 , const char * arg1 , int arg2 )
 line()
 line()
-void PyDTrace_FUNCTION_ENTRY ( const char * arg0 , const char * arg1 , int arg2 )
 function__entry()
 function__entry()
-void PyDTrace_FUNCTION_RETURN ( const char * arg0 , const char * arg1 , int arg2 )
 function__return()
 function__return()
-void PyDTrace_GC_START ( int arg0 )
 gc__start()
 gc__start()
-void PyDTrace_GC_DONE ( Py_ssize_t arg0 )
 gc__done()
 gc__done()
-void PyDTrace_INSTANCE_NEW_START ( int arg0 )
 instance__new__start()
 instance__new__start()
 Not used by Python
-void PyDTrace_INSTANCE_NEW_DONE ( int arg0 )
 instance__new__done()
 instance__new__done()
 Not used by Python
-void PyDTrace_INSTANCE_DELETE_START ( int arg0 )
 instance__delete__start()
 instance__delete__start()
 Not used by Python
-void PyDTrace_INSTANCE_DELETE_DONE ( int arg0 )
 instance__delete__done()
 instance__delete__done()
 Not used by Python
-void PyDTrace_IMPORT_FIND_LOAD_START ( const char * arg0 )
 import__find__load__start()
 import__find__load__start()
-void PyDTrace_IMPORT_FIND_LOAD_DONE ( const char * arg0 , int arg1 )
 import__find__load__done()
 import__find__load__done()
-void PyDTrace_AUDIT ( const char * arg0 , void * arg1 )
 audit()
 audit()
 
 ### C Probing Checks
 
-int PyDTrace_LINE_ENABLED ( void )
-int PyDTrace_FUNCTION_ENTRY_ENABLED ( void )
-int PyDTrace_FUNCTION_RETURN_ENABLED ( void )
-int PyDTrace_GC_START_ENABLED ( void )
-int PyDTrace_GC_DONE_ENABLED ( void )
-int PyDTrace_INSTANCE_NEW_START_ENABLED ( void )
-int PyDTrace_INSTANCE_NEW_DONE_ENABLED ( void )
-int PyDTrace_INSTANCE_DELETE_START_ENABLED ( void )
-int PyDTrace_INSTANCE_DELETE_DONE_ENABLED ( void )
-int PyDTrace_IMPORT_FIND_LOAD_START_ENABLED ( void )
-int PyDTrace_IMPORT_FIND_LOAD_DONE_ENABLED ( void )
-int PyDTrace_AUDIT_ENABLED ( void )
-All calls to PyDTrace functions must be guarded by a call to one
-of these functions. This allows Python to minimize performance impact
-when probing is disabled. On builds without DTrace enabled, these functions do nothing and return 0 .
 All calls to PyDTrace functions must be guarded by a call to one
 of these functions. This allows Python to minimize performance impact
 when probing is disabled.
@@ -415,15 +350,8 @@ probe python.function.return = process("python").mark("function__return")
 If this file is installed in SystemTap’s tapset directory (e.g. /usr/share/systemtap/tapset ), then these additional probepoints become
 available:
 /usr/share/systemtap/tapset
-python.function.entry(str filename, str funcname, int lineno, frameptr)
 This probe point indicates that execution of a Python function has begun.
 It is only triggered for pure-Python (bytecode) functions.
-This probe point indicates that execution of a Python function has begun.
-It is only triggered for pure-Python (bytecode) functions.
-python.function.return(str filename, str funcname, int lineno, frameptr)
-This probe point is the converse of python.function.return , and
-indicates that execution of a Python function has ended (either via return , or via an exception).  It is only triggered for pure-Python
-(bytecode) functions.
 This probe point is the converse of python.function.return , and
 indicates that execution of a Python function has ended (either via return , or via an exception).  It is only triggered for pure-Python
 (bytecode) functions.

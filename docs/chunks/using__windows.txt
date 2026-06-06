@@ -60,18 +60,15 @@ modifications. See Troubleshooting for more help with fixing
 non-working commands.
 python
 pymanager
-PATH
 When you first install a runtime, you will likely be prompted to add a directory
 to your PATH . This is optional, if you prefer to use the py command, but is offered for those who prefer the full range of aliases (such
 as python3.14.exe ) to be available. The directory will be %LocalAppData%\Python\bin by default, but may be customized by an
 administrator. Click Start and search for “Edit environment variables for your
 account” for the system settings page to add the path.
-PATH
 python3.14.exe
 %LocalAppData%\Python\bin
 Each Python runtime you install will have its own directory for scripts. These
 also need to be added to PATH if you want to use them.
-PATH
 The Python install manager will be automatically updated to new releases. This
 does not affect any installs of Python runtimes. Uninstalling the Python install
 manager does not uninstall any Python runtimes.
@@ -111,7 +108,6 @@ Each of these commands also has a windowed version that avoids creating a
 console window. These are pyw , pythonw and pymanagerw . A python3 command is also included that mimics the python command. It is intended to
 catch accidental uses of the typical POSIX command on Windows, but is not meant
 to be widely used or recommended.
-pyw
 pythonw
 pymanagerw
 python3
@@ -196,9 +192,7 @@ increase it further for debugging purposes. Passing -q or --quiet will
 reduce output, and -qq will reduce it further.
 py help
 --verbose
--vv
 --quiet
--qq
 The --config=<PATH> option allows specifying a configuration file to
 override multiple settings at once. See Configuration below for more
 information about these files.
@@ -220,10 +214,7 @@ prefix path).
 --format=<FMT>
 -f <FMT>
 table
-csv
-json
 jsonl
-exe
 prefix
 The --one or -1 option only displays a single result. If the default
 runtime is included, it will be the one. Otherwise, the “best” result is shown
@@ -253,7 +244,6 @@ For compatibility with the old launcher, the --list , --list-paths , -0 and -0p 
 additional options, and will produce legacy formatted output.
 --list
 --list-paths
--0p
 py -0p
 
 ### 4.1.5. Installing runtimes
@@ -405,7 +395,6 @@ Environment Variable
 Description
 default_tag
 default_tag
-PYTHON_MANAGER_DEFAULT
 The preferred default version to launch or install.
 By default, this is interpreted as the most recent non-prerelease version
 from the CPython team.
@@ -420,8 +409,6 @@ but will use 3.14 if no tagged install exists.
 py -V:3.14
 3.14-64
 default_platform
--64
-3.14
 logs_dir
 logs_dir
 PYTHON_MANAGER_LOGS
@@ -431,7 +418,6 @@ By default, %TEMP% .
 %TEMP%
 automatic_install
 automatic_install
-PYTHON_MANAGER_AUTOMATIC_INSTALL
 True to allow automatic installs when using py exec to launch (or py when no runtimes are installed yet).
 Other commands will not automatically install, regardless of this
 setting.
@@ -451,7 +437,6 @@ PYTHON_MANAGER_SHEBANG_CAN_RUN_ANYTHING
 True to allow shebangs in .py files to launch applications other than
 Python runtimes, or false to prevent it.
 By default, true.
-.py
 log_level
 log_level
 PYMANAGER_VERBOSE , PYMANAGER_DEBUG
@@ -505,7 +490,6 @@ This directory should be added to your PATH to make the
 commands available from your terminal.
 python3.14.exe
 pip.exe
-PATH
 download_dir
 download_dir
 (none)
@@ -553,15 +537,12 @@ As many Python scripts written to work on Unix will already have this line,
 you should find these scripts can be used by the launcher without modification.
 If you are writing a new script on Windows which you hope will be useful on
 Unix, you should use one of the shebang lines starting with /usr .
-/usr
 Any of the above virtual commands can have <ALIAS> replaced by an alias from
 an installed runtime. That is, any command generated in the global aliases
 directory (which you may have added to your PATH environment variable)
 can be used in a shebang, even if it is not on your PATH . This allows
 the use of shebangs like /usr/bin/python3.12 to select a particular runtime.
 <ALIAS>
-PATH
-PATH
 /usr/bin/python3.12
 If no runtimes are installed, or if automatic installation is enabled, the
 requested runtime will be installed if necessary. See Configuration for information about configuration settings.
@@ -570,8 +551,6 @@ behaviour of the Unix env program, which performs the same search, but
 prefers launching known Python commands. A warning may be displayed when
 searching for arbitrary executables, and this search may be disabled by the shebang_can_run_anything configuration option.
 /usr/bin/env
-PATH
-env
 shebang_can_run_anything
 Shebang lines that do not match any of patterns are treated as Windows executable paths that are absolute or relative to the directory containing the
 script file. This is a convenience for Windows-only scripts, such as those
@@ -580,7 +559,6 @@ shells. These paths may be quoted, and may include multiple arguments, after
 which the path to the script and any additional arguments will be appended.
 This functionality may be disabled by the shebang_can_run_anything configuration option.
 shebang_can_run_anything
-Note
 The behaviour of shebangs in the Python install manager is subtly different
 from the previous py.exe launcher, and the old configuration options no
 longer apply. If you are specifically reliant on the old behaviour or
@@ -598,8 +576,6 @@ python.org downloads page. This MSI has no user interface, and can only perform
 per-machine installs to its default location in Program Files. It will attempt
 to modify the system PATH environment variable to include this install
 location, but be sure to validate this on your configuration.
-PATH
-Note
 Windows Server 2019 is the only version of Windows that CPython supports that
 does not support MSIX. For Windows Server 2019, you should use the MSI.
 Be aware that the MSI package does not bundle any runtimes, and so is not
@@ -610,12 +586,10 @@ are all per-user only. The Python install manager does not support installing
 runtimes per-machine. To emulate a per-machine install, you can use py install --target=<shared location> as administrator and add your own system-wide
 modifications to PATH , the registry, or the Start menu.
 py install --target=<shared location>
-PATH
 When the MSIX is installed, but commands are not available in the PATH environment variable, they can be found under %LocalAppData%\Microsoft\WindowsApps\PythonSoftwareFoundation.PythonManager_3847v3x7pw1km or %LocalAppData%\Microsoft\WindowsApps\PythonSoftwareFoundation.PythonManager_qbz5n2kfra8p0 ,
 depending on whether it was installed from python.org or through the Windows
 Store. Attempting to run the executable directly from Program Files is not
 recommended.
-PATH
 %LocalAppData%\Microsoft\WindowsApps\PythonSoftwareFoundation.PythonManager_3847v3x7pw1km
 %LocalAppData%\Microsoft\WindowsApps\PythonSoftwareFoundation.PythonManager_qbz5n2kfra8p0
 To programmatically install the Python install manager, it is easiest to use
@@ -694,7 +668,6 @@ be used. If you override the value to %CONFIRM% , then that environment
 variable will be used instead.
 confirm
 %PYTHON_MANAGER_CONFIRM%
-yes
 %CONFIRM%
 Configuration settings that are paths are interpreted as relative to the
 directory containing the configuration file that specified them.
@@ -788,7 +761,6 @@ This will install and register as normal. If you have no other runtimes
 installed, then python will launch this one. Otherwise, you will need to use py -V:3.14t ... or, if you have added the global aliases directory to your PATH environment variable, the python3.14t.exe commands.
 python
 py -V:3.14t ...
-PATH
 python3.14t.exe
 
 ### 4.1.13. Index signatures
@@ -800,7 +772,6 @@ file should contain the hash of its matching index file, and should be signed
 with a valid Authenticode signature. This allows standard tooling (on Windows)
 to generate a signature, and any certificate may be used as long as the client
 operating system already trusts its certification authority (root CA).
-.cat
 Index signatures are only downloaded and checked when the local configuration’s source_settings section includes the index URL and requires_signature is
 true, or the index JSON contains requires_signature set to true. When the
 setting exists in local configuration, even when false, settings in the index
@@ -816,7 +787,6 @@ the common name, O= for the organizational unit, and C= for the
 publisher’s country.
 required_root_subject
 required_publisher_subject
-CN=
 Finally, the required_publisher_eku setting allows requiring that a specific
 Enhanced Key Usage (EKU) has been assigned to the publisher certificate. For
 example, the EKU 1.3.6.1.5.5.7.3.3 indicates that the certificate was
@@ -889,7 +859,6 @@ pymanager
 Ensure your PATH variable contains the entry for %UserProfile%\AppData\Local\Microsoft\WindowsApps .
 The operating system includes this entry once by default, after other
 user paths. If removed, shortcuts will not be found.
-PATH
 %UserProfile%\AppData\Local\Microsoft\WindowsApps
 py gives me a “command not found” error when I type it in my terminal.
 Did you install the Python install manager ?
@@ -901,7 +870,6 @@ may also need refreshing.
 Ensure your PATH variable contains the entry for %UserProfile%\AppData\Local\Microsoft\WindowsApps .
 The operating system includes this entry once by default, after other
 user paths. If removed, shortcuts will not be found.
-PATH
 %UserProfile%\AppData\Local\Microsoft\WindowsApps
 py gives me a “can’t open file” error when I type commands in my
 terminal.
@@ -913,7 +881,6 @@ python doesn’t launch the same runtime as py
 python
 Click Start, open “Installed apps”, look for any existing Python runtimes,
 and either remove them or Modify and disable the PATH options.
-PATH
 Click Start, open “Manage app execution aliases”, and check that your python.exe alias is set to “Python (default)”
 python.exe
 python and py don’t launch the runtime I expect
@@ -936,13 +903,11 @@ and reinstall it using py install .
 py install
 pythonw or pyw don’t launch the same runtime as python or py
 pythonw
-pyw
 python
 Click Start, open “Manage app execution aliases”, and check that your pythonw.exe and pyw.exe aliases are consistent with your others.
 pythonw.exe
 pyw.exe
 pip gives me a “command not found” error when I type it in my terminal.
-pip
 Have you activated a virtual environment?
 Run the .venv\Scripts\activate script in your terminal to activate.
 .venv\Scripts\activate
@@ -954,10 +919,7 @@ it is not) should make commands such as pip (and other installed
 packages) available.
 python -m pip
 py install --refresh
-PATH
-pip
 I installed a package with pip but its command is not found.
-pip
 Have you activated a virtual environment?
 Run the .venv\Scripts\activate script in your terminal to activate.
 .venv\Scripts\activate
@@ -1007,7 +969,6 @@ user’s system, including environment variables, system registry settings, and
 installed packages. The standard library is included as pre-compiled and
 optimized .pyc files in a ZIP, and python3.dll , python313.dll , python.exe and pythonw.exe are all provided. Tcl/tk (including all
 dependents, such as Idle), pip and the Python documentation are not included.
-.pyc
 python3.dll
 python313.dll
 python.exe
@@ -1128,20 +1089,11 @@ python.exe
 Besides the standard CPython distribution, there are modified packages including
 additional functionality.  The following is a list of popular versions and their
 key features:
-ActivePython
 Installer with multi-platform compatibility, documentation, PyWin32
-Installer with multi-platform compatibility, documentation, PyWin32
-Anaconda
-Popular scientific modules (such as numpy, scipy and pandas) and the conda package manager.
 Popular scientific modules (such as numpy, scipy and pandas) and the conda package manager.
 conda
-Enthought Deployment Manager
-“The Next Generation Python Environment and Package Manager”. Previously Enthought provided Canopy, but it reached end of life in 2016 .
 “The Next Generation Python Environment and Package Manager”.
 Previously Enthought provided Canopy, but it reached end of life in 2016 .
-WinPython
-Windows-specific distribution with prebuilt scientific packages and
-tools for building packages.
 Windows-specific distribution with prebuilt scientific packages and
 tools for building packages.
 Note that these packages may not include the latest versions of Python or
@@ -1195,7 +1147,6 @@ system encoding, it is recommended to set the environment variable
 temporarily or use the -X utf8 command line option.
 PYTHONUTF8=1
 -X utf8
-Note
 Even when UTF-8 mode is disabled, Python uses UTF-8 by default
 on Windows for:
 Console I/O including standard I/O (see PEP 528 for details).
@@ -1222,7 +1173,6 @@ If the environment variable PYTHONPATH exists, as described in Environment varia
 paths in this variable must be separated by semicolons, to distinguish them
 from the colon used in drive identifiers ( C:\ etc.).
 PYTHONPATH
-C:\
 Additional “application paths” can be added in the registry as subkeys of \SOFTWARE\Python\PythonCore{version}\PythonPath under both the HKEY_CURRENT_USER and HKEY_LOCAL_MACHINE hives.  Subkeys which have
 semicolon-delimited path strings as their default value will cause each path
 to be added to sys.path .  (Note that all known installers only use
@@ -1253,7 +1203,6 @@ PYTHONHOME
 Lib\os.py
 pythonXY.zip
 sys.path
-Lib
 plat-win
 If the Python Home cannot be located, no PYTHONPATH is specified in
 the environment, and no registry entries can be found, a default path with
@@ -1272,7 +1221,6 @@ home location.
 If home is an absolute path and PYTHONHOME is not set, this
 path is used instead of the path to the main executable when deducing the
 home location.
-home
 PYTHONHOME
 The end result of all this is:
 When running python.exe , or any other .exe in the main Python
@@ -1307,7 +1255,6 @@ directories to include. This will ignore paths listed in the registry and
 environment variables, and also ignore site unless import site is
 listed.
 ._pth
-site
 import site
 If you are loading python3.dll or python37.dll in your own
 executable, explicitly set PyConfig.module_search_paths before Py_InitializeFromConfig() .
@@ -1380,11 +1327,7 @@ Microsoft Foundation Classes (MFC) user interfaces
 PythonWin is a sample MFC application
 shipped with PyWin32.  It is an embeddable IDE with a built-in debugger.
 See also
-Win32 How Do I…?
 by Tim Golden
-by Tim Golden
-Python and COM
-by David and Paul Boddie
 by David and Paul Boddie
 
 ### 4.9.2. cx_Freeze
@@ -1438,7 +1381,6 @@ The standard library, test suite, launcher and pip will be installed
 The standard library, test suite, launcher and pip will be installed
 If selected, the install directory will be added to your PATH
 If selected, the install directory will be added to your PATH
-PATH
 Shortcuts will only be visible for the current user
 Shortcuts will only be visible for the current user
 Selecting “Customize installation” will allow you to select the features to
@@ -1458,7 +1400,6 @@ The standard library can be pre-compiled to bytecode
 The standard library can be pre-compiled to bytecode
 If selected, the install directory will be added to the system PATH
 If selected, the install directory will be added to the system PATH
-PATH
 Shortcuts are available for all users
 Shortcuts are available for all users
 
@@ -1485,7 +1426,6 @@ machines without user interaction.  These options may also be set without
 suppressing the UI in order to change some of the defaults.
 The following options (found by executing the installer with /? ) can be
 passed into the installer:
-Name
 Description
 /passive
 to display progress without requiring user interaction
@@ -1502,7 +1442,6 @@ to specify log files location
 All other options are passed as name=value , where the value is usually 0 to disable a feature, 1 to enable a feature, or a path. The full list
 of available options is shown below.
 name=value
-Name
 Description
 Default
 InstallAllUsers
@@ -1533,21 +1472,15 @@ Create file associations if the
 launcher is also installed.
 CompileAll
 Compile all .py files to .pyc .
-.py
-.pyc
 PrependPath
 Prepend install and Scripts
 directories  to PATH and
 add .PY to PATHEXT
-PATH
-.PY
 PATHEXT
 AppendPath
 Append install and Scripts
 directories  to PATH and
 add .PY to PATHEXT
-PATH
-.PY
 PATHEXT
 Shortcuts
 Create shortcuts for the interpreter,
@@ -1677,7 +1610,6 @@ free-threaded binaries over the regular ones, while py.exe -3.13 will not.
 If you use the short style of option, you may prefer to not install the
 free-threaded binaries at this time.
 3.13t
--32
 -arm64
 py.exe -3.13t
 py.exe -3
@@ -1704,7 +1636,6 @@ Unlike the PATH variable, the launcher will correctly select the most
 appropriate version of Python. It will prefer per-user installations over
 system-wide ones, and orders by language version rather than using the most
 recently installed version.
-PATH
 The launcher was originally specified in PEP 397 .
 
 ### 4.12.1. Getting started
@@ -1715,7 +1646,6 @@ Changed in version 3.6.
 System-wide installations of Python 3.3 and later will put the launcher on your PATH . The launcher is compatible with all available versions of
 Python, so it does not matter which version is installed. To check that the
 launcher is available, execute the following command in Command Prompt:
-PATH
 You should find that the latest version of Python you have installed is
 started - it can be exited as normal, and any additional command-line
 arguments specified will be sent directly to Python.
@@ -1752,14 +1682,11 @@ The -x.y argument is the short form of the -V:Company/Tag argument,
 which allows selecting a specific Python runtime, including those that may have
 come from somewhere other than python.org. Any runtime registered by following PEP 514 will be discoverable. The --list command lists all available
 runtimes using the -V: format.
--x.y
 -V:Company/Tag
 --list
--V:
 When using the -V: argument, specifying the Company will limit selection to
 runtimes from that provider, while specifying only the Tag will select from all
 providers. Note that omitting the slash implies a tag:
--V:
 
 [CODE]
 # Select any '3.*' tagged runtime
@@ -1775,7 +1702,6 @@ py -V:PythonCore/3
 The short form of the argument ( -3 ) only ever selects from core Python
 releases, and not other distributions. However, the longer form ( -V:3 ) will
 select from any.
--V:3
 The Company is matched on the full string, case-insensitive. The Tag is matched
 on either the full string, or a prefix, provided the next character is a dot or a
 hyphen. This allows -V:3.1 to match 3.1-32 , but not 3.10 . Tags are
@@ -1783,11 +1709,7 @@ sorted using numerical ordering ( 3.10 is newer than 3.1 ), but are
 compared using text ( -V:3.01 does not match 3.1 ).
 -V:3.1
 3.1-32
-3.10
-3.10
-3.1
 -V:3.01
-3.1
 
 #### 4.12.1.2. Virtual environments
 
@@ -1798,7 +1720,6 @@ the external virtualenv tool) active, the launcher will run the virtual
 environment’s interpreter rather than the global one.  To run the global
 interpreter, either deactivate the virtual environment, or explicitly specify
 the global Python version.
-venv
 virtualenv
 
 #### 4.12.1.3. From a script
@@ -1841,9 +1762,6 @@ The launcher should have been associated with Python files (i.e. .py , .pyw , .p
 when you double-click on one of these files from Windows explorer the launcher
 will be used, and therefore you can use the same facilities described above to
 have the script specify the version which should be used.
-.py
-.pyw
-.pyc
 The key benefit of this is that a single launcher can support multiple Python
 versions at the same time depending on the contents of the first line.
 
@@ -1881,7 +1799,6 @@ As many Python scripts written to work on Unix will already have this line,
 you should find these scripts can be used by the launcher without modification.
 If you are writing a new script on Windows which you hope will be useful on
 Unix, you should use one of the shebang lines starting with /usr .
-/usr
 Any of the above virtual commands can be suffixed with an explicit version
 (either just the major version, or the major and minor version).
 Furthermore the 32-bit version can be requested by adding “-32” after the
@@ -1901,7 +1818,6 @@ environment rather than searching PATH . This handles cases where
 the shebang specifies /usr/bin/env python3 but python3.exe is
 not present in the active environment.
 python
-PATH
 /usr/bin/env python3
 python3.exe
 The /usr/bin/env form of shebang line has one further special property.
@@ -1914,13 +1830,8 @@ described for the other virtual commands.
 The environment variable PYLAUNCHER_NO_SEARCH_PATH may be set
 (to any value) to skip this search of PATH .
 /usr/bin/env
-PATH
-env
-PATH
-env
 python
 PYLAUNCHER_NO_SEARCH_PATH
-PATH
 Shebang lines that do not match any of these patterns are looked up in the [commands] section of the launcher’s .INI file .
 This may be used to handle certain commands in a way that makes sense for your
 system. The name of the command must be a single argument (no spaces in the
@@ -2047,7 +1958,6 @@ environment variables without the leading PY_ prefix (and note that
 the key names in the INI file are case insensitive.)  The contents of
 an environment variable will override things specified in the INI file.
 [defaults]
-PY_
 For example:
 Setting PY_PYTHON=3.7 is equivalent to the INI file containing:
 Setting PY_PYTHON=3.7 is equivalent to the INI file containing:
@@ -2108,32 +2018,24 @@ there is no way to distinguish these from the exit code of Python itself.
 The names of codes are as used in the sources, and are only for reference. There
 is no way to access or resolve them apart from reading this page. Entries are
 listed in alphabetical order of names.
-Name
 Value
 Description
 RC_BAD_VENV_CFG
-107
 A pyvenv.cfg was found but is corrupt.
 pyvenv.cfg
 RC_CREATE_PROCESS
-101
 Failed to launch Python.
 RC_INSTALLING
-111
 An install was started, but the command will
 need to be re-run after it completes.
 RC_INTERNAL_ERROR
-109
 Unexpected error. Please report a bug.
 RC_NO_COMMANDLINE
-108
 Unable to obtain command line from the
 operating system.
 RC_NO_PYTHON
-103
 Unable to locate the requested version.
 RC_NO_VENV_CFG
-106
 A pyvenv.cfg was required but not
 found.
 pyvenv.cfg

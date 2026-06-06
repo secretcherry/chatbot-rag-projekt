@@ -5,12 +5,7 @@ SOURCE: howto\functional.html
 
 # Functional Programming HOWTO
 
-Author :
 A. M. Kuchling
-A. M. Kuchling
-Release :
-0.32
-0.32
 In this document, we’ll take a tour of Python’s features suitable for
 implementing programs in a functional style.  After an introduction to the
 concepts of functional programming, we’ll look at language features such as iterator s and generator s and relevant library modules such as itertools and functools .
@@ -84,7 +79,6 @@ side effects, such as printing to the screen or writing to a disk file. Another
 example is a call to the print() or time.sleep() function, neither
 of which returns a useful value. Both are called only for their side effects
 of sending some text to the screen or pausing execution for a second.
-a=3
 c = a + b
 print()
 time.sleep()
@@ -203,7 +197,6 @@ Python expects iterable objects in several different contexts, the most
 important being the for statement.  In the statement for X in Y ,
 Y must be an iterator or some object for which iter() can create an
 iterator.  These two statements are equivalent:
-for
 for X in Y
 iter()
 
@@ -232,12 +225,10 @@ X is found in the stream returned by the iterator.  You’ll run into obvious
 problems if the iterator is infinite; max() , min() will never return, and if the element X never appears in the stream, the "in" and "not in" operators won’t return either.
 max()
 min()
-"in"
 "not in"
 X in iterator
 max()
 min()
-"in"
 "not in"
 Note that you can only go forward in an iterator; there’s no way to get the
 previous element, reset the iterator, or make a copy of it.  Iterator objects
@@ -311,7 +302,6 @@ all the whitespace from a stream of strings with the following code:
 [/CODE]
 
 You can select only certain elements by adding an "if" condition:
-"if"
 
 [CODE]
 >>> stripped_list = [ line . strip () for line in line_list ... if line != "" ]
@@ -489,7 +479,6 @@ send(value)
 yield
 __next__()
 yield
-None
 Here’s a simple counter that increments by 1 and allows changing the value of
 the internal counter.
 
@@ -507,7 +496,6 @@ Because yield will often be returning None , you should always check for
 this case.  Don’t just use its value in expressions unless you’re sure that the send() method will be the only method used to resume your
 generator function.
 yield
-None
 send()
 In addition to send() , there are two other methods on
 generators:
@@ -556,9 +544,7 @@ Two of Python’s built-in functions, map() and filter() duplicate the
 features of generator expressions:
 map()
 filter()
-map(f, iterA, iterB, ...) returns an iterator over the sequence
 map(f, iterA, iterB, ...)
-f(iterA[0], iterB[0]), f(iterA[1], iterB[1]), f(iterA[2], iterB[2]), ... . >>> def upper ( s ): ... return s . upper () >>> list ( map ( upper , [ 'sentence' , 'fragment' ])) ['SENTENCE', 'FRAGMENT'] >>> [ upper ( s ) for s in [ 'sentence' , 'fragment' ]] ['SENTENCE', 'FRAGMENT']
 f(iterA[0], iterB[0]), f(iterA[1], iterB[1]), f(iterA[2], iterB[2]), ... .
 f(iterA[0], iterB[0]), f(iterA[1], iterB[1]), f(iterA[2], iterB[2]), ...
 
@@ -629,9 +615,7 @@ elements are true values:
 any(iter)
 all(iter)
 any()
-True
 all()
-True
 
 [CODE]
 >>> any ([ 0 , 1 , 0 ]) True >>> any ([ 0 , 0 , 0 ]) False >>> any ([ 1 , 1 , 1 ]) True >>> all ([ 0 , 1 , 0 ]) False >>> all ([ 0 , 0 , 0 ]) False >>> all ([ 1 , 1 , 1 ]) True
@@ -749,7 +733,6 @@ operator.add(a, b)
 operator.ne(a, b)
 a != b
 operator.attrgetter('id')
-.id
 itertools.starmap(func, iter) assumes that the
 iterable will return a stream of tuples, and calls func using these tuples as
 the arguments:
@@ -878,7 +861,6 @@ one of f() ’s parameters.  This is called “partial function application”.
 f(a, b, c)
 g(b, c)
 f(1, b, c)
-f()
 The constructor for partial() takes the arguments (function, arg1, arg2, ..., kwarg1=value1, kwarg2=value2) .  The resulting
 object is callable, so you can just call it to invoke function with the
 filled-in arguments.
@@ -923,7 +905,6 @@ sum()
 For many uses of functools.reduce() , though, it can be clearer to just
 write the obvious for loop:
 functools.reduce()
-for
 
 [CODE]
 import functools # Instead of: product = functools . reduce ( operator . mul , [ 1 , 2 , 3 ], 1 ) # You can write: product = 1 for i in [ 1 , 2 , 3 ]: product *= i
@@ -965,12 +946,6 @@ or_()
 invert()
 Comparisons: eq() , ne() , lt() , le() , gt() , and ge() .
 Comparisons: eq() , ne() , lt() , le() , gt() , and ge() .
-eq()
-ne()
-lt()
-le()
-gt()
-ge()
 Object identity: is_() , is_not() .
 Object identity: is_() , is_not() .
 is_()
@@ -1001,7 +976,6 @@ adder = lambda x , y : x + y print_assign = lambda name , value : name + '=' + s
 
 An alternative is to just use the def statement and define a function in the
 usual way:
-def
 
 [CODE]
 def adder ( x , y ): return x + y def print_assign ( name , value ): return name + '=' + str ( value )
@@ -1026,14 +1000,12 @@ import functools total = functools . reduce ( lambda a , b : ( 0 , a [ 1 ] + b [
 You can figure it out, but it takes time to disentangle the expression to figure
 out what’s going on.  Using a short nested def statements makes things a
 little bit better:
-def
 
 [CODE]
 import functools def combine ( a , b ): return 0 , a [ 1 ] + b [ 1 ] total = functools . reduce ( combine , items )[ 1 ]
 [/CODE]
 
 But it would be best of all if I had simply used a for loop:
-for
 
 [CODE]
 total = 0 for a , b in items : total += b
@@ -1048,7 +1020,6 @@ total = sum ( b for a , b in items )
 
 Many uses of functools.reduce() are clearer when written as for loops.
 functools.reduce()
-for
 Fredrik Lundh once suggested the following set of rules for refactoring uses of lambda :
 lambda
 Write a lambda function.

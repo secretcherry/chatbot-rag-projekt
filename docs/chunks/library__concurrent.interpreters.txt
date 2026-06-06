@@ -22,11 +22,7 @@ Actual concurrency is available separately through threads See below
 threads
 See also
 InterpreterPoolExecutor
-InterpreterPoolExecutor
 Combines threads with interpreters in a familiar interface.
-Combines threads with interpreters in a familiar interface.
-Isolating Extension Modules
-How to update an extension module to support multiple interpreters.
 How to update an extension module to support multiple interpreters.
 PEP 554
 PEP 734
@@ -66,7 +62,6 @@ carefully managed process-global exceptions to the rule).
 That isolation is primarily useful as a strong separation between
 distinct logical components of a program, where you want to have
 careful control of how those components interact.
-Note
 Interpreters in the same process can technically never be strictly
 isolated from one another since there are few restrictions on memory
 access within the same process.  The Python runtime makes a best
@@ -148,23 +143,12 @@ By default, most objects are copied with pickle when they are
 passed to another interpreter.  Nearly all of the immutable builtin
 objects are either directly shared or copied efficiently.  For example:
 pickle
-None
-None
-None
 bool ( True and False )
 bool ( True and False )
-bool
-True
 False
 bytes
 bytes
 bytes
-str
-str
-str
-int
-int
-int
 float
 float
 float
@@ -183,124 +167,65 @@ Queue
 ## Reference
 
 This module defines the following functions:
-concurrent.interpreters. list_all ( )
 Return a list of Interpreter objects,
 one for each existing interpreter.
-Return a list of Interpreter objects,
-one for each existing interpreter.
-list
 Interpreter
-concurrent.interpreters. get_current ( )
-Return an Interpreter object for the currently running
-interpreter.
 Return an Interpreter object for the currently running
 interpreter.
 Interpreter
-concurrent.interpreters. get_main ( )
-Return an Interpreter object for the main interpreter.
-This is the interpreter the runtime created to run the REPL or the script given at the command-line.  It is usually the only one.
 Return an Interpreter object for the main interpreter.
 This is the interpreter the runtime created to run the REPL or the script given at the command-line.  It is usually the only one.
 Interpreter
-concurrent.interpreters. create ( )
-Initialize a new (idle) Python interpreter
-and return a Interpreter object for it.
 Initialize a new (idle) Python interpreter
 and return a Interpreter object for it.
 Interpreter
-concurrent.interpreters. create_queue ( )
-Initialize a new cross-interpreter queue and return a Queue object for it.
 Initialize a new cross-interpreter queue and return a Queue object for it.
 Queue
 
 ### Interpreter objects
 
-class concurrent.interpreters. Interpreter ( id )
-A single interpreter in the current process. Generally, Interpreter shouldn’t be called directly.
-Instead, use create() or one of the other module functions. id (read-only) The underlying interpreter’s ID. whence (read-only) A string describing where the interpreter came from. is_running ( ) Return True if the interpreter is currently executing code
-in its __main__ module and False otherwise. close ( ) Finalize and destroy the interpreter. prepare_main ( ns = None , ** kwargs ) Bind objects in the interpreter’s __main__ module. Some objects are actually shared and some are copied efficiently,
-but most are copied via pickle .  See “Sharing” Objects . exec ( code , / , dedent = True ) Run the given source code in the interpreter (in the current thread). call ( callable , / , * args , ** kwargs ) Return the result of calling running the given function in the
-interpreter (in the current thread). call_in_thread ( callable , / , * args , ** kwargs ) Run the given function in the interpreter (in a new thread).
 A single interpreter in the current process.
 Generally, Interpreter shouldn’t be called directly.
 Instead, use create() or one of the other module functions.
 Interpreter
 create()
-(read-only) The underlying interpreter’s ID.
 (read-only)
 The underlying interpreter’s ID.
-whence
-(read-only) A string describing where the interpreter came from.
 (read-only)
 A string describing where the interpreter came from.
-is_running ( )
 Return True if the interpreter is currently executing code
 in its __main__ module and False otherwise.
-Return True if the interpreter is currently executing code
-in its __main__ module and False otherwise.
-True
 __main__
 False
-close ( )
 Finalize and destroy the interpreter.
-Finalize and destroy the interpreter.
-prepare_main ( ns = None , ** kwargs )
-Bind objects in the interpreter’s __main__ module. Some objects are actually shared and some are copied efficiently,
-but most are copied via pickle .  See “Sharing” Objects .
 Bind objects in the interpreter’s __main__ module.
 __main__
 Some objects are actually shared and some are copied efficiently,
 but most are copied via pickle .  See “Sharing” Objects .
 pickle
-exec ( code , / , dedent = True )
 Run the given source code in the interpreter (in the current thread).
-Run the given source code in the interpreter (in the current thread).
-call ( callable , / , * args , ** kwargs )
 Return the result of calling running the given function in the
 interpreter (in the current thread).
-Return the result of calling running the given function in the
-interpreter (in the current thread).
-call_in_thread ( callable , / , * args , ** kwargs )
-Run the given function in the interpreter (in a new thread).
 Run the given function in the interpreter (in a new thread).
 
 ### Exceptions
 
-exception concurrent.interpreters. InterpreterError
-This exception, a subclass of Exception , is raised when
-an interpreter-related error happens.
 This exception, a subclass of Exception , is raised when
 an interpreter-related error happens.
 Exception
-exception concurrent.interpreters. InterpreterNotFoundError
-This exception, a subclass of InterpreterError , is raised when
-the targeted interpreter no longer exists.
 This exception, a subclass of InterpreterError , is raised when
 the targeted interpreter no longer exists.
 InterpreterError
-exception concurrent.interpreters. ExecutionFailed
-This exception, a subclass of InterpreterError , is raised when
-the running code raised an uncaught exception. excinfo A basic snapshot of the exception raised in the other interpreter.
 This exception, a subclass of InterpreterError , is raised when
 the running code raised an uncaught exception.
 InterpreterError
-excinfo
 A basic snapshot of the exception raised in the other interpreter.
-A basic snapshot of the exception raised in the other interpreter.
-exception concurrent.interpreters. NotShareableError
-This exception, a subclass of TypeError , is raised when
-an object cannot be sent to another interpreter.
 This exception, a subclass of TypeError , is raised when
 an object cannot be sent to another interpreter.
 TypeError
 
 ### Communicating Between Interpreters
 
-class concurrent.interpreters. Queue ( id )
-A wrapper around a low-level, cross-interpreter queue, which
-implements the queue.Queue interface.  The underlying queue
-can only be created through create_queue() . Some objects are actually shared and some are copied efficiently,
-but most are copied via pickle .  See “Sharing” Objects . id (read-only) The queue’s ID.
 A wrapper around a low-level, cross-interpreter queue, which
 implements the queue.Queue interface.  The underlying queue
 can only be created through create_queue() .
@@ -309,20 +234,13 @@ create_queue()
 Some objects are actually shared and some are copied efficiently,
 but most are copied via pickle .  See “Sharing” Objects .
 pickle
-(read-only) The queue’s ID.
 (read-only)
 The queue’s ID.
-exception concurrent.interpreters. QueueEmptyError
-This exception, a subclass of queue.Empty , is raised from Queue.get() and Queue.get_nowait() when the queue
-is empty.
 This exception, a subclass of queue.Empty , is raised from Queue.get() and Queue.get_nowait() when the queue
 is empty.
 queue.Empty
 Queue.get()
 Queue.get_nowait()
-exception concurrent.interpreters. QueueFullError
-This exception, a subclass of queue.Full , is raised from Queue.put() and Queue.put_nowait() when the queue
-is full.
 This exception, a subclass of queue.Full , is raised from Queue.put() and Queue.put_nowait() when the queue
 is full.
 queue.Full

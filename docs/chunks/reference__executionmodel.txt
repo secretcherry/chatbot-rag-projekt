@@ -45,10 +45,8 @@ targets that are identifiers if occurring in
 an assignment:
 for loop header,
 for loop header,
-for
 after as in a with statement, except clause, except* clause, or in the as-pattern in structural pattern matching,
 after as in a with statement, except clause, except* clause, or in the as-pattern in structural pattern matching,
-with
 except
 except*
 in a capture pattern in structural pattern matching
@@ -58,7 +56,6 @@ import statements.
 import
 type statements.
 type statements.
-type
 type parameter lists .
 type parameter lists .
 The import statement of the form from ... import * binds all
@@ -68,7 +65,6 @@ import
 from ... import *
 A target occurring in a del statement is also considered bound for
 this purpose (though the actual semantics are to unbind the name).
-del
 Each assignment or import statement occurs within a block defined by a class or
 function definition or at the module level (the top-level code block).
 If a name is bound in a block, it is a local variable of that block, unless
@@ -158,7 +154,6 @@ class A : type Alias = Nested class Nested : pass print ( A . Alias . __value__ 
 Annotations , type parameter lists and type statements
 introduce annotation scopes , which behave mostly like function scopes,
 but with some exceptions discussed below.
-type
 Annotation scopes are used in the following contexts:
 Function annotations .
 Function annotations .
@@ -228,7 +223,6 @@ variables created through the type parameter syntax .
 This means that they are not evaluated when the type alias or type variable is
 created, or when the object carrying annotations is created. Instead, they
 are only evaluated when necessary, for example when the __value__ attribute on a type alias is accessed.
-type
 __value__
 Example:
 
@@ -307,7 +301,6 @@ with the try … except statement.  The finally clause of such a statement can b
 handle the exception, but is executed whether an exception occurred or not in
 the preceding code.
 raise
-try
 except
 finally
 Python uses the “termination” model of error handling: an exception handler can
@@ -324,12 +317,10 @@ the instance or a non-virtual base class thereof.
 The instance can be received by the handler and can carry additional information
 about the exceptional condition.
 except
-Note
 Exception messages are not part of the Python API.  Their contents may change
 from one version of Python to the next without warning and should not be
 relied on by code which will run under multiple versions of the interpreter.
 See also the description of the try statement in section The try statement and raise statement in section The raise statement .
-try
 raise
 
 ## 4.4. Runtime Components
@@ -366,7 +357,6 @@ The fundamental point of threads is that each one does run independently, at the
 conceptually at the same time (“concurrently”) or physically
 (“in parallel”).  Either way, the threads effectively run
 at a non-synchronized rate.
-Note
 That non-synchronized rate means none of the process’ memory is
 guaranteed to stay consistent for the code running in any given
 thread.  Thus multi-threaded programs must take care to coordinate
@@ -388,13 +378,11 @@ At the conceptual level: when a Python program starts, it looks exactly
 like that diagram, with one of each.  The runtime may grow to include
 multiple interpreters, and each interpreter may grow to include
 multiple thread states.
-Note
 A Python implementation won’t necessarily implement the runtime
 layers distinctly or even concretely.  The only exception is places
 where distinct layers are directly specified or exposed to users,
 like through the threading module.
 threading
-Note
 The initial interpreter is typically called the “main” interpreter.
 Some Python implementations, like CPython, assign special roles
 to the main interpreter.
@@ -419,7 +407,6 @@ In contrast, an “interpreter” is conceptually what we would normally
 think of as the (full-featured) “Python runtime”.  When machine code
 executing in a host thread interacts with the Python runtime, it calls
 into Python in the context of a specific interpreter.
-Note
 The term “interpreter” here is not the same as the “bytecode
 interpreter”, which is what regularly runs in threads, executing
 compiled Python code.
@@ -446,7 +433,6 @@ Each thread state, conceptually, has all the thread-specific runtime
 data an interpreter needs to operate in one host thread.  The thread
 state includes the current raised exception and the thread’s Python
 call stack.  It may include other thread-specific resources.
-Note
 The term “Python thread” can sometimes refer to a thread state, but
 normally it means a thread created using the threading module.
 threading

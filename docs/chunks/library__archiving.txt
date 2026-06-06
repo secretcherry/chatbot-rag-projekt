@@ -21,20 +21,16 @@ Advanced parameter control
 Miscellaneous
 Examples
 zlib — Compression compatible with gzip
-zlib
 gzip — Support for gzip files Examples of usage Command-line interface Command-line options
-gzip
 Examples of usage
 Command-line interface Command-line options
 Command-line options
 bz2 — Support for bzip2 compression (De)compression of files Incremental (de)compression One-shot (de)compression Examples of usage
-bz2
 (De)compression of files
 Incremental (de)compression
 One-shot (de)compression
 Examples of usage
 lzma — Compression using the LZMA algorithm Reading and writing compressed files Compressing and decompressing data in memory Miscellaneous Specifying custom filter chains Examples
-lzma
 Reading and writing compressed files
 Compressing and decompressing data in memory
 Miscellaneous

@@ -26,22 +26,14 @@ sysconfig
 get_config_vars()
 get_config_var()
 Notice that on Windows, it’s a much smaller set.
-sysconfig. get_config_vars ( * args )
-With no arguments, return a dictionary of all configuration variables
-relevant for the current platform. With arguments, return a list of values that result from looking up each
-argument in the configuration variable dictionary. For each argument, if the value is not found, return None .
 With no arguments, return a dictionary of all configuration variables
 relevant for the current platform.
 With arguments, return a list of values that result from looking up each
 argument in the configuration variable dictionary.
 For each argument, if the value is not found, return None .
-None
-sysconfig. get_config_var ( name )
-Return the value of a single variable name . Equivalent to get_config_vars().get(name) . If name is not found, return None .
 Return the value of a single variable name . Equivalent to get_config_vars().get(name) .
 get_config_vars().get(name)
 If name is not found, return None .
-None
 Example of usage:
 
 [CODE]
@@ -136,7 +128,6 @@ site.USER_SITE
 ### posix_user
 
 posix_user
-Path
 Installation directory
 stdlib
 userbase /lib/python X.Y
@@ -156,14 +147,12 @@ userbase /include/python X.Y
 scripts
 userbase /bin
 userbase /bin
-data
 userbase
 userbase
 
 ### nt_user
 
 nt_user
-Path
 Installation directory
 stdlib
 userbase \Python XY
@@ -183,14 +172,12 @@ userbase \Python XY \Include
 scripts
 userbase \Python XY \Scripts
 userbase \Python XY \Scripts
-data
 userbase
 userbase
 
 ### osx_framework_user
 
 osx_framework_user
-Path
 Installation directory
 stdlib
 userbase /lib/python
@@ -210,7 +197,6 @@ userbase /include/python X.Y
 scripts
 userbase /bin
 userbase /bin
-data
 userbase
 userbase
 
@@ -228,7 +214,6 @@ are installing for.
 ### posix_home
 
 posix_home
-Path
 Installation directory
 stdlib
 home /lib/python
@@ -251,9 +236,6 @@ home /include/python
 scripts
 home /bin
 home /bin
-data
-home
-home
 
 ## Prefix scheme
 
@@ -268,7 +250,6 @@ than the more traditional /usr/local .  This is entirely appropriate,
 since in those cases Python is part of “the system” rather than a local add-on.
 However, if you are installing Python modules from source, you probably want
 them to go in /usr/local/lib/python2. X rather than /usr/lib/python2. X .
-/usr
 /usr/local
 /usr/local/lib/python2. X
 /usr/lib/python2. X
@@ -284,7 +265,6 @@ be installed to, say, /mnt/ @server /export/lib/python2. X .
 ### posix_prefix
 
 posix_prefix
-Path
 Installation directory
 stdlib
 prefix /lib/python X.Y
@@ -307,10 +287,8 @@ prefix /include/python X.Y
 scripts
 prefix /bin
 prefix /bin
-data
 prefix
 prefix
-Path
 Installation directory
 stdlib
 prefix \Lib
@@ -333,7 +311,6 @@ prefix \Include
 scripts
 prefix \Scripts
 prefix \Scripts
-data
 prefix
 prefix
 
@@ -341,24 +318,13 @@ prefix
 
 sysconfig provides some functions to determine these installation paths.
 sysconfig
-sysconfig. get_scheme_names ( )
-Return a tuple containing all schemes currently supported in sysconfig .
 Return a tuple containing all schemes currently supported in sysconfig .
 sysconfig
-sysconfig. get_default_scheme ( )
-Return the default scheme name for the current platform. Added in version 3.10: This function was previously named _get_default_scheme() and
-considered an implementation detail. Changed in version 3.11: When Python runs from a virtual environment,
-the venv scheme is returned.
 Return the default scheme name for the current platform.
 Added in version 3.10: This function was previously named _get_default_scheme() and
 considered an implementation detail.
 _get_default_scheme()
 Changed in version 3.11: When Python runs from a virtual environment,
-the venv scheme is returned.
-sysconfig. get_preferred_scheme ( key )
-Return a preferred scheme name for an installation layout specified by key . key must be either "prefix" , "home" , or "user" . The return value is a scheme name listed in get_scheme_names() . It
-can be passed to sysconfig functions that take a scheme argument,
-such as get_paths() . Added in version 3.10. Changed in version 3.11: When Python runs from a virtual environment and key="prefix" ,
 the venv scheme is returned.
 Return a preferred scheme name for an installation layout specified by key .
 key must be either "prefix" , "home" , or "user" .
@@ -375,13 +341,6 @@ Added in version 3.10.
 Changed in version 3.11: When Python runs from a virtual environment and key="prefix" ,
 the venv scheme is returned.
 key="prefix"
-sysconfig. _get_preferred_schemes ( )
-Return a dict containing preferred scheme names on the current platform.
-Python implementers and redistributors may add their preferred schemes to
-the _INSTALL_SCHEMES module-level global value, and modify this function
-to return those scheme names, to e.g. provide different schemes for system
-and language package managers to use, so packages installed by either do not
-mix with those by the other. End users should not use this function, but get_default_scheme() and get_preferred_scheme() instead. Added in version 3.10.
 Return a dict containing preferred scheme names on the current platform.
 Python implementers and redistributors may add their preferred schemes to
 the _INSTALL_SCHEMES module-level global value, and modify this function
@@ -393,18 +352,8 @@ End users should not use this function, but get_default_scheme() and get_preferr
 get_default_scheme()
 get_preferred_scheme()
 Added in version 3.10.
-sysconfig. get_path_names ( )
-Return a tuple containing all path names currently supported in sysconfig .
 Return a tuple containing all path names currently supported in sysconfig .
 sysconfig
-sysconfig. get_path ( name [ , scheme [ , vars [ , expand ] ] ] )
-Return an installation path corresponding to the path name , from the
-install scheme named scheme . name has to be a value from the list returned by get_path_names() . sysconfig stores installation paths corresponding to each path name,
-for each platform, with variables to be expanded.  For instance the stdlib path for the nt scheme is: {base}/Lib . get_path() will use the variables returned by get_config_vars() to expand the path.  All variables have default values for each platform so
-one may call this function and get the default value. If scheme is provided, it must be a value from the list returned by get_scheme_names() .  Otherwise, the default scheme for the current
-platform is used. If vars is provided, it must be a dictionary of variables that will update
-the dictionary returned by get_config_vars() . If expand is set to False , the path will not be expanded using the
-variables. If name is not found, raise a KeyError .
 Return an installation path corresponding to the path name , from the
 install scheme named scheme .
 name has to be a value from the list returned by get_path_names() .
@@ -428,11 +377,6 @@ variables.
 False
 If name is not found, raise a KeyError .
 KeyError
-sysconfig. get_paths ( [ scheme [ , vars [ , expand ] ] ] )
-Return a dictionary containing all installation paths corresponding to an
-installation scheme. See get_path() for more information. If scheme is not provided, will use the default scheme for the current
-platform. If vars is provided, it must be a dictionary of variables that will
-update the dictionary used to expand the paths. If expand is set to false, the paths will not be expanded. If scheme is not an existing scheme, get_paths() will raise a KeyError .
 Return a dictionary containing all installation paths corresponding to an
 installation scheme. See get_path() for more information.
 get_path()
@@ -447,17 +391,9 @@ KeyError
 
 ## Other functions
 
-sysconfig. get_python_version ( )
-Return the MAJOR.MINOR Python version number as a string.  Similar to '%d.%d' % sys.version_info[:2] .
 Return the MAJOR.MINOR Python version number as a string.  Similar to '%d.%d' % sys.version_info[:2] .
 MAJOR.MINOR
 '%d.%d' % sys.version_info[:2]
-sysconfig. get_platform ( )
-Return a string that identifies the current platform. This is used mainly to distinguish platform-specific build directories and
-platform-specific built distributions.  Typically includes the OS name and
-version and the architecture (as supplied by os.uname() ), although the
-exact information included depends on the OS; e.g., on Linux, the kernel
-version isn’t particularly important. Examples of returned values: Windows: win-amd64 (64-bit Windows on AMD64, aka x86_64, Intel64, and EM64T) win-arm64 (64-bit Windows on ARM64, aka AArch64) win32 (all others - specifically, sys.platform is returned) POSIX based OS: linux-x86_64 macosx-15.5-arm64 macosx-26.0-universal2 (macOS on Apple Silicon or Intel) android-24-arm64_v8a For other non-POSIX platforms, currently just returns sys.platform .
 Return a string that identifies the current platform.
 This is used mainly to distinguish platform-specific build directories and
 platform-specific built distributions.  Typically includes the OS name and
@@ -484,19 +420,10 @@ android-24-arm64_v8a
 android-24-arm64_v8a
 For other non-POSIX platforms, currently just returns sys.platform .
 sys.platform
-sysconfig. is_python_build ( )
 Return True if the running Python interpreter was built from source and
 is being run from its built location, and not from a location resulting from
 e.g. running make install or installing via a binary installer.
-Return True if the running Python interpreter was built from source and
-is being run from its built location, and not from a location resulting from
-e.g. running make install or installing via a binary installer.
-True
 make install
-sysconfig. parse_config_h ( fp [ , vars ] )
-Parse a config.h -style file. fp is a file-like object pointing to the config.h -like file. A dictionary containing name/value pairs is returned.  If an optional
-dictionary is passed in as the second argument, it is used instead of a new
-dictionary, and updated with the values read in the file.
 Parse a config.h -style file.
 config.h
 fp is a file-like object pointing to the config.h -like file.
@@ -504,12 +431,8 @@ config.h
 A dictionary containing name/value pairs is returned.  If an optional
 dictionary is passed in as the second argument, it is used instead of a new
 dictionary, and updated with the values read in the file.
-sysconfig. get_config_h_filename ( )
-Return the path of pyconfig.h .
 Return the path of pyconfig.h .
 pyconfig.h
-sysconfig. get_makefile_filename ( )
-Return the path of Makefile .
 Return the path of Makefile .
 Makefile
 

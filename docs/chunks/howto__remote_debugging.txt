@@ -39,7 +39,6 @@ CAP_SYS_PTRACE
 To temporarily relax ptrace restrictions (until reboot), run:
 echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
-Note
 Disabling ptrace_scope reduces system hardening and should only be done
 in trusted environments.
 ptrace_scope
@@ -53,7 +52,6 @@ macOS
 To attach to another process, you typically need to run your debugging tool
 with elevated privileges. This can be done by using sudo or running as
 root.
-sudo
 Even when attaching to processes you own, macOS may block debugging unless
 the debugger is run with root privileges due to system security restrictions.
 Windows
@@ -76,7 +74,6 @@ In Permissions , check Read or Full control as needed.
 In Permissions , check Read or Full control as needed.
 Click Apply , then OK to confirm.
 Click Apply , then OK to confirm.
-Note
 Ensure you’ve satisfied all Permission requirements before proceeding.
 This section describes the low-level protocol that enables external tools to
 inject and execute a Python script within a running CPython process.
@@ -87,8 +84,6 @@ detailed explanation of the underlying protocol, which takes as input the pid of
 executed. This information supports independent reimplementation of the
 protocol, regardless of programming language.
 sys.remote_exec()
-.py
-pid
 Warning
 The execution of the injected script depends on the interpreter reaching a
 safe evaluation point. As a result, execution may be delayed depending on
@@ -364,7 +359,6 @@ A debugger may suspend execution by attaching to the process with ptrace or by s
 debugger-side memory operations are complete.
 ptrace
 SIGSTOP
-Note
 Some tools, such as profilers or sampling-based debuggers, may operate on
 a running process without suspension. In such cases, tools must be
 explicitly designed to handle partially updated or inconsistent memory.
@@ -475,7 +469,6 @@ debugger_script_path : A fixed-size buffer that holds the full path to a
 Python source file ( .py ).  This file must be accessible and readable by
 the target process when execution is triggered.
 debugger_script_path
-.py
 debugger_pending_call : An integer flag. Setting this to 1 tells the
 interpreter that a script is ready to be executed.
 debugger_pending_call : An integer flag. Setting this to 1 tells the
@@ -516,7 +509,6 @@ suspended).  The interpreter will process the request at the next safe
 evaluation point, load the script from disk, and execute it.
 It is the responsibility of the debugger to ensure that the script file remains
 present and accessible to the target process during execution.
-Note
 Script execution is asynchronous. The script file cannot be deleted
 immediately after injection. The debugger should wait until the injected
 script has produced an observable effect before removing the file.
@@ -566,27 +558,12 @@ task_for_pid
 SeDebugPrivilege
 The following principles define what is, and is not, considered a security
 vulnerability in this feature:
-Attaching requires OS-level privileges
-On every supported platform the operating system gates cross-process
-memory access behind privilege checks ( CAP_SYS_PTRACE , root, or
-administrator rights).  A report that demonstrates an issue only after
-these privileges have already been obtained is not a vulnerability in
-CPython, since the OS security boundary was already crossed.
 On every supported platform the operating system gates cross-process
 memory access behind privilege checks ( CAP_SYS_PTRACE , root, or
 administrator rights).  A report that demonstrates an issue only after
 these privileges have already been obtained is not a vulnerability in
 CPython, since the OS security boundary was already crossed.
 CAP_SYS_PTRACE
-Crashes or memory errors when reading a compromised process are not vulnerabilities
-A tool that reads internal interpreter state from a target process must
-trust that memory to be well-formed.  If the target process has been
-corrupted or is controlled by an attacker, the debugger or profiler may
-crash, produce garbage output, or behave unpredictably.  This is the same
-risk accepted by every ptrace -based debugger.  Bugs in this category
-(buffer overflows, segmentation faults, or undefined behaviour triggered
-by reading corrupted state) are not treated as security issues, though
-fixes that improve robustness are welcome.
 A tool that reads internal interpreter state from a target process must
 trust that memory to be well-formed.  If the target process has been
 corrupted or is controlled by an attacker, the debugger or profiler may
@@ -596,11 +573,6 @@ risk accepted by every ptrace -based debugger.  Bugs in this category
 by reading corrupted state) are not treated as security issues, though
 fixes that improve robustness are welcome.
 ptrace
-Vulnerabilities in the target process are not in scope
-If the Python process being debugged has already been compromised, the
-attacker already controls execution in that process.  Demonstrating further
-impact from that starting point does not constitute a vulnerability in the
-remote debugging protocol.
 If the Python process being debugged has already been compromised, the
 attacker already controls execution in that process.  Demonstrating further
 impact from that starting point does not constitute a vulnerability in the

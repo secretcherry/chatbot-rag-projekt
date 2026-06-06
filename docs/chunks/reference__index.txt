@@ -69,9 +69,7 @@ importlib
 7.3. The assert statement
 assert
 7.4. The pass statement
-pass
 7.5. The del statement
-del
 7.6. The return statement
 return
 7.7. The yield statement
@@ -89,17 +87,13 @@ global
 7.13. The nonlocal statement
 nonlocal
 7.14. The type statement
-type
 8. Compound statements 8.1. The if statement 8.2. The while statement 8.3. The for statement 8.4. The try statement 8.5. The with statement 8.6. The match statement 8.7. Function definitions 8.8. Class definitions 8.9. Coroutines 8.10. Type parameter lists 8.11. Annotations
 8.1. The if statement
 8.2. The while statement
 while
 8.3. The for statement
-for
 8.4. The try statement
-try
 8.5. The with statement
-with
 8.6. The match statement
 match
 8.7. Function definitions

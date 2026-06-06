@@ -28,7 +28,6 @@ Changed in version 3.14: The BROWSER variable can now also be used to reorder th
 platform defaults. This is particularly useful on macOS where the platform
 defaults do not refer to command-line tools on PATH .
 BROWSER
-PATH
 For non-Unix platforms, or when a remote browser is available on Unix, the
 controlling process will not wait for the user to finish with the browser, but
 allow the remote browser to maintain its own windows on the display.  If remote
@@ -49,11 +48,7 @@ open()
 The script webbrowser can be used as a command-line interface for the
 module. It accepts a URL as the argument. It accepts the following optional
 parameters:
--n , --new-window
 Opens the URL in a new browser window, if possible.
-Opens the URL in a new browser window, if possible.
--t , --new-tab
-Opens the URL in a new browser tab.
 Opens the URL in a new browser tab.
 The options are, naturally, mutually exclusive.  Usage example:
 
@@ -63,72 +58,38 @@ python -m webbrowser -t "https://www.python.org"
 
 Availability : not WASI, not Android.
 The following exception is defined:
-exception webbrowser. Error
-Exception raised when a browser control error occurs.
 Exception raised when a browser control error occurs.
 The following functions are defined:
-webbrowser. open ( url , new = 0 , autoraise = True )
-Display url using the default browser. If new is 0, the url is opened
-in the same browser window if possible.  If new is 1, a new browser window
-is opened if possible.  If new is 2, a new browser page (“tab”) is opened
-if possible.  If autoraise is True , the window is raised if possible
-(note that under many window managers this will occur regardless of the
-setting of this variable). Returns True if a browser was successfully launched, False otherwise. Note that on some platforms, trying to open a filename using this function,
-may work and start the operating system’s associated program.  However, this
-is neither supported nor portable. Raises an auditing event webbrowser.open with argument url .
 Display url using the default browser. If new is 0, the url is opened
 in the same browser window if possible.  If new is 1, a new browser window
 is opened if possible.  If new is 2, a new browser page (“tab”) is opened
 if possible.  If autoraise is True , the window is raised if possible
 (note that under many window managers this will occur regardless of the
 setting of this variable).
-True
 Returns True if a browser was successfully launched, False otherwise.
-True
 False
 Note that on some platforms, trying to open a filename using this function,
 may work and start the operating system’s associated program.  However, this
 is neither supported nor portable.
 Raises an auditing event webbrowser.open with argument url .
 webbrowser.open
-url
-webbrowser. open_new ( url )
-Open url in a new window of the default browser, if possible, otherwise, open url in the only browser window. Returns True if a browser was successfully launched, False otherwise.
 Open url in a new window of the default browser, if possible, otherwise, open url in the only browser window.
 Returns True if a browser was successfully launched, False otherwise.
-True
 False
-webbrowser. open_new_tab ( url )
-Open url in a new page (“tab”) of the default browser, if possible, otherwise
-equivalent to open_new() . Returns True if a browser was successfully launched, False otherwise.
 Open url in a new page (“tab”) of the default browser, if possible, otherwise
 equivalent to open_new() .
 open_new()
 Returns True if a browser was successfully launched, False otherwise.
-True
 False
-webbrowser. get ( using = None )
 Return a controller object for the browser type using .  If using is None , return a controller for a default browser appropriate to the
 caller’s environment.
-Return a controller object for the browser type using .  If using is None , return a controller for a default browser appropriate to the
-caller’s environment.
-None
-webbrowser. register ( name , constructor , instance = None , * , preferred = False )
-Register the browser type name .  Once a browser type is registered, the get() function can return a controller for that browser type.  If instance is not provided, or is None , constructor will be called without
-parameters to create an instance when needed.  If instance is provided, constructor will never be called, and may be None . Setting preferred to True makes this browser a preferred result for
-a get() call with no argument.  Otherwise, this entry point is only
-useful if you plan to either set the BROWSER variable or call get() with a nonempty argument matching the name of a handler you
-declare. Changed in version 3.7: preferred keyword-only parameter was added.
 Register the browser type name .  Once a browser type is registered, the get() function can return a controller for that browser type.  If instance is not provided, or is None , constructor will be called without
 parameters to create an instance when needed.  If instance is provided, constructor will never be called, and may be None .
 get()
-None
-None
 Setting preferred to True makes this browser a preferred result for
 a get() call with no argument.  Otherwise, this entry point is only
 useful if you plan to either set the BROWSER variable or call get() with a nonempty argument matching the name of a handler you
 declare.
-True
 get()
 BROWSER
 get()
@@ -156,17 +117,14 @@ Epiphany('epiphany')
 'kfmclient'
 Konqueror()
 Konqueror()
-(1)
 'konqueror'
 'konqueror'
 Konqueror()
 Konqueror()
-(1)
 'kfm'
 'kfm'
 Konqueror()
 Konqueror()
-(1)
 'opera'
 'opera'
 Opera()
@@ -191,17 +149,14 @@ GenericBrowser('w3m')
 'windows-default'
 WindowsDefault
 WindowsDefault
-(2)
 'macosx'
 'macosx'
 MacOSXOSAScript('default')
 MacOSXOSAScript('default')
-(3)
 'safari'
 'safari'
 MacOSXOSAScript('safari')
 MacOSXOSAScript('safari')
-(3)
 'google-chrome'
 'google-chrome'
 Chrome('google-chrome')
@@ -222,7 +177,6 @@ Chromium('chromium-browser')
 'iosbrowser'
 IOSBrowser
 IOSBrowser
-(4)
 Notes:
 “Konqueror” is the file manager for the KDE desktop environment for Unix, and
 only makes sense to use if KDE is running.  Some way of reliably detecting KDE
@@ -261,30 +215,16 @@ url = 'https://docs.python.org/' # Open URL in a new tab, if a browser window is
 
 Browser controllers provide the name attribute,
 and the following three methods which parallel module-level convenience functions:
-name
-controller. name
 System-dependent name for the browser.
-System-dependent name for the browser.
-controller. open ( url , new = 0 , autoraise = True )
 Display url using the browser handled by this controller. If new is 1, a new
 browser window is opened if possible. If new is 2, a new browser page (“tab”)
 is opened if possible.
-Display url using the browser handled by this controller. If new is 1, a new
-browser window is opened if possible. If new is 2, a new browser page (“tab”)
-is opened if possible.
-controller. open_new ( url )
-Open url in a new window of the browser handled by this controller, if
-possible, otherwise, open url in the only browser window.  Alias open_new() .
 Open url in a new window of the browser handled by this controller, if
 possible, otherwise, open url in the only browser window.  Alias open_new() .
 open_new()
-controller. open_new_tab ( url )
-Open url in a new page (“tab”) of the browser handled by this controller, if
-possible, otherwise equivalent to open_new() .
 Open url in a new page (“tab”) of the browser handled by this controller, if
 possible, otherwise equivalent to open_new() .
 open_new()
 Footnotes
 Executables named here without a full path will be searched in the
 directories given in the PATH environment variable.
-PATH

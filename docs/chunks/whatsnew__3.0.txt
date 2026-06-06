@@ -5,8 +5,6 @@ SOURCE: whatsnew\3.0.html
 
 # What’s New In Python 3.0
 
-Author :
-Guido van Rossum
 Guido van Rossum
 This article explains the new features in Python 3.0, compared to 2.6.
 Python 3.0, also known as “Python 3000” or “Py3K”, is the first ever intentionally backwards incompatible Python release. Python 3.0 was released on December 3, 2008.
@@ -77,7 +75,6 @@ When using the 2to3 source-to-source conversion tool, all print statements are a
 larger projects.
 When using the 2to3 source-to-source conversion tool, all print statements are automatically converted to print() function calls, so this is mostly a non-issue for
 larger projects.
-2to3
 print
 print()
 
@@ -90,7 +87,6 @@ as efficient).
 dict methods dict.keys() , dict.items() and dict.values() return “views” instead of lists.  For example,
 this no longer works: k = d.keys(); k.sort() .  Use k = sorted(d) instead (this works in Python 2.5 too and is just
 as efficient).
-dict
 dict.keys()
 dict.items()
 dict.values()
@@ -130,7 +126,6 @@ list()
 list(map(...))
 lambda
 map()
-for
 If the input sequences are not of equal length, map() will
 stop at the termination of the shortest of the sequences. For full
 compatibility with map() from Python 2.x, also wrap the sequences in itertools.zip_longest() , e.g. map(func, *sequences) becomes list(map(func, itertools.zip_longest(*sequences))) .
@@ -199,16 +194,10 @@ PEP 237 : Essentially, long renamed to int .
 That is, there is only one built-in integral type, named int ; but it behaves mostly like the old long type.
 PEP 237 : Essentially, long renamed to int .
 That is, there is only one built-in integral type, named int ; but it behaves mostly like the old long type.
-long
-int
-int
-long
 PEP 238 : An expression like 1/2 returns a float.  Use 1//2 to get the truncating behavior.  (The latter syntax has
 existed for years, at least since Python 2.2.)
 PEP 238 : An expression like 1/2 returns a float.  Use 1//2 to get the truncating behavior.  (The latter syntax has
 existed for years, at least since Python 2.2.)
-1/2
-1//2
 The sys.maxint constant was removed, since there is no
 longer a limit to the value of integers.  However, sys.maxsize can be used as an integer larger than any practical list or string
 index.  It conforms to the implementation’s “natural” integer size
@@ -230,7 +219,6 @@ repr()
 str()
 Octal literals are no longer of the form 0720 ; use 0o720 instead.
 Octal literals are no longer of the form 0720 ; use 0o720 instead.
-0720
 0o720
 
 ### Text Vs. Data Instead Of Unicode Vs. 8-bit
@@ -253,7 +241,6 @@ strings in Python 2.x, it would work if the 8-bit string happened to
 contain only 7-bit (ASCII) bytes, but you would get UnicodeDecodeError if it contained non-ASCII values.  This
 value-specific behavior has caused numerous sad faces over the
 years.
-str
 bytes
 TypeError
 UnicodeDecodeError
@@ -270,8 +257,6 @@ were numerous bugs having to do with mixing encoded and unencoded
 text.  To be prepared in Python 2.x, start using unicode for all unencoded text, and str for binary or encoded data
 only.  Then the 2to3 tool will do most of the work for you.
 unicode
-str
-2to3
 You can no longer use u"..." literals for Unicode text.
 However, you must use b"..." literals for binary data.
 You can no longer use u"..." literals for Unicode text.
@@ -284,14 +269,11 @@ respectively.
 As the str and bytes types cannot be mixed, you
 must always explicitly convert between them.  Use str.encode() to go from str to bytes , and bytes.decode() to go from bytes to str .  You can also use bytes(s, encoding=...) and str(b, encoding=...) ,
 respectively.
-str
 bytes
 str.encode()
-str
 bytes
 bytes.decode()
 bytes
-str
 bytes(s, encoding=...)
 str(b, encoding=...)
 Like str , the bytes type is immutable.  There is a
@@ -300,7 +282,6 @@ accept bytearray .  The mutable API is based on collections.MutableSequence .
 Like str , the bytes type is immutable.  There is a
 separate mutable type to hold buffered binary data, bytearray .  Nearly all APIs that accept bytes also
 accept bytearray .  The mutable API is based on collections.MutableSequence .
-str
 bytes
 bytearray
 bytes
@@ -318,8 +299,6 @@ treated specially.  For example, r'\u20ac' is a string of 6
 characters in Python 3.0, whereas in 2.6, ur'\u20ac' was the
 single “euro” character.  (Of course, this change only affects raw
 string literals; the euro character is '\u20ac' in Python 3.0.)
-'\U'
-'\u'
 r'\u20ac'
 ur'\u20ac'
 '\u20ac'
@@ -330,12 +309,8 @@ The built-in basestring abstract type was removed.  Use str instead.  The str an
 don’t have functionality enough in common to warrant a shared base
 class.  The 2to3 tool (see below) replaces every occurrence of basestring with str .
 basestring
-str
-str
 bytes
-2to3
 basestring
-str
 Files opened as text files (still the default mode for open() )
 always use an encoding to map between strings (in memory) and bytes
 (on disk).  Binary files (opened with a b in the mode argument)
@@ -367,7 +342,6 @@ pure ASCII text should probably have a way to override the encoding.
 There is no longer any need for using the encoding-aware streams
 in the codecs module.
 open()
-LANG
 codecs
 The initial values of sys.stdin , sys.stdout and sys.stderr are now unicode-only text files (i.e., they are
 instances of io.TextIOBase ).  To read and write bytes data
@@ -416,7 +390,6 @@ also present problems when the bytes made available by the system is
 not interpretable using the default encoding.  Setting the LANG variable and rerunning the program is probably the best approach.
 os.environ
 sys.argv
-LANG
 PEP 3138 : The repr() of a string no longer escapes
 non-ASCII characters.  It still escapes control characters and code
 points with non-printable status in the Unicode standard, however.
@@ -497,7 +470,6 @@ like a, b, *rest = some_sequence .  And even *rest, a = stuff .  The rest object
 right-hand side may be any iterable.  Example:
 a, b, *rest = some_sequence
 *rest, a = stuff
-rest
 
 [CODE]
 ( a , * rest , b ) = range ( 5 )
@@ -526,7 +498,6 @@ literals ( 0720 ) are gone.
 New octal literals, e.g. 0o720 (already in 2.6).  The old octal
 literals ( 0720 ) are gone.
 0o720
-0720
 New binary literals, e.g. 0b1010 (already in 2.6), and
 there is a new corresponding built-in function, bin() .
 New binary literals, e.g. 0b1010 (already in 2.6), and
@@ -549,15 +520,11 @@ as and with are now reserved words.  (Since
 2.6, actually.)
 as and with are now reserved words.  (Since
 2.6, actually.)
-with
 True , False , and None are reserved words.  (2.6 partially enforced
 the restrictions on None already.)
 True , False , and None are reserved words.  (2.6 partially enforced
 the restrictions on None already.)
-True
 False
-None
-None
 Change from except exc , var to except exc as var .  See PEP 3110 .
 Change from except exc , var to except exc as var .  See PEP 3110 .
 except
@@ -599,8 +566,6 @@ spelled as . . . , by a mere accident of the grammar.)
 The ellipsis ( ... ) can be used as an atomic expression
 anywhere.  (Previously it was only allowed in slices.)  Also, it must now be spelled as ... .  (Previously it could also be
 spelled as . . . , by a mere accident of the grammar.)
-...
-...
 . . .
 
 ### Removed Syntax
@@ -638,7 +603,6 @@ The from module import * syntax is only
 allowed at the module level, no longer inside functions.
 The from module import * syntax is only
 allowed at the module level, no longer inside functions.
-from
 import
 The only acceptable syntax for relative imports is from .[ module ] import name .  All import forms not starting with . are
 interpreted as absolute imports.  ( PEP 328 )
@@ -662,7 +626,6 @@ Also check out Writing Context Managers and The contextlib module .
 PEP 343: The ‘with’ statement .  The with statement is now a standard
 feature and no longer needs to be imported from the __future__ .
 Also check out Writing Context Managers and The contextlib module .
-with
 __future__
 PEP 366: Explicit Relative Imports From a Main Module .  This enhances the usefulness of the -m option when the referenced module lives in a package.
 PEP 366: Explicit Relative Imports From a Main Module .  This enhances the usefulness of the -m option when the referenced module lives in a package.
@@ -681,7 +644,6 @@ supports this method; the bytes type does not.  The plan is
 to eventually make this the only API for string formatting, and to
 start deprecating the % operator in Python 3.1.
 format()
-str
 bytes
 PEP 3105: print As a Function .  This is now a standard feature and no longer needs
 to be imported from __future__ .  More details were given above.
@@ -738,10 +700,7 @@ PEP 3119: Abstract Base Classes .  The abc module and the ABCs defined in the co
 the language now, and built-in collection types like dict and list conform to the collections.MutableMapping and collections.MutableSequence ABCs, respectively.
 PEP 3119: Abstract Base Classes .  The abc module and the ABCs defined in the collections module plays a somewhat more prominent role in
 the language now, and built-in collection types like dict and list conform to the collections.MutableMapping and collections.MutableSequence ABCs, respectively.
-abc
 collections
-dict
-list
 collections.MutableMapping
 collections.MutableSequence
 PEP 3127: Integer Literal Support and Syntax .  As mentioned above, the new octal literal
@@ -781,7 +740,6 @@ and Mac OS 9 (see PEP 11 ).  Some modules were also selected for
 removal in Python 3.0 due to lack of use or because a better
 replacement exists.  See PEP 3108 for an exhaustive list.
 gopherlib
-md5
 hashlib
 The bsddb3 package was removed because its presence in the
 core standard library has proved over time to be a particular burden
@@ -810,7 +768,6 @@ SocketServer
 socketserver
 markupbase
 _markupbase
-repr
 reprlib
 test.test_support
 test.support
@@ -850,21 +807,16 @@ the submodule names have been simplified.  The resulting new
 packages are:
 dbm ( anydbm , dbhash , dbm , dumbdbm , gdbm , whichdb ).
 dbm ( anydbm , dbhash , dbm , dumbdbm , gdbm , whichdb ).
-dbm
 anydbm
 dbhash
-dbm
 dumbdbm
-gdbm
 whichdb
 html ( HTMLParser , htmlentitydefs ).
 html ( HTMLParser , htmlentitydefs ).
-html
 HTMLParser
 htmlentitydefs
 http ( httplib , BaseHTTPServer , CGIHTTPServer , SimpleHTTPServer , Cookie , cookielib ).
 http ( httplib , BaseHTTPServer , CGIHTTPServer , SimpleHTTPServer , Cookie , cookielib ).
-http
 httplib
 BaseHTTPServer
 CGIHTTPServer
@@ -899,11 +851,9 @@ SimpleXMLRPCServer
 Some other changes to standard library modules, not covered by PEP 3108 :
 Killed sets .  Use the built-in set() class.
 Killed sets .  Use the built-in set() class.
-sets
 set()
 Cleanup of the sys module: removed sys.exitfunc() , sys.exc_clear() , sys.exc_type , sys.exc_value , sys.exc_traceback .  (Note that sys.last_type etc. remain.)
 Cleanup of the sys module: removed sys.exitfunc() , sys.exc_clear() , sys.exc_type , sys.exc_value , sys.exc_traceback .  (Note that sys.last_type etc. remain.)
-sys
 sys.exitfunc()
 sys.exc_clear()
 sys.exc_type
@@ -921,9 +871,6 @@ read()
 write()
 fromfile()
 tofile()
-'c'
-'b'
-'u'
 Cleanup of the operator module: removed sequenceIncludes() and isCallable() .
 Cleanup of the operator module: removed sequenceIncludes() and isCallable() .
 operator
@@ -942,7 +889,6 @@ random
 jumpahead()
 The new module is gone.
 The new module is gone.
-new
 The functions os.tmpnam() , os.tempnam() and os.tmpfile() have been removed in favor of the tempfile module.
 The functions os.tmpnam() , os.tempnam() and os.tmpfile() have been removed in favor of the tempfile module.
 os.tmpnam()
@@ -1032,7 +978,6 @@ StandardError was removed.
 StandardError
 Exceptions no longer behave as sequences.  Use the args attribute instead.
 Exceptions no longer behave as sequences.  Use the args attribute instead.
-args
 PEP 3109 : Raising exceptions.  You must now use raise Exception ( args ) instead of raise Exception , args .
 Additionally, you can no longer explicitly specify a traceback;
 instead, if you have to do this, you can assign directly to the __traceback__ attribute (see below).
@@ -1262,7 +1207,6 @@ Removed the file type.  Use open() .  There are now several
 different kinds of streams that open can return in the io module.
 Removed the file type.  Use open() .  There are now several
 different kinds of streams that open can return in the io module.
-file
 open()
 Removed reduce() .  Use functools.reduce() if you really
 need it; however, 99 percent of the time an explicit for loop is more readable.
@@ -1270,7 +1214,6 @@ Removed reduce() .  Use functools.reduce() if you really
 need it; however, 99 percent of the time an explicit for loop is more readable.
 reduce()
 functools.reduce()
-for
 Removed reload() .  Use imp.reload() .
 Removed reload() .  Use imp.reload() .
 reload()
@@ -1357,7 +1300,6 @@ Run the 2to3 source-to-source translator over your source code
 tree.  Run the
 result of the translation under Python 3.0.  Manually fix up any
 remaining issues, fixing problems until all tests pass again.
-2to3
 It is not recommended to try to write source code that runs unchanged
 under both Python 2.6 and 3.0; you’d have to use a very contorted
 coding style, e.g. avoiding print statements, metaclasses,
@@ -1366,5 +1308,4 @@ both Python 2.6 and Python 3.0, the best approach is to modify step 3
 above by editing the 2.6 version of the source code and running the 2to3 translator again, rather than editing the 3.0 version of the
 source code.
 print
-2to3
 For porting C extensions to Python 3.0, please see Porting Extension Modules to Python 3 .

@@ -5,11 +5,7 @@ SOURCE: howto\ipaddress.html
 
 # An introduction to the ipaddress module
 
-author :
 Peter Moody
-Peter Moody
-author :
-Nick Coghlan
 Nick Coghlan
 Overview
 This document aims to provide a gentle introduction to the ipaddress module. It is aimed primarily at users that aren’t

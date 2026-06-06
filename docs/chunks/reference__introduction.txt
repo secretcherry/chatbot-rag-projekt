@@ -37,43 +37,19 @@ Though there is one Python implementation which is by far the most popular,
 there are some alternate implementations which are of particular interest to
 different audiences.
 Known implementations include:
-CPython
 This is the original and most-maintained implementation of Python, written in C.
 New language features generally appear here first.
-This is the original and most-maintained implementation of Python, written in C.
-New language features generally appear here first.
-Jython
 Python implemented in Java.  This implementation can be used as a scripting
 language for Java applications, or can be used to create applications using the
 Java class libraries.  It is also often used to create tests for Java libraries.
 More information can be found at the Jython website .
-Python implemented in Java.  This implementation can be used as a scripting
-language for Java applications, or can be used to create applications using the
-Java class libraries.  It is also often used to create tests for Java libraries.
-More information can be found at the Jython website .
-Python for .NET
 This implementation actually uses the CPython implementation, but is a managed
 .NET application and makes .NET libraries available.  It was created by Brian
 Lloyd.  For more information, see the Python for .NET home page .
-This implementation actually uses the CPython implementation, but is a managed
-.NET application and makes .NET libraries available.  It was created by Brian
-Lloyd.  For more information, see the Python for .NET home page .
-IronPython
 An alternate Python for .NET.  Unlike Python.NET, this is a complete Python
 implementation that generates IL, and compiles Python code directly to .NET
 assemblies.  It was created by Jim Hugunin, the original creator of Jython.  For
 more information, see the IronPython website .
-An alternate Python for .NET.  Unlike Python.NET, this is a complete Python
-implementation that generates IL, and compiles Python code directly to .NET
-assemblies.  It was created by Jim Hugunin, the original creator of Jython.  For
-more information, see the IronPython website .
-PyPy
-An implementation of Python written completely in Python. It supports several
-advanced features not found in other implementations like stackless support
-and a Just in Time compiler. One of the goals of the project is to encourage
-experimentation with the language itself by making it easier to modify the
-interpreter (since it is written in Python).  Additional information is
-available on the PyPy project’s home page .
 An implementation of Python written completely in Python. It supports several
 advanced features not found in other implementations like stackless support
 and a Just in Time compiler. One of the goals of the project is to encourage
@@ -102,13 +78,10 @@ digit
 In this example, the first line says that a name is a letter followed
 by a sequence of zero or more letter s, digit s, and underscores.
 A letter in turn is any of the single characters 'a' through 'z' and A through Z ; a digit is a single character from 0 to 9 .
-name
 letter
 letter
 digit
 letter
-'a'
-'z'
 digit
 Each rule begins with a name (which identifies the rule that’s being defined)
 followed by a colon, : .
@@ -118,7 +91,6 @@ Where possible, it is a link to the rule’s definition. TOKEN : An uppercase na
 For the purposes of grammar definitions, tokens are the same as rules.
 name : A name refers to another rule.
 Where possible, it is a link to the rule’s definition.
-name
 TOKEN : An uppercase name refers to a token .
 For the purposes of grammar definitions, tokens are the same as rules.
 TOKEN : An uppercase name refers to a token .
@@ -132,16 +104,13 @@ of text : 'if' : A name in single quotes denotes a keyword . "case" : A name in 
 of text :
 "text"
 'text'
-text
 'if' : A name in single quotes denotes a keyword .
 'if' : A name in single quotes denotes a keyword .
-'if'
 "case" : A name in double quotes denotes a soft-keyword .
 "case" : A name in double quotes denotes a soft-keyword .
 "case"
 '@' : A non-letter symbol in single quotes denotes an OP token, that is, a delimiter or operator .
 '@' : A non-letter symbol in single quotes denotes an OP token, that is, a delimiter or operator .
-'@'
 e1 e2 : Items separated only by whitespace denote a sequence.
 Here, e1 must be followed by e2 .
 e1 e2 : Items separated only by whitespace denote a sequence.
@@ -168,14 +137,12 @@ e+ : Likewise, a plus means one or more repetitions.
 one occurrences. In other words, the enclosed phrase is optional.
 [e] : A phrase enclosed in square brackets means zero or
 one occurrences. In other words, the enclosed phrase is optional.
-[e]
 e? : A question mark has exactly the same meaning as square brackets:
 the preceding item is optional.
 e? : A question mark has exactly the same meaning as square brackets:
 the preceding item is optional.
 (e) : Parentheses are used for grouping.
 (e) : Parentheses are used for grouping.
-(e)
 The following notation is only used in lexical definitions .
 "a"..."z" : Two literal characters separated by three dots mean a choice
 of any single character in the given (inclusive) range of ASCII characters.
@@ -190,7 +157,6 @@ of the matched symbol (for example, <any ASCII character except "\"> ),
 or an abbreviation that is defined in nearby text (for example, <Lu> ).
 <...>
 <any ASCII character except "\">
-<Lu>
 Some definitions also use lookaheads , which indicate that an element
 must (or must not) match at a given position, but without consuming any input:
 &e : a positive lookahead (that is, e is required to match)

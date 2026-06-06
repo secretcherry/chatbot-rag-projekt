@@ -5,8 +5,6 @@ SOURCE: howto\sockets.html
 
 # Socket Programming HOWTO
 
-Author :
-Gordon McMillan
 Gordon McMillan
 Abstract
 Sockets are used nearly everywhere, but are one of the most severely
@@ -104,9 +102,6 @@ select
 clientsocket
 connect()
 clientsocket
-
-### IPC
-
 If you need fast IPC between two processes on one machine, you should look into
 pipes or shared memory.  If you do decide to use AF_INET sockets, bind the
 “server” socket to 'localhost' . On most platforms, this will take a
@@ -130,13 +125,9 @@ use read and write . The latter is the way Java presents its sockets.
 I’m not going to talk about it here, except to warn you that you need to use flush on sockets. These are buffered “files”, and a common mistake is to write something, and then read for a reply. Without a flush in
 there, you may wait forever for the reply, because the request may still be in
 your output buffer.
-send
-recv
-read
 write
 flush
 write
-read
 flush
 Now we come to the major stumbling block of sockets - send and recv operate
 on the network buffers. They do not necessarily handle all the bytes you hand
@@ -145,15 +136,10 @@ buffers. In general, they return when the associated network buffers have been
 filled ( send ) or emptied ( recv ). They then tell you how many bytes they
 handled. It is your responsibility to call them again until your message has
 been completely dealt with.
-send
-recv
-send
-recv
 When a recv returns 0 bytes, it means the other side has closed (or is in
 the process of closing) the connection.  You will not receive any more data on
 this connection. Ever.  You may be able to send data successfully; I’ll talk
 more about this later.
-recv
 A protocol like HTTP uses a socket for only one transfer. The client sends a
 request, then reads a reply.  That’s it. The socket is discarded. This means that
 a client can detect the end of the reply by receiving 0 bytes.
@@ -165,9 +151,6 @@ fundamental truth of sockets: messages must either be fixed length (yuck), or
 be delimited (shrug), or indicate how long they are (much better), or end by
 shutting down the connection . The choice is entirely yours, (but some ways are
 righter than others).
-send
-recv
-recv
 Assuming you don’t want to end the connection, the simplest solution is a fixed
 length message:
 
@@ -189,12 +172,10 @@ look up the length, and the second in a loop to get the rest. If you decide to
 go the delimited route, you’ll be receiving in some arbitrary chunk size, (4096
 or 8192 is frequently a good match for network buffer sizes), and scanning what
 you’ve received for a delimiter.
-recv
 One complication to be aware of: if your conversational protocol allows multiple
 messages to be sent back to back (without some kind of reply), and you pass recv an arbitrary chunk size, you may end up reading the start of a
 following message. You’ll need to put that aside and hold onto it, until it’s
 needed.
-recv
 Prefixing the message with its length (say, as 5 numeric characters) gets more
 complex, because (believe it or not), you may not get all 5 characters in one recv . In playing around, you’ll get away with it; but in high network loads,
 your code will very quickly break unless you use two recv loops - the first
@@ -202,9 +183,6 @@ to determine the length, the second to get the data part of the message. Nasty.
 This is also when you’ll discover that send does not always manage to get
 rid of everything in one pass. And despite having read this, you will eventually
 get bit by it!
-recv
-recv
-send
 In the interests of space, building your character, (and preserving my
 competitive position), these enhancements are left as an exercise for the
 reader. Lets move on to cleaning up.
@@ -228,7 +206,6 @@ amount of the time, most integers have the value 0, or maybe 1.
 The string "0" would be two bytes, while a full 64-bit integer would be 8.
 Of course, this doesn’t fit well with fixed-length messages.
 Decisions, decisions.
-"0"
 
 ## Disconnecting
 
@@ -251,7 +228,6 @@ sends a reply. If the send completes successfully then, indeed, the client
 was still receiving.
 shutdown
 shutdown(1)
-send
 Python takes the automatic shutdown a step further, and says that when a socket
 is garbage collected, it will automatically do a close if it’s needed. But
 relying on this is a very bad habit. If your socket just disappears without
@@ -296,8 +272,6 @@ number of choices. You can check return code and error codes and generally drive
 yourself crazy. If you don’t believe me, try it sometime. Your app will grow
 large, buggy and suck CPU. So let’s skip the brain-dead solutions and do it
 right.
-send
-recv
 connect
 accept
 Use select .
@@ -329,7 +303,6 @@ socket will return something . Same idea for the writable list. You’ll be able
 to send something . Maybe not all you want to, but something is better than
 nothing.  (Actually, any reasonably healthy socket will return as writable - it
 just means outbound network buffer space is available.)
-recv
 If you have a “server” socket, put it in the potential_readers list. If it comes
 out in the readable list, your accept will (almost certainly) work. If you
 have created a new socket to connect to someone else, put it in the

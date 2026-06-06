@@ -5,8 +5,6 @@ SOURCE: whatsnew\3.2.html
 
 # What’s New In Python 3.2
 
-Author :
-Raymond Hettinger
 Raymond Hettinger
 This article explains the new features in Python 3.2 as compared to 3.1.
 Python 3.2 was released on February 20, 2011. It
@@ -30,8 +28,6 @@ mode will also work with 3.3, 3.4, and so on. Extension modules that
 make use of details of memory structures can still be built, but will
 need to be recompiled for every feature release.
 See also
-PEP 384 - Defining a Stable ABI
-PEP written by Martin von Löwis.
 PEP written by Martin von Löwis.
 
 ## PEP 389: Argparse Command Line Parsing Module
@@ -80,8 +76,6 @@ $ ./helm.py --help # top level help (launch and move) $ ./helm.py launch --help 
 [/CODE]
 
 See also
-PEP 389 - New Command Line Parsing Module
-PEP written by Steven Bethard.
 PEP written by Steven Bethard.
 Migrating optparse code to argparse for details on the differences from optparse .
 optparse
@@ -115,8 +109,6 @@ conf.json
 [/CODE]
 
 See also
-PEP 391 - Dictionary Based Configuration for Logging
-PEP written by Vinay Sajip.
 PEP written by Vinay Sajip.
 
 ## PEP 3148:  The concurrent.futures module
@@ -151,7 +143,6 @@ submit()
 Future
 map()
 shutdown()
-with
 A simple of example of ThreadPoolExecutor is a
 launch of four parallel threads for copying files:
 ThreadPoolExecutor
@@ -161,8 +152,6 @@ import concurrent.futures , shutil with concurrent . futures . ThreadPoolExecuto
 [/CODE]
 
 See also
-PEP 3148 - Futures – Execute Computations Asynchronously
-PEP written by Brian Quinlan.
 PEP written by Brian Quinlan.
 Code for Threaded Parallel URL reads , an
 example using threads to fetch multiple web pages in parallel.
@@ -200,7 +189,6 @@ __cached__
 
 The tag that is unique to each interpreter is accessible from the imp module: >>> import imp >>> imp . get_tag () 'cpython-32'
 The tag that is unique to each interpreter is accessible from the imp module:
-imp
 
 [CODE]
 >>> import imp >>> imp . get_tag () 'cpython-32'
@@ -212,7 +200,6 @@ filename.  Instead, use the new functions in the imp module: >>> imp . source_fr
 Scripts that try to deduce source filename from the imported file now need to
 be smarter.  It is no longer sufficient to simply strip the “c” from a “.pyc”
 filename.  Instead, use the new functions in the imp module:
-imp
 
 [CODE]
 >>> imp . source_from_cache ( 'c:/py32/lib/__pycache__/collections.cpython-32.pyc' ) 'c:/py32/lib/collections.py' >>> imp . cache_from_source ( 'c:/py32/lib/collections.py' ) 'c:/py32/lib/__pycache__/collections.cpython-32.pyc'
@@ -242,8 +229,6 @@ importlib.abc
 PyLoader
 PyPycLoader
 See also
-PEP 3147 - PYC Repository Directories
-PEP written by Barry Warsaw.
 PEP written by Barry Warsaw.
 
 ## PEP 3149: ABI Version Tagged .so Files
@@ -269,8 +254,6 @@ sysconfig
 [/CODE]
 
 See also
-PEP 3149 - ABI Version Tagged .so Files
-PEP written by Barry Warsaw.
 PEP written by Barry Warsaw.
 
 ## PEP 3333: Python Web Server Gateway Interface v1.0.1
@@ -279,7 +262,6 @@ This informational PEP clarifies how bytes/text issues are to be handled by the
 WSGI protocol.  The challenge is that string handling in Python 3 is most
 conveniently handled with the str type even though the HTTP protocol
 is itself bytes oriented.
-str
 The PEP differentiates so-called native strings that are used for
 request/response headers and metadata versus byte strings which are used for
 the bodies of requests and responses.
@@ -287,7 +269,6 @@ The native strings are always of type str but are restricted to code
 points between U+0000 through U+00FF which are translatable to bytes using Latin-1 encoding.  These strings are used for the keys and values in the
 environment dictionary and for response headers and statuses in the start_response() function.  They must follow RFC 2616 with respect to
 encoding. That is, they must either be ISO-8859-1 characters or use RFC 2047 MIME encoding.
-str
 start_response()
 For developers porting WSGI applications from Python 2, here are the salient
 points:
@@ -319,8 +300,6 @@ wsgiref
 wsgiref.handlers.read_environ()
 os.environ
 See also
-PEP 3333 - Python Web Server Gateway Interface v1.0.1
-PEP written by Phillip Eby.
 PEP written by Phillip Eby.
 
 ## Other Language Changes
@@ -361,8 +340,6 @@ str.format()
 defaultdict
 Shelf
 ConfigParser
-dbm
-dict
 __missing__()
 
 [CODE]
@@ -577,7 +554,6 @@ Windows MBCS encoding, locale-aware encodings, or UTF-8.
 Another significant win is the addition of substantially better support for SSL connections and security certificates.
 In addition, more classes now implement a context manager to support
 convenient and reliable resource clean-up using a with statement.
-with
 
 ### email
 
@@ -588,7 +564,6 @@ email package had to be extended to parse and generate email messages in bytes
 format.
 email
 bytes
-str
 New functions message_from_bytes() and message_from_binary_file() , and new classes BytesFeedParser and BytesParser allow binary message data to be parsed into model objects.
 New functions message_from_bytes() and message_from_binary_file() , and new classes BytesFeedParser and BytesParser allow binary message data to be parsed into model objects.
 message_from_bytes()
@@ -622,7 +597,6 @@ The smtplib SMTP class now accepts a byte string
 for the msg argument to the sendmail() method,
 and a new method, send_message() accepts a Message object and can optionally obtain the from_addr and to_addrs addresses directly from the object.
 smtplib
-SMTP
 sendmail()
 send_message()
 Message
@@ -852,7 +826,6 @@ make them more substitutable for list objects:
 collections.deque
 count()
 reverse()
-list
 
 [CODE]
 >>> from collections import deque >>> d = deque ( 'simsalabim' ) >>> d . count ( 's' ) 2 >>> d . reverse () >>> d deque(['m', 'i', 'b', 'a', 'l', 'a', 's', 'm', 'i', 's'])
@@ -930,7 +903,6 @@ And timedelta objects can now divide one another.
 timedelta
 float
 float
-int
 timedelta
 The datetime.date.strftime() method is no longer restricted to years
 after 1900.  The new supported year range is from 1000 to 9999 inclusive.
@@ -949,7 +921,6 @@ governed by time.accept2dyear .  The default is True which means that
 for a two-digit year, the century is guessed according to the POSIX rules
 governing the %y strptime format.
 time.accept2dyear
-True
 Starting with Py3.2, use of the century guessing heuristic will emit a DeprecationWarning .  Instead, it is recommended that time.accept2dyear be set to False so that large date ranges
 can be used without guesswork:
 DeprecationWarning
@@ -969,16 +940,11 @@ time.mktime()
 time.strftime()
 (Contributed by Alexander Belopolsky and Victor Stinner in bpo-1289118 , bpo-5094 , bpo-6641 , bpo-2706 , bpo-1777412 , bpo-8013 ,
 and bpo-10827 .)
-
-### math
-
 The math module has been updated with six new functions inspired by the
 C99 standard.
-math
 The isfinite() function provides a reliable and fast way to detect
 special values.  It returns True for regular numbers and False for Nan or Infinity :
 isfinite()
-True
 False
 
 [CODE]
@@ -1017,11 +983,7 @@ lgamma()
 [/CODE]
 
 (Contributed by Mark Dickinson.)
-
-### abc
-
 The abc module now supports abstractclassmethod() and abstractstaticmethod() .
-abc
 abstractclassmethod()
 abstractstaticmethod()
 These tools make it possible to define an abstract base class that
@@ -1057,8 +1019,6 @@ Python’s builtin objects such as list and set handle
 self-reference by displaying “…” in the recursive part of the representation
 string.
 __repr__()
-list
-set
 To help write such __repr__() methods, the reprlib module has a new
 decorator, recursive_repr() , for detecting recursive calls to __repr__() and substituting a placeholder string instead:
 __repr__()
@@ -1102,21 +1062,14 @@ logging.lastResort
 The use of filters has been simplified.  Instead of creating a Filter object, the predicate can be any Python callable that
 returns True or False .
 Filter
-True
 False
 There were a number of other improvements that add flexibility and simplify
 configuration.  See the module documentation for a full listing of changes in
 Python 3.2.
-
-### csv
-
 The csv module now supports a new dialect, unix_dialect ,
 which applies quoting for all fields and a traditional Unix style with '\n' as
 the line terminator.  The registered dialect name is unix .
-csv
 unix_dialect
-'\n'
-unix
 The csv.DictWriter has a new method, writeheader() for writing-out an initial row to document
 the field names:
 csv.DictWriter
@@ -1141,7 +1094,6 @@ for pre-action and post-action wrappers.  Context managers wrap a group of
 statements using a with statement, and function decorators wrap a
 group of statements enclosed in a function.  So, occasionally there is a need to
 write a pre-action or post-action wrapper that can be used in either role.
-with
 For example, it is sometimes useful to wrap functions or groups of statements
 with a logger that can track the time of entry and time of exit.  Rather than
 writing both a function decorator and a context manager for the task, the contextmanager() provides both capabilities in a single
@@ -1167,7 +1119,6 @@ Now, it can be used as a decorator as well:
 Trying to fulfill two roles at once places some limitations on the technique.
 Context managers normally have the flexibility to return an argument usable by
 a with statement, but there is no parallel for function decorators.
-with
 In the above example, there is not a clean way for the track_entry_and_exit context manager to return a logging instance for use in the body of enclosed
 statements.
 (Contributed by Michael Foord in bpo-9110 .)
@@ -1225,9 +1176,6 @@ contexts that correspond to the decimal interchange formats specified in IEEE
 decimal
 Context.clamp
 (Contributed by Mark Dickinson and Raymond Hettinger.)
-
-### ftp
-
 The ftplib.FTP class now supports the context management protocol to
 unconditionally consume socket.error exceptions and to close the FTP
 connection when done:
@@ -1259,7 +1207,6 @@ ssl.SSLContext
 The os.popen() and subprocess.Popen() functions now support with statements for auto-closing of the file descriptors.
 os.popen()
 subprocess.Popen()
-with
 (Contributed by Antoine Pitrou and Brian Curtin in bpo-7461 and bpo-10554 .)
 
 ### select
@@ -1287,7 +1234,6 @@ truncate()
 peek()
 The gzip module also gains the compress() and decompress() functions for easier in-memory compression and
 decompression.  Keep in mind that text needs to be encoded as bytes before compressing and decompressing:
-gzip
 compress()
 decompress()
 bytes
@@ -1321,7 +1267,6 @@ be a keyword argument .  The user-supplied filter function accepts a TarInfo obj
 function can return None :
 TarInfo
 TarInfo
-None
 
 [CODE]
 >>> import tarfile , glob >>> def myfilter ( tarinfo ): ... if tarinfo . isfile (): # only save real files ... tarinfo . uname = 'monty' # redact the user name ... return tarinfo >>> with tarfile . open ( name = 'myarchive.tar.gz' , mode = 'w:gz' ) as tf : ... for filename in glob . glob ( '*.txt' ): ... tf . add ( filename , filter = myfilter ) ... tf . list () -rw-r--r-- monty/501        902 2011-01-26 17:59:11 annotations.txt -rw-r--r-- monty/501        123 2011-01-26 17:59:11 general_questions.txt -rw-r--r-- monty/501       3514 2011-01-26 17:59:11 prion.txt -rw-r--r-- monty/501        124 2011-01-26 17:59:11 py_todo.txt -rw-r--r-- monty/501       1399 2011-01-26 17:59:11 semaphore_notes.txt
@@ -1341,20 +1286,14 @@ hashlib
 [/CODE]
 
 (Suggested by Carl Chenet in bpo-7418 .)
-
-### ast
-
 The ast module has a wonderful a general-purpose tool for safely
 evaluating expression strings using the Python literal
 syntax.  The ast.literal_eval() function serves as a secure alternative to
 the builtin eval() function which is easily abused.  Python 3.2 adds bytes and set literals to the list of supported types:
 strings, bytes, numbers, tuples, lists, dicts, sets, booleans, and None .
-ast
 ast.literal_eval()
 eval()
 bytes
-set
-None
 
 [CODE]
 >>> from ast import literal_eval >>> request = "{'req': 3, 'func': 'pow', 'args': (2, 0.5)}" >>> literal_eval ( request ) {'args': (2, 0.5), 'req': 3, 'func': 'pow'} >>> request = "os.system('do something harmful')" >>> literal_eval ( request ) Traceback (most recent call last): ... ValueError : malformed node or string: <_ast.Call object at 0x101739a10>
@@ -1433,12 +1372,8 @@ extension distributed with SQLite.
 sqlite3.Connection.enable_load_extension()
 sqlite3.Connection.load_extension()
 (Contributed by R. David Murray and Shashwat Anand; bpo-8845 .)
-
-### html
-
 A new html module was introduced with only a single function, escape() , which is used for escaping reserved characters from HTML
 markup:
-html
 escape()
 
 [CODE]
@@ -1468,12 +1403,8 @@ socket when done.
 (Contributed by Giampaolo Rodolà; bpo-9794 .)
 socket.create_connection()
 socket.error
-
-### ssl
-
 The ssl module added a number of features to satisfy common requirements
 for secure (encrypted, authenticated) internet connections:
-ssl
 A new class, SSLContext , serves as a container for persistent
 SSL data, such as protocol settings, certificates, private keys, and various
 other options. It includes a wrap_socket() for creating
@@ -1506,13 +1437,11 @@ supports the Server Name Indication extension to the TLS protocol, allowing
 multiple “virtual hosts” using different certificates on a single IP port.
 This extension is only supported in client mode, and is activated by passing
 the server_hostname argument to ssl.SSLContext.wrap_socket() .
-ssl
 ssl.SSLContext.wrap_socket()
 Various options have been added to the ssl module, such as OP_NO_SSLv2 which disables the insecure and obsolete SSLv2
 protocol.
 Various options have been added to the ssl module, such as OP_NO_SSLv2 which disables the insecure and obsolete SSLv2
 protocol.
-ssl
 OP_NO_SSLv2
 The extension now loads all the OpenSSL ciphers and digest algorithms.  If
 some SSL certificates cannot be verified, they are reported as an “unknown
@@ -1528,9 +1457,6 @@ ssl.OPENSSL_VERSION
 ssl.OPENSSL_VERSION_INFO
 ssl.OPENSSL_VERSION_NUMBER
 (Contributed by Antoine Pitrou in bpo-8850 , bpo-1589 , bpo-8322 , bpo-5639 , bpo-4870 , bpo-8484 , and bpo-8321 .)
-
-### nntp
-
 The nntplib module has a revamped implementation with better bytes and
 text semantics as well as more practical APIs.  These improvements break
 compatibility with the nntplib version in Python 3.1, which was partly
@@ -1818,13 +1744,9 @@ $ pydoc3.2 -b
 [/CODE]
 
 (Contributed by Ron Adam; bpo-2001 .)
-
-### dis
-
 The dis module gained two new functions for inspecting code, code_info() and show_code() .  Both provide detailed code
 object information for the supplied function, method, source code string or code
 object.  The former returns a string and the latter prints it:
-dis
 code_info()
 show_code()
 
@@ -1847,9 +1769,6 @@ Taken together, these improvements make it easier to explore how CPython is
 implemented and to see for yourself what the language syntax does
 under-the-hood.
 (Contributed by Nick Coghlan in bpo-9147 .)
-
-### dbm
-
 All database modules now support the get() and setdefault() methods.
 get()
 setdefault()
@@ -1860,12 +1779,8 @@ setdefault()
 A new type, ctypes.c_ssize_t represents the C ssize_t datatype.
 ctypes.c_ssize_t
 ssize_t
-
-### site
-
 The site module has three new functions useful for reporting on the
 details of a given Python installation.
-site
 getsitepackages() lists all global site-packages directories.
 getsitepackages() lists all global site-packages directories.
 getsitepackages()
@@ -1929,11 +1844,7 @@ C:\Python32> python -m sysconfig Platform: "win32" Python version: "3.2" Current
 [/CODE]
 
 (Moved out of Distutils by Tarek Ziadé.)
-
-### pdb
-
 The pdb debugger module gained a number of usability improvements:
-pdb
 pdb.py now has a -c option that executes commands as given in a .pdbrc script file.
 pdb.py now has a -c option that executes commands as given in a .pdbrc script file.
 pdb.py
@@ -1944,10 +1855,8 @@ A .pdbrc script file can contain continue and next commands
 that continue debugging.
 .pdbrc
 continue
-next
 The Pdb class constructor now accepts a nosigint argument.
 The Pdb class constructor now accepts a nosigint argument.
-Pdb
 New commands: l(list) , ll(long list) and source for
 listing source code.
 New commands: l(list) , ll(long list) and source for
@@ -2141,7 +2050,6 @@ and operationally fast: extension = name . rpartition ( '.' )[ 2 ] if extension 
 Python’s peephole optimizer now recognizes patterns such x in {1, 2, 3} as
 being a test for membership in a set of constants.  The optimizer recasts the set as a frozenset and stores the pre-built constant.
 x in {1, 2, 3}
-set
 frozenset
 Now that the speed penalty is gone, it is practical to start writing
 membership tests using set-notation.  This style is both semantically clear
@@ -2203,7 +2111,6 @@ splitlines()
 replace()
 bytes
 bytearray
-str
 rfind()
 rindex()
 rsplit()
@@ -2298,12 +2205,8 @@ The unmaintained Demo directory has been removed.  Some demos were
 integrated into the documentation, some were moved to the Tools/demo directory, and others were removed altogether. (Contributed by Georg Brandl in bpo-7962 .)
 The unmaintained Demo directory has been removed.  Some demos were
 integrated into the documentation, some were moved to the Tools/demo directory, and others were removed altogether.
-Demo
 Tools/demo
 (Contributed by Georg Brandl in bpo-7962 .)
-
-## IDLE
-
 The format menu now has an option to clean source files by stripping
 trailing whitespace. (Contributed by Raymond Hettinger; bpo-5150 .)
 The format menu now has an option to clean source files by stripping
@@ -2370,8 +2273,6 @@ which on some 64-bit operating systems is still only 32 bits long.  As a
 result of this fix, set and dict can now hold more than 2**32 entries on builds with 64-bit pointers (previously, they could grow
 to that size but their performance degraded catastrophically).
 Py_hash_t
-set
-dict
 2**32
 (Suggested by Raymond Hettinger and implemented by Benjamin Peterson; bpo-9778 .)
 A new macro Py_VA_COPY copies the state of the variable argument
@@ -2405,7 +2306,6 @@ convert Python int into a native fixed-width type while providing
 detection of cases where the conversion won’t fit ( bpo-7767 ).
 PyLong_AsLongLongAndOverflow()
 PyLong_AsLongAndOverflow()
-int
 The PyUnicode_CompareWithASCIIString() function now returns not
 equal if the Python string is NUL terminated.
 The PyUnicode_CompareWithASCIIString() function now returns not
@@ -2560,7 +2460,6 @@ string.maketrans()
 bytes.maketrans()
 bytearray.maketrans()
 string
-str
 bytes
 bytearray
 (Contributed by Georg Brandl; bpo-5675 .)
@@ -2575,7 +2474,6 @@ context managers.  The latter technique is faster (because it is built-in),
 and it does a better job finalizing multiple context managers when one of them
 raises an exception:
 contextlib.nested()
-with
 
 [CODE]
 with open ( 'mylog.txt' ) as infile , open ( 'a.out' , 'w' ) as outfile : for line in infile : if '<critical>' in line : outfile . write ( line )
@@ -2620,9 +2518,6 @@ streams are set to None , False otherwise.  Previously, close_fds was always Fal
 or race conditions when open file descriptors would leak into the child
 process.
 subprocess.Popen
-True
-True
-None
 False
 False
 Support for legacy HTTP 0.9 has been removed from urllib.request and http.client .  Such support is still present on the server side

@@ -22,7 +22,6 @@ Only the x++ statement is executed if the condition is true, but the
 indentation leads many to believe otherwise.  Even experienced C programmers will
 sometimes stare at it a long time wondering as to why y is being decremented even
 for x > y .
-x++
 x > y
 Because there are no begin/end brackets, Python is much less prone to
 coding-style conflicts.  In C there are many different ways to place the braces.
@@ -69,7 +68,6 @@ exactly in binary floating point.  For example, after:
 
 the value stored for x is a (very good) approximation to the decimal value 1.2 , but is not exactly equal to it.  On a typical machine, the actual
 stored value is:
-1.2
 
 [CODE]
 1.0011001100110011001100110011001100110011001100110011 ( binary )
@@ -215,7 +213,6 @@ A try / except block is extremely efficient if no exceptions
 are raised.  Actually
 catching an exception is expensive.  In versions of Python prior to 2.0 it was
 common to use this idiom:
-try
 except
 
 [CODE]
@@ -267,13 +264,6 @@ is possible, much harder, and less needed.
 
 ## Can’t you emulate threads in the interpreter instead of relying on an OS-specific thread implementation?
 
-Answer 1: Unfortunately, the interpreter pushes at least one C stack frame for
-each Python stack frame.  Also, extensions can call back into Python at almost
-random moments.  Therefore, a complete threads implementation requires thread
-support for C.
-Answer 2: Fortunately, there is Stackless Python ,
-which has a completely redesigned interpreter loop that avoids the C stack.
-
 ## Why can’t lambda expressions contain statements?
 
 Python lambda expressions cannot contain statements because Python’s syntactic
@@ -321,7 +311,6 @@ long intervals.
 If you want to write code that will work with any Python implementation,
 you should explicitly close the file or use the with statement;
 this will work regardless of memory management scheme:
-with
 
 [CODE]
 for file in very_long_list_of_files : with open ( file ) as f : c = f . read ( 1 )
@@ -385,7 +374,6 @@ The implementation uses a contiguous array of references to other objects, and
 keeps a pointer to this array and the array’s length in a list head structure.
 This makes indexing a list a[i] an operation whose cost is independent of
 the size of the list or the value of the index.
-a[i]
 When items are appended or inserted, the array of references is resized.  Some
 cleverness is applied to improve the performance of appending items repeatedly;
 when the array must be grown, some extra space is allocated so the next few
@@ -521,7 +509,6 @@ construction of large programs.
 Python 2.6 adds an abc module that lets you define Abstract Base Classes
 (ABCs).  You can then use isinstance() and issubclass() to check
 whether an instance or a class implements a particular ABC.  The collections.abc module defines a set of useful ABCs such as Iterable , Container , and MutableMapping .
-abc
 isinstance()
 issubclass()
 collections.abc
@@ -559,10 +546,7 @@ In the 1970s people realized that unrestricted goto could lead
 to messy “spaghetti” code that was hard to understand and revise.
 In a high-level language, it is also unneeded as long as there
 are ways to branch (in Python, with if statements and or , and , and if / else expressions) and loop (with while and for statements, possibly containing continue and break ).
-and
-else
 while
-for
 continue
 break
 One can also use exceptions to provide a “structured goto”
@@ -570,7 +554,6 @@ that works even across
 function calls.  Many feel that exceptions can conveniently emulate all
 reasonable uses of the go or goto constructs of C, Fortran, and other
 languages.  For example:
-goto
 
 [CODE]
 class label ( Exception ): pass # declare a label try : ... if condition : raise label () # goto label ... except label : # where to goto pass ...
@@ -578,7 +561,6 @@ class label ( Exception ): pass # declare a label try : ... if condition : raise
 
 This doesn’t allow you to jump into the middle of a loop, but that’s usually
 considered an abuse of goto anyway.  Use sparingly.
-goto
 
 ## Why can’t raw strings (r-strings) end with a backslash?
 
@@ -609,7 +591,6 @@ dir = r "\this\is\my\dos\dir" " \\ " dir = r "\this\is\my\dos\dir\ " [: - 1 ] di
 Python has a with statement that wraps the execution of a block, calling code
 on the entrance and exit from the block.  Some languages have a construct that
 looks like this:
-with
 
 [CODE]
 with obj : a = 1 # equivalent to obj.a = 1 total = total + 1 # obj.total = obj.total + 1
@@ -636,10 +617,8 @@ there is nothing in Python that tells the interpreter this. What should happen
 if a is, let us say, an integer?  If there is a global variable named x ,
 will it be used inside the with block?  As you see, the dynamic nature of Python
 makes such choices much harder.
-with
 The primary benefit of with and similar language features (reduction of code
 volume) can, however, easily be achieved in Python by assignment.  Instead of:
-with
 
 [CODE]
 function ( args ) . mydict [ index ][ index ] . a = 21 function ( args ) . mydict [ index ][ index ] . b = 42 function ( args ) . mydict [ index ][ index ] . c = 63
@@ -664,7 +643,6 @@ would not work correctly.  When, as is most common, a generator is used as
 an iterator run to completion, no closing is needed.  When it is, wrap
 it as contextlib.closing(generator) in the with statement.
 contextlib.closing(generator)
-with
 
 ## Why are colons required for the if/while/def/class statements?
 

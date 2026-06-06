@@ -37,7 +37,6 @@ If the cursor moves, you have command line editing; see Appendix Interactive Inp
 If nothing appears to happen, or if a sequence like ^[[D or ^B appears,
 command line editing isn’t available; you’ll only be able to use
 backspace to remove characters from the current line.
-^[[D
 The interpreter operates somewhat like the Unix shell: when called with standard
 input connected to a tty device, it reads and executes commands interactively;
 when called with a file name argument or with a file as standard input, it reads
@@ -60,15 +59,10 @@ thereafter are turned into a list of strings and assigned to the argv variable i
 are given, sys.argv[0] is an empty string.  When the script name is given as '-' (meaning  standard input), sys.argv[0] is set to '-' .  When -c command is used, sys.argv[0] is set to '-c' .  When -m module is used, sys.argv[0] is set to the full name of the
 located module.  Options found after -c command or -m module are not consumed  by the Python interpreter’s option processing but
 left in sys.argv for  the command or module to handle.
-argv
-sys
 import sys
 sys.argv[0]
-'-'
 sys.argv[0]
-'-'
 sys.argv[0]
-'-c'
 sys.argv[0]
 sys.argv
 
@@ -80,8 +74,6 @@ usually three greater-than signs ( >>> ); for continuation lines it prompts
 with the secondary prompt , by default three dots ( ... ). The interpreter
 prints a welcome message stating its version number and a copyright notice
 before printing the first prompt:
->>>
-...
 
 [CODE]
 $ python3.14 Python 3.14 (default, April 4 2024, 09:25:04) [GCC 10.2.0] on linux Type "help", "copyright", "credits" or "license" for more information. >>>

@@ -5,8 +5,6 @@ SOURCE: whatsnew\2.3.html
 
 # What’s New in Python 2.3
 
-Author :
-A.M. Kuchling
 A.M. Kuchling
 This article explains the new features in Python 2.3.  Python 2.3 was released
 on July 29, 2003.
@@ -19,7 +17,6 @@ have been added such as sum() and enumerate() .  The in operator can now be used
 sum()
 enumerate()
 "ab" in "abc"
-True
 Some of the many new library features include Boolean, set, heap, and date/time
 data types, the ability to import modules from ZIP-format archives, metadata
 support for the long-awaited Python catalog, an updated version of IDLE, and
@@ -40,8 +37,6 @@ removed.  The ImmutableSet class is for sets that can’t be modified,
 and instances of ImmutableSet can therefore be used as dictionary keys.
 Sets are built on top of dictionaries, so the elements within a set must be
 hashable.
-sets
-Set
 ImmutableSet
 ImmutableSet
 Here’s a simple example:
@@ -81,9 +76,6 @@ issuperset()
 [/CODE]
 
 See also
-PEP 218 - Adding a Built-In Set Object Type
-PEP written by Greg V. Wilson. Implemented by Greg V. Wilson, Alex Martelli, and
-GvR.
 PEP written by Greg V. Wilson. Implemented by Greg V. Wilson, Alex Martelli, and
 GvR.
 
@@ -131,8 +123,6 @@ yield
 .next()
 yield
 yield
-try
-try
 finally
 yield
 Here’s a sample usage of the generate_ints() generator:
@@ -201,9 +191,6 @@ compared to Icon’s is that a generator’s state is represented as a concrete
 object (the iterator) that can be passed around to other functions or stored in
 a data structure.
 See also
-PEP 255 - Simple Generators
-Written by Neil Schemenauer, Tim Peters, Magnus Lie Hetland.  Implemented mostly
-by Neil Schemenauer and Tim Peters, with other fixes from the Python Labs crew.
 Written by Neil Schemenauer, Tim Peters, Magnus Lie Hetland.  Implemented mostly
 by Neil Schemenauer and Tim Peters, with other fixes from the Python Labs crew.
 
@@ -228,9 +215,6 @@ converted to Unicode using the specified encoding.  Note that Python identifiers
 are still restricted to ASCII characters, so you can’t have variable names that
 use characters outside of the usual alphanumerics.
 See also
-PEP 263 - Defining Python Source Code Encodings
-Written by Marc-André Lemburg and Martin von Löwis; implemented by Suzuki Hisao
-and Martin von Löwis.
 Written by Marc-André Lemburg and Martin von Löwis; implemented by Suzuki Hisao
 and Martin von Löwis.
 
@@ -251,22 +235,15 @@ An entry in sys.path can now be the filename of a ZIP archive. The ZIP
 archive can contain any kind of files, but only files named *.py , *.pyc , or *.pyo can be imported.  If an archive only contains *.py files, Python will not attempt to modify the archive by adding the
 corresponding *.pyc file, meaning that if a ZIP archive doesn’t contain *.pyc files, importing may be rather slow.
 sys.path
-*.py
 *.pyc
 *.pyo
-*.py
 *.pyc
 *.pyc
 A path within the archive can also be specified to only import from a
 subdirectory; for example, the path /tmp/example.zip/lib/ would only
 import from the lib/ subdirectory within the archive.
 /tmp/example.zip/lib/
-lib/
 See also
-PEP 273 - Import Modules from Zip Archives
-Written by James C. Ahlstrom,  who also provided an implementation. Python 2.3
-follows the specification in PEP 273 ,  but uses an implementation written by
-Just van Rossum  that uses the import hooks described in PEP 302 . See section PEP 302: New Import Hooks for a description of the new import hooks.
 Written by James C. Ahlstrom,  who also provided an implementation. Python 2.3
 follows the specification in PEP 273 ,  but uses an implementation written by
 Just van Rossum  that uses the import hooks described in PEP 302 . See section PEP 302: New Import Hooks for a description of the new import hooks.
@@ -284,7 +261,6 @@ os.listdir()
 os.getcwdu()
 Byte strings still work as file names, and on Windows Python will transparently
 convert them to Unicode using the mbcs encoding.
-mbcs
 Other systems also allow Unicode strings as file names but convert them to byte
 strings before passing them to the system, which can cause a UnicodeError to be raised. Applications can test whether arbitrary Unicode strings are
 supported as file names by checking os.path.supports_unicode_filenames ,
@@ -294,9 +270,6 @@ os.path.supports_unicode_filenames
 Under MacOS, os.listdir() may now return Unicode filenames.
 os.listdir()
 See also
-PEP 277 - Unicode file name support for Windows NT
-Written by Neil Hodgson; implemented by Neil Hodgson, Martin von Löwis, and Mark
-Hammond.
 Written by Neil Hodgson; implemented by Neil Hodgson, Martin von Löwis, and Mark
 Hammond.
 
@@ -312,9 +285,6 @@ Python’s file objects can now support end of line conventions other than the
 one followed by the platform on which Python is running. Opening a file with
 the mode 'U' or 'rU' will open a file for reading in universal
 newlines mode.  All three line ending conventions will be translated to a '\n' in the strings returned by the various file methods such as read() and readline() .
-'U'
-'rU'
-'\n'
 read()
 readline()
 Universal newline support is also used when importing modules and when executing
@@ -325,8 +295,6 @@ execfile()
 This feature can be disabled when compiling Python by specifying the --without-universal-newlines switch when running Python’s configure script.
 --without-universal-newlines
 See also
-PEP 278 - Universal Newline Support
-Written and implemented by Jack Jansen.
 Written and implemented by Jack Jansen.
 
 ## PEP 279: enumerate()
@@ -353,8 +321,6 @@ for i , item in enumerate ( L ): # ... compute some result based on item ... L [
 [/CODE]
 
 See also
-PEP 279 - The enumerate() built-in function
-Written and implemented by Raymond D. Hettinger.
 Written and implemented by Raymond D. Hettinger.
 
 ## PEP 282: The logging Package
@@ -441,7 +407,6 @@ log = logging . getLogger ( 'server' ) ... log . info ( 'Listening on port %i ' 
 Log records are usually propagated up the hierarchy, so a message logged to server.auth is also seen by server and root , but a Logger can prevent this by setting its propagate attribute to False .
 server.auth
 server
-root
 Logger
 propagate
 False
@@ -464,8 +429,6 @@ incomplete overview of its features, so please see the package’s reference
 documentation for all of the details.  Reading PEP 282 will also be helpful.
 logging
 See also
-PEP 282 - A Logging System
-Written by Vinay Sajip and Trent Mick; implemented by Vinay Sajip.
 Written by Vinay Sajip and Trent Mick; implemented by Vinay Sajip.
 
 ## PEP 285: A Boolean Type
@@ -474,14 +437,10 @@ A Boolean type was added to Python 2.3.  Two new constants were added to the __b
 2.2.1 versions are simply set to integer values of 1 and 0 and aren’t a
 different type.)
 __builtin__
-True
 False
-True
 False
 The type object for this new type is named bool ; the constructor for it
 takes any Python value and converts it to True or False .
-bool
-True
 False
 
 [CODE]
@@ -509,7 +468,6 @@ be, as PEP 285 explicitly says.  This means you can still use any expression
 in an if statement, even ones that evaluate to a list or tuple or
 some random object.  The Boolean type is a subclass of the int class so
 that arithmetic using a Boolean still works.
-int
 
 [CODE]
 >>> True + 1 2 >>> False + 1 1 >>> False * 75 0 >>> True * 75 75
@@ -517,17 +475,12 @@ int
 
 To sum up True and False in a sentence: they’re alternative
 ways to spell the integer values 1 and 0, with the single difference that str() and repr() return the strings 'True' and 'False' instead of '1' and '0' .
-True
 False
 str()
 repr()
 'True'
 'False'
-'1'
-'0'
 See also
-PEP 285 - Adding a bool type
-Written and implemented by GvR.
 Written and implemented by GvR.
 
 ## PEP 293: Codec Error Handling Callbacks
@@ -553,8 +506,6 @@ Two additional error handlers have been implemented using this framework:
 “backslashreplace” uses Python backslash quoting to represent unencodable
 characters and “xmlcharrefreplace” emits XML character references.
 See also
-PEP 293 - Codec Error Handling Callbacks
-Written and implemented by Walter Dörwald.
 Written and implemented by Walter Dörwald.
 
 ## PEP 301: Package Index and Metadata for Distutils
@@ -580,8 +531,6 @@ from distutils import core kw = { 'name' : "Quixote" , 'version' : "0.5.1" , 'de
 The full list of classifiers can be obtained by running python setup.py register --list-classifiers .
 python setup.py register --list-classifiers
 See also
-PEP 301 - Package Index and Metadata for Distutils
-Written and implemented by Richard Jones.
 Written and implemented by Richard Jones.
 
 ## PEP 302: New Import Hooks
@@ -594,7 +543,6 @@ ihooks
 imputil
 PEP 302 borrows ideas from its predecessors, especially from Gordon
 McMillan’s iu module.  Three new items  are added to the sys module:
-sys
 sys.path_hooks is a list of callable objects; most  often they’ll be
 classes.  Each callable takes a string containing a path and either returns an
 importer object that will handle imports from this path or raises an ImportError exception if it can’t handle this path.
@@ -631,8 +579,6 @@ for mp in sys . meta_path : loader = mp ( fullname ) if loader is not None : < m
 [/CODE]
 
 See also
-PEP 302 - New Import Hooks
-Written by Just van Rossum and Paul Moore. Implemented by Just van Rossum.
 Written by Just van Rossum and Paul Moore. Implemented by Just van Rossum.
 
 ## PEP 305: Comma-separated Files
@@ -654,7 +600,6 @@ line.split(',')
 [/CODE]
 
 A big ugly regular expression can parse this, but using the new csv package is much simpler:
-csv
 
 [CODE]
 import csv input = open ( 'datafile' , 'rb' ) reader = csv . reader ( input ) for line in reader : print line
@@ -669,9 +614,6 @@ currently there are two dialects, both used by Microsoft Excel. A separate csv.w
 of tuples or lists, quoting strings that contain the delimiter.
 csv.writer
 See also
-PEP 305 - CSV File API
-Written and implemented  by Kevin Altis, Dave Cole, Andrew McNamara, Skip
-Montanaro, Cliff Wells.
 Written and implemented  by Kevin Altis, Dave Cole, Andrew McNamara, Skip
 Montanaro, Cliff Wells.
 
@@ -707,8 +649,6 @@ instead of long strings to identify pickled classes. The Python Software
 Foundation will maintain a list of standardized codes; there’s also a range of
 codes for private use.  Currently no codes have been specified.
 See also
-PEP 307 - Extensions to the pickle protocol
-Written and implemented  by Guido van Rossum and Tim Peters.
 Written and implemented  by Guido van Rossum and Tim Peters.
 
 ## Extended Slices
@@ -798,8 +738,6 @@ now the type object for the slice type, and is no longer a function.  This is
 consistent with Python 2.2, where int , str , etc., underwent
 the same change.
 slice
-int
-str
 
 ## Other Language Changes
 
@@ -818,9 +756,7 @@ document.
 Two new constants, True and False were added along with the
 built-in bool type, as described in section PEP 285: A Boolean Type of this
 document.
-True
 False
-bool
 The int() type constructor will now return a long integer instead of
 raising an OverflowError when a string or floating-point number is too
 large to fit into an integer.  This can lead to the paradoxical result that isinstance(int(expression), int) is false, but that seems unlikely to cause
@@ -884,7 +820,6 @@ There’s also a new class method, dict.fromkeys(iterable, value) , that
 creates a dictionary with keys taken from the supplied iterator iterable and
 all values set to value , defaulting to None .
 dict.fromkeys(iterable, value)
-None
 (Patches contributed by Raymond Hettinger.)
 Also, the dict() constructor now accepts keyword arguments to simplify
 creating small dictionaries:
@@ -916,7 +851,6 @@ such as functions, classes, and modules.  (This means that the new module
 can be deprecated in a future Python version, because you can now use the type
 objects available in the types module.) For example, you can create a new
 module object with the following code:
-new
 types
 
 [CODE]
@@ -942,9 +876,7 @@ raise "Error occurred"
 PendingDeprecationWarning
 Using None as a variable name will now result in a SyntaxWarning warning.  In a future version of Python, None may finally become a keyword.
 Using None as a variable name will now result in a SyntaxWarning warning.  In a future version of Python, None may finally become a keyword.
-None
 SyntaxWarning
-None
 The xreadlines() method of file objects, introduced in Python 2.1, is no
 longer necessary because files now behave as their own iterator. xreadlines() was originally introduced as a faster way to loop over all
 the lines in a file, but now you can simply write for line in file_obj .
@@ -1001,7 +933,6 @@ One minor but far-reaching change is that the names of extension types defined
 by the modules included with Python now contain the module and a '.' in
 front of the type name.  For example, in Python 2.2, if you created a socket and
 printed its __class__ , you’d get this output:
-'.'
 __class__
 
 [CODE]
@@ -1040,8 +971,6 @@ character. That’s now changed; X can be a string of any length, and X in Y wil
 string, the result is always True .
 X in Y
 X in Y
-True
-True
 
 [CODE]
 >>> 'ab' in 'abcd' True >>> 'ad' in 'abcd' False >>> '' in 'abcd' True
@@ -1097,7 +1026,6 @@ return True for either kind of string.  It’s a completely abstract
 type, so you can’t create basestring instances.
 basestring
 isinstance(obj, basestring)
-True
 basestring
 Interned strings are no longer immortal and will now be garbage-collected in
 the usual way when the only reference to them is from the internal dictionary of
@@ -1160,7 +1088,6 @@ The array module now supports arrays of Unicode characters using the 'u' format 
 operator to add another array’s contents, and the *= assignment operator to
 repeat an array. (Contributed by Jason Orendorff.)
 array
-'u'
 The bsddb module has been replaced by version 4.1.6 of the PyBSDDB package, providing a more complete interface
 to the transactional features of the BerkeleyDB library. The old version of the module has been renamed to bsddb185 and is no
 longer built automatically; you’ll  have to edit Modules/Setup to enable
@@ -1200,8 +1127,6 @@ The new bz2 module is an interface to the bz2 data compression library.
 bz2-compressed data is usually smaller than  corresponding zlib -compressed data. (Contributed by Gustavo Niemeyer.)
 The new bz2 module is an interface to the bz2 data compression library.
 bz2-compressed data is usually smaller than  corresponding zlib -compressed data. (Contributed by Gustavo Niemeyer.)
-bz2
-zlib
 A set of standard date/time types has been added in the new datetime module.  See the following section for more details.
 A set of standard date/time types has been added in the new datetime module.  See the following section for more details.
 datetime
@@ -1235,7 +1160,6 @@ configuration (contributed by Robert Weber).
 Other minor changes to Distutils: it now checks for the CC , CFLAGS , CPP , LDFLAGS , and CPPFLAGS environment variables, using them to override the settings in Python’s
 configuration (contributed by Robert Weber).
 CFLAGS
-CPP
 LDFLAGS
 CPPFLAGS
 Previously the doctest module would only search the docstrings of
@@ -1277,8 +1201,6 @@ The grp , pwd , and resource modules now return enhanced
 tuples: >>> import grp >>> g = grp . getgrnam ( 'amk' ) >>> g . gr_name , g . gr_gid ('amk', 500)
 The grp , pwd , and resource modules now return enhanced
 tuples:
-grp
-pwd
 resource
 
 [CODE]
@@ -1287,7 +1209,6 @@ resource
 
 The gzip module can now handle files exceeding 2 GiB.
 The gzip module can now handle files exceeding 2 GiB.
-gzip
 The new heapq module contains an implementation of a heap queue
 algorithm.  A heap is an array-like data structure that keeps items in a
 partially sorted order such that, for every index k , heap[k] <= heap[2*k+1] and heap[k] <= heap[2*k+2] .  This makes it quick to remove the
@@ -1349,9 +1270,7 @@ documentation for details.
 itertools
 itertools.ifilter(predicate, iterator)
 predicate()
-True
 itertools.repeat(obj, N)
-obj
 Two new functions in the math module, degrees(rads) and radians(degs) , convert between radians and degrees.  Other functions in
 the math module such as math.sin() and math.cos() have always
 required input values measured in radians.  Also, an optional base argument
@@ -1362,10 +1281,8 @@ the math module such as math.sin() and math.cos() have always
 required input values measured in radians.  Also, an optional base argument
 was added to math.log() to make it easier to compute logarithms for bases
 other than e and 10 .  (Contributed by Raymond Hettinger.)
-math
 degrees(rads)
 radians(degs)
-math
 math.sin()
 math.cos()
 math.log()
@@ -1452,7 +1369,6 @@ buffer character data, resulting in fewer calls to your character data handler
 and therefore faster performance.  Setting the parser object’s buffer_text attribute to True will enable buffering.
 pyexpat
 buffer_text
-True
 The sample(population, k) function was added to the random module. population is a sequence or xrange object containing the
 elements of a population, and sample() chooses k elements from the
 population without replacing chosen elements. k can be any value up to len(population) . For example: >>> days = [ 'Mo' , 'Tu' , 'We' , 'Th' , 'Fr' , 'St' , 'Sn' ] >>> random . sample ( days , 3 ) # Choose 3 elements ['St', 'Sn', 'Th'] >>> random . sample ( days , 7 ) # Choose 7 elements ['Tu', 'Th', 'Mo', 'We', 'St', 'Fr', 'Sn'] >>> random . sample ( days , 7 ) # Choose 7 again ['We', 'Mo', 'Sn', 'Fr', 'Tu', 'St', 'Th'] >>> random . sample ( days , 8 ) # Can't choose eight Traceback (most recent call last): File "<stdin>" , line 1 , in ? File "random.py" , line 414 , in sample raise ValueError , "sample larger than population" ValueError : sample larger than population >>> random . sample ( xrange ( 1 , 10000 , 2 ), 10 ) # Choose ten odd nos. under 10000 [3407, 3805, 1505, 7023, 2401, 2267, 9733, 3151, 8083, 9195] The random module now uses a new algorithm, the Mersenne Twister,
@@ -1635,7 +1551,6 @@ because it uses the platform C library’s strptime() implementation, and
 different platforms sometimes have odd bugs.  Brett Cannon contributed a
 portable implementation that’s written in pure Python and should behave
 identically on all platforms.
-time
 strptime()
 strptime()
 The new timeit module helps measure how long snippets of Python code
@@ -1663,7 +1578,6 @@ The Tix module has received various bug fixes and updates for the
 current version of the Tix package.
 The Tix module has received various bug fixes and updates for the
 current version of the Tix package.
-Tix
 The Tkinter module now works with a thread-enabled  version of Tcl.
 Tcl’s threading model requires that widgets only be accessed from the thread in
 which they’re created; accesses from another thread can cause Tcl to panic.  For
@@ -1760,8 +1674,6 @@ data values such as Python’s None .  Nil values are always supported on
 unmarshalling an XML-RPC response.  To generate requests containing None ,
 you must supply a true value for the allow_none parameter when creating a Marshaller instance.
 xmlrpclib
-None
-None
 Marshaller
 The new DocXMLRPCServer module allows writing self-documenting XML-RPC
 servers. Run it in demo mode (as a program) to see it in action.   Pointing the
@@ -1800,9 +1712,7 @@ socket
 httplib
 ftplib
 httplib
-Host
 urllib
-path
 To implement this change, the stringprep module, the mkstringprep tool and the punycode encoding have been added.
 stringprep
 mkstringprep
@@ -1818,19 +1728,13 @@ which contains all the attributes of both date and time .
 There’s also a timedelta class representing differences between two
 points in time, and time zone logic is implemented by classes inheriting from
 the abstract tzinfo class.
-date
-time
 datetime
-date
-time
 timedelta
 tzinfo
 You can create instances of date and time by either supplying
 keyword arguments to the appropriate constructor, e.g. datetime.date(year=1972, month=10, day=15) , or by using one of a number of
 class methods.  For example, the today() class method returns the
 current local date.
-date
-time
 datetime.date(year=1972, month=10, day=15)
 today()
 Once created, instances of the date/time classes are all immutable. There are a
@@ -1842,7 +1746,6 @@ number of methods for producing formatted strings from objects:
 
 The replace() method allows modifying one or more fields  of a date or datetime instance, returning a new instance:
 replace()
-date
 datetime
 
 [CODE]
@@ -1853,10 +1756,8 @@ Instances can be compared, hashed, and converted to strings (the result is the
 same as that of isoformat() ). date and datetime instances can be subtracted from each other, and added to timedelta instances.  The largest missing feature is that there’s no standard library
 support for parsing strings and getting back a date or datetime .
 isoformat()
-date
 datetime
 timedelta
-date
 datetime
 For more information, refer to the module’s reference documentation.
 (Contributed by Tim Peters.)
@@ -1974,10 +1875,6 @@ Python since 1.5.2.  You would copy the file from Python’s source distribution
 and bundle it with the source of your extension.
 Misc/pymemcompat.h
 See also
-https://hg.python.org/cpython/file/default/Objects/obmalloc.c
-For the full details of the pymalloc implementation, see the comments at
-the top of the file Objects/obmalloc.c in the Python source code.
-The above link points to the file within the python.org SVN browser.
 For the full details of the pymalloc implementation, see the comments at
 the top of the file Objects/obmalloc.c in the Python source code.
 The above link points to the file within the python.org SVN browser.
@@ -2134,7 +2031,6 @@ prefixed with a hyphen ( '-' ) to mean “remove this resource.”  For example,
 the option ‘ -uall,-bsddb ’ could be used to enable the use of all resources
 except bsddb .
 regrtest.py
-'-'
 -uall,-bsddb
 bsddb
 The tools used to build the documentation now work under Cygwin as well as
@@ -2160,7 +2056,6 @@ tracebacks have been computed using a different mechanism that works with
 “python -O”.  For Python 2.3 Michael Hudson implemented a similar scheme to
 determine when to call the trace function, removing the need for SET_LINENO entirely.
 SET_LINENO
-pdb
 SET_LINENO
 It would be difficult to detect any resulting difference from Python code, apart
 from a slight speed up when Python is run without -O .
@@ -2174,8 +2069,6 @@ A nifty new feature is that trace functions can now assign to the f_lineno attri
 executed next.  A jump command has been added to the pdb debugger
 taking advantage of this new feature. (Implemented by Richie Hindle.)
 f_lineno
-jump
-pdb
 
 ## Porting to Python 2.3
 
@@ -2251,13 +2144,11 @@ from distutils import core kw = { 'sources' : 'foo.c' , ... } if hasattr ( core 
 
 Using None as a variable name will now result in a SyntaxWarning warning.
 Using None as a variable name will now result in a SyntaxWarning warning.
-None
 SyntaxWarning
 Names of extension types defined by the modules included with Python now
 contain the module and a '.' in front of the type name.
 Names of extension types defined by the modules included with Python now
 contain the module and a '.' in front of the type name.
-'.'
 
 ## Acknowledgements
 

@@ -72,10 +72,6 @@ the GIL.  However, Python has not historically guaranteed specific behavior for
 concurrent modifications to these built-in types, so this should be treated
 as a description of the current implementation, not a guarantee of current or
 future behavior.
-dict
-list
-set
-Note
 It’s recommended to use the threading.Lock or other synchronization
 primitives instead of relying on the internal locks of built-in types, when
 possible.

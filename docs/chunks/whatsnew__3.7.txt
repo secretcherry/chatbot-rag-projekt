@@ -5,8 +5,6 @@ SOURCE: whatsnew\3.7.html
 
 # What’s New In Python 3.7
 
-Editor :
-Elvis Pranskevichus < elvis @ magic . io >
 Elvis Pranskevichus < elvis @ magic . io >
 This article explains the new features in Python 3.7, compared to 3.6.
 Python 3.7 was released on June 27, 2018.
@@ -54,7 +52,6 @@ The asyncio module has received new features, significant usability and performa
 asyncio
 The time module gained support for functions with nanosecond resolution .
 The time module gained support for functions with nanosecond resolution .
-time
 CPython implementation improvements:
 Avoiding the use of ASCII as a default text encoding: PEP 538 , legacy C locale coercion PEP 540 , forced UTF-8 runtime mode
 Avoiding the use of ASCII as a default text encoding:
@@ -124,8 +121,6 @@ from __future__ import annotations
 
 It will become the default in Python 3.10.
 See also
-PEP 563 – Postponed evaluation of annotations
-PEP written and implemented by Łukasz Langa.
 PEP written and implemented by Łukasz Langa.
 
 ### PEP 538: Legacy C Locale Coercion
@@ -169,14 +164,11 @@ system. To better handle the case where no suitable target locale is available
 (as occurs on RHEL/CentOS 7, for example), Python 3.7 also implements PEP 540: Forced UTF-8 Runtime Mode .
 readline
 See also
-PEP 538 – Coercing the legacy C locale to a UTF-8 based locale
-PEP written and implemented by Nick Coghlan.
 PEP written and implemented by Nick Coghlan.
 
 ### PEP 540: Forced UTF-8 Runtime Mode
 
 The new -X utf8 command line option and PYTHONUTF8 environment variable can be used to enable the Python UTF-8 Mode .
-utf8
 PYTHONUTF8
 When in UTF-8 mode, CPython ignores the locale settings, and uses the
 UTF-8 encoding by default.  The error handlers for sys.stdin and sys.stdout streams are set to surrogateescape .
@@ -200,8 +192,6 @@ POSIX
 PYTHONCOERCECLOCALE=0
 LC_ALL
 See also
-PEP 540 – Add a new UTF-8 mode
-PEP written and implemented by Victor Stinner
 PEP written and implemented by Victor Stinner
 
 ### PEP 553: Built-in breakpoint()
@@ -216,7 +206,6 @@ enter any debugger. Additionally, the environment variable PYTHONBREAKPOINT can 
 choice.  Set PYTHONBREAKPOINT=0 to completely disable built-in breakpoint() .
 breakpoint()
 sys.breakpointhook()
-pdb
 pdb.set_trace()
 sys.breakpointhook()
 breakpoint()
@@ -224,8 +213,6 @@ PYTHONBREAKPOINT
 PYTHONBREAKPOINT=0
 breakpoint()
 See also
-PEP 553 – Built-in breakpoint()
-PEP written and implemented by Barry Warsaw
 PEP written and implemented by Barry Warsaw
 
 ### PEP 539: New C API for Thread-Local Storage
@@ -247,8 +234,6 @@ no-op and immediately return failure. This indicates clearly that the old API
 is not supported on platforms where it cannot be used reliably, and that no
 effort will be made to add such support.
 See also
-PEP 539 – A New C-API for Thread-Local Storage in CPython
-PEP written by Erik M. Bray; implementation by Masayuki Yamamoto.
 PEP written by Erik M. Bray; implementation by Masayuki Yamamoto.
 
 ### PEP 562: Customization of Access to Module Attributes
@@ -260,10 +245,8 @@ __dir__()
 A typical example of where this may be useful is module attribute deprecation
 and lazy loading.
 See also
-PEP 562 – Module __getattr__ and __dir__
 __getattr__
 __dir__
-PEP written and implemented by Ivan Levkivskyi
 PEP written and implemented by Ivan Levkivskyi
 
 ### PEP 564: New Time Functions With Nanosecond Resolution
@@ -273,7 +256,6 @@ of a floating-point number returned by the time.time() function
 and its variants.  To avoid loss of precision, PEP 564 adds six new
 “nanosecond” variants of the existing timer functions to the time module:
 time.time()
-time
 time.clock_gettime_ns()
 time.clock_gettime_ns()
 time.clock_gettime_ns()
@@ -298,8 +280,6 @@ approximately 3 times better than that of time.time() .
 time.time_ns()
 time.time()
 See also
-PEP 564 – Add new time functions with nanosecond resolution
-PEP written and implemented by Victor Stinner
 PEP written and implemented by Victor Stinner
 
 ### PEP 565: Show DeprecationWarning in __main__
@@ -348,9 +328,7 @@ by breaking changes in the APIs they used.
 DeprecationWarning
 PendingDeprecationWarning
 See also
-PEP 565 – Show DeprecationWarning in __main__
 __main__
-PEP written and implemented by Nick Coghlan
 PEP written and implemented by Nick Coghlan
 
 ### PEP 560: Core Support for typing module and Generic Types
@@ -368,8 +346,6 @@ __mro_entries__()
 typing
 typing
 See also
-PEP 560 – Core support for typing module and generic types
-PEP written and implemented by Ivan Levkivskyi
 PEP written and implemented by Ivan Levkivskyi
 
 ### PEP 552: Hash-based .pyc Files
@@ -382,14 +358,10 @@ filesystem timestamps are too coarse, Python can miss source updates, leading to
 user confusion. Additionally, having a timestamp in the cache file is
 problematic for build reproducibility and
 content-based build systems.
-.pyc
 PEP 552 extends the pyc format to allow the hash of the source file to be
 used for invalidation instead of the source timestamp. Such .pyc files are
 called “hash-based”. By default, Python still uses timestamp-based invalidation
 and does not generate hash-based .pyc files at runtime. Hash-based .pyc files may be generated with py_compile or compileall .
-.pyc
-.pyc
-.pyc
 py_compile
 compileall
 Hash-based .pyc files come in two variants: checked and unchecked. Python
@@ -398,14 +370,8 @@ files at runtime but doesn’t do so for unchecked hash-based pycs. Unchecked
 hash-based .pyc files are a useful performance optimization for environments
 where a system external to Python (e.g., the build system) is responsible for
 keeping .pyc files up-to-date.
-.pyc
-.pyc
-.pyc
-.pyc
 See Cached bytecode invalidation for more information.
 See also
-PEP 552 – Deterministic pycs
-PEP written and implemented by Benjamin Peterson
 PEP written and implemented by Benjamin Peterson
 
 ### PEP 545: Python Documentation Translations
@@ -420,9 +386,6 @@ French: https://docs.python.org/fr/
 Korean: https://docs.python.org/ko/
 Korean: https://docs.python.org/ko/
 See also
-PEP 545 – Python Documentation Translations
-PEP written and implemented by Julien Palard, Inada Naoki, and
-Victor Stinner.
 PEP written and implemented by Julien Palard, Inada Naoki, and
 Victor Stinner.
 
@@ -432,7 +395,6 @@ The new -X dev command line option or the new PYTHONDEVMODE environment variable
 additional runtime checks that are too expensive to be enabled by default.
 See Python Development Mode documentation for the full
 description.
-dev
 PYTHONDEVMODE
 
 ## Other Language Changes
@@ -461,7 +423,6 @@ str , bytes , and bytearray gained support for
 the new isascii() method, which can be used to
 test if a string or bytes contain only the ASCII characters.
 (Contributed by INADA Naoki in bpo-32677 .)
-str
 bytes
 bytearray
 isascii()
@@ -527,8 +488,6 @@ decimal operations to work with the correct context in asynchronous code.
 asyncio
 decimal
 See also
-PEP 567 – Context Variables
-PEP written and implemented by Yury Selivanov
 PEP written and implemented by Yury Selivanov
 
 ### dataclasses
@@ -546,8 +505,6 @@ Example:
 [/CODE]
 
 See also
-PEP 557 – Data Classes
-PEP written and implemented by Eric V. Smith
 PEP written and implemented by Eric V. Smith
 
 ### importlib.resources
@@ -627,9 +584,7 @@ The new asyncio.current_task() function returns the currently running Task insta
 The Task.current_task() and Task.all_tasks() methods have been deprecated.
 (Contributed by Andrew Svetlov in bpo-32250 .)
 asyncio.current_task()
-Task
 asyncio.all_tasks()
-Task
 Task.current_task()
 Task.all_tasks()
 The new provisional BufferedProtocol class allows
@@ -692,7 +647,6 @@ loop.create_unix_server()
 Server.start_serving()
 Server.serve_forever()
 Server.is_serving()
-True
 Server
 
 [CODE]
@@ -729,7 +683,6 @@ The new Handle.cancelled() method returns True if the callback was cancelled.
 The new Handle.cancelled() method returns True if the callback was cancelled.
 (Contributed by Marat Sharafutdinov in bpo-31943 .)
 Handle.cancelled()
-True
 The asyncio source has been converted to use the async / await syntax.
 (Contributed by Andrew Svetlov in bpo-32193 .)
 The asyncio source has been converted to use the async / await syntax.
@@ -772,7 +725,6 @@ asyncio
 
 The b2a_uu() function now accepts an optional backtick keyword argument.  When it’s true, zeros are represented by '`' instead of spaces.  (Contributed by Xiang Zhang in bpo-30103 .)
 b2a_uu()
-'`'
 
 ### calendar
 
@@ -849,9 +801,6 @@ datetime.isoformat()
 The tzinfo class now supports sub-minute offsets.
 (Contributed by Alexander Belopolsky in bpo-5288 .)
 tzinfo
-
-### dbm
-
 dbm.dumb now supports reading read-only files and no longer writes the
 index file when it is not changed.
 dbm.dumb
@@ -861,9 +810,6 @@ dbm.dumb
 The decimal module now uses context variables to store the decimal context.
 (Contributed by Yury Selivanov in bpo-32630 .)
 decimal
-
-### dis
-
 The dis() function is now able to
 disassemble nested code objects (the code of comprehensions, generator
 expressions and nested functions, and the code used for building nested
@@ -878,24 +824,18 @@ README.rst is now included in the list of distutils standard READMEs and
 therefore included in source distributions.
 (Contributed by Ryan Gonzalez in bpo-11913 .)
 README.rst
-
-### enum
-
 The Enum learned the new _ignore_ class property,
 which allows listing the names of properties which should not become
 enum members.
 (Contributed by Ethan Furman in bpo-31801 .)
-Enum
 _ignore_
 In Python 3.8, attempting to check for non-Enum objects in Enum classes will raise a TypeError (e.g. 1 in Color ); similarly,
 attempting to check for non-Flag objects in a Flag member will
 raise TypeError (e.g. 1 in Perm.RW ); currently, both operations
 return False instead and are deprecated.
 (Contributed by Ethan Furman in bpo-33217 .)
-Enum
 TypeError
 1 in Color
-Flag
 TypeError
 1 in Perm.RW
 False
@@ -917,12 +857,8 @@ gc.freeze()
 fork()
 gc.unfreeze()
 gc.get_freeze_count()
-
-### hmac
-
 The hmac module now has an optimized one-shot digest() function, which is up to three times faster than HMAC() .
 (Contributed by Christian Heimes in bpo-32433 .)
-hmac
 digest()
 HMAC()
 
@@ -1070,9 +1006,6 @@ It is now possible to specify keyword arguments to handler constructors in
 configuration passed to logging.config.fileConfig() .
 (Contributed by Preston Landers in bpo-31080 .)
 logging.config.fileConfig()
-
-### math
-
 The new math.remainder() function implements the IEEE 754-style remainder
 operation.  (Contributed by Mark Dickinson in bpo-29962 .)
 math.remainder()
@@ -1135,7 +1068,6 @@ os.makedirs()
 os.dup2() now returns the new file descriptor.  Previously, None was always returned.
 (Contributed by Benjamin Peterson in bpo-32441 .)
 os.dup2()
-None
 The structure returned by os.stat() now contains the st_fstype attribute on Solaris and its derivatives.
 (Contributed by Jesús Cea Avión in bpo-32659 .)
 os.stat()
@@ -1147,16 +1079,12 @@ The new Path.is_mount() method is now available
 on POSIX systems and can be used to determine whether a path is a mount point.
 (Contributed by Cooper Ry Lees in bpo-30897 .)
 Path.is_mount()
-
-### pdb
-
 pdb.set_trace() now takes an optional header keyword-only
 argument.  If given, it is printed to the console just before debugging
 begins.  (Contributed by Barry Warsaw in bpo-31389 .)
 pdb.set_trace()
 pdb command line now accepts -m module_name as an alternative to
 script file.  (Contributed by Mario Corchero in bpo-32206 .)
-pdb
 -m module_name
 
 ### py_compile
@@ -1169,8 +1097,6 @@ in bpo-29708 .)
 py_compile.compile()
 compileall
 SOURCE_DATE_EPOCH
-.pyc
-.pyc
 
 ### pydoc
 
@@ -1192,7 +1118,6 @@ re.split() now supports splitting on a pattern like r'\b' , '^$' or (?=-) that m
 (Contributed by Serhiy Storchaka in bpo-25054 .)
 re.split()
 r'\b'
-'^$'
 (?=-)
 Regular expressions compiled with the re.LOCALE flag no longer
 depend on the locale at compile time.  Locale settings are applied only
@@ -1223,7 +1148,6 @@ The new socket.getblocking() method
 returns True if the socket is in blocking mode and False otherwise.
 (Contributed by Yury Selivanov in bpo-32373 .)
 socket.getblocking()
-True
 False
 The new socket.close() function closes the passed socket file descriptor.
 This function should be used instead of os.close() for better
@@ -1265,27 +1189,21 @@ backup()
 The database argument of sqlite3.connect() now accepts any path-like object , instead of just a string.
 (Contributed by Anders Lorentsen in bpo-31843 .)
 sqlite3.connect()
-
-### ssl
-
 The ssl module now uses OpenSSL’s builtin API instead of match_hostname() to check a host name or an IP address.  Values
 are validated during TLS handshake.  Any certificate validation error
 including failing the host name check now raises SSLCertVerificationError and aborts the handshake with a proper
 TLS Alert message.  The new exception contains additional information.
 Host name validation can be customized with SSLContext.hostname_checks_common_name .
 (Contributed by Christian Heimes in bpo-31399 .)
-ssl
 match_hostname()
 SSLCertVerificationError
 SSLContext.hostname_checks_common_name
-Note
 The improved host name check requires a libssl implementation compatible
 with OpenSSL 1.0.2 or 1.1.  Consequently, OpenSSL 0.9.8 and 1.0.1 are no
 longer supported (see Platform Support Removals for more details).
 The ssl module is mostly compatible with LibreSSL 2.7.2 and newer.
 The ssl module no longer sends IP addresses in SNI TLS extension.
 (Contributed by Christian Heimes in bpo-32185 .)
-ssl
 match_hostname() no longer supports partial wildcards like www*.example.org .
 (Contributed by Mandeep Singh in bpo-23033 and Christian Heimes in bpo-31399 .)
 match_hostname()
@@ -1295,7 +1213,6 @@ approach rather than a hard-coded whitelist.  Python no longer re-enables
 ciphers that have been blocked by OpenSSL security updates.  Default cipher
 suite selection can be configured at compile time.
 (Contributed by Christian Heimes in bpo-31429 .)
-ssl
 Validation of server certificates containing internationalized domain names
 (IDNs) is now supported.  As part of this change, the SSLSocket.server_hostname attribute
 now stores the expected hostname in A-label form ( "xn--pythn-mua.org" ),
@@ -1310,7 +1227,6 @@ under development and TLS 1.3 hasn’t been finalized yet.  The TLS 1.3
 handshake and protocol behaves slightly differently than TLS 1.2 and earlier,
 see TLS 1.3 .
 (Contributed by Christian Heimes in bpo-32947 , bpo-20995 , bpo-29136 , bpo-30622 and bpo-33618 )
-ssl
 SSLSocket and SSLObject no longer have a public
 constructor.  Direct instantiation was never a documented and supported
 feature.  Instances must be created with SSLContext methods wrap_socket() and wrap_bio() .
@@ -1356,9 +1272,7 @@ subprocess.Popen
 On Windows the default for close_fds was changed from False to True when redirecting the standard handles.  It’s now possible to set close_fds to true when redirecting the standard handles.  See subprocess.Popen .  This means that close_fds now defaults to True on all supported platforms.
 (Contributed by Segev Finer in bpo-19764 .)
 False
-True
 subprocess.Popen
-True
 The subprocess module is now more graceful when handling KeyboardInterrupt during subprocess.call() , subprocess.run() , or in a Popen context manager.  It now waits a short amount of time for the child
 to exit, before continuing the handling of the KeyboardInterrupt exception.
 (Contributed by Gregory P. Smith in bpo-25942 .)
@@ -1367,9 +1281,6 @@ subprocess.call()
 subprocess.run()
 Popen
 KeyboardInterrupt
-
-### sys
-
 The new sys.breakpointhook() hook function is called by the
 built-in breakpoint() .
 (Contributed by Barry Warsaw in bpo-31353 .)
@@ -1388,11 +1299,7 @@ sys.get_coroutine_origin_tracking_depth()
 sys.set_coroutine_origin_tracking_depth()
 asyncio
 sys.set_coroutine_wrapper()
-
-### time
-
 PEP 564 adds six new functions with nanosecond resolution to the time module:
-time
 time.clock_gettime_ns()
 time.clock_gettime_ns()
 time.clock_gettime_ns()
@@ -1502,7 +1409,6 @@ of attribute mocks.  The seal is applied recursively to all attributes that
 are themselves mocks.
 (Contributed by Mario Corchero in bpo-30541 .)
 seal()
-Mock
 
 ### urllib.parse
 
@@ -1512,10 +1418,6 @@ adding ~ to the set of characters that are never quoted by default.
 urllib.parse.quote()
 The uu.encode() function now accepts an optional backtick keyword argument.  When it’s true, zeros are represented by '`' instead of spaces.  (Contributed by Xiang Zhang in bpo-30103 .)
 uu.encode()
-'`'
-
-### uuid
-
 The new UUID.is_safe attribute relays information
 from the platform about whether generated UUIDs are generated with a
 multiprocessing-safe method.
@@ -1537,7 +1439,6 @@ warnings enabled via command line options (including those for -b and the new CP
 to the warnings machinery via the sys.warnoptions attribute.
 warnings enabled via command line options (including those for -b and the new CPython-specific -X dev option) are always passed
 to the warnings machinery via the sys.warnoptions attribute.
-dev
 sys.warnoptions
 warnings filters enabled via the command line or the environment now have the
 following order of precedence: the BytesWarning filter for -b (or -bb ) any filters specified with the -W option any filters specified with the PYTHONWARNINGS environment
@@ -1548,7 +1449,6 @@ following order of precedence:
 the BytesWarning filter for -b (or -bb )
 the BytesWarning filter for -b (or -bb )
 BytesWarning
--bb
 any filters specified with the -W option
 any filters specified with the -W option
 any filters specified with the PYTHONWARNINGS environment
@@ -1572,9 +1472,6 @@ by default (the implicit filter list is empty)
 Deprecation warnings are once again shown by default in single-file scripts and
 at the interactive prompt.  See PEP 565: Show DeprecationWarning in __main__ for details.
 (Contributed by Nick Coghlan in bpo-31975 .)
-
-### xml
-
 As mitigation against DTD and external entity retrieval, the xml.dom.minidom and xml.sax modules no longer process
 external entities by default.
 (Contributed by Christian Heimes in gh-61441 .)
@@ -1643,8 +1540,6 @@ to trace module imports.
 (Contributed by Christian Heimes in bpo-31574 .)
 The fields name and doc of structures PyMemberDef , PyGetSetDef , PyStructSequence_Field , PyStructSequence_Desc ,
 and wrapperbase are now of type const char * rather of char * .  (Contributed by Serhiy Storchaka in bpo-28761 .)
-name
-doc
 PyMemberDef
 PyGetSetDef
 PyStructSequence_Field
@@ -1692,7 +1587,6 @@ second argument is NULL and the wchar_t * string contains null
 characters.  (Contributed by Serhiy Storchaka in bpo-30708 .)
 PyUnicode_AsWideCharString()
 ValueError
-NULL
 Changes to the startup sequence and the management of dynamic memory
 allocators mean that the long documented requirement to call Py_Initialize() before calling most C API functions is now
 relied on more heavily, and failing to abide by it may lead to segfaults in
@@ -1740,7 +1634,6 @@ The ssl module requires OpenSSL 1.0.2 or 1.1 compatible libssl.
 OpenSSL 1.0.1 has reached end of lifetime on 2016-12-31 and is no longer
 supported. LibreSSL is temporarily not supported as well. LibreSSL releases
 up to version 2.6.4 are missing required OpenSSL 1.0.2 APIs.
-ssl
 
 ## Optimizations
 
@@ -1850,7 +1743,6 @@ Most functions and methods in abc have been rewritten in C.
 This makes creation of abstract base classes, and calling isinstance() and issubclass() on them 1.5x faster.  This also reduces Python
 start-up time by up to 10%. (Contributed by Ivan Levkivskyi and INADA Naoki
 in bpo-31333 )
-abc
 isinstance()
 issubclass()
 Significant speed improvements to alternate constructors for datetime.date and datetime.datetime by using fast-path
@@ -1877,7 +1769,6 @@ frame being traced. (Contributed by Nick Coghlan in bpo-31344 .)
 Trace hooks may now opt out of receiving the line and opt into receiving
 the opcode events from the interpreter by setting the corresponding new f_trace_lines and f_trace_opcodes attributes on the
 frame being traced. (Contributed by Nick Coghlan in bpo-31344 .)
-line
 opcode
 f_trace_lines
 f_trace_opcodes
@@ -1888,13 +1779,10 @@ Fixed some consistency problems with namespace package module attributes.
 Namespace module objects now have an __file__ that is set to None (previously unset), and their __spec__.origin is also set to None (previously the string "namespace" ).  See bpo-32305 .  Also, the
 namespace module object’s __spec__.loader is set to the same value as __loader__ (previously, the former was set to None ).  See bpo-32303 .
 __file__
-None
 __spec__.origin
-None
 "namespace"
 __spec__.loader
 __loader__
-None
 The locals() dictionary now displays in the lexical order that
 variables were defined.  Previously, the order was undefined.
 (Contributed by Raymond Hettinger in bpo-32690 .)
@@ -1925,7 +1813,6 @@ from any explicit yield expressions.  In Python 3.7, such expressions emit Depre
 (Contributed by Serhiy Storchaka in bpo-10544 .)
 yield
 yield from
-for
 DeprecationWarning
 SyntaxError
 Returning a subclass of complex from object.__complex__() is
@@ -1938,8 +1825,6 @@ object.__int__()
 object.__float__()
 
 ## Deprecated Python modules, functions and methods
-
-### aifc
 
 aifc.openfp() has been deprecated and will be removed in Python 3.9.
 Use aifc.open() instead.
@@ -1970,28 +1855,18 @@ base classes.
 (Contributed by Serhiy Storchaka in bpo-25988 .)
 collections.abc
 collections
-
-### dbm
-
 dbm.dumb now supports reading read-only files and no longer writes the
 index file when it is not changed.  A deprecation warning is now emitted
 if the index file is missing and recreated in the 'r' and 'w' modes (this will be an error in future Python releases).
 (Contributed by Serhiy Storchaka in bpo-28847 .)
 dbm.dumb
-'r'
-'w'
-
-### enum
-
 In Python 3.8, attempting to check for non-Enum objects in Enum classes will raise a TypeError (e.g. 1 in Color ); similarly,
 attempting to check for non-Flag objects in a Flag member will
 raise TypeError (e.g. 1 in Perm.RW ); currently, both operations
 return False instead.
 (Contributed by Ethan Furman in bpo-33217 .)
-Enum
 TypeError
 1 in Color
-Flag
 TypeError
 1 in Perm.RW
 False
@@ -2048,9 +1923,6 @@ if the passed argument is larger than 16 bits, an exception will be raised.
 (Contributed by Oren Milman in bpo-28332 .)
 socket.htons()
 socket.ntohs()
-
-### ssl
-
 ssl.wrap_socket() is deprecated.  Use ssl.SSLContext.wrap_socket() instead.
 (Contributed by Christian Heimes in bpo-28124 .)
 ssl.wrap_socket()
@@ -2063,9 +1935,6 @@ Use sunau.open() instead.
 (Contributed by Brian Curtin in bpo-31985 .)
 sunau.openfp()
 sunau.open()
-
-### sys
-
 Deprecated sys.set_coroutine_wrapper() and sys.get_coroutine_wrapper() .
 sys.set_coroutine_wrapper()
 sys.get_coroutine_wrapper()
@@ -2073,9 +1942,6 @@ The undocumented sys.callstats() function has been deprecated and
 will be removed in a future Python version.
 (Contributed by Victor Stinner in bpo-28799 .)
 sys.callstats()
-
-### wave
-
 wave.openfp() has been deprecated and will be removed in Python 3.9.
 Use wave.open() instead.
 (Contributed by Brian Curtin in bpo-31985 .)
@@ -2154,7 +2020,6 @@ cause an error.
 Unknown escapes consisting of '\' and an ASCII letter in replacement
 templates for re.sub() were deprecated in Python 3.5, and will now
 cause an error.
-'\'
 re.sub()
 Removed support of the exclude argument in tarfile.TarFile.add() .
 It was deprecated in Python 2.7 and 3.2.  Use the filter argument instead.
@@ -2197,7 +2062,6 @@ Removed previously deprecated in Python 2.4 classes Plist , Dict and _InternalDi
 of functions readPlist() and readPlistFromBytes() are now normal dicts.  You no longer
 can use attribute access to access items of these dictionaries.
 Plist
-Dict
 _InternalDict
 plistlib
 readPlist()
@@ -2376,7 +2240,6 @@ Attributes key , value and coded_value of class http.cookies.Morsel are now read
 Assigning to them was deprecated in Python 3.5.
 Use the set() method for setting them.
 (Contributed by Serhiy Storchaka in bpo-29192 .)
-key
 value
 coded_value
 http.cookies.Morsel
@@ -2394,7 +2257,6 @@ makedirs()
 The struct.Struct.format type is now str instead of bytes . (Contributed by Victor Stinner in bpo-21071 .)
 The struct.Struct.format type is now str instead of bytes . (Contributed by Victor Stinner in bpo-21071 .)
 struct.Struct.format
-str
 bytes
 cgi.parse_multipart() now accepts the encoding and errors arguments and returns the same results as FieldStorage : for non-file fields, the value associated to a key
 is a list of strings, not bytes.
@@ -2417,13 +2279,11 @@ comma.  Most exceptions are affected by this change.
 repr for BaseException has changed to not include the trailing
 comma.  Most exceptions are affected by this change.
 (Contributed by Serhiy Storchaka in bpo-30399 .)
-repr
 BaseException
 repr for datetime.timedelta has changed to include the keyword
 arguments in the output. (Contributed by Utkarsh Upadhyay in bpo-30302 .)
 repr for datetime.timedelta has changed to include the keyword
 arguments in the output. (Contributed by Utkarsh Upadhyay in bpo-30302 .)
-repr
 datetime.timedelta
 Because shutil.rmtree() is now implemented using the os.scandir() function, the user specified handler onerror is now called with the first
 argument os.scandir instead of os.listdir when listing the directory
@@ -2448,11 +2308,6 @@ character sequences '--' , '&&' , '~~' , and '||' .  To
 avoid a warning, escape them with a backslash.
 (Contributed by Serhiy Storchaka in bpo-30349 .)
 FutureWarning
-'['
-'--'
-'&&'
-'~~'
-'||'
 The result of splitting a string on a regular expression that could match an empty string has been changed.  For example
 splitting on r'\s*' will now split not only on whitespaces as it
 did previously, but also on empty strings before all non-whitespace
@@ -2487,7 +2342,6 @@ positions 2–3.  To match only blank lines, the pattern should be rewritten
 as r'(?m)^[^\S\n]*$' .
 'a\n\n'
 r'(?m)^\s*?$'
-'\n'
 r'(?m)^[^\S\n]*$'
 re.sub() now replaces empty matches adjacent to a previous
 non-empty match.  For example re.sub('x*', '-', 'abxd') returns now '-a-b--d-' instead of '-a-b-d-' (the first minus between ‘b’ and
@@ -2505,7 +2359,6 @@ Change re.escape() to only escape regex special characters instead
 of escaping all characters other than ASCII letters, numbers, and '_' .
 (Contributed by Serhiy Storchaka in bpo-29995 .)
 re.escape()
-'_'
 tracemalloc.Traceback frames are now sorted from oldest to most
 recent to be more consistent with traceback .
 (Contributed by Jesse Bakker in bpo-32121 .)
@@ -2534,7 +2387,6 @@ redirection, you will have to pass close_fds=False to preserve the
 previous behaviour, or use STARTUPINFO.lpAttributeList .
 subprocess.Popen
 False
-True
 subprocess.Popen
 close_fds=False
 STARTUPINFO.lpAttributeList
@@ -2549,7 +2401,6 @@ in sys.path_importer_cache which are set to None .
 importlib.machinery.PathFinder.invalidate_caches()
 importlib.invalidate_caches()
 sys.path_importer_cache
-None
 In asyncio , loop.sock_recv() , loop.sock_sendall() , loop.sock_accept() , loop.getaddrinfo() , loop.getnameinfo() have been changed to be proper coroutine methods to match their
 documentation.  Previously, these methods returned asyncio.Future instances.
 (Contributed by Yury Selivanov in bpo-32327 .)
@@ -2577,7 +2428,6 @@ Struct.format is now a str instance
 instead of a bytes instance.
 (Contributed by Victor Stinner in bpo-21071 .)
 Struct.format
-str
 bytes
 argparse subparsers can now be made mandatory by passing required=True to ArgumentParser.add_subparsers() .
 (Contributed by Anthony Sottile in bpo-26510 .)
@@ -2653,7 +2503,6 @@ can lead to returning indices out of the length of the sequence.  For
 avoiding possible problems use new functions PySlice_Unpack() and PySlice_AdjustIndices() .
 (Contributed by Serhiy Storchaka in bpo-27867 .)
 PySlice_GetIndicesEx()
-int
 __index__()
 PySlice_GetIndicesEx()
 PySlice_Unpack()
@@ -2752,7 +2601,6 @@ This resolves a long standing issue where all virtual environments would have
 to be upgraded or recreated with each Python update. However, note that this
 release will still require recreation of virtual environments in order to get
 the new scripts.
-venv
 python.exe
 pythonw.exe
 
@@ -2788,7 +2636,6 @@ channel.  We reuse the ftp server IP address instead.  For unusual code
 requiring the old behavior, set a trust_server_pasv_ipv4_address attribute on your FTP instance to True .  (See gh-87451 )
 ftplib.FTP
 trust_server_pasv_ipv4_address
-True
 The presence of newline or tab characters in parts of a URL allows for some
 forms of attacks. Following the WHATWG specification that updates RFC 3986,
 ASCII newline \n , \r and tab \t characters are stripped from the
@@ -2808,7 +2655,4 @@ This limit can be configured or disabled by environment variable, command
 line flag, or sys APIs. See the integer string conversion
 length limitation documentation.  The default limit
 is 4300 digits in string form.
-int
-str
 ValueError
-sys

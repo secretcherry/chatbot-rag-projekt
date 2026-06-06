@@ -59,7 +59,6 @@ PyBytes_Size()
 PyBytes_AsStringAndSize()
 strlen()
 To test the type of an object, first make sure it isn’t NULL , and then use PyBytes_Check() , PyTuple_Check() , PyList_Check() , etc.
-NULL
 PyBytes_Check()
 PyTuple_Check()
 PyList_Check()
@@ -225,9 +224,6 @@ g++ -shared -o mymodule.so mymodule.o
 ## Can I create an object class with some methods implemented in C and others in Python (e.g. through inheritance)?
 
 Yes, you can inherit from built-in classes such as int , list , dict , etc.
-int
-list
-dict
 The Boost Python Library (BPL, https://www.boost.org/libs/python/doc/index.html )
 provides a way of doing this from C++ (i.e. you can inherit from an extension
 class written in C++ using the BPL).

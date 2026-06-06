@@ -21,7 +21,6 @@ python-gdb.py
 Developers who are working on CPython extensions or tinkering with parts
 of CPython that are written in C can use this document to learn how to use the python-gdb.py extension with GDB.
 python-gdb.py
-Note
 This document assumes that you are familiar with the basics of GDB and the
 CPython C API. It consolidates guidance from the devguide and the Python wiki .
 
@@ -54,7 +53,6 @@ To activate support, you must add the directory containing python-gdb.py to GDB�
 If you haven’t done this, recent versions of GDB will print out a warning
 with instructions on how to do this.
 python-gdb.py
-Note
 If you do not see instructions for your version of GDB, put this in your
 configuration file ( ~/.gdbinit or ~/.config/gdb/gdbinit ):
 ~/.gdbinit
@@ -181,7 +179,6 @@ lot like GDB’s built-in printer for standard types.  For example, the
 pretty-printer for a Python int ( PyLongObject * )
 gives a representation that is not distinguishable from one of a
 regular machine-level integer:
-int
 
 [CODE]
 (gdb) p some_machine_integer
@@ -201,7 +198,6 @@ ob_digit = {42}}
 
 A similar confusion can arise with the str type, where the output looks a
 lot like gdb’s built-in printer for char * :
-str
 char *
 
 [CODE]
@@ -211,8 +207,6 @@ $6 = '__builtins__'
 
 The pretty-printer for str instances defaults to using single-quotes (as
 does Python’s repr for strings) whereas the standard printer for char * values uses double-quotes and contains a hexadecimal address:
-str
-repr
 char *
 
 [CODE]
@@ -265,7 +259,6 @@ The py-up and py-down commands are analogous to GDB’s regular up and down comm
 than C frames.
 py-up
 py-down
-down
 GDB is not always able to read the relevant frame information, depending on
 the optimization level with which CPython was compiled. Internally, the
 commands look for C frames that are executing the default frame evaluation

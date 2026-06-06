@@ -16,7 +16,6 @@ name : othername
 
 and no semantics are given, the semantics of this form of name are the same
 as for othername .
-name
 othername
 
 ## 6.1. Arithmetic conversions
@@ -57,13 +56,9 @@ yield_atom
 
 The keywords True , False , and None name built-in constants .
 The token ... names the Ellipsis constant.
-True
 False
-None
-...
 Ellipsis
 Evaluation of these atoms yields the corresponding value.
-Note
 Several more built-in constants are available as global variables,
 but only the ones mentioned here are keywords .
 In particular, these names cannot be reassigned or used as attributes:
@@ -112,7 +107,6 @@ __foo
 import __foo.bar
 The name of an imported member, e.g., __f in from spam import __f .
 The name of an imported member, e.g., __f in from spam import __f .
-__f
 from spam import __f
 The transformation rule is defined as follows:
 The class name, with leading underscores removed and a single leading
@@ -122,8 +116,6 @@ The class name, with leading underscores removed and a single leading
 underscore inserted, is inserted in front of the identifier, e.g., the
 identifier __spam occurring in a class named Foo , _Foo or __Foo is transformed to _Foo__spam .
 __spam
-Foo
-_Foo
 __Foo
 _Foo__spam
 If the class name consists only of underscores, the transformation is the
@@ -148,10 +140,8 @@ Evaluation of a literal yields an object of the given type
 ( int , float , complex , str , bytes , or Template ) with the given value.
 The value may be approximated in the case of floating-point
 and imaginary literals.
-int
 float
 complex
-str
 bytes
 Template
 The formal grammar for literals is:
@@ -303,21 +293,14 @@ In this case, the elements of the new container are those that would be produced
 by considering each of the for or if clauses a block,
 nesting from left to right, and evaluating the expression to produce an element
 each time the innermost block is reached.
-for
-for
-for
 However, aside from the iterable expression in the leftmost for clause,
 the comprehension is executed in a separate implicitly nested scope. This ensures
 that names assigned to in the target list don’t “leak” into the enclosing scope.
-for
 The iterable expression in the leftmost for clause is evaluated
 directly in the enclosing scope and then passed as an argument to the implicitly
 nested scope. Subsequent for clauses and any filter condition in the
 leftmost for clause cannot be evaluated in the enclosing scope as
 they may depend on the values obtained from the leftmost iterable. For example: [x*y for x in range(10) for y in range(x, x+10)] .
-for
-for
-for
 [x*y for x in range(10) for y in range(x, x+10)]
 To ensure the comprehension always results in a container of the appropriate
 type, yield and yield from expressions are prohibited in the implicitly
@@ -330,9 +313,7 @@ expression, may contain additional for or async for clauses, and may also use aw
 async def
 async for
 async def
-for
 async for
-for
 async for
 await
 If a comprehension contains async for clauses, or if it contains await expressions or other asynchronous comprehensions anywhere except
@@ -341,7 +322,6 @@ execution of the coroutine function in which it appears.
 See also PEP 530 .
 async for
 await
-for
 Added in version 3.6: Asynchronous comprehensions were introduced.
 Changed in version 3.8: yield and yield from prohibited in the implicitly nested scope.
 yield
@@ -450,9 +430,6 @@ is defined, rather than at the point where the first value is retrieved.
 Subsequent for clauses and any filter condition in the leftmost for clause cannot be evaluated in the enclosing scope as they may
 depend on the values obtained from the leftmost iterable. For example: (x*y for x in range(10) for y in range(x, x+10)) .
 __next__()
-for
-for
-for
 (x*y for x in range(10) for y in range(x, x+10))
 The parentheses can be omitted on calls with only one argument.  See section Calls for details.
 To avoid interfering with the expected operation of the generator expression
@@ -521,12 +498,9 @@ method which resumed the execution.  If __next__() is used
 result is None .  Otherwise, if send() is used, then
 the result will be the value passed in to that method.
 yield_list
-None
 yield_list
 __next__()
-for
 next()
-None
 send()
 All of this makes generator functions quite similar to coroutines; they yield
 multiple times, they have more than one entry point and their execution can be
@@ -538,7 +512,6 @@ generator is not resumed before it is
 finalized (by reaching a zero reference count or by being garbage collected),
 the generator-iterator’s close() method will be called,
 allowing any pending finally clauses to execute.
-try
 close()
 finally
 When yield from <expr> is used, the supplied expression must be an
@@ -563,24 +536,13 @@ yield from <expr>
 The parentheses may be omitted when the yield expression is the sole expression
 on the right hand side of an assignment statement.
 See also
-PEP 255 - Simple Generators
-The proposal for adding generators and the yield statement to Python.
 The proposal for adding generators and the yield statement to Python.
 yield
-PEP 342 - Coroutines via Enhanced Generators
 The proposal to enhance the API and syntax of generators, making them
 usable as simple coroutines.
-The proposal to enhance the API and syntax of generators, making them
-usable as simple coroutines.
-PEP 380 - Syntax for Delegating to a Subgenerator
-The proposal to introduce the yield_from syntax,
-making delegation to subgenerators easy.
 The proposal to introduce the yield_from syntax,
 making delegation to subgenerators easy.
 yield_from
-PEP 525 - Asynchronous Generators
-The proposal that expanded on PEP 492 by adding generator capabilities to
-coroutine functions.
 The proposal that expanded on PEP 492 by adding generator capabilities to
 coroutine functions.
 
@@ -591,33 +553,18 @@ be used to control the execution of a generator function.
 Note that calling any of the generator methods below when the generator
 is already executing raises a ValueError exception.
 ValueError
-generator. __next__ ( )
-Starts the execution of a generator function or resumes it at the last
-executed yield expression.  When a generator function is resumed with a __next__() method, the current yield expression always
-evaluates to None .  The execution then continues to the next yield
-expression, where the generator is suspended again, and the value of the yield_list is returned to __next__() ’s
-caller.  If the generator exits without yielding another value, a StopIteration exception is raised. This method is normally called implicitly, e.g. by a for loop, or
-by the built-in next() function.
 Starts the execution of a generator function or resumes it at the last
 executed yield expression.  When a generator function is resumed with a __next__() method, the current yield expression always
 evaluates to None .  The execution then continues to the next yield
 expression, where the generator is suspended again, and the value of the yield_list is returned to __next__() ’s
 caller.  If the generator exits without yielding another value, a StopIteration exception is raised.
 __next__()
-None
 yield_list
 __next__()
 StopIteration
 This method is normally called implicitly, e.g. by a for loop, or
 by the built-in next() function.
-for
 next()
-generator. send ( value )
-Resumes the execution and “sends” a value into the generator function.  The value argument becomes the result of the current yield expression.  The send() method returns the next value yielded by the generator, or
-raises StopIteration if the generator exits without yielding another
-value.  When send() is called to start the generator, it must be called
-with None as the argument, because there is no yield expression that
-could receive the value.
 Resumes the execution and “sends” a value into the generator function.  The value argument becomes the result of the current yield expression.  The send() method returns the next value yielded by the generator, or
 raises StopIteration if the generator exits without yielding another
 value.  When send() is called to start the generator, it must be called
@@ -626,19 +573,6 @@ could receive the value.
 send()
 StopIteration
 send()
-None
-generator. throw ( value )
-generator. throw ( type [ , value [ , traceback ] ] )
-Raises an exception at the point where the generator was paused,
-and returns the next value yielded by the generator function.  If the generator
-exits without yielding another value, a StopIteration exception is
-raised.  If the generator function does not catch the passed-in exception, or
-raises a different exception, then that exception propagates to the caller. In typical use, this is called with a single exception instance similar to the
-way the raise keyword is used. For backwards compatibility, however, the second signature is
-supported, following a convention from older versions of Python.
-The type argument should be an exception class, and value should be an exception instance. If the value is not provided, the type constructor is called to get an instance. If traceback is provided, it is set on the exception, otherwise any existing __traceback__ attribute stored in value may
-be cleared. Changed in version 3.12: The second signature (type[, value[, traceback]]) is deprecated and
-may be removed in a future version of Python.
 Raises an exception at the point where the generator was paused,
 and returns the next value yielded by the generator function.  If the generator
 exits without yielding another value, a StopIteration exception is
@@ -655,18 +589,6 @@ be cleared.
 __traceback__
 Changed in version 3.12: The second signature (type[, value[, traceback]]) is deprecated and
 may be removed in a future version of Python.
-generator. close ( )
-Raises a GeneratorExit exception at the point where the generator
-function was paused (equivalent to calling throw(GeneratorExit) ).
-The exception is raised by the yield expression where the generator was paused.
-If the generator function catches the exception and returns a
-value, this value is returned from close() .  If the generator function
-is already closed, or raises GeneratorExit (by not catching the
-exception), close() returns None .  If the generator yields a
-value, a RuntimeError is raised.  If the generator raises any other
-exception, it is propagated to the caller.  If the generator has already
-exited due to an exception or normal exit, close() returns None and has no other effect. Changed in version 3.13: If a generator returns a value upon being closed, the value is returned
-by close() .
 Raises a GeneratorExit exception at the point where the generator
 function was paused (equivalent to calling throw(GeneratorExit) ).
 The exception is raised by the yield expression where the generator was paused.
@@ -682,10 +604,8 @@ throw(GeneratorExit)
 close()
 GeneratorExit
 close()
-None
 RuntimeError
 close()
-None
 Changed in version 3.13: If a generator returns a value upon being closed, the value is returned
 by close() .
 close()
@@ -713,7 +633,6 @@ That object then controls the execution of the generator function.
 An asynchronous generator object is typically used in an async for statement in a coroutine function analogously to
 how a generator object would be used in a for statement.
 async for
-for
 Calling one of the asynchronous generator’s methods returns an awaitable object, and the execution starts when this object is awaited on. At that time,
 the execution proceeds to the first yield expression, where it is suspended
 again, returning the value of yield_list to the
@@ -727,7 +646,6 @@ expression after resuming depends on the method which resumed the execution.  If
 method.
 yield_list
 __anext__()
-None
 asend()
 If an asynchronous generator happens to exit early by break , the caller
 task being cancelled, or other exceptions, the generator’s async cleanup code
@@ -747,8 +665,6 @@ scheduler running the asynchronous generator to call the asynchronous
 generator-iterator’s aclose() method and run the resulting
 coroutine object, thus allowing any pending finally clauses
 to execute.
-try
-try
 finally
 aclose()
 finally
@@ -770,16 +686,6 @@ yield from <expr>
 
 This subsection describes the methods of an asynchronous generator iterator,
 which are used to control the execution of a generator function.
-async agen. __anext__ ( )
-Returns an awaitable which when run starts to execute the asynchronous
-generator or resumes it at the last executed yield expression.  When an
-asynchronous generator function is resumed with an __anext__() method, the current yield expression always evaluates to None in the
-returned awaitable, which when run will continue to the next yield
-expression. The value of the yield_list of the
-yield expression is the value of the StopIteration exception raised by
-the completing coroutine.  If the asynchronous generator exits without
-yielding another value, the awaitable instead raises a StopAsyncIteration exception, signalling that the asynchronous
-iteration has completed. This method is normally called implicitly by a async for loop.
 Returns an awaitable which when run starts to execute the asynchronous
 generator or resumes it at the last executed yield expression.  When an
 asynchronous generator function is resumed with an __anext__() method, the current yield expression always evaluates to None in the
@@ -790,22 +696,11 @@ the completing coroutine.  If the asynchronous generator exits without
 yielding another value, the awaitable instead raises a StopAsyncIteration exception, signalling that the asynchronous
 iteration has completed.
 __anext__()
-None
 yield_list
 StopIteration
 StopAsyncIteration
 This method is normally called implicitly by a async for loop.
 async for
-async agen. asend ( value )
-Returns an awaitable which when run resumes the execution of the
-asynchronous generator. As with the send() method for a
-generator, this “sends” a value into the asynchronous generator function,
-and the value argument becomes the result of the current yield expression.
-The awaitable returned by the asend() method will return the next
-value yielded by the generator as the value of the raised StopIteration , or raises StopAsyncIteration if the
-asynchronous generator exits without yielding another value.  When asend() is called to start the asynchronous
-generator, it must be called with None as the argument,
-because there is no yield expression that could receive the value.
 Returns an awaitable which when run resumes the execution of the
 asynchronous generator. As with the send() method for a
 generator, this “sends” a value into the asynchronous generator function,
@@ -820,18 +715,6 @@ asend()
 StopIteration
 StopAsyncIteration
 asend()
-None
-async agen. athrow ( value )
-async agen. athrow ( type [ , value [ , traceback ] ] )
-Returns an awaitable that raises an exception of type type at the point
-where the asynchronous generator was paused, and returns the next value
-yielded by the generator function as the value of the raised StopIteration exception.  If the asynchronous generator exits
-without yielding another value, a StopAsyncIteration exception is
-raised by the awaitable.
-If the generator function does not catch the passed-in exception, or
-raises a different exception, then when the awaitable is run that exception
-propagates to the caller of the awaitable. Changed in version 3.12: The second signature (type[, value[, traceback]]) is deprecated and
-may be removed in a future version of Python.
 Returns an awaitable that raises an exception of type type at the point
 where the asynchronous generator was paused, and returns the next value
 yielded by the generator function as the value of the raised StopIteration exception.  If the asynchronous generator exits
@@ -840,24 +723,10 @@ raised by the awaitable.
 If the generator function does not catch the passed-in exception, or
 raises a different exception, then when the awaitable is run that exception
 propagates to the caller of the awaitable.
-type
 StopIteration
 StopAsyncIteration
 Changed in version 3.12: The second signature (type[, value[, traceback]]) is deprecated and
 may be removed in a future version of Python.
-async agen. aclose ( )
-Returns an awaitable that when run will throw a GeneratorExit into
-the asynchronous generator function at the point where it was paused.
-If the asynchronous generator function then exits gracefully, is already
-closed, or raises GeneratorExit (by not catching the exception),
-then the returned awaitable will raise a StopIteration exception.
-Any further awaitables returned by subsequent calls to the asynchronous
-generator will raise a StopAsyncIteration exception.  If the
-asynchronous generator yields a value, a RuntimeError is raised
-by the awaitable.  If the asynchronous generator raises any other exception,
-it is propagated to the caller of the awaitable.  If the asynchronous
-generator has already exited due to an exception or normal exit, then
-further calls to aclose() will return an awaitable that does nothing.
 Returns an awaitable that when run will throw a GeneratorExit into
 the asynchronous generator function at the point where it was paused.
 If the asynchronous generator function then exits gracefully, is already
@@ -886,10 +755,8 @@ syntax is:
 primary : atom | attributeref | subscription | call
 [/CODE]
 
-atom
 attributeref
 subscription
-call
 
 ### 6.3.1. Attribute references
 
@@ -921,7 +788,6 @@ __getattr__()
 
 The subscription syntax is usually used for selecting an element from a container – for example, to get a value from
 a dict :
-dict
 
 [CODE]
 >>> digits_by_name = { 'one' : 1 , 'two' : 2 } >>> digits_by_name [ 'two' ] # Subscripting a dictionary using the key 'two' 2
@@ -990,9 +856,6 @@ Any missing expression evaluates to None .
 This slice object is then passed to the __getitem__() or __class_getitem__() special method , as above.
 slice
 start
-stop
-step
-None
 slice
 __getitem__()
 __class_getitem__()
@@ -1129,7 +992,6 @@ slots for which no default value is specified, a TypeError exception is
 raised.  Otherwise, the list of filled slots is used as the argument list for
 the call.
 TypeError
-None
 TypeError
 CPython implementation detail: An implementation may provide built-in functions whose positional parameters
 do not have names, even if they are ‘named’ for the purpose of documentation,
@@ -1198,15 +1060,7 @@ Originally proposed by PEP 448 .
 A call always returns some value, possibly None , unless it raises an
 exception.  How this value is computed depends on the type of the callable
 object.
-None
 If it is—
-a user-defined function:
-The code block for the function is executed, passing it the argument list.  The
-first thing the code block will do is bind the formal parameters to the
-arguments; this is described in section Function definitions .  When the code block
-executes a return statement, this specifies the return value of the
-function call.  If execution reaches the end of the code block without
-executing a return statement, the return value is None .
 The code block for the function is executed, passing it the argument list.  The
 first thing the code block will do is bind the formal parameters to the
 arguments; this is described in section Function definitions .  When the code block
@@ -1215,25 +1069,12 @@ function call.  If execution reaches the end of the code block without
 executing a return statement, the return value is None .
 return
 return
-None
-a built-in function or method:
 The result is up to the interpreter; see Built-in Functions for the
 descriptions of built-in functions and methods.
-The result is up to the interpreter; see Built-in Functions for the
-descriptions of built-in functions and methods.
-a class object:
 A new instance of that class is returned.
-A new instance of that class is returned.
-a class instance method:
 The corresponding user-defined function is called, with an argument list that is
 one longer than the argument list of the call: the instance becomes the first
 argument.
-The corresponding user-defined function is called, with an argument list that is
-one longer than the argument list of the call: the instance becomes the first
-argument.
-a class instance:
-The class must define a __call__() method; the effect is then the same as
-if that method was called.
 The class must define a __call__() method; the effect is then the same as
 if that method was called.
 __call__()
@@ -1276,12 +1117,9 @@ For int operands, the result has the same type as the operands unless the second
 argument is negative; in that case, all arguments are converted to float and a
 float result is delivered. For example, 10**2 returns 100 , but 10**-2 returns 0.01 .
 10**2
-100
 10**-2
-0.01
 Raising 0.0 to a negative power results in a ZeroDivisionError .
 Raising a negative number to a fractional power results in a complex number. (In earlier versions it raised a ValueError .)
-0.0
 ZeroDivisionError
 complex
 ValueError
@@ -1378,8 +1216,6 @@ result with the same sign as its second operand (or zero); the absolute value of
 the result is strictly smaller than the absolute value of the second operand [ 1 ] .
 ZeroDivisionError
 3.14%0.7
-0.34
-3.14
 4*0.7 + 0.34
 The floor division and modulo operators are connected by the following
 identity: x == (x//y)*y + (x%y) .  Floor division and modulo are also
@@ -1487,7 +1323,6 @@ comp_operator
 or_expr
 Comparisons yield boolean values: True or False . Custom rich comparison methods may return non-boolean values. In this case
 Python will call bool() on such value in boolean contexts.
-True
 False
 bool()
 Comparisons can be chained arbitrarily, e.g., x < y <= z is equivalent to x < y and y <= z , except that y is evaluated only once (but in both
@@ -1577,7 +1412,6 @@ never the equality operators.
 None and NotImplemented are singletons. PEP 8 advises that
 comparisons for singletons should always be done with is or is not ,
 never the equality operators.
-None
 NotImplemented
 is not
 Binary sequences (instances of bytes or bytearray ) can be
@@ -1592,7 +1426,6 @@ Strings (instances of str ) compare lexicographically using the
 numerical Unicode code points (the result of the built-in function ord() ) of their characters. [ 3 ] Strings and binary sequences cannot be directly compared.
 Strings (instances of str ) compare lexicographically using the
 numerical Unicode code points (the result of the built-in function ord() ) of their characters. [ 3 ]
-str
 ord()
 Strings and binary sequences cannot be directly compared.
 Sequences (instances of tuple , list , or range ) can
@@ -1614,7 +1447,6 @@ be compared only within each of their types, with the restriction that ranges
 do not support order comparison.  Equality comparison across these types
 results in inequality, and ordering comparison across these types raises TypeError .
 tuple
-list
 range
 TypeError
 Sequences compare lexicographically using comparison of corresponding
@@ -1650,7 +1482,6 @@ enforces reflexivity. Order comparisons ( < , > , <= , and >= ) raise TypeError 
 Mappings (instances of dict ) compare equal if and only if they have
 equal (key, value) pairs. Equality comparison of the keys and values
 enforces reflexivity.
-dict
 (key, value)
 Order comparisons ( < , > , <= , and >= ) raise TypeError .
 TypeError
@@ -1662,7 +1493,6 @@ another).  Accordingly, sets are not appropriate arguments for functions
 which depend on total ordering (for example, min() , max() , and sorted() produce undefined results given a list of sets as inputs). Comparison of sets enforces reflexivity of its elements.
 Sets (instances of set or frozenset ) can be compared within
 and across their types.
-set
 frozenset
 They define order
 comparison operators to mean subset and superset tests.  Those relations do
@@ -1750,7 +1580,6 @@ set, frozenset, dict, or collections.deque, the expression x in y is equivalent
 to any(x is e or x == e for e in y) .
 not in
 x in s
-True
 False
 x not in s
 x in s
@@ -1761,14 +1590,11 @@ substring of y .  An equivalent test is y.find(x) != -1 .  Empty strings are
 always considered to be a substring of any other string, so "" in "abc" will
 return True .
 x in y
-True
 y.find(x) != -1
 "" in "abc"
-True
 For user-defined classes which define the __contains__() method, x in y returns True if y.__contains__(x) returns a true value, and False otherwise.
 __contains__()
 x in y
-True
 y.__contains__(x)
 False
 For user-defined classes which do not define __contains__() but do define __iter__() , x in y is True if some value z , for which the
@@ -1778,7 +1604,6 @@ that exception.
 __contains__()
 __iter__()
 x in y
-True
 x is z or x == z
 Lastly, the old-style iteration protocol is tried: if a class defines __getitem__() , x in y is True if and only if there is a non-negative
 integer index i such that x is y[i] or x == y[i] , and no lower integer index
@@ -1786,7 +1611,6 @@ raises the IndexError exception.  (If any other exception is raised, it is as
 if in raised that exception).
 __getitem__()
 x in y
-True
 x is y[i] or x == y[i]
 IndexError
 The operator not in is defined to have the inverse truth value of in .
@@ -1799,7 +1623,6 @@ is determined using the id() function. x is not y yields the inverse
 truth value. [ 4 ]
 is not
 x is y
-id()
 x is not y
 
 ## 6.11. Boolean operations
@@ -1822,11 +1645,8 @@ control flow statements, the following values are interpreted as false: False , 
 other values are interpreted as true.  User-defined objects can customize their
 truth value by providing a __bool__() method.
 False
-None
 __bool__()
 The operator not yields True if its argument is false, False otherwise.
-not
-True
 False
 The expression x and y first evaluates x ; if x is false, its value is
 returned; otherwise, y is evaluated and the resulting value is returned.
@@ -1841,11 +1661,8 @@ replaced by a default value if it is empty, the expression s or 'foo' yields
 the desired value.  Because not has to create a new value, it
 returns a boolean value regardless of the type of its argument
 (for example, not 'foo' produces False rather than '' .)
-and
 False
-True
 s or 'foo'
-not
 not 'foo'
 False
 
@@ -1882,7 +1699,6 @@ in assert , with , and assignment statements.
 In all other places where they can be used, parentheses are not required,
 including in if and while statements.
 assert
-with
 assignment
 while
 Added in version 3.8: See PEP 572 for more details about assignment expressions.
@@ -2029,12 +1845,9 @@ tests and identity tests
 not x
 not x
 Boolean NOT
-and
-and
 Boolean AND
 Boolean OR
 if – else
-else
 Conditional expression
 lambda
 lambda
@@ -2055,7 +1868,6 @@ math.fmod()
 -1e-100
 If x is very close to an exact integer multiple of y, it’s possible for x//y to be one larger than (x-x%y)//y due to rounding.  In such
 cases, Python returns the latter result, in order to preserve that divmod(x,y)[0] * y + x % y be very close to x .
-x//y
 (x-x%y)//y
 divmod(x,y)[0] * y + x % y
 The Unicode standard distinguishes between code points (e.g. U+0041) and abstract characters (e.g. “LATIN CAPITAL LETTER A”).
@@ -2082,6 +1894,5 @@ methods, or constants.  Check their documentation for more info.
 The power operator ** binds less tightly than an arithmetic or
 bitwise unary operator on its right, that is, 2**-1 is 0.5 .
 2**-1
-0.5
 The % operator is also used for string formatting; the same
 precedence applies.

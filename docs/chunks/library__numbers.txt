@@ -10,42 +10,24 @@ Source code: Lib/numbers.py
 The numbers module ( PEP 3141 ) defines a hierarchy of numeric abstract base classes which progressively define
 more operations.  None of the types defined in this module are intended to be instantiated.
 numbers
-class numbers. Number
-The root of the numeric hierarchy. If you just want to check if an argument x is a number, without caring what kind, use isinstance(x, Number) .
 The root of the numeric hierarchy. If you just want to check if an argument x is a number, without caring what kind, use isinstance(x, Number) .
 isinstance(x, Number)
 
 ## The numeric tower
 
-class numbers. Complex
-Subclasses of this type describe complex numbers and include the operations
-that work on the built-in complex type. These are: conversions to complex and bool , real , imag , + , - , * , / , ** , abs() , conjugate() , == , and != . All except - and != are abstract. real Abstract. Retrieves the real component of this number. imag Abstract. Retrieves the imaginary component of this number. abstractmethod conjugate ( ) Abstract. Returns the complex conjugate. For example, (1+3j).conjugate() == (1-3j) .
 Subclasses of this type describe complex numbers and include the operations
 that work on the built-in complex type. These are: conversions to complex and bool , real , imag , + , - , * , / , ** , abs() , conjugate() , == , and != . All except - and != are abstract.
 complex
 complex
-bool
-real
-imag
 abs()
 conjugate()
-real
 Abstract. Retrieves the real component of this number.
-Abstract. Retrieves the real component of this number.
-imag
 Abstract. Retrieves the imaginary component of this number.
-Abstract. Retrieves the imaginary component of this number.
-abstractmethod conjugate ( )
-Abstract. Returns the complex conjugate. For example, (1+3j).conjugate() == (1-3j) .
 Abstract. Returns the complex conjugate. For example, (1+3j).conjugate() == (1-3j) .
 (1+3j).conjugate() == (1-3j)
-class numbers. Real
-To Complex , Real adds the operations that work on real
-numbers. In short, those are: a conversion to float , math.trunc() , round() , math.floor() , math.ceil() , divmod() , // , % , < , <= , > , and >= . Real also provides defaults for complex() , real , imag , and conjugate() .
 To Complex , Real adds the operations that work on real
 numbers.
 Complex
-Real
 In short, those are: a conversion to float , math.trunc() , round() , math.floor() , math.ceil() , divmod() , // , % , < , <= , > , and >= .
 float
 math.trunc()
@@ -55,14 +37,8 @@ math.ceil()
 divmod()
 Real also provides defaults for complex() , real , imag , and conjugate() .
 complex()
-real
-imag
 conjugate()
-class numbers. Rational
-Subtypes Real and adds numerator and denominator properties. It also provides a default for float() . The numerator and denominator values
-should be instances of Integral and should be in lowest terms with denominator positive. numerator Abstract.  The numerator of this rational number. denominator Abstract.  The denominator of this rational number.
 Subtypes Real and adds numerator and denominator properties. It also provides a default for float() .
-Real
 numerator
 denominator
 float()
@@ -72,21 +48,12 @@ numerator
 denominator
 Integral
 denominator
-numerator
 Abstract.  The numerator of this rational number.
-Abstract.  The numerator of this rational number.
-denominator
 Abstract.  The denominator of this rational number.
-Abstract.  The denominator of this rational number.
-class numbers. Integral
-Subtypes Rational and adds a conversion to int .  Provides
-defaults for float() , numerator , and denominator .  Adds abstract methods for pow() with
-modulus and bit-string operations: << , >> , & , ^ , | , ~ .
 Subtypes Rational and adds a conversion to int .  Provides
 defaults for float() , numerator , and denominator .  Adds abstract methods for pow() with
 modulus and bit-string operations: << , >> , & , ^ , | , ~ .
 Rational
-int
 float()
 numerator
 denominator
@@ -111,7 +78,6 @@ be a poor hierarchy if it precluded the possibility of adding
 those. You can add MyFoo between Complex and Real with:
 MyFoo
 Complex
-Real
 
 [CODE]
 class MyFoo ( Complex ): ... MyFoo . register ( Real )

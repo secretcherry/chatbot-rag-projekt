@@ -5,8 +5,6 @@ SOURCE: whatsnew\2.7.html
 
 # What’s New in Python 2.7
 
-Author :
-A.M. Kuchling (amk at amk.ca)
 A.M. Kuchling (amk at amk.ca)
 This article explains the new features in Python 2.7.  Python 2.7 was released
 on July 3, 2010.
@@ -128,10 +126,8 @@ Python.  Python code can also re-enable them
 by calling warnings.simplefilter('default') .
 DeprecationWarning
 -Wdefault
--Wd
 PYTHONWARNINGS
 "default"
-"d"
 warnings.simplefilter('default')
 The unittest module also automatically reenables deprecation warnings
 when running tests.
@@ -152,14 +148,12 @@ Dictionary and set comprehensions ( {i: i*2 for i in range(3)} ).
 {i: i*2 for i in range(3)}
 Multiple context managers in a single with statement.
 Multiple context managers in a single with statement.
-with
 A new version of the io library, rewritten in C for performance.
 A new version of the io library, rewritten in C for performance.
 The ordered-dictionary type described in PEP 372: Adding an Ordered Dictionary to collections .
 The ordered-dictionary type described in PEP 372: Adding an Ordered Dictionary to collections .
 The new "," format specifier described in PEP 378: Format Specifier for Thousands Separator .
 The new "," format specifier described in PEP 378: Format Specifier for Thousands Separator .
-","
 The memoryview object.
 The memoryview object.
 memoryview
@@ -234,7 +228,6 @@ The popitem() method has an optional last argument that defaults to True .  If l
 added key is returned and removed; if it’s false, the
 oldest key is selected:
 popitem()
-True
 
 [CODE]
 >>> od = OrderedDict ([( x , 0 ) for x in range ( 20 )]) >>> od . popitem () (19, 0) >>> od . popitem () (18, 0) >>> od . popitem ( last = False ) (0, 0) >>> od . popitem ( last = False ) (1, 0)
@@ -279,13 +272,9 @@ The json module’s JSONDecoder class
 constructor was extended with an object_pairs_hook parameter to
 allow OrderedDict instances to be built by the decoder.
 Support was also added for third-party tools like PyYAML .
-json
 JSONDecoder
 OrderedDict
 See also
-PEP 372 - Adding an ordered dictionary to collections
-PEP written by Armin Ronacher and Raymond Hettinger;
-implemented by Raymond Hettinger.
 PEP written by Armin Ronacher and Raymond Hettinger;
 implemented by Raymond Hettinger.
 
@@ -322,8 +311,6 @@ separator and the grouping is always into three-digit groups.  The
 comma-formatting mechanism isn’t as general as the locale module, but it’s easier to use.
 locale
 See also
-PEP 378 - Format Specifier for Thousands Separator
-PEP written by Raymond Hettinger; implemented by Eric Smith.
 PEP written by Raymond Hettinger; implemented by Eric Smith.
 
 ## PEP 389: The argparse Module for Parsing Command Lines
@@ -384,26 +371,15 @@ automatically open files for you and understands that '-' means
 standard input or output.
 argparse
 optparse
-'*'
-'+'
-'?'
 svn commit
 svn checkout
 FileType
-'-'
 See also
-argparse documentation
 argparse
 The documentation page of the argparse module.
-The documentation page of the argparse module.
-Migrating optparse code to argparse
-Part of the Python documentation, describing how to convert
-code that uses optparse .
 Part of the Python documentation, describing how to convert
 code that uses optparse .
 optparse
-PEP 389 - argparse - New Command Line Parsing Module
-PEP written and implemented by Steven Bethard.
 PEP written and implemented by Steven Bethard.
 
 ## PEP 391: Dictionary-Based Configuration For Logging
@@ -468,8 +444,6 @@ process a message of that level of importance.
 LoggerAdapter
 isEnabledFor()
 See also
-PEP 391 - Dictionary-Based Configuration For Logging
-PEP written and implemented by Vinay Sajip.
 PEP written and implemented by Vinay Sajip.
 
 ## PEP 3106: Dictionary Views
@@ -521,9 +495,6 @@ keys()
 values()
 items()
 See also
-PEP 3106 - Revamping dict.keys(), .values() and .items()
-PEP written by Guido van Rossum.
-Backported to 2.7 by Alexandre Vassalotti; bpo-1967 .
 PEP written by Guido van Rossum.
 Backported to 2.7 by Alexandre Vassalotti; bpo-1967 .
 
@@ -554,10 +525,6 @@ memoryview
 [/CODE]
 
 See also
-PEP 3137 - Immutable Bytes and Mutable Buffer
-PEP written by Guido van Rossum.
-Implemented by Travis Oliphant, Antoine Pitrou and others.
-Backported to 2.7 by Antoine Pitrou; bpo-2396 .
 PEP written by Guido van Rossum.
 Implemented by Travis Oliphant, Antoine Pitrou and others.
 Backported to 2.7 by Antoine Pitrou; bpo-2396 .
@@ -602,8 +569,6 @@ The with statement can now use multiple context managers
 in one statement.  Context managers are processed from left to right
 and each one is treated as beginning a new with statement.
 This means that:
-with
-with
 
 [CODE]
 with A () as a , B () as b : ... suite of statements ...
@@ -649,7 +614,6 @@ float
 complex
 marshal
 pickle
-json
 Decimal
 Related to this, the repr() of a floating-point number x now returns a result based on the shortest decimal string that’s
 guaranteed to round back to x under correct rounding (with
@@ -796,7 +760,6 @@ The bytearray type’s translate() method now accepts None as its first argument
 The bytearray type’s translate() method now accepts None as its first argument.  (Fixed by Georg Brandl; bpo-4759 .)
 bytearray
 translate()
-None
 When using @classmethod and @staticmethod to wrap
 methods as class or static methods, the wrapper object now
 exposes the wrapped function as their __func__ attribute.
@@ -836,7 +799,6 @@ on POSIX platforms (noted by Jan Kaliszewski; bpo-4764 ), and
 now explicitly checks for and forbids writing to read-only file objects
 instead of trusting the C library to catch and report the error
 (fixed by Stefan Krah; bpo-5677 ).
-file
 filename
 IOError
 The Python tokenizer now translates line endings itself, so the compile() built-in function now accepts code using any
@@ -891,7 +853,6 @@ export PYTHONWARNINGS = all , error ::: Cookie : 0
 Several performance enhancements have been added:
 A new opcode was added to perform the initial setup for with statements, looking up the __enter__() and __exit__() methods.  (Contributed by Benjamin Peterson.)
 A new opcode was added to perform the initial setup for with statements, looking up the __enter__() and __exit__() methods.  (Contributed by Benjamin Peterson.)
-with
 __enter__()
 __exit__()
 The garbage collector now performs better for one common usage
@@ -1059,8 +1020,6 @@ now takes an iterable containing glob-style patterns such as django.* ; the debu
 from a module that matches one of these patterns.
 (Contributed by Maru Newby after a suggestion by
 Senthil Kumaran; bpo-5142 .)
-bdb
-Bdb
 django.*
 The binascii module now supports the buffer API, so it can be
 used with memoryview instances and other similar buffer objects.
@@ -1089,7 +1048,6 @@ management protocol, so you can write with bz2.BZ2File(...) as f: .
 The bz2 module’s BZ2File now supports the context
 management protocol, so you can write with bz2.BZ2File(...) as f: .
 (Contributed by Hagen Fürstenau; bpo-3860 .)
-bz2
 BZ2File
 with bz2.BZ2File(...) as f:
 New class: the Counter class in the collections module is useful for tallying data. Counter instances
@@ -1193,8 +1151,6 @@ Deprecated function: contextlib.nested() , which allows
 handling more than one context manager with a single with statement, has been deprecated, because the with statement
 now supports multiple context managers.
 contextlib.nested()
-with
-with
 The cookielib module now ignores cookies that have an invalid
 version field, one that doesn’t contain an integer value.  (Fixed by
 John J. Lee; bpo-3924 .)
@@ -1208,7 +1164,6 @@ Robert Collins; bpo-1515 .)
 The copy module’s deepcopy() function will now
 correctly copy bound instance methods.  (Implemented by
 Robert Collins; bpo-1515 .)
-copy
 deepcopy()
 The ctypes module now always converts None to a C NULL pointer for arguments declared as pointers.  (Changed by Thomas
 Heller; bpo-4606 .)  The underlying libffi library has been updated to version
@@ -1219,8 +1174,6 @@ Heller; bpo-4606 .)  The underlying libffi library has been updated to version
 3.0.9, containing various fixes for different platforms.  (Updated
 by Matthias Klose; bpo-8142 .)
 ctypes
-None
-NULL
 New method: the datetime module’s timedelta class
 gained a total_seconds() method that returns the
 number of seconds in the duration.  (Contributed by Brian Quinlan; bpo-5788 .)
@@ -1292,9 +1245,7 @@ format()
 Comparisons involving a signaling NaN value (or sNAN ) now signal InvalidOperation instead of silently returning a true or
 false value depending on the comparison operator.  Quiet NaN values
 (or NaN ) are now hashable.  (Fixed by Mark Dickinson; bpo-7279 .)
-sNAN
 InvalidOperation
-NaN
 The difflib module now produces output that is more
 compatible with modern diff / patch tools
 through one small change, using a tab character instead of spaces as
@@ -1417,14 +1368,12 @@ the io.BufferedIOBase ABC, so you can wrap it with io.BufferedReader for faster 
 It’s also now possible to override the modification time
 recorded in a gzipped file by providing an optional timestamp to
 the constructor.  (Contributed by Jacques Frechet; bpo-4272 .)
-gzip
 GzipFile
 with gzip.GzipFile(...) as f:
 io.BufferedIOBase
 io.BufferedReader
 Files in gzip format can be padded with trailing zero bytes; the gzip module will now consume these trailing bytes.  (Fixed by
 Tadek Pietraszek and Brian Curtin; bpo-2846 .)
-gzip
 New attribute: the hashlib module now has an algorithms attribute containing a tuple naming the supported algorithms.
 In Python 2.7, hashlib.algorithms contains ('md5', 'sha1', 'sha224', 'sha256', 'sha384', 'sha512') .
 (Contributed by Carl Chenet; bpo-7418 .)
@@ -1567,7 +1516,6 @@ Updated module: The json module was upgraded to version 2.0.9 of the
 simplejson package, which includes a C extension that makes
 encoding and decoding faster.
 (Contributed by Bob Ippolito; bpo-4136 .)
-json
 To support the new collections.OrderedDict type, json.load() now has an optional object_pairs_hook parameter that will be called
 with any object literal that decodes to a list of pairs.
 (Contributed by Raymond Hettinger; bpo-5381 .)
@@ -1591,7 +1539,6 @@ using exp() and subtracting 1, gamma() for the Gamma function, and lgamma() for 
 New functions: the math module gained erf() and erfc() for the error function and the complementary error function, expm1() which computes e**x - 1 with more precision than
 using exp() and subtracting 1, gamma() for the Gamma function, and lgamma() for the natural log of the Gamma function.
 (Contributed by Mark Dickinson and nirinA raseliarison; bpo-3366 .)
-math
 erf()
 erfc()
 expm1()
@@ -1622,8 +1569,6 @@ will perform the specified number of tasks and then exit, causing the Pool to st
 memory or other resources, or if some tasks will cause the worker to
 become very large.
 (Contributed by Charles Cazabon; bpo-6963 .)
-Pool
-Pool
 The nntplib module now supports IPv6 addresses.
 (Contributed by Derek Morr; bpo-1664 .)
 The nntplib module now supports IPv6 addresses.
@@ -1759,7 +1704,6 @@ global site-packages directories, getusersitepackages() returns the path of the 
 site-packages directory, and getuserbase() returns the value of the USER_BASE environment variable, giving the path to a directory that can be used
 to store data.
 (Contributed by Tarek Ziadé; bpo-6693 .)
-site
 getsitepackages()
 getusersitepackages()
 getuserbase()
@@ -1768,7 +1712,6 @@ The site module now reports exceptions occurring
 when the sitecustomize module is imported, and will no longer
 catch and swallow the KeyboardInterrupt exception.  (Fixed by
 Victor Stinner; bpo-3137 .)
-site
 sitecustomize
 KeyboardInterrupt
 The create_connection() function
@@ -1849,7 +1792,6 @@ buffer API, which fixed a test suite failure (fix by Antoine Pitrou; bpo-7133 ) 
 OpenSSL’s SSL_MODE_AUTO_RETRY , which will prevent an error
 code being returned from recv() operations that trigger an SSL
 renegotiation (fix by Antoine Pitrou; bpo-8222 ).
-ssl
 SSLSocket
 SSL_MODE_AUTO_RETRY
 recv()
@@ -1985,7 +1927,6 @@ tarfile
 TarInfo
 add()
 TarInfo
-None
 TarFile
 The wait() method of the threading.Event class
 now returns the internal flag on exit.  This means the method will usually
@@ -2034,7 +1975,6 @@ will return the following:
 urlparse
 urlsplit()
 "<something>://..."
-://
 
 [CODE]
 >>> import urlparse >>> urlparse . urlsplit ( 'invented://host/filename?query' ) ('invented', '', '//host/filename?query', '', '')
@@ -2209,7 +2149,6 @@ To learn more, read the ttk module documentation.  You may also
 wish to read the Tcl/Tk manual page describing the
 Ttk theme engine, available at https://www.tcl.tk/man/tcl8.5/TkCmd/ttk_intro.html . Some
 screenshots of the Python/Ttk code in use are at https://code.google.com/archive/p/python-ttk/wikis/Screenshots.wiki .
-ttk
 The tkinter.ttk module was written by Guilherme Polo and added in bpo-2983 .  An alternate version called Tile.py , written by
 Martin Franklin and maintained by Kevin Walzer, was proposed for
 inclusion in bpo-2618 , but the authors argued that Guilherme
@@ -2339,7 +2278,6 @@ assertIsNone() and assertIsNotNone() take one
 expression and verify that the result is or is not None .
 assertIsNone()
 assertIsNotNone()
-None
 assertIs() and assertIsNot() take two values and check whether the two values evaluate to the same object or not.
 (Added by Michael Foord; bpo-2578 .)
 assertIs() and assertIsNot() take two values and check whether the two values evaluate to the same object or not.
@@ -2471,7 +2409,6 @@ unittest.main() now takes an optional exit argument.  If
 false, main() doesn’t call sys.exit() , allowing main() to be used from the interactive interpreter.
 (Contributed by J. Pablo Fernández; bpo-3379 .)
 unittest.main()
-exit
 main()
 sys.exit()
 main()
@@ -2486,9 +2423,6 @@ several files (by Benjamin Peterson).  This doesn’t affect how the
 module is imported or used.
 unittest.py
 See also
-https://web.archive.org/web/20210619163128/http://www.voidspace.org.uk/python/articles/unittest2.shtml
-Describes the new features, how to use them, and the
-rationale for various design decisions.  (By Michael Foord.)
 Describes the new features, how to use them, and the
 rationale for various design decisions.  (By Michael Foord.)
 
@@ -2546,8 +2480,6 @@ ElementTree.write()
 Element.write()
 <empty></empty>
 <empty/>
-tag
-None
 Namespace handling has also been improved.  All xmlns:<whatever> declarations are now output on the root element, not scattered throughout
 the resulting XML.  You can set the default namespace for a tree
 by setting the default_namespace attribute and can
@@ -2603,7 +2535,6 @@ no children.  This behaviour is confusing – None is false, but
 so is a childless element? – so it will now trigger a FutureWarning .  In your code, you should be explicit: write len(elem) != 0 if you’re interested in the number of children,
 or elem is not None .
 if elem:
-None
 FutureWarning
 len(elem) != 0
 elem is not None
@@ -2787,8 +2718,6 @@ C’s long long types.
 PyString_FromFormat()
 PyString_FromFormatV()
 PyErr_Format()
-%lld
-%llu
 The complicated interaction between threads and process forking has
 been changed.  Previously, the child process created by os.fork() might fail because the child is created with only a
 single thread running, the thread performing the os.fork() .
@@ -3054,7 +2983,6 @@ forms in .po files.  (Fixed by Martin von Löwis; bpo-5464 .)
 The Tools/i18n/msgfmt.py script now understands plural
 forms in .po files.  (Fixed by Martin von Löwis; bpo-5464 .)
 Tools/i18n/msgfmt.py
-.po
 When importing a module from a .pyc or .pyo file
 with an existing .py counterpart, the co_filename attributes of the resulting code objects are overwritten when the
 original filename is obsolete.  This can happen if the file has been
@@ -3065,9 +2993,6 @@ with an existing .py counterpart, the co_filename attributes of the resulting co
 original filename is obsolete.  This can happen if the file has been
 renamed, moved, or is accessed through different paths.  (Patch by
 Ziga Seilnacht and Jean-Paul Calderone; bpo-1180193 .)
-.pyc
-.pyo
-.py
 co_filename
 The regrtest.py script now takes a --randseed= switch that takes an integer that will be used as the random seed
 for the -r option that executes tests in random order.
@@ -3103,7 +3028,6 @@ accepts '-' as an argument, which will read standard input for
 the list of filenames to be compiled.  (Contributed by Piotr
 Ożarowski; bpo-8233 .)
 py_compile.py
-'-'
 
 ## Porting to Python 2.7
 
@@ -3139,7 +3063,6 @@ methods __enter__() and __exit__() must belong to the object’s
 type, and cannot be directly attached to the object’s instance.  This
 affects new-style classes (derived from object ) and C extension
 types.  ( bpo-6101 .)
-with
 __enter__()
 __exit__()
 object
@@ -3180,9 +3103,7 @@ format()
 Comparisons involving a signaling NaN value (or sNAN ) now signal InvalidOperation instead of silently returning a true or
 false value depending on the comparison operator.  Quiet NaN values
 (or NaN ) are now hashable.  (Fixed by Mark Dickinson; bpo-7279 .)
-sNAN
 InvalidOperation
-NaN
 The xml.etree.ElementTree library no longer escapes
 ampersands and angle brackets when outputting an XML processing
 instruction (which looks like <?xml-stylesheet href="#style1"?> )
@@ -3244,7 +3165,6 @@ will return the following:
 urlparse
 urlsplit()
 "<something>://..."
-://
 
 [CODE]
 >>> import urlparse >>> urlparse . urlsplit ( 'invented://host/filename?query' ) ('invented', '', '//host/filename?query', '', '')
@@ -3358,8 +3278,6 @@ specific details.
 Most of Python 3.4’s ssl module was backported. This means ssl now supports Server Name Indication, TLS1.x settings, access to the platform
 certificate store, the SSLContext class, and other
 features. (Contributed by Alex Gaynor and David Reid; bpo-21308 .)
-ssl
-ssl
 SSLContext
 Refer to the “Version added: 2.7.9” notes in the module documentation for
 specific details.
@@ -3393,30 +3311,20 @@ installations. The version of pip included with Python 2.7.9 is pip 1.5.6, and f
 the latest version of pip that is available at the time of creating the
 release candidate.
 ensurepip
-pip
-pip
-pip
 By default, the commands pip , pipX and pipX.Y will be installed on
 all platforms (where X.Y stands for the version of the Python installation),
 along with the pip Python package and its dependencies.
-pip
-pipX
 pipX.Y
-pip
 For CPython source builds on POSIX systems ,
 the make install and make altinstall commands do not bootstrap pip by default.  This behaviour can be controlled through configure options, and
 overridden through Makefile options.
 make install
 make altinstall
-pip
 On Windows and Mac OS X, the CPython installers now default to installing pip along with CPython itself (users may opt out of installing it
 during the installation process). Window users will need to opt in to the
 automatic PATH modifications to have pip available from the command
 line by default, otherwise it can still be accessed through the Python
 launcher for Windows as py -m pip .
-pip
-PATH
-pip
 py -m pip
 As discussed in the PEP ,
 platform packagers may choose not to install
@@ -3434,9 +3342,6 @@ projects.
 However, as this migration is currently still incomplete, the legacy
 versions of those guides remaining available as Building C and C++ Extensions with setuptools and Building C and C++ Extensions with setuptools .
 See also
-PEP 453 – Explicit bootstrapping of pip in Python installations
-PEP written by Donald Stufft and Nick Coghlan, implemented by
-Donald Stufft, Nick Coghlan, Martin von Löwis and Ned Deily.
 PEP written by Donald Stufft and Nick Coghlan, implemented by
 Donald Stufft, Nick Coghlan, Martin von Löwis and Ned Deily.
 

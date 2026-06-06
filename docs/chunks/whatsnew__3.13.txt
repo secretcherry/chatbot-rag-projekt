@@ -5,8 +5,6 @@ SOURCE: whatsnew\3.13.html
 
 # What’s New In Python 3.13
 
-Editors :
-Adam Turner and Thomas Wouters
 Adam Turner and Thomas Wouters
 This article explains the new features in Python 3.13, compared to 3.12.
 Python 3.13 was released on October 7, 2024.
@@ -102,13 +100,11 @@ the __replace__() method.
 The copy module now has a copy.replace() function,
 with support for many builtin types and any class defining
 the __replace__() method.
-copy
 copy.replace()
 __replace__()
 The new dbm.sqlite3 module is now the default dbm backend.
 The new dbm.sqlite3 module is now the default dbm backend.
 dbm.sqlite3
-dbm
 The os module has a suite of new functions for working with Linux’s timer notification file descriptors.
 The os module has a suite of new functions for working with Linux’s timer notification file descriptors.
 The random module now has a command-line interface .
@@ -174,21 +170,17 @@ PEP 594 : The remaining 19 “dead batteries”
 (legacy stdlib modules) have been removed from the standard library: aifc , audioop , cgi , cgitb , chunk , crypt , imghdr , mailcap , msilib , nis , nntplib , ossaudiodev , pipes , sndhdr , spwd , sunau , telnetlib , uu and xdrlib .
 PEP 594 : The remaining 19 “dead batteries”
 (legacy stdlib modules) have been removed from the standard library: aifc , audioop , cgi , cgitb , chunk , crypt , imghdr , mailcap , msilib , nis , nntplib , ossaudiodev , pipes , sndhdr , spwd , sunau , telnetlib , uu and xdrlib .
-aifc
 audioop
-cgi
 cgitb
 chunk
 crypt
 imghdr
 mailcap
 msilib
-nis
 nntplib
 ossaudiodev
 pipes
 sndhdr
-spwd
 sunau
 telnetlib
 xdrlib
@@ -376,7 +368,6 @@ The --enable-experimental-jit option takes these (optional) values,
 defaulting to yes if --enable-experimental-jit is present
 without the optional value.
 --enable-experimental-jit
-yes
 --enable-experimental-jit
 no : Disable the entire Tier 2 and JIT pipeline.
 no : Disable the entire Tier 2 and JIT pipeline.
@@ -384,7 +375,6 @@ yes : Enable the JIT.
 To disable the JIT at runtime, pass the environment variable PYTHON_JIT=0 .
 yes : Enable the JIT.
 To disable the JIT at runtime, pass the environment variable PYTHON_JIT=0 .
-yes
 PYTHON_JIT=0
 yes-off : Build the JIT but disable it by default.
 To enable the JIT at runtime, pass the environment variable PYTHON_JIT=1 .
@@ -480,7 +470,6 @@ returns a write-through proxy to the frame’s local and locally referenced
 nonlocal variables in these scopes, rather than returning an inconsistently
 updated shared dict instance with undefined runtime semantics.
 FrameType.f_locals
-dict
 See PEP 667 for more details, including related C API changes
 and deprecations. Porting notes are also provided below for the affected Python APIs and C APIs .
 (PEP and implementation contributed by Mark Shannon and Tian Gao in gh-74929 . Documentation updates provided by Guido van Rossum and
@@ -519,7 +508,6 @@ from every line in a docstring.
 This reduces the size of the bytecode cache (such as .pyc files), with reductions in file size of around 5%,
 for example in sqlalchemy.orm.session from SQLAlchemy 2.0.
 This change affects tools that use docstrings, such as doctest .
-.pyc
 sqlalchemy.orm.session
 doctest
 
@@ -562,7 +550,6 @@ Previously this raised an erroneous SyntaxError .
 (Contributed by Irit Katriel in gh-111123 .)
 global
 except
-else
 SyntaxError
 Add PYTHON_FROZEN_MODULES , a new environment variable that
 determines whether frozen modules are ignored by the import machinery,
@@ -680,10 +667,6 @@ Added name and mode attributes
 for compressed and archived file-like objects in
 the bz2 , lzma , tarfile , and zipfile modules.
 (Contributed by Serhiy Storchaka in gh-115961 .)
-name
-mode
-bz2
-lzma
 tarfile
 zipfile
 
@@ -694,7 +677,6 @@ dbm.sqlite3 : An SQLite backend for dbm .
 dbm.sqlite3 : An SQLite backend for dbm .
 (Contributed by Raymond Hettinger and Erlend E. Aasland in gh-100414 .)
 dbm.sqlite3
-dbm
 
 ## Improved Modules
 
@@ -717,9 +699,7 @@ It should be used instead of the deprecated 'u' type code.
 Add the 'w' type code ( Py_UCS4 ) for Unicode characters.
 It should be used instead of the deprecated 'u' type code.
 (Contributed by Inada Naoki in gh-80480 .)
-'w'
 Py_UCS4
-'u'
 Register array.array as a MutableSequence by implementing the clear() method.
 (Contributed by Mike Zimin in gh-114894 .)
 Register array.array as a MutableSequence by implementing the clear() method.
@@ -727,9 +707,6 @@ Register array.array as a MutableSequence by implementing the clear() method.
 array.array
 MutableSequence
 clear()
-
-### ast
-
 The constructors of node types in the ast module are now
 stricter in the arguments they accept,
 with more intuitive behavior when arguments are omitted. If an optional field on an AST node is not included as an argument when
@@ -747,14 +724,12 @@ by defining the AST._field_types mapping. (Contributed by Jelle Zijlstra in gh-1
 The constructors of node types in the ast module are now
 stricter in the arguments they accept,
 with more intuitive behavior when arguments are omitted.
-ast
 If an optional field on an AST node is not included as an argument when
 constructing an instance, the field will now be set to None . Similarly,
 if a list field is omitted, that field will now be set to an empty list,
 and if an expr_context field is omitted, it defaults to Load() .
 (Previously, in all cases, the attribute would be missing on the newly
 constructed AST node instance.)
-None
 expr_context
 Load()
 In all other cases, where a required argument is omitted,
@@ -897,7 +872,6 @@ allows passing additional keyword arguments to Task and to custom task factories
 create_task
 **kwargs
 **kwargs
-Task
 This affects the following function and methods: asyncio.create_task() , asyncio.loop.create_task() , asyncio.TaskGroup.create_task() .
 (Contributed by Thomas Grainger in gh-128307 .)
 asyncio.create_task()
@@ -946,9 +920,6 @@ which allows for top-level key-value pairs.
 This can be enabled with the new allow_unnamed_section parameter.
 (Contributed by Pedro Sousa Lacerda in gh-66449 .)
 ConfigParser
-
-### copy
-
 The new replace() function and the replace protocol make creating modified copies of objects much simpler.
 This is especially useful when working with immutable objects.
 The following types support the replace() function
@@ -1021,9 +992,6 @@ memory to be specified explicitly.
 (Contributed by Matt Sanderson in gh-112433 )
 ctypes.Structure
 _align_
-
-### dbm
-
 Add dbm.sqlite3 , a new module which implements an SQLite backend,
 and make it the default dbm backend.
 (Contributed by Raymond Hettinger and Erlend E. Aasland in gh-100414 .)
@@ -1031,7 +999,6 @@ Add dbm.sqlite3 , a new module which implements an SQLite backend,
 and make it the default dbm backend.
 (Contributed by Raymond Hettinger and Erlend E. Aasland in gh-100414 .)
 dbm.sqlite3
-dbm
 Allow removing all items from the database through
 the new clear() methods of the GDBM and NDBM database objects.
 (Contributed by Donghee Na in gh-107122 .)
@@ -1039,9 +1006,6 @@ Allow removing all items from the database through
 the new clear() methods of the GDBM and NDBM database objects.
 (Contributed by Donghee Na in gh-107122 .)
 clear()
-
-### dis
-
 Change the output of dis module functions to show logical
 labels for jump targets and exception handlers, rather than offsets.
 The offsets can be added with the new -O command-line option
@@ -1052,7 +1016,6 @@ labels for jump targets and exception handlers, rather than offsets.
 The offsets can be added with the new -O command-line option
 or the show_offsets argument.
 (Contributed by Irit Katriel in gh-112137 .)
-dis
 get_instructions() no longer represents cache entries
 as separate instructions.
 Instead, it returns them as part of the Instruction ,
@@ -1134,12 +1097,8 @@ the CVE 2023-27043 fix.)
 getaddresses()
 parseaddr()
 ('', '')
-True
 strict=False
 getattr(email.utils, 'supports_strict_parsing', False)
-
-### enum
-
 EnumDict has been made public to better support subclassing EnumType .
 EnumDict has been made public to better support subclassing EnumType .
 EnumDict
@@ -1154,9 +1113,6 @@ Fraction objects now support the standard format specification mini-language rul
 for fill, alignment, sign handling, minimum width, and grouping.
 (Contributed by Mark Dickinson in gh-111320 .)
 Fraction
-
-### glob
-
 Add translate() , a function to convert a path specification
 with shell-style wildcards to a regular expression.
 (Contributed by Barney Gale in gh-72904 .)
@@ -1265,9 +1221,6 @@ Passing allow_code=False prevents serialization and de-serialization
 of code objects which are incompatible between Python versions.
 (Contributed by Serhiy Storchaka in gh-113626 .)
 allow_code=False
-
-### math
-
 The new function fma() performs fused multiply-add operations.
 This computes x * y + z with only a single round,
 and so avoids any intermediate loss of precision.
@@ -1298,16 +1251,12 @@ Using paths with guess_type() is now soft deprecated .
 (Contributed by Serhiy Storchaka in gh-66543 .)
 guess_file_type()
 guess_type()
-
-### mmap
-
 mmap is now protected from crashing on Windows when the
 mapped memory is inaccessible due to file system errors or access violations.
 (Contributed by Jannis Weigend in gh-118209 .)
 mmap is now protected from crashing on Windows when the
 mapped memory is inaccessible due to file system errors or access violations.
 (Contributed by Jannis Weigend in gh-118209 .)
-mmap
 mmap has a new seekable() method
 that can be used when a seekable file-like object is required.
 The seek() method now returns the new absolute position.
@@ -1316,7 +1265,6 @@ mmap has a new seekable() method
 that can be used when a seekable file-like object is required.
 The seek() method now returns the new absolute position.
 (Contributed by Donghee Na and Sylvie Liberman in gh-111835 .)
-mmap
 seekable()
 seek()
 The new UNIX-only trackfd parameter for mmap controls
@@ -1327,7 +1275,6 @@ The new UNIX-only trackfd parameter for mmap controls
 file descriptor duplication;
 if false, the file descriptor specified by fileno will not be duplicated.
 (Contributed by Zackery Spytz and Petr Viktorin in gh-78502 .)
-mmap
 
 ### multiprocessing
 
@@ -1408,7 +1355,6 @@ posix_spawn() now accepts None for the env argument,
 which makes the newly spawned process use the current process environment.
 (Contributed by Jakub Kulik in gh-113119 .)
 posix_spawn()
-None
 posix_spawn() can now use the POSIX_SPAWN_CLOSEFROM attribute in the file_actions parameter on platforms that support posix_spawn_file_actions_addclosefrom_np() .
 (Contributed by Jakub Kulik in gh-113117 .)
 posix_spawn() can now use the POSIX_SPAWN_CLOSEFROM attribute in the file_actions parameter on platforms that support posix_spawn_file_actions_addclosefrom_np() .
@@ -1457,7 +1403,6 @@ from ‘file’ URIs ( file:/// ), Path.from_uri() .
 Add a new constructor for creating Path objects
 from ‘file’ URIs ( file:/// ), Path.from_uri() .
 (Contributed by Barney Gale in gh-107465 .)
-Path
 file:///
 Path.from_uri()
 Add PurePath.full_match() for matching paths with
@@ -1501,9 +1446,6 @@ Path.is_file
 Path.is_dir
 Path.owner()
 Path.group()
-
-### pdb
-
 breakpoint() and set_trace() now enter the debugger immediately
 rather than on the next line of code to be executed. This change prevents the
 debugger from breaking outside of the context when breakpoint() is positioned
@@ -1538,7 +1480,6 @@ Add ability to move between chained exceptions during
 post-mortem debugging in pm() using
 the new exceptions [exc_number] command for Pdb.
 (Contributed by Matthias Bussonnier in gh-106676 .)
-pm()
 exceptions [exc_number]
 Expressions and statements whose prefix is a pdb command are now correctly
 identified and executed.
@@ -1577,16 +1518,12 @@ Support the dir_fd and follow_symlinks keyword arguments
 in chown() .
 (Contributed by Berker Peksag and Tahia K in gh-62308 )
 chown()
-
-### site
-
 .pth files are now decoded using UTF-8 first,
 and then with the locale encoding if UTF-8 decoding fails.
 (Contributed by Inada Naoki in gh-117802 .)
 .pth files are now decoded using UTF-8 first,
 and then with the locale encoding if UTF-8 decoding fails.
 (Contributed by Inada Naoki in gh-117802 .)
-.pth
 
 ### sqlite3
 
@@ -1602,9 +1539,6 @@ Add the filter keyword-only parameter to Connection.iterdump() for filtering dat
 Add the filter keyword-only parameter to Connection.iterdump() for filtering database objects to dump.
 (Contributed by Mariusz Felisiak in gh-91602 .)
 Connection.iterdump()
-
-### ssl
-
 The create_default_context() API now includes VERIFY_X509_PARTIAL_CHAIN and VERIFY_X509_STRICT in its default flags. Note VERIFY_X509_STRICT may reject pre- RFC 5280 or malformed certificates that the underlying OpenSSL implementation
 might otherwise accept.
 Whilst disabling this is not recommended, you can do so using: import ssl ctx = ssl . create_default_context () ctx . verify_flags &= ~ ssl . VERIFY_X509_STRICT (Contributed by William Woodruff in gh-112389 .)
@@ -1612,7 +1546,6 @@ The create_default_context() API now includes VERIFY_X509_PARTIAL_CHAIN and VERI
 create_default_context()
 VERIFY_X509_PARTIAL_CHAIN
 VERIFY_X509_STRICT
-Note
 VERIFY_X509_STRICT may reject pre- RFC 5280 or malformed certificates that the underlying OpenSSL implementation
 might otherwise accept.
 Whilst disabling this is not recommended, you can do so using:
@@ -1664,7 +1597,6 @@ Notably, when close_fds is True (the default), posix_spawn() will be used when t
 which includes recent versions of Linux, FreeBSD, and Solaris.
 On Linux, this should perform similarly to the existing
 Linux vfork() based code.
-True
 posix_spawn()
 posix_spawn_file_actions_addclosefrom_np()
 vfork()
@@ -1678,9 +1610,6 @@ subprocess._USE_POSIX_SPAWN
 False
 subprocess
 posix_spawn()
-
-### sys
-
 Add the _is_interned() function to test if a string was interned.
 This function is not guaranteed to exist in all implementations of Python.
 (Contributed by Serhiy Storchaka in gh-78573 .)
@@ -1702,9 +1631,6 @@ This is a mitigation for CVE 2024-4030 .
 0o700
 tempfile.mkdtemp()
 os.mkdir()
-
-### time
-
 On Windows, monotonic() now uses the QueryPerformanceCounter() clock for a resolution of 1 microsecond,
 instead of the GetTickCount64() clock which has
 a resolution of 15.6 milliseconds.
@@ -1762,7 +1688,6 @@ wm_attributes() can now return attributes as a dict ,
 by using the new optional keyword-only parameter return_python_dict .
 (Contributed by Serhiy Storchaka in gh-43457 .)
 wm_attributes()
-dict
 Text.count() can now return a simple int when the new optional keyword-only parameter return_ints is used.
 Otherwise, the single count is returned as a 1-tuple or None .
 (Contributed by Serhiy Storchaka in gh-97928 .)
@@ -1770,8 +1695,6 @@ Text.count() can now return a simple int when the new optional keyword-only para
 Otherwise, the single count is returned as a 1-tuple or None .
 (Contributed by Serhiy Storchaka in gh-97928 .)
 Text.count()
-int
-None
 Support the “vsapi” element type in
 the element_create() method of tkinter.ttk.Style .
 (Contributed by Serhiy Storchaka in gh-68166 .)
@@ -1839,7 +1762,6 @@ to indicate whether exc_type should be saved.
 exc_type_str
 TracebackException
 exc_type
-True
 exc_type
 Add a new show_group keyword-only parameter to TracebackException.format_exception_only() to (recursively) format
 the nested exceptions of a BaseExceptionGroup instance.
@@ -1914,9 +1836,6 @@ Update the Unicode database to version 15.1.0 .
 (Contributed by James Gerity in gh-109559 .)
 Update the Unicode database to version 15.1.0 .
 (Contributed by James Gerity in gh-109559 .)
-
-### venv
-
 Add support for creating source control management (SCM) ignore files
 in a virtual environment’s directory.
 By default, Git is supported.
@@ -1951,9 +1870,6 @@ a decorated function or class is used at runtime.
 (Contributed by Jelle Zijlstra in gh-104003 .)
 warnings.deprecated()
 DeprecationWarning
-
-### xml
-
 Allow controlling Expat >=2.6.0 reparse deferral ( CVE 2023-52425 )
 by adding five new methods: xml.etree.ElementTree.XMLParser.flush() xml.etree.ElementTree.XMLPullParser.flush() xml.parsers.expat.xmlparser.GetReparseDeferralEnabled() xml.parsers.expat.xmlparser.SetReparseDeferralEnabled() xml.sax.expatreader.ExpatParser.flush() (Contributed by Sebastian Pipping in gh-115623 .)
 Allow controlling Expat >=2.6.0 reparse deferral ( CVE 2023-52425 )
@@ -2011,7 +1927,6 @@ and others in gh-109653 .)
 typing
 contextlib
 email.utils
-enum
 functools
 importlib.metadata
 threading
@@ -2036,7 +1951,6 @@ See the subprocess section above for details.
 (Contributed by Jakub Kulik in gh-113117 .)
 subprocess
 posix_spawn()
-True
 
 ## Removed Modules And APIs
 
@@ -2049,13 +1963,10 @@ All of the following modules were deprecated in Python 3.11,
 and are now removed:
 aifc standard-aifc :
 Use the redistribution of aifc library from PyPI.
-aifc
-aifc
 standard-aifc :
 Use the redistribution of aifc library from PyPI.
 standard-aifc :
 Use the redistribution of aifc library from PyPI.
-aifc
 audioop audioop-lts :
 Use audioop-lts library from PyPI.
 audioop
@@ -2086,7 +1997,6 @@ or with the multipart library.
 For example, the email.message.EmailMessage and email.message.Message classes. standard-cgi : and standard-cgitb :
 Use the redistribution of cgi and cgitb library from PyPI.
 cgi and cgitb
-cgi
 cgitb
 cgi.FieldStorage can typically be replaced with urllib.parse.parse_qsl() for GET and HEAD requests,
 and the email.message module or the multipart library
@@ -2096,11 +2006,7 @@ and the email.message module or the multipart library
 for POST and PUT requests.
 cgi.FieldStorage
 urllib.parse.parse_qsl()
-GET
-HEAD
 email.message
-POST
-PUT
 cgi.parse() can be replaced by calling urllib.parse.parse_qs() directly on the desired query string,
 unless the input is multipart/form-data ,
 which should be replaced as described below for cgi.parse_multipart() .
@@ -2141,7 +2047,6 @@ standard-cgi : and standard-cgitb :
 Use the redistribution of cgi and cgitb library from PyPI.
 standard-cgi : and standard-cgitb :
 Use the redistribution of cgi and cgitb library from PyPI.
-cgi
 cgitb
 crypt and the private _crypt extension.
 The hashlib module may be an appropriate replacement
@@ -2226,9 +2131,6 @@ mailcap
 msilib
 msilib
 msilib
-nis
-nis
-nis
 nntplib :
 Use the pynntp library from PyPI instead. standard-nntplib :
 Use the redistribution of nntplib library from PyPI.
@@ -2278,7 +2180,6 @@ spwd :
 Use the python-pam library from PyPI instead.
 spwd :
 Use the python-pam library from PyPI instead.
-spwd
 sunau standard-sunau :
 Use the redistribution of sunau library from PyPI.
 sunau
@@ -2319,9 +2220,6 @@ standard-xdrlib :
 Use the redistribution of xdrlib library from PyPI.
 xdrlib
 (Contributed by Victor Stinner and Zachary Ware in gh-104773 and gh-104780 .)
-
-### 2to3
-
 Remove the 2to3 program and the lib2to3 module,
 previously deprecated in Python 3.11.
 (Contributed by Victor Stinner in gh-104780 .)
@@ -2415,7 +2313,6 @@ and were not intended to be used externally.
 opcode.is_pseudo()
 opcode.MIN_PSEUDO_OPCODE
 opcode.MAX_PSEUDO_OPCODE
-dis
 
 ### optparse
 
@@ -2455,14 +2352,12 @@ This functionality was deprecated and has had no effect since Python 3.9.
 Remove the ability to use Path objects as context managers.
 This functionality was deprecated and has had no effect since Python 3.9.
 (Contributed by Barney Gale in gh-83863 .)
-Path
 Remove the undocumented, deprecated, and broken re.template() function and re.TEMPLATE / re.T flag.
 (Contributed by Serhiy Storchaka and Nikita Sobolev in gh-105687 .)
 Remove the undocumented, deprecated, and broken re.template() function and re.TEMPLATE / re.T flag.
 (Contributed by Serhiy Storchaka and Nikita Sobolev in gh-105687 .)
 re.template()
 re.TEMPLATE
-re.T
 
 ### tkinter.tix
 
@@ -2620,9 +2515,7 @@ and will be removed in Python 3.16.
 Use the 'w' format code ( Py_UCS4 )
 for Unicode characters instead.
 (Contributed by Hugo van Kemenade in gh-80480 .)
-'u'
 wchar_t
-'w'
 Py_UCS4
 ctypes : Deprecate the undocumented SetPointerType() function,
 to be removed in Python 3.15.
@@ -2658,13 +2551,11 @@ which is only supported in the decimal module’s C implementation.
 Scheduled to be removed in Python 3.18.
 (Contributed by Serhiy Storchaka in gh-89902 .)
 Decimal
-'N'
 decimal
 dis : Deprecate the HAVE_ARGUMENT separator.
 Check membership in hasarg instead.
 (Contributed by Irit Katriel in gh-109319 .)
 dis :
-dis
 Deprecate the HAVE_ARGUMENT separator.
 Check membership in hasarg instead.
 (Contributed by Irit Katriel in gh-109319 .)
@@ -2693,7 +2584,6 @@ Use glob() and pass a path-like object specifying
 the root directory to the root_dir parameter instead.
 (Contributed by Barney Gale in gh-117337 .)
 glob :
-glob
 Deprecate the undocumented glob0() and glob1() functions.
 Use glob() and pass a path-like object specifying
 the root directory to the root_dir parameter instead.
@@ -2758,7 +2648,6 @@ re : Deprecate passing the optional maxsplit , count , or flags arguments
 as positional arguments to the module-level split() , sub() , and subn() functions.
 These parameters will become keyword-only in a future version of Python.
 (Contributed by Serhiy Storchaka in gh-56166 .)
-re :
 Deprecate passing the optional maxsplit , count , or flags arguments
 as positional arguments to the module-level split() , sub() , and subn() functions.
 These parameters will become keyword-only in a future version of Python.
@@ -2859,7 +2748,6 @@ to be removed in Python 3.16.
 Use the PYTHONLEGACYWINDOWSFSENCODING environment variable instead.
 (Contributed by Inada Naoki in gh-73427 .)
 sys :
-sys
 Deprecate the _enablelegacywindowsfsencoding() function,
 to be removed in Python 3.16.
 Use the PYTHONLEGACYWINDOWSFSENCODING environment variable instead.
@@ -2952,7 +2840,6 @@ use class TD(TypedDict): pass or TD = TypedDict("TD", {}) .
 (Contributed by Alex Waygood in gh-105566 and gh-105570 .)
 NamedTuple
 typing.TypedDict
-None
 class NT(NamedTuple): pass
 NT = NamedTuple("NT", ())
 class TD(TypedDict): pass
@@ -2992,7 +2879,6 @@ the Wave_read and Wave_write classes,
 to be removed in Python 3.15.
 (Contributed by Victor Stinner in gh-105096 .)
 wave :
-wave
 Deprecate the getmark() , setmark() ,
 and getmarkers() methods of
 the Wave_read and Wave_write classes,
@@ -3028,7 +2914,6 @@ runtime when they are accessed or used, and will be removed in Python 3.14: ast.
 ast : The following features have been deprecated in documentation
 since Python 3.8, now cause a DeprecationWarning to be emitted at
 runtime when they are accessed or used, and will be removed in Python 3.14:
-ast
 DeprecationWarning
 ast.Num
 ast.Num
@@ -3161,7 +3046,6 @@ DeprecationWarning
 importlib.util.find_spec()
 pty : master_open() : use pty.openpty() . slave_open() : use pty.openpty() .
 pty :
-pty
 master_open() : use pty.openpty() .
 master_open() : use pty.openpty() .
 master_open()
@@ -3181,7 +3065,6 @@ execute() and executemany() if named placeholders are used and parameters is a s
 execute() and executemany() if named placeholders are used and parameters is a sequence instead of a dict .
 execute()
 executemany()
-dict
 urllib : urllib.parse.Quoter is deprecated: it was not intended to be a
 public API.
 (Contributed by Gregory P. Smith in gh-88168 .)
@@ -3379,7 +3262,6 @@ since Python 3.13.
 Use class TD(TypedDict): pass or TD = TypedDict("TD", {}) to create a TypedDict with zero field.
 TypedDict
 TD = TypedDict("TD")
-None
 TD = TypedDict("TD", None)
 class TD(TypedDict): pass
 TD = TypedDict("TD", {})
@@ -3398,7 +3280,6 @@ and getmarkers() methods of
 the Wave_read and Wave_write classes
 have been deprecated since Python 3.13.
 wave :
-wave
 The getmark() , setmark() ,
 and getmarkers() methods of
 the Wave_read and Wave_write classes
@@ -3458,9 +3339,7 @@ has been deprecated in documentation since Python 3.3
 and at runtime since Python 3.13.
 Use the 'w' format code ( Py_UCS4 )
 for Unicode characters instead.
-'u'
 wchar_t
-'w'
 Py_UCS4
 asyncio : asyncio.iscoroutinefunction() is deprecated
 and will be removed in Python 3.16;
@@ -3533,7 +3412,6 @@ the underlying integer, convert to int explicitly ( ~int(x) ).
 ~True
 ~False
 not x
-int
 ~int(x)
 functools : Calling the Python implementation of functools.reduce() with function or sequence as keyword arguments has been deprecated since Python 3.14.
 functools :
@@ -3593,7 +3471,6 @@ sys : The _enablelegacywindowsfsencoding() function
 has been deprecated since Python 3.13.
 Use the PYTHONLEGACYWINDOWSFSENCODING environment variable instead.
 sys :
-sys
 The _enablelegacywindowsfsencoding() function
 has been deprecated since Python 3.13.
 Use the PYTHONLEGACYWINDOWSFSENCODING environment variable instead.
@@ -3614,7 +3491,6 @@ The sysconfig.expand_makefile_vars() function
 has been deprecated since Python 3.14.
 Use the vars argument of sysconfig.get_paths() instead.
 sysconfig.expand_makefile_vars()
-vars
 sysconfig.get_paths()
 tarfile : The undocumented and unused TarFile.tarfile attribute
 has been deprecated since Python 3.13.
@@ -3654,7 +3530,6 @@ Use isinstance(obj, collections.abc.Buffer) to test if obj implements the buffer
 in type annotations, either use Buffer or a union
 that explicitly specifies the types your code supports (e.g., bytes | bytearray | memoryview ).
 isinstance(obj, collections.abc.Buffer)
-obj
 Buffer
 bytes | bytearray | memoryview
 ByteString was originally intended to be an abstract class that
@@ -3711,7 +3586,6 @@ Use isinstance(obj, collections.abc.Buffer) to test if obj implements the buffer
 in type annotations, either use Buffer or a union
 that explicitly specifies the types your code supports (e.g., bytes | bytearray | memoryview ).
 isinstance(obj, collections.abc.Buffer)
-obj
 Buffer
 bytes | bytearray | memoryview
 ByteString was originally intended to be an abstract class that
@@ -3746,7 +3620,6 @@ specifier 'N' , which is only supported in the decimal module’s
 C implementation, has been deprecated since Python 3.13.
 (Contributed by Serhiy Storchaka in gh-89902 .)
 Decimal
-'N'
 decimal
 
 ### Pending removal in Python 3.19
@@ -3815,16 +3688,12 @@ will be changed to a syntax error. ( gh-87999 )
 [0x1for x in y]
 [0x1 for x in y]
 [0x1f or x in y]
-and
-else
-for
 Support for __index__() and __int__() method returning non-int type:
 these methods will be required to return an instance of a strict subclass of int .
 Support for __index__() and __int__() method returning non-int type:
 these methods will be required to return an instance of a strict subclass of int .
 __index__()
 __int__()
-int
 Support for __float__() method returning a strict subclass of float : these methods will be required to return an instance of float .
 Support for __float__() method returning a strict subclass of float : these methods will be required to return an instance of float .
 __float__()
@@ -3901,7 +3770,6 @@ EntryPoints tuple interface.
 EntryPoints
 Implicit None on return values.
 Implicit None on return values.
-None
 logging : the warn() method has been deprecated
 since Python 3.3, use warning() instead.
 logging : the warn() method has been deprecated
@@ -3948,7 +3816,6 @@ rmtree()
 ssl options and protocols: ssl.SSLContext without protocol argument is deprecated. ssl.SSLContext : set_npn_protocols() and selected_npn_protocol() are deprecated: use ALPN
 instead. ssl.OP_NO_SSL* options ssl.OP_NO_TLS* options ssl.PROTOCOL_SSLv3 ssl.PROTOCOL_TLS ssl.PROTOCOL_TLSv1 ssl.PROTOCOL_TLSv1_1 ssl.PROTOCOL_TLSv1_2 ssl.TLSVersion.SSLv3 ssl.TLSVersion.TLSv1 ssl.TLSVersion.TLSv1_1
 ssl options and protocols:
-ssl
 ssl.SSLContext without protocol argument is deprecated.
 ssl.SSLContext without protocol argument is deprecated.
 ssl.SSLContext
@@ -4040,7 +3907,6 @@ that is not None from a test case.
 unittest.IsolatedAsyncioTestCase : it is deprecated to return a value
 that is not None from a test case.
 unittest.IsolatedAsyncioTestCase
-None
 urllib.parse deprecated functions: urlparse() instead splitattr() splithost() splitnport() splitpasswd() splitport() splitquery() splittag() splittype() splituser() splitvalue() to_bytes()
 urllib.parse deprecated functions: urlparse() instead
 urllib.parse
@@ -4090,7 +3956,6 @@ xml.etree.ElementTree : Testing the truth value of an Element is deprecated. In 
 will always return True . Prefer explicit len(elem) or elem is not None tests instead.
 xml.etree.ElementTree
 Element
-True
 len(elem)
 elem is not None
 sys._clear_type_cache() is deprecated:
@@ -4406,7 +4271,6 @@ and Python int objects.
 PyLong_AsNativeBytes()
 PyLong_FromNativeBytes()
 PyLong_FromUnsignedNativeBytes()
-int
 Add PyModule_Add() function, which is similar to PyModule_AddObjectRef() and PyModule_AddObject() ,
 but always steals a reference to the value.
 (Contributed by Serhiy Storchaka in gh-86493 .)
@@ -4473,8 +4337,6 @@ The caller is responsible for checking if the result is NULL .
 (Contributed by Victor Stinner in gh-108867 .)
 PyThreadState_GetUnchecked()
 PyThreadState_Get()
-NULL
-NULL
 Add the PyType_GetFullyQualifiedName() function
 to get the type’s fully qualified name.
 The module name is prepended if type.__module__ is
@@ -4517,7 +4379,6 @@ as an alternative to PyWeakref_GetObject() that returns a strong reference or NU
 (Contributed by Victor Stinner in gh-105927 .)
 PyWeakref_GetRef()
 PyWeakref_GetObject()
-NULL
 Add fixed variants of functions which silently ignore errors: PyObject_HasAttrWithError() replaces PyObject_HasAttr() . PyObject_HasAttrStringWithError() replaces PyObject_HasAttrString() . PyMapping_HasKeyWithError() replaces PyMapping_HasKey() . PyMapping_HasKeyStringWithError() replaces PyMapping_HasKeyString() . The new functions return -1 for errors
 and the standard 1 for true and 0 for false. (Contributed by Serhiy Storchaka in gh-108511 .)
 Add fixed variants of functions which silently ignore errors:
@@ -4604,19 +4465,15 @@ to PyUnicode_FromFormat() : %T : Get the fully qualified name of an object type 
 (Contributed by Victor Stinner in gh-111696 .)
 Add support for the %T , %#T , %N and %#N formats
 to PyUnicode_FromFormat() :
-%#T
-%#N
 PyUnicode_FromFormat()
 %T : Get the fully qualified name of an object type
 %T : Get the fully qualified name of an object type
 %#T : As above, but use a colon as the separator
 %#T : As above, but use a colon as the separator
-%#T
 %N : Get the fully qualified name of a type
 %N : Get the fully qualified name of a type
 %#N : As above, but use a colon as the separator
 %#N : As above, but use a colon as the separator
-%#N
 See PEP 737 for more information.
 (Contributed by Victor Stinner in gh-111696 .)
 You no longer have to define the PY_SSIZE_T_CLEAN macro before
@@ -4688,8 +4545,6 @@ and you believe that the removed API should remain available,
 please open a new issue to request a public C API
 and add cc: @vstinner to the issue to notify Victor Stinner.
 (Contributed by Victor Stinner in gh-106320 .)
-_Py
-_PY
 cc: @vstinner
 Remove old buffer protocols deprecated in Python 3.0.
 Use Buffer Protocol instead. PyObject_CheckReadBuffer() :
@@ -4781,10 +4636,6 @@ To replace PyEval_CallObjectWithKeywords(func, NULL, kwargs) with PyObject_Call(
 pass an empty tuple as positional arguments using PyTuple_New(0) .
 PyObject_Call()
 tuple
-NULL
-dict
-NULL
-NULL
 PyEval_CallObjectWithKeywords(func, NULL, kwargs)
 PyObject_Call()
 PyTuple_New(0)
@@ -5125,7 +4976,6 @@ Use PyCodec_Decode() instead; Note that some codecs (for example, “base64”)
 may return a type other than str , such as bytes .
 PyUnicode_AsDecodedUnicode()
 PyCodec_Decode()
-str
 bytes
 PyUnicode_AsEncodedObject() :
 Use PyCodec_Encode() instead.
@@ -5142,7 +4992,6 @@ may return a type other than bytes , such as str .
 PyUnicode_AsEncodedUnicode()
 PyCodec_Encode()
 bytes
-str
 Python initialization functions, deprecated in Python 3.13: Py_GetPath() :
 Use PyConfig_Get("module_search_paths") ( sys.path ) instead. Py_GetPrefix() :
 Use PyConfig_Get("base_prefix") ( sys.base_prefix ) instead. Use PyConfig_Get("prefix") ( sys.prefix ) if virtual environments need to be handled. Py_GetExecPrefix() :
@@ -5725,7 +5574,6 @@ The configure option --with-system-libmpdec now defaults to yes .
 The bundled copy of libmpdec will be removed in Python 3.16.
 configure
 --with-system-libmpdec
-yes
 libmpdec
 Python built with configure --with-trace-refs (tracing references) is now ABI compatible with the Python release build
 and debug build .
@@ -5739,7 +5587,6 @@ On POSIX systems, the pkg-config ( .pc ) filenames now include the ABI
 flags.  For example, the free-threaded build generates python-3.13t.pc and the debug build generates python-3.13d.pc .
 On POSIX systems, the pkg-config ( .pc ) filenames now include the ABI
 flags.  For example, the free-threaded build generates python-3.13t.pc and the debug build generates python-3.13d.pc .
-.pc
 python-3.13t.pc
 python-3.13d.pc
 The errno , fcntl , grp , md5 , pwd , resource , termios , winsound , _ctypes_test , _multiprocessing.posixshmem , _scproxy , _stat , _statistics , _testconsole , _testimportmultiple and _uuid C extensions are now built with the limited C API .
@@ -5748,9 +5595,6 @@ The errno , fcntl , grp , md5 , pwd , resource , termios , winsound , _ctypes_te
 (Contributed by Victor Stinner in gh-85283 .)
 errno
 fcntl
-grp
-md5
-pwd
 resource
 termios
 winsound
@@ -5809,8 +5653,6 @@ passed an explicit namespace to access their results in an optimized scope.
 locals()
 locals()
 locals()
-exec
-eval
 Calling locals() from a comprehension at module or class scope
 (including via exec or eval ) once more behaves as if the comprehension
 were running as an independent nested function (i.e. the local variables from
@@ -5822,8 +5664,6 @@ were running as an independent nested function (i.e. the local variables from
 the containing scope are not included). In Python 3.12, this had changed
 to include the local variables from the containing scope when implementing PEP 709 . (Changed as part of PEP 667 .)
 locals()
-exec
-eval
 Accessing FrameType.f_locals in an optimized scope now returns a write-through proxy rather than a
 snapshot that gets updated at ill-specified times. If a snapshot is desired,
 it must be created explicitly with dict or the proxy’s .copy() method.
@@ -5833,7 +5673,6 @@ snapshot that gets updated at ill-specified times. If a snapshot is desired,
 it must be created explicitly with dict or the proxy’s .copy() method.
 (Changed as part of PEP 667 .)
 FrameType.f_locals
-dict
 .copy()
 functools.partial now emits a FutureWarning when used as a method.
 The behavior will change in future Python versions.
@@ -5864,14 +5703,8 @@ The value of the mode attribute of gzip.GzipFile is now a string ( 'rb' or 'wb' 
 The value of the mode attribute of the readable file-like object
 returned by zipfile.ZipFile.open() is now 'rb' instead of 'r' .
 (Contributed by Serhiy Storchaka in gh-115961 .)
-mode
 gzip.GzipFile
-'rb'
-'wb'
-mode
 zipfile.ZipFile.open()
-'rb'
-'r'
 mailbox.Maildir now ignores files with a leading dot ( . ).
 (Contributed by Zackery Spytz in gh-65559 .)
 mailbox.Maildir now ignores files with a leading dot ( . ).
@@ -5899,7 +5732,6 @@ This function takes no arguments and returns True if the current interpreter is 
 threading
 _thread
 _is_main_interpreter()
-True
 Any library or application that provides a custom _thread module
 must provide _is_main_interpreter() ,
 just like the module’s other “private” attributes.

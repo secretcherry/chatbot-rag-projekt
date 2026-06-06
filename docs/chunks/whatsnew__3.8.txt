@@ -5,8 +5,6 @@ SOURCE: whatsnew\3.8.html
 
 # What’s New In Python 3.8
 
-Editor :
-Raymond Hettinger
 Raymond Hettinger
 This article explains the new features in Python 3.8, compared to 3.7.
 Python 3.8 was released on October 14, 2019.
@@ -145,7 +143,6 @@ pycache_prefix
 __pycache__
 The location of the cache is reported in sys.pycache_prefix ( None indicates the default location in __pycache__ subdirectories).
 sys.pycache_prefix
-None
 __pycache__
 (Contributed by Carl Meyer in bpo-33499 .)
 
@@ -196,7 +193,6 @@ pkg-config python-3.8-embed --libs
 pkg-config python-X.Y-embed --libs
 pkg-config python-X.Y --libs
 --embed
-X.Y
 On the other hand, pkg-config python3.8 --libs no longer contains -lpython3.8 . C extensions must not be linked to libpython (except on
 Android and Cygwin, whose cases are handled by the script);
 this change is backward incompatible on purpose.
@@ -396,8 +392,6 @@ The bool , int , and fractions.Fraction types
 now have an as_integer_ratio() method like that found in float and decimal.Decimal .  This minor API extension
 makes it possible to write numerator, denominator = x.as_integer_ratio() and have it work across multiple numeric types.
 (Contributed by Lisa Roach in bpo-33073 and Raymond Hettinger in bpo-37819 .)
-bool
-int
 fractions.Fraction
 as_integer_ratio()
 float
@@ -411,7 +405,6 @@ Constructors of int , float and complex will now
 use the __index__() special method, if available and the
 corresponding method __int__() , __float__() or __complex__() is not available.
 (Contributed by Serhiy Storchaka in bpo-20092 .)
-int
 float
 complex
 __index__()
@@ -604,8 +597,6 @@ importlib.metadata
 
 ## Improved Modules
 
-### ast
-
 AST nodes now have end_lineno and end_col_offset attributes,
 which give the precise location of the end of the node.  (This only
 applies to nodes that have lineno and col_offset attributes.)
@@ -705,7 +696,6 @@ calling the set_name() method on the task object. The
 task name is visible in the repr() output of asyncio.Task and
 can also be retrieved using the get_name() method.
 (Contributed by Alex Grönholm in bpo-34270 .)
-name
 asyncio.create_task()
 create_task()
 set_name()
@@ -740,7 +730,6 @@ result to the desired type: OrderedDict(nt._asdict()) .
 (Contributed by Raymond Hettinger in bpo-35864 .)
 _asdict()
 collections.namedtuple()
-dict
 collections.OrderedDict
 OrderedDict
 OrderedDict(nt._asdict())
@@ -756,15 +745,11 @@ import cProfile with cProfile . Profile () as profiler : # code to be profiled .
 [/CODE]
 
 (Contributed by Scott Sanderson in bpo-29235 .)
-
-### csv
-
 The csv.DictReader now returns instances of dict instead of
 a collections.OrderedDict .  The tool is now faster and uses less
 memory while still preserving the field order.
 (Contributed by Michael Selik in bpo-34003 .)
 csv.DictReader
-dict
 collections.OrderedDict
 
 ### curses
@@ -782,7 +767,6 @@ set to only load DLL dependencies from trusted locations, including the path
 where the DLL is stored (if a full or partial path is used to load the initial
 DLL) and paths added by add_dll_directory() .
 (Contributed by Steve Dower in bpo-36085 .)
-CDLL
 LoadLibraryEx
 add_dll_directory()
 
@@ -793,7 +777,6 @@ these are the inverse of each class’s isocalendar method.
 (Contributed by Paul Ganssle in bpo-36004 .)
 datetime.date.fromisocalendar()
 datetime.datetime.fromisocalendar()
-date
 datetime
 isocalendar
 
@@ -836,9 +819,6 @@ get_objects()
 Added pgettext() and its variants.
 (Contributed by Franz Glasner, Éric Araujo, and Cheryl Sabella in bpo-2504 .)
 pgettext()
-
-### gzip
-
 Added the mtime parameter to gzip.compress() for reproducible output.
 (Contributed by Guo Ci Teo in bpo-34898 .)
 gzip.compress()
@@ -887,7 +867,6 @@ This provides documentation options similar to what we already have
 for property() , classmethod() , and staticmethod() :
 inspect.getdoc()
 __slots__
-dict
 property()
 classmethod()
 staticmethod()
@@ -900,7 +879,6 @@ class AudioClip : __slots__ = { 'bit_rate' : 'expressed in kilohertz to one deci
 In development mode ( -X env ) and in debug build , the io.IOBase finalizer now logs the exception if the close() method
 fails. The exception is ignored silently by default in release build.
 (Contributed by Victor Stinner in bpo-18748 .)
-env
 io.IOBase
 close()
 
@@ -936,9 +914,6 @@ logging configuration options using the interactive prompt or a Jupyter
 notebook.
 (Suggested by Raymond Hettinger, implemented by Donghee Na, and
 reviewed by Vinay Sajip in bpo-33897 .)
-
-### math
-
 Added new function math.dist() for computing Euclidean distance
 between two points.  (Contributed by Raymond Hettinger in bpo-33089 .)
 math.dist()
@@ -982,9 +957,6 @@ math.sqrt()
 The function math.factorial() no longer accepts arguments that are not
 int-like. (Contributed by Pablo Galindo in bpo-33083 .)
 math.factorial()
-
-### mmap
-
 The mmap.mmap class now has an madvise() method to
 access the madvise() system call.
 (Contributed by Zackery Spytz in bpo-32941 .)
@@ -1056,11 +1028,9 @@ for regular user accounts.
 (Contributed by Anthony Sottile in bpo-36264 .)
 expanduser()
 USERPROFILE
-HOME
 isdir() on Windows no longer returns True for a link to a
 non-existent directory.
 isdir()
-True
 realpath() on Windows now resolves reparse points, including
 symlinks and directory junctions.
 realpath()
@@ -1173,9 +1143,6 @@ The socket.if_nameindex() , socket.if_nametoindex() , and socket.if_indextoname(
 socket.if_nameindex()
 socket.if_nametoindex()
 socket.if_indextoname()
-
-### ssl
-
 Added post_handshake_auth to enable and verify_client_post_handshake() to initiate TLS 1.3
 post-handshake authentication.
 (Contributed by Christian Heimes in bpo-34670 .)
@@ -1205,8 +1172,6 @@ statistics.NormalDist
 [CODE]
 >>> temperature_feb = NormalDist . from_samples ([ 4 , 12 , - 3 , 2 , 7 , 14 ]) >>> temperature_feb . mean 6.0 >>> temperature_feb . stdev 6.356099432828281 >>> temperature_feb . cdf ( 3 ) # Chance of being under 3 degrees 0.3184678262814532 >>> # Relative chance of being 7 degrees versus 10 degrees >>> temperature_feb . pdf ( 7 ) / temperature_feb . pdf ( 10 ) 1.2039930378537762 >>> el_niño = NormalDist ( 4 , 2.5 ) >>> temperature_feb += el_niño # Add in a climate effect >>> temperature_feb NormalDist(mu=10.0, sigma=6.830080526611674) >>> temperature_feb * ( 9 / 5 ) + 32 # Convert to Fahrenheit NormalDist(mu=50.0, sigma=12.294144947901014) >>> temperature_feb . samples ( 3 ) # Generate random samples [7.672102882379219, 12.000027119750287, 4.647488369766392]
 [/CODE]
-
-### sys
 
 Add new sys.unraisablehook() function which can be overridden to control
 how “unraisable exceptions” are handled. It is called when an exception has
@@ -1271,9 +1236,6 @@ Zackery Spytz in bpo-25451 .)
 tkinter.PhotoImage
 transparency_get()
 transparency_set()
-
-### time
-
 Added new clock CLOCK_UPTIME_RAW for macOS 10.12.
 (Contributed by Joannah Nanjekye in bpo-35702 .)
 CLOCK_UPTIME_RAW
@@ -1348,7 +1310,6 @@ Added AsyncMock to support an asynchronous version of Mock .  Appropriate new as
 have been added as well.
 (Contributed by Lisa Roach in bpo-26467 ).
 AsyncMock
-Mock
 Added addModuleCleanup() and addClassCleanup() to unittest to support
 cleanups for setUpModule() and setUpClass() .
 (Contributed by Lisa Roach in bpo-24412 .)
@@ -1369,12 +1330,9 @@ Example:
 import unittest class TestRequest ( unittest . IsolatedAsyncioTestCase ): async def asyncSetUp ( self ): self . connection = await AsyncConnection () async def test_get ( self ): response = await self . connection . get ( "https://example.com" ) self . assertEqual ( response . status_code , 200 ) async def asyncTearDown ( self ): await self . connection . close () if __name__ == "__main__" : unittest . main ()
 [/CODE]
 
-### venv
-
 venv now includes an Activate.ps1 script on all platforms for
 activating virtual environments under PowerShell Core 6.1.
 (Contributed by Brett Cannon in bpo-32718 .)
-venv
 Activate.ps1
 
 ### weakref
@@ -1383,9 +1341,6 @@ The proxy objects returned by weakref.proxy() now support the matrix
 multiplication operators @ and @= in addition to the other
 numeric operators. (Contributed by Mark Dickinson in bpo-36669 .)
 weakref.proxy()
-
-### xml
-
 As mitigation against DTD and external entity retrieval, the xml.dom.minidom and xml.sax modules no longer process
 external entities by default.
 (Contributed by Christian Heimes in bpo-17239 .)
@@ -1539,7 +1494,6 @@ The list constructor does not overallocate the internal item buffer
 if the input iterable has a known length (the input implements __len__ ).
 This makes the created list 12% smaller on average. (Contributed by
 Raymond Hettinger and Pablo Galindo in bpo-33234 .)
-list
 __len__
 Doubled the speed of class variable writes.  When a non-dunder attribute
 was updated, there was an unnecessary call to update slots.
@@ -1613,8 +1567,6 @@ public API, with some private API prefixed by _Py or _PY .
 Include/cpython/*.h should be the unstable C API specific to CPython;
 public API, with some private API prefixed by _Py or _PY .
 Include/cpython/*.h
-_Py
-_PY
 Include/internal/*.h is the private internal C API very specific to
 CPython. This API comes with no backward compatibility warranty and should
 not be used outside CPython. It is only exposed for very specific needs
@@ -1705,7 +1657,6 @@ available.
 (Contributed by Serhiy Storchaka in bpo-36048 and bpo-20092 .)
 PyLong_AsLong()
 PyArg_ParseTuple()
-'i'
 __index__()
 __int__()
 __int__()
@@ -1807,9 +1758,6 @@ versions. Constant should be used instead.
 ast classes Num , Str , Bytes , NameConstant and Ellipsis are considered deprecated and will be removed in future Python
 versions. Constant should be used instead.
 (Contributed by Serhiy Storchaka in bpo-32892 .)
-ast
-Num
-Str
 Bytes
 NameConstant
 Ellipsis
@@ -1998,9 +1946,7 @@ from the urllib.parse and html modules instead.
 parse_qs
 parse_qsl
 escape
-cgi
 urllib.parse
-html
 filemode function is removed from the tarfile module.
 It is not documented and deprecated since Python 3.3.
 filemode function is removed from the tarfile module.
@@ -2064,7 +2010,6 @@ in the leftmost for clause).
 (Contributed by Serhiy Storchaka in bpo-10544 .)
 yield
 yield from
-for
 The compiler now produces a SyntaxWarning when identity checks
 ( is and is not ) are used with certain types of literals
 (e.g. strings, numbers).  These can often work by accident in CPython,
@@ -2098,8 +2043,6 @@ As result, defining the __repr__() method in the subclass of these
 classes will affect their string representation.
 (Contributed by Serhiy Storchaka in bpo-36793 .)
 __str__
-bool
-int
 float
 complex
 __str__()
@@ -2232,10 +2175,7 @@ A dbm.dumb database opened with flags 'r' is now read-only. dbm.dumb.open() with
 a database if it does not exist.
 (Contributed by Serhiy Storchaka in bpo-32749 .)
 dbm.dumb
-'r'
 dbm.dumb.open()
-'r'
-'w'
 The doctype() method defined in a subclass of XMLParser will no longer be called and will
 emit a RuntimeWarning instead of a DeprecationWarning .
 Define the doctype() method on a target for handling an XML doctype declaration.
@@ -2316,7 +2256,6 @@ zero was returned on error under Windows.  A zero value was returned on
 success; an exception was raised on error under Unix.
 (Contributed by Berker Peksag in bpo-2122 .)
 mmap.flush()
-None
 xml.dom.minidom and xml.sax modules no longer process
 external entities by default.
 (Contributed by Christian Heimes in bpo-17239 .)
@@ -2329,7 +2268,6 @@ Deleting a key from a read-only dbm database ( dbm.dumb , dbm.gnu or dbm.ndbm ) 
 (Contributed by Xiang Zhang in bpo-33106 .)
 Deleting a key from a read-only dbm database ( dbm.dumb , dbm.gnu or dbm.ndbm ) raises error ( dbm.dumb.error , dbm.gnu.error or dbm.ndbm.error ) instead of KeyError .
 (Contributed by Xiang Zhang in bpo-33106 .)
-dbm
 dbm.dumb
 dbm.gnu
 dbm.ndbm
@@ -2345,8 +2283,6 @@ Simplified AST for literals.  All constants will be represented as ast.Constant 
 an instance of Constant .
 (Contributed by Serhiy Storchaka in bpo-32892 .)
 ast.Constant
-Num
-Str
 Bytes
 NameConstant
 Ellipsis
@@ -2359,7 +2295,6 @@ set for regular user accounts.
 (Contributed by Anthony Sottile in bpo-36264 .)
 expanduser()
 USERPROFILE
-HOME
 The exception asyncio.CancelledError now inherits from BaseException rather than Exception and no longer inherits
 from concurrent.futures.CancelledError .
 (Contributed by Yury Selivanov in bpo-32528 .)
@@ -2412,7 +2347,6 @@ by the installer).
 (Contributed by Steve Dower in bpo-36085 .)
 ctypes
 add_dll_directory()
-PATH
 add_dll_directory()
 The header files and functions related to pgen have been removed after its
 replacement by a pure Python implementation. (Contributed by Pablo Galindo
@@ -2578,7 +2512,6 @@ The functions PyNode_AddChild() and PyParser_AddToken() now accept
 two additional int arguments end_lineno and end_col_offset .
 PyNode_AddChild()
 PyParser_AddToken()
-int
 The libpython38.a file to allow MinGW tools to link directly against python38.dll is no longer included in the regular Windows distribution.
 If you require this file, it may be generated with the gendef and dlltool tools, which are part of the MinGW binutils package: gendef - python38.dll > tmp.def
 dlltool --dllname python38.dll --def tmp.def --output-lib libpython38.a The location of an installed pythonXY.dll will depend on the
@@ -2601,7 +2534,6 @@ installation options and the version and language of Windows. See Using Python o
 placed in the same directory as pythonXY.lib , which is generally the libs directory under your Python installation.
 pythonXY.dll
 pythonXY.lib
-libs
 (Contributed by Steve Dower in bpo-37351 .)
 
 ### CPython bytecode changes
@@ -2751,7 +2683,6 @@ channel.  We reuse the ftp server IP address instead.  For unusual code
 requiring the old behavior, set a trust_server_pasv_ipv4_address attribute on your FTP instance to True .  (See gh-87451 )
 ftplib.FTP
 trust_server_pasv_ipv4_address
-True
 
 ## Notable changes in Python 3.8.10
 
@@ -2813,10 +2744,7 @@ This limit can be configured or disabled by environment variable, command
 line flag, or sys APIs. See the integer string conversion
 length limitation documentation.  The default limit
 is 4300 digits in string form.
-int
-str
 ValueError
-sys
 
 ## Notable changes in 3.8.17
 

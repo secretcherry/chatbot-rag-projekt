@@ -5,8 +5,6 @@ SOURCE: whatsnew\3.6.html
 
 # What’s New In Python 3.6
 
-Editors :
-Elvis Pranskevichus < elvis @ magic . io >, Yury Selivanov < yury @ magic . io >
 Elvis Pranskevichus < elvis @ magic . io >, Yury Selivanov < yury @ magic . io >
 This article explains the new features in Python 3.6, compared to 3.5.
 Python 3.6 was released on December 23, 2016.  See the changelog for a full
@@ -110,12 +108,10 @@ os.urandom()
 The hashlib and ssl modules now support OpenSSL 1.1.0.
 The hashlib and ssl modules now support OpenSSL 1.1.0.
 hashlib
-ssl
 The default settings and feature set of the ssl module have been
 improved.
 The default settings and feature set of the ssl module have been
 improved.
-ssl
 The hashlib module received support for the BLAKE2, SHA-3 and SHAKE
 hash algorithms and the scrypt() key derivation function.
 The hashlib module received support for the BLAKE2, SHA-3 and SHAKE
@@ -165,7 +161,6 @@ Formatted string literals are prefixed with 'f' and are similar to
 the format strings accepted by str.format() .  They contain replacement
 fields surrounded by curly braces.  The replacement fields are expressions,
 which are evaluated at run time, and then formatted using the format() protocol:
-'f'
 str.format()
 format()
 
@@ -174,8 +169,6 @@ format()
 [/CODE]
 
 See also
-PEP 498 – Literal String Interpolation.
-PEP written and implemented by Eric V. Smith.
 PEP written and implemented by Eric V. Smith.
 Feature documentation .
 
@@ -198,9 +191,6 @@ type metadata for third party tools and libraries via the abstract syntax tree
 and the __annotations__ attribute.
 __annotations__
 See also
-PEP 526 – Syntax for variable annotations.
-PEP written by Ryan Gonzalez, Philip House, Ivan Levkivskyi, Lisa Roach,
-and Guido van Rossum. Implemented by Ivan Levkivskyi.
 PEP written by Ryan Gonzalez, Philip House, Ivan Levkivskyi, Lisa Roach,
 and Guido van Rossum. Implemented by Ivan Levkivskyi.
 Tools that use or will use the new syntax: mypy , pytype , PyCharm, etc.
@@ -222,20 +212,12 @@ for the '_' option to signal the use of an underscore for a thousands
 separator for floating-point presentation types and for integer
 presentation type 'd' .  For integer presentation types 'b' , 'o' , 'x' , and 'X' , underscores will be inserted every 4
 digits:
-'_'
-'d'
-'b'
-'o'
-'x'
-'X'
 
 [CODE]
 >>> '{:_}' . format ( 1000000 ) '1_000_000' >>> '{:_x}' . format ( 0xFFFFFFFF ) 'ffff_ffff'
 [/CODE]
 
 See also
-PEP 515 – Underscores in Numeric Literals
-PEP written by Georg Brandl and Serhiy Storchaka.
 PEP written by Georg Brandl and Serhiy Storchaka.
 
 ### PEP 525: Asynchronous Generators
@@ -255,8 +237,6 @@ async def ticker ( delay , to ): """Yield numbers from 0 to *to* every *delay* s
 
 The new syntax allows for faster and more concise code.
 See also
-PEP 525 – Asynchronous Generators
-PEP written and implemented by Yury Selivanov.
 PEP written and implemented by Yury Selivanov.
 
 ### PEP 530: Asynchronous Comprehensions
@@ -278,8 +258,6 @@ result = [ await fun () for fun in funcs if await condition ()]
 [/CODE]
 
 See also
-PEP 530 – Asynchronous Comprehensions
-PEP written and implemented by Yury Selivanov.
 PEP written and implemented by Yury Selivanov.
 
 ### PEP 487: Simpler customization of class creation
@@ -300,8 +278,6 @@ __init_subclass__()
 __classcell__
 type.__new__
 See also
-PEP 487 – Simpler customization of class creation
-PEP written and implemented by Martin Teichmann.
 PEP written and implemented by Martin Teichmann.
 Feature documentation
 
@@ -320,8 +296,6 @@ class IntField : def __get__ ( self , instance , owner ): return instance . __di
 [/CODE]
 
 See also
-PEP 487 – Simpler customization of class creation
-PEP written and implemented by Martin Teichmann.
 PEP written and implemented by Martin Teichmann.
 Feature documentation
 
@@ -334,9 +308,7 @@ does not count as that is not a file path). Unfortunately that
 assumption prevents alternative object representations of file system
 paths like pathlib from working with pre-existing code,
 including Python’s standard library.
-str
 bytes
-int
 pathlib
 To fix this situation, a new interface represented by os.PathLike has been defined. By implementing the __fspath__() method, an object signals that it
 represents a path. An object can then provide a low-level
@@ -345,15 +317,12 @@ which represents a file system path. Code can use os.fspath() , os.fsdecode() , 
 object.
 os.PathLike
 __fspath__()
-str
 bytes
 os.PathLike
-str
 bytes
 os.fspath()
 os.fsdecode()
 os.fsencode()
-str
 bytes
 The built-in open() function has been updated to accept os.PathLike objects, as have all relevant functions in the os and os.path modules, and most other functions and
 classes in the standard library.  The os.DirEntry class
@@ -381,8 +350,6 @@ pathlib.Path
 
 (Implemented by Brett Cannon, Ethan Furman, Dusty Phillips, and Jelle Zijlstra.)
 See also
-PEP 519 – Adding a file system path protocol
-PEP written by Brett Cannon and Koos Zevenhoven.
 PEP written by Brett Cannon and Koos Zevenhoven.
 
 ### PEP 495: Local Time Disambiguation
@@ -404,11 +371,7 @@ datetime.time
 The values of the fold attribute have the
 value 0 for all instances except those that represent the second
 (chronologically) moment in time in an ambiguous case.
-fold
 See also
-PEP 495 – Local Time Disambiguation
-PEP written by Alexander Belopolsky and Tim Peters, implementation
-by Alexander Belopolsky.
 PEP written by Alexander Belopolsky and Tim Peters, implementation
 by Alexander Belopolsky.
 
@@ -443,8 +406,6 @@ redirecting files or pipes. To revert to the previous behaviour for interactive
 console use, set PYTHONLEGACYWINDOWSSTDIO .
 PYTHONLEGACYWINDOWSSTDIO
 See also
-PEP 528 – Change Windows console encoding to UTF-8
-PEP written and implemented by Steve Dower.
 PEP written and implemented by Steve Dower.
 
 ### PEP 520: Preserving Class Attribute Definition Order
@@ -456,8 +417,6 @@ __dict__
 Also, the effective default class execution namespace (returned from type.__prepare__() ) is now an insertion-order-preserving
 mapping.
 See also
-PEP 520 – Preserving Class Attribute Definition Order
-PEP written and implemented by Eric Snow.
 PEP written and implemented by Eric Snow.
 
 ### PEP 468: Preserving Keyword Argument Order
@@ -466,8 +425,6 @@ PEP written and implemented by Eric Snow.
 insertion-order-preserving mapping.
 **kwargs
 See also
-PEP 468 – Preserving Keyword Argument Order
-PEP written and implemented by Eric Snow.
 PEP written and implemented by Eric Snow.
 
 ### New dict implementation
@@ -505,8 +462,6 @@ signal that usage of this API is expected to be limited and only
 applicable to very select, low-level use-cases. Semantics of the
 API will change with Python as necessary.
 See also
-PEP 523 – Adding a frame evaluation API to CPython
-PEP written by Brett Cannon and Dino Viehland.
 PEP written by Brett Cannon and Dino Viehland.
 
 ### PYTHONMALLOC environment variable
@@ -519,10 +474,8 @@ compiled in release mode using PYTHONMALLOC=debug . Effects of debug hooks:
 PYTHONMALLOC=debug
 Newly allocated memory is filled with the byte 0xCB
 Newly allocated memory is filled with the byte 0xCB
-0xCB
 Freed memory is filled with the byte 0xDB
 Freed memory is filled with the byte 0xDB
-0xDB
 Detect violations of the Python memory allocator API. For example, PyObject_Free() called on a memory block allocated by PyMem_Malloc() .
 Detect violations of the Python memory allocator API. For example, PyObject_Free() called on a memory block allocated by PyMem_Malloc() .
 PyObject_Free()
@@ -601,9 +554,7 @@ It is now possible to set a special method to None to indicate that the correspo
 For example, if a class sets __iter__() to None , the class
 is not iterable.
 (Contributed by Andrew Barnert and Ivan Levkivskyi in bpo-25958 .)
-None
 __iter__()
-None
 Long sequences of repeated traceback lines are now abbreviated as "[Previous line repeated {count} more times]" (see traceback for an example).
 (Contributed by Emanuel Barry in bpo-26823 .)
 Long sequences of repeated traceback lines are now abbreviated as "[Previous line repeated {count} more times]" (see traceback for an example).
@@ -640,8 +591,6 @@ random
 secrets
 os.urandom()
 See also
-PEP 506 – Adding A Secrets Module To The Standard Library
-PEP written and implemented by Steven D’Aprano.
 PEP written and implemented by Steven D’Aprano.
 
 ## Improved Modules
@@ -653,9 +602,6 @@ if the iterated array is extended.  This is consistent with the behavior
 of other mutable sequences.
 array.array
 Contributed by Serhiy Storchaka in bpo-26492 .
-
-### ast
-
 The new ast.Constant AST node has been added.  It can be used
 by external AST optimizers for the purposes of constant folding.
 ast.Constant
@@ -780,7 +726,6 @@ Future and Task classes now have an optimized C implementation which makes async
 code up to 30% faster.
 (Contributed by Yury Selivanov and INADA Naoki in bpo-26081 and bpo-28544 .)
 Future
-Task
 
 ### binascii
 
@@ -849,7 +794,6 @@ class has been added to the typing module as typing.ContextManager .
 (Contributed by Brett Cannon in bpo-25609 .)
 contextlib.AbstractContextManager
 __enter__()
-self
 __exit__()
 typing
 typing.ContextManager
@@ -864,8 +808,6 @@ See Local Time Disambiguation section for more
 information.
 (Contributed by Alexander Belopolsky in bpo-24773 .)
 datetime
-time
-fold
 datetime
 The datetime.strftime() and date.strftime() methods now support
 ISO 8601 date directives %G , %u and %V .
@@ -938,14 +880,9 @@ CP_OEMCP
 'ansi'
 'mbcs'
 CP_ACP
-
-### enum
-
 Two new enumeration base classes have been added to the enum module: Flag and IntFlag .  Both are used to define
 constants that can be combined using the bitwise operators.
 (Contributed by Ethan Furman in bpo-23591 .)
-enum
-Flag
 IntFlag
 Many standard library modules have been updated to use the IntFlag class for their constants.
 IntFlag
@@ -1094,9 +1031,6 @@ code. (Contributed by Nick Coghlan in bpo-27172 )
 inspect.getargspec()
 inspect.getfullargspec()
 inspect.signature()
-
-### json
-
 json.load() and json.loads() now support binary input.  Encoded
 JSON should be represented using either UTF-8, UTF-16, or UTF-32.
 (Contributed by Serhiy Storchaka in bpo-17909 .)
@@ -1109,12 +1043,8 @@ The new WatchedFileHandler.reopenIfNeeded() method has been added to add the abi
 be reopened.
 (Contributed by Marian Horban in bpo-24884 .)
 WatchedFileHandler.reopenIfNeeded()
-
-### math
-
 The tau ( τ ) constant has been added to the math and cmath modules.
 (Contributed by Lisa Roach in bpo-12345 , see PEP 628 for details.)
-math
 cmath
 
 ### multiprocessing
@@ -1149,12 +1079,8 @@ pathlib now supports path-like objects .
 (Contributed by Brett Cannon in bpo-27186 .)
 pathlib
 See the summary of PEP 519 for details.
-
-### pdb
-
 The Pdb class constructor has a new optional readrc argument
 to control whether .pdbrc files should be read.
-Pdb
 .pdbrc
 
 ### pickle
@@ -1231,14 +1157,10 @@ The shlex has much improved shell compatibility through the new punctuation_char
 are treated as punctuation.
 (Contributed by Vinay Sajip in bpo-1521950 .)
 shlex
-
-### site
-
 When specifying paths to add to sys.path in a .pth file,
 you may now specify file paths on top of directories (e.g. zip files).
 (Contributed by Wolfgang Langner in bpo-26587 ).
 sys.path
-.pth
 
 ### sqlite3
 
@@ -1293,12 +1215,8 @@ wfile
 StreamRequestHandler
 io.BufferedIOBase
 write()
-
-### ssl
-
 ssl supports OpenSSL 1.1.0.  The minimum recommend version is 1.0.2.
 (Contributed by Christian Heimes in bpo-26470 .)
-ssl
 3DES has been removed from the default cipher suites and ChaCha20 Poly1305
 cipher suites have been added.
 (Contributed by Christian Heimes in bpo-27850 and bpo-27766 .)
@@ -1339,7 +1257,6 @@ harmonic_mean()
 struct now supports IEEE 754 half-precision floats via the 'e' format specifier.
 (Contributed by Eli Stevens, Mark Dickinson in bpo-11734 .)
 struct
-'e'
 
 ### subprocess
 
@@ -1355,9 +1272,6 @@ through to it now accept encoding and errors arguments. Specifying either
 of these will enable text mode for the stdin , stdout and stderr streams.
 (Contributed by Steve Dower in bpo-6135 .)
 subprocess.Popen
-
-### sys
-
 The new getfilesystemencodeerrors() function returns the name of
 the error mode used to convert between Unicode filenames and bytes filenames.
 (Contributed by Steve Dower in bpo-27781 .)
@@ -1374,9 +1288,6 @@ getwindowsversion()
 telnetlib.Telnet is now a context manager (contributed by
 Stéphane Wirtel in bpo-25485 ).
 telnetlib.Telnet
-
-### time
-
 The struct_time attributes tm_gmtoff and tm_zone are now available on all platforms.
 struct_time
 tm_gmtoff
@@ -1461,7 +1372,6 @@ typing.ClassVar
 A new TYPE_CHECKING constant that is assumed to be True by the static type checkers, but is False at runtime.
 (Contributed by Guido van Rossum in Github #230 .)
 TYPE_CHECKING
-True
 False
 A new NewType() helper function has been added to create
 lightweight distinct types for annotations:
@@ -1483,7 +1393,6 @@ unicodedata
 ### unittest.mock
 
 The Mock class has the following improvements:
-Mock
 Two new methods, Mock.assert_called() and Mock.assert_called_once() to check if the mock object
 was called.
 (Contributed by Amit Saha in bpo-26323 .)
@@ -1516,13 +1425,9 @@ RobotFileParser now supports the Crawl-delay and Request-rate extensions.
 RobotFileParser
 Crawl-delay
 Request-rate
-
-### venv
-
 venv accepts a new parameter --prompt . This parameter provides an
 alternative prefix for the virtual environment. (Proposed by Łukasz Balcerzak
 and ported to 3.6 by Stéphane Wirtel in bpo-22829 .)
-venv
 --prompt
 
 ### warnings
@@ -1562,7 +1467,6 @@ REG_QWORD
 ### winsound
 
 Allowed keyword arguments to be passed to Beep , MessageBeep , and PlaySound ( bpo-27982 ).
-Beep
 MessageBeep
 PlaySound
 
@@ -1573,7 +1477,6 @@ additional data types used by the Apache XML-RPC implementation
 for numerics and None .
 (Contributed by Serhiy Storchaka in bpo-26885 .)
 xmlrpc.client
-None
 
 ### zipfile
 
@@ -1590,9 +1493,6 @@ The ZipFile.open() method can now be used to
 write data into a ZIP file, as well as for extracting data.
 (Contributed by Thomas Kluyver in bpo-26039 .)
 ZipFile.open()
-
-### zlib
-
 The compress() and decompress() functions now accept
 keyword arguments.
 (Contributed by Aviv Palivoda in bpo-26243 and
@@ -1710,7 +1610,6 @@ Optimized glob() and iglob() functions in the glob module; they are now about 3�
 (Contributed by Serhiy Storchaka in bpo-25596 ).
 glob()
 iglob()
-glob
 Optimized globbing in pathlib by using os.scandir() ;
 it is now about 1.5–4 times faster.
 (Contributed by Serhiy Storchaka in bpo-26032 ).
@@ -1890,18 +1789,12 @@ The asyncore has been deprecated in favor of asyncio .
 (Contributed by Mariatta in bpo-25002 .)
 asyncore
 asyncio
-
-#### dbm
-
 Unlike other dbm implementations, the dbm.dumb module
 creates databases with the 'rw' mode and allows modifying the database
 opened with the 'r' mode.  This behavior is now deprecated and will
 be removed in 3.8.
 (Contributed by Serhiy Storchaka in bpo-21708 .)
-dbm
 dbm.dumb
-'rw'
-'r'
 
 #### distutils
 
@@ -1910,9 +1803,6 @@ and will raise a warning if set.   Support for this parameter will be
 removed in a future Python release.  See bpo-27919 for details.
 extra_path
 distutils.Distribution
-
-#### grp
-
 The support of non-integer arguments in getgrgid() has been
 deprecated.
 (Contributed by Serhiy Storchaka in bpo-26129 .)
@@ -1942,13 +1832,9 @@ expression has been deprecated and will be removed in a future Python
 version.  Flags at the start of a regular expression are still allowed.
 (Contributed by Serhiy Storchaka in bpo-22493 .)
 (?letters)
-
-#### ssl
-
 OpenSSL 0.9.8, 1.0.0 and 1.0.1 are deprecated and no longer supported.
 In the future the ssl module will require at least OpenSSL 1.0.2 or
 1.1.0.
-ssl
 SSL-related arguments like certfile , keyfile and check_hostname in ftplib , http.client , imaplib , poplib ,
 and smtplib have been deprecated in favor of context .
 (Contributed by Christian Heimes in bpo-28022 .)
@@ -1965,7 +1851,6 @@ A couple of protocols and functions of the ssl module are now
 deprecated. Some features will no longer be available in future versions
 of OpenSSL. Other features are deprecated in favor of a different API.
 (Contributed by Christian Heimes in bpo-28022 and bpo-26470 .)
-ssl
 
 #### tkinter
 
@@ -1974,9 +1859,6 @@ should use tkinter.ttk instead.
 tkinter.tix
 tkinter
 tkinter.ttk
-
-#### venv
-
 The pyvenv script has been deprecated in favour of python3 -m venv .
 This prevents confusion as to what Python interpreter pyvenv is
 connected to and thus what Python interpreter will be used by the virtual
@@ -1984,9 +1866,6 @@ environment.  (Contributed by Brett Cannon in bpo-25154 .)
 pyvenv
 python3 -m venv
 pyvenv
-
-### xml
-
 As mitigation against DTD and external entity retrieval, the xml.dom.minidom and xml.sax modules no longer process
 external entities by default.
 (Contributed by Christian Heimes in gh-61441 .)
@@ -2026,7 +1905,6 @@ The re.LOCALE flag can now only be used with binary patterns.
 Unknown escapes consisting of '\' and an ASCII letter in
 regular expressions will now cause an error.  In replacement templates for re.sub() they are still allowed, but deprecated.
 The re.LOCALE flag can now only be used with binary patterns.
-'\'
 re.sub()
 re.LOCALE
 inspect.getmoduleinfo() was removed (was deprecated since CPython 3.3). inspect.getmodulename() should be used for obtaining the module
@@ -2063,7 +1941,6 @@ The open() method of the zipfile.ZipFile class no longer supports the 'U' mode (
 Use io.TextIOWrapper for reading compressed text files in universal newlines mode.
 open()
 zipfile.ZipFile
-'U'
 io.TextIOWrapper
 The undocumented IN , CDROM , DLFCN , TYPES , CDIO , and STROPTS modules have been removed.  They had been available in the
 platform specific Lib/plat-*/ directories, but were chronically out of
@@ -2078,7 +1955,6 @@ distribution at Tools/scripts/h2py.py .
 CDROM
 DLFCN
 TYPES
-CDIO
 STROPTS
 Lib/plat-*/
 The deprecated asynchat.fifo class has been removed.
@@ -2116,8 +1992,6 @@ open() will no longer allow combining the 'U' mode flag
 with '+' .
 (Contributed by Jeff Balogh and John O’Connor in bpo-2091 .)
 open()
-'U'
-'+'
 sqlite3 no longer implicitly commits an open transaction before DDL
 statements.
 sqlite3 no longer implicitly commits an open transaction before DDL
@@ -2136,7 +2010,6 @@ PyErr_SetImportError() now sets TypeError when its msg argument is not set. Prev
 PyErr_SetImportError() now sets TypeError when its msg argument is not set. Previously only NULL was returned.
 PyErr_SetImportError()
 TypeError
-NULL
 The format of the co_lnotab attribute of code objects
 changed to support
 a negative line number delta. By default, Python does not emit bytecode with
@@ -2175,14 +2048,11 @@ returning None .  See bpo-20059 .
 Reading the port attribute of urllib.parse.urlsplit() and urlparse() results
 now raises ValueError for out-of-range values, rather than
 returning None .  See bpo-20059 .
-port
 urllib.parse.urlsplit()
 urlparse()
 ValueError
-None
 The imp module now raises a DeprecationWarning instead of PendingDeprecationWarning .
 The imp module now raises a DeprecationWarning instead of PendingDeprecationWarning .
-imp
 DeprecationWarning
 PendingDeprecationWarning
 The following modules have had missing APIs added to their __all__ attributes to match the documented APIs: calendar , cgi , csv , ElementTree , enum , fileinput , ftplib , logging , mailbox , mimetypes , optparse , plistlib , smtpd , subprocess , tarfile , threading and wave .  This means they will export new symbols when import * is used.
@@ -2191,10 +2061,7 @@ The following modules have had missing APIs added to their __all__ attributes to
 (Contributed by Joel Taddei and Jacek Kołodziej in bpo-23883 .)
 __all__
 calendar
-cgi
-csv
 ElementTree
-enum
 fileinput
 ftplib
 logging
@@ -2206,7 +2073,6 @@ smtpd
 subprocess
 tarfile
 threading
-wave
 import *
 When performing a relative import, if __package__ does not compare equal
 to __spec__.parent then ImportWarning is raised.
@@ -2283,12 +2149,10 @@ load()
 loads()
 JSONEncoder
 JSONDecoder
-json
 Subclasses of type which don’t override type.__new__ may no
 longer use the one-argument form to get the type of an object.
 Subclasses of type which don’t override type.__new__ may no
 longer use the one-argument form to get the type of an object.
-type
 type.__new__
 As part of PEP 487 , the handling of keyword arguments passed to type (other than the metaclass hint, metaclass ) is now
 consistently delegated to object.__init_subclass__() . This means that type.__new__ and type.__init__ both now accept arbitrary keyword arguments,
@@ -2300,7 +2164,6 @@ consistently delegated to object.__init_subclass__() . This means that type.__ne
 but object.__init_subclass__() (which is called from type.__new__ ) will reject them by default.
 Custom metaclasses accepting additional keyword arguments will need to adjust
 their calls to type.__new__ (whether direct or via super ) accordingly.
-type
 metaclass
 object.__init_subclass__()
 type.__new__
@@ -2378,7 +2241,6 @@ The imaplib.IMAP4 class now handles flags containing the ']' character in messag
 real-world compatibility.
 (Contributed by Lita Cho in bpo-21815 .)
 imaplib.IMAP4
-']'
 The mmap.mmap.write() function now returns the number
 of bytes written like other write methods.
 (Contributed by Jakub Stasiak in bpo-26335 .)
@@ -2419,7 +2281,6 @@ NotImplementedError
 RuntimeError
 ZipFile
 write()
-'r'
 ValueError
 RuntimeError
 when custom metaclasses are combined with zero-argument super() or
@@ -2624,7 +2485,6 @@ channel.  We reuse the ftp server IP address instead.  For unusual code
 requiring the old behavior, set a trust_server_pasv_ipv4_address attribute on your FTP instance to True .  (See gh-87451 )
 ftplib.FTP
 trust_server_pasv_ipv4_address
-True
 The presence of newline or tab characters in parts of a URL allows for some
 forms of attacks. Following the WHATWG specification that updates RFC 3986,
 ASCII newline \n , \r and tab \t characters are stripped from the

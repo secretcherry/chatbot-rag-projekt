@@ -16,15 +16,8 @@ Chooser
 Chooser
 Chooser
 Dialog
-class tkinter.colorchooser. Chooser ( master = None , ** options )
-tkinter.colorchooser. askcolor ( color = None , ** options )
 Create a color choosing dialog. A call to this method will show the window,
 wait for the user to make a selection, and return the selected color (or None ) to the caller.
-Create a color choosing dialog. A call to this method will show the window,
-wait for the user to make a selection, and return the selected color (or None ) to the caller.
-None
 See also
-Module tkinter.commondialog
 tkinter.commondialog
-Tkinter standard dialog module
 Tkinter standard dialog module

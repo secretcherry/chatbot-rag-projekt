@@ -21,13 +21,7 @@ example:
 There can be zero or more elif parts, and the else part is
 optional.  The keyword ‘ elif ’ is short for ‘else if’, and is useful
 to avoid excessive indentation.  An if … elif … elif … sequence is a substitute for the switch or case statements found in other languages.
-elif
-else
-elif
-elif
-elif
 switch
-case
 If you’re comparing the same value to several constants, or checking for specific types or
 attributes, you may also find the match statement useful. For more
 details see match Statements .
@@ -35,15 +29,12 @@ match
 
 ## 4.2. for Statements
 
-for
 The for statement in Python differs a bit from what you may be used
 to in C or Pascal.  Rather than always iterating over an arithmetic progression
 of numbers (like in Pascal), or giving the user the ability to define both the
 iteration step and halting condition (as C), Python’s for statement
 iterates over the items of any sequence (a list or a string), in the order that
 they appear in the sequence.  For example (no pun intended):
-for
-for
 
 [CODE]
 >>> # Measure some strings: >>> words = [ 'cat' , 'window' , 'defenestrate' ] >>> for w in words : ... print ( w , len ( w )) ... cat 3 window 6 defenestrate 12
@@ -103,7 +94,6 @@ functions and constructs that expect something from which they can
 obtain successive items until the supply is exhausted.  We have seen that
 the for statement is such a construct, while an example of a function
 that takes an iterable is sum() :
-for
 sum()
 
 [CODE]
@@ -121,7 +111,6 @@ break
 continue
 The break statement breaks out of the innermost enclosing for or while loop:
 break
-for
 while
 
 [CODE]
@@ -138,33 +127,24 @@ continue
 
 ## 4.5. else Clauses on Loops
 
-else
 In a for or while loop the break statement
 may be paired with an else clause.  If the loop finishes without
 executing the break , the else clause executes.
-for
 while
 break
-else
 break
-else
 In a for loop, the else clause is executed
 after the loop finishes its final iteration, that is, if no break occurred.
-for
-else
 In a while loop, it’s executed after the loop’s condition becomes false.
 while
 In either kind of loop, the else clause is not executed if the
 loop was terminated by a break .  Of course, other ways of ending the
 loop early, such as a return or a raised exception, will also skip
 execution of the else clause.
-else
 break
 return
-else
 This is exemplified in the following for loop,
 which searches for prime numbers:
-for
 
 [CODE]
 >>> for n in range ( 2 , 10 ): ... for x in range ( 2 , n ): ... if n % x == 0 : ... print ( n , 'equals' , x , '*' , n // x ) ... break ... else : ... # loop fell through without finding a factor ... print ( n , 'is a prime number' ) ... 2 is a prime number 3 is a prime number 4 equals 2 * 2 5 is a prime number 6 equals 2 * 3 7 is a prime number 8 equals 2 * 4 9 equals 3 * 3
@@ -172,32 +152,20 @@ for
 
 (Yes, this is the correct code.  Look closely: the else clause belongs to
 the for loop, not the if statement.)
-else
-for
 One way to think of the else clause is to imagine it paired with the if inside the loop.  As the loop executes, it will run a sequence like
 if/if/if/else. The if is inside the loop, encountered a number of times. If
 the condition is ever true, a break will happen. If the condition is never
 true, the else clause outside the loop will execute.
 break
-else
 When used with a loop, the else clause has more in common with the else clause of a try statement than it does with that of if statements: a try statement’s else clause runs when no exception
 occurs, and a loop’s else clause runs when no break occurs. For more on
 the try statement and exceptions, see Handling Exceptions .
-else
-else
-try
-try
-else
-else
 break
-try
 
 ## 4.6. pass Statements
 
-pass
 The pass statement does nothing. It can be used when a statement is
 required syntactically but the program requires no action. For example:
-pass
 
 [CODE]
 >>> while True : ... pass # Busy-wait for keyboard interrupt (Ctrl+C) ...
@@ -212,8 +180,6 @@ This is commonly used for creating minimal classes:
 Another place pass can be used is as a place-holder for a function or
 conditional body when you are working on new code, allowing you to keep thinking
 at a more abstract level.  The pass is silently ignored:
-pass
-pass
 
 [CODE]
 >>> def initlog ( * args ): ... pass # Remember to implement this! ...
@@ -222,9 +188,6 @@ pass
 For this last case, many people use the ellipsis literal ... instead of pass . This use has no special meaning to Python, and is not part of
 the language definition (you could use any constant expression here), but ... is used conventionally as a placeholder body as well.
 See The Ellipsis Object .
-...
-pass
-...
 
 ## 4.7. match Statements
 
@@ -281,7 +244,6 @@ position for attributes in patterns by setting the __match_args__ special
 attribute in your classes. If it’s set to (“x”, “y”), the following patterns are all
 equivalent (and all bind the y attribute to the var variable):
 __match_args__
-var
 
 [CODE]
 Point ( 1 , var ) Point ( 1 , y = var ) Point ( x = 1 , y = var ) Point ( y = var , x = 1 )
@@ -293,7 +255,6 @@ what.
 Only the standalone names (like var above) are assigned to by a match statement.
 Dotted names (like foo.bar ), attribute names (the x= and y= above) or class names
 (recognized by the “(…)” next to them like Point above) are never assigned to.
-var
 foo.bar
 Point
 Patterns can be arbitrarily nested.  For example, if we have a short
@@ -339,7 +300,6 @@ supported.  (But **_ would be redundant, so it is not allowed.)
 "bandwidth"
 "latency"
 **rest
-**_
 Subpatterns may be captured using the as keyword: case ( Point ( x1 , y1 ), Point ( x2 , y2 ) as p2 ): ... will capture the second element of the input as p2 (as long as the input is
 a sequence of two points)
 Subpatterns may be captured using the as keyword:
@@ -352,9 +312,7 @@ will capture the second element of the input as p2 (as long as the input is
 a sequence of two points)
 Most literals are compared by equality, however the singletons True , False and None are compared by identity.
 Most literals are compared by equality, however the singletons True , False and None are compared by identity.
-True
 False
-None
 Patterns may use named constants.  These must be dotted names
 to prevent them from being interpreted as capture variables: from enum import Enum class Color ( Enum ): RED = 'red' GREEN = 'green' BLUE = 'blue' color = Color ( input ( "Enter your choice of 'red', 'blue' or 'green': " )) match color : case Color . RED : print ( "I see red!" ) case Color . GREEN : print ( "Grass is green" ) case Color . BLUE : print ( "I'm feeling the blues :(" )
 Patterns may use named constants.  These must be dotted names
@@ -379,7 +337,6 @@ The keyword def introduces a function definition .  It must be
 followed by the function name and the parenthesized list of formal parameters.
 The statements that form the body of the function start at the next line, and
 must be indented.
-def
 The first statement of the function body can optionally be a string literal;
 this string literal is the function’s documentation string, or docstring .
 (More about docstrings can be found in the section Documentation Strings .)
@@ -418,10 +375,7 @@ a procedure since it doesn’t return a value.  In fact, even functions without 
 value is called None (it’s a built-in name).  Writing the value None is
 normally suppressed by the interpreter if it would be the only value written.
 You can see it if you really want to using print() :
-fib
 return
-None
-None
 print()
 
 [CODE]
@@ -442,8 +396,6 @@ The return statement returns with a value from a function. return without an exp
 the end of a function also returns None .
 return
 return
-None
-None
 The statement result.append(a) calls a method of the list object result .  A method is a function that ‘belongs’ to an object and is named obj.methodname , where obj is some object (this may be an expression),
 and methodname is the name of a method that is defined by the object’s type.
 Different types define different methods.  Methods of different types may have
@@ -461,7 +413,6 @@ adds a new element at the end of the list.  In this example it is equivalent to 
 result.append(a)
 result
 obj.methodname
-obj
 methodname
 append()
 result = result + [a]
@@ -537,7 +488,6 @@ of the following ways:
 voltage
 state
 action
-type
 
 [CODE]
 parrot ( 1000 ) # 1 positional argument parrot ( voltage = 1000 ) # 1 keyword argument parrot ( voltage = 1000000 , action = 'VOOOOOM' ) # 2 keyword arguments parrot ( action = 'VOOOOOM' , voltage = 1000000 ) # 2 keyword arguments parrot ( 'a million' , 'bereft of life' , 'jump' ) # 3 positional arguments parrot ( 'a thousand' , state = 'pushing up the daisies' ) # 1 positional, 1 keyword
@@ -687,16 +637,13 @@ definition:
 [/CODE]
 
 Finally, consider this function definition which has a potential collision between the positional argument name and **kwds which has name as a key:
-name
 **kwds
-name
 
 [CODE]
 def foo ( name , ** kwds ): return 'name' in kwds
 [/CODE]
 
 There is no possible call that will make it return True as the keyword 'name' will always bind to the first parameter. For example:
-True
 'name'
 
 [CODE]
@@ -704,7 +651,6 @@ True
 [/CODE]
 
 But using / (positional only arguments), it is possible since it allows name as a positional argument and 'name' as a key in the keyword arguments:
-name
 'name'
 
 [CODE]
@@ -841,7 +787,6 @@ list and the colon denoting the end of the def statement.  The
 following example has a required argument, an optional argument, and the return
 value annotated:
 __annotations__
-def
 
 [CODE]
 >>> def f ( ham : str , eggs : str = 'eggs' ) -> str : ... print ( "Annotations:" , f . __annotations__ ) ... print ( "Arguments:" , ham , eggs ) ... return ham + ' and ' + eggs ... >>> f ( 'spam' ) Annotations: {'ham': <class 'str'>, 'return': <class 'str'>, 'eggs': <class 'str'>} Arguments: spam eggs 'spam and eggs'
@@ -891,7 +836,6 @@ and methods.  Always use self as the name for the first method argument
 (see A First Look at Classes for more on classes and methods).
 UpperCamelCase
 lowercase_with_underscores
-self
 Don’t use fancy encodings if your code is meant to be used in international
 environments.  Python’s default, UTF-8, or even plain ASCII work best in any
 case.

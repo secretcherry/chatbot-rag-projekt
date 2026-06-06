@@ -5,8 +5,6 @@ SOURCE: howto\annotations.html
 
 # Annotations Best Practices
 
-author :
-Larry Hastings
 Larry Hastings
 Abstract
 This document is designed to encapsulate the best practices
@@ -100,7 +98,6 @@ class Base : a : int = 3 b : str = 'abc' class Derived ( Base ): pass print ( De
 [/CODE]
 
 This will print the annotations dict from Base , not Derived .
-Base
 Derived
 Your code will have to have a separate code path if the object
 you’re examining is a class ( isinstance(o, type) ).
@@ -125,9 +122,6 @@ After running this code, ann should be either a
 dictionary or None .  You’re encouraged to double-check
 the type of ann using isinstance() before further
 examination.
-ann
-None
-ann
 isinstance()
 Note that some exotic or malformed type objects may not have
 a __dict__ attribute, so for extra safety you may also wish
@@ -218,7 +212,6 @@ of an object, you should always set it to a dict object.
 If you do assign directly to the __annotations__ member
 of an object, you should always set it to a dict object.
 __annotations__
-dict
 You should avoid accessing __annotations__ directly on any object.
 Instead, use annotationlib.get_annotations() (Python 3.14+)
 or inspect.get_annotations() (Python 3.10+).
@@ -268,7 +261,6 @@ this section.  This is not true of modules and classes, in any Python
 version; those objects permit setting __annotations__ to any
 Python value, and will retain whatever value is set.
 __annotations__
-None
 fn.__annotations__
 __annotations__
 If Python stringizes your annotations for you

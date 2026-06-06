@@ -38,7 +38,6 @@ value, or (usually) to call a procedure (a function that returns no meaningful
 result; in Python, procedures return the value None ).  Other uses of
 expression statements are allowed and occasionally useful.  The syntax for an
 expression statement is:
-None
 
 [CODE]
 expression_stmt : starred_expression
@@ -51,9 +50,7 @@ In interactive mode, if the value is not None , it is converted to a string
 using the built-in repr() function and the resulting string is written to
 standard output on a line by itself (except if the result is None , so that
 procedure calls do not cause any output.)
-None
 repr()
-None
 
 ## 7.2. Assignment statements
 
@@ -171,9 +168,6 @@ creating it if necessary.  Thus, the two occurrences of a.x do not
 necessarily refer to the same attribute: if the right-hand side expression refers to a
 class attribute, the left-hand side creates a new instance attribute as the target of the
 assignment:
-a.x
-a.x
-a.x
 
 [CODE]
 class Cls : x = 3 # class variable inst = Cls () inst . x = inst . x + 1 # writes inst.x as 4 leaving Cls.x as 3
@@ -239,7 +233,6 @@ inclusive.  Finally, the sequence object is asked to replace the slice with
 the items of the assigned sequence.  The length of the slice may be different
 from the length of the assigned sequence, thus changing the length of the
 target sequence, if the target sequence allows it.
-None
 Although the definition of assignment implies that overlaps between the
 left-hand side and the right-hand side are ‘simultaneous’ (for example a, b = b, a swaps two variables), overlaps within the collection of assigned-to
 variables occur left-to-right, sometimes resulting in confusion.  For instance,
@@ -252,8 +245,6 @@ x = [ 0 , 1 ] i = 0 i , x [ i ] = 1 , 2 # i is updated, then x[i] is updated pri
 [/CODE]
 
 See also
-PEP 3132 - Extended Iterable Unpacking
-The specification for the *target feature.
 The specification for the *target feature.
 *target
 
@@ -289,9 +280,6 @@ Unlike normal assignments, augmented assignments evaluate the left-hand side bef
 looks-up a[i] , then it evaluates f(x) and performs the addition, and
 lastly, it writes the result back to a[i] .
 a[i] += f(x)
-a[i]
-f(x)
-a[i]
 With the exception of assigning to tuples and multiple targets in a single
 statement, the assignment done by augmented assignment statements is handled the
 same way as normal assignments. Similarly, with the exception of the possible in-place behavior, the binary operation performed by augmented assignment is
@@ -332,17 +320,9 @@ target, then the interpreter evaluates the target except for the last __setitem_
 __setitem__()
 __setattr__()
 See also
-PEP 526 - Syntax for Variable Annotations
 The proposal that added syntax for annotating the types of variables
 (including class variables and instance variables), instead of expressing
 them through comments.
-The proposal that added syntax for annotating the types of variables
-(including class variables and instance variables), instead of expressing
-them through comments.
-PEP 484 - Type hints
-The proposal that added the typing module to provide a standard
-syntax for type annotations that can be used in static analysis tools and
-IDEs.
 The proposal that added the typing module to provide a standard
 syntax for type annotations that can be used in static analysis tools and
 IDEs.
@@ -389,7 +369,6 @@ as part of the stack trace.
 __debug__
 AssertionError
 __debug__
-True
 False
 assert
 Assignments to __debug__ are illegal.  The value for the built-in variable
@@ -398,8 +377,6 @@ __debug__
 
 ## 7.4. The pass statement
 
-pass
-
 [CODE]
 pass_stmt : "pass"
 [/CODE]
@@ -407,15 +384,12 @@ pass_stmt : "pass"
 pass is a null operation — when it is executed, nothing happens.
 It is useful as a placeholder when a statement is required syntactically, but no
 code needs to be executed, for example:
-pass
 
 [CODE]
 def f ( arg ): pass # a function that does nothing (yet) class C : pass # a class with no methods (yet)
 [/CODE]
 
 ## 7.5. The del statement
-
-del
 
 [CODE]
 del_stmt : "del" target_list
@@ -450,14 +424,11 @@ return may only occur syntactically nested in a function definition,
 not within a nested class definition.
 return
 If an expression list is present, it is evaluated, else None is substituted.
-None
 return leaves the current function call with the expression list (or None ) as return value.
 return
-None
 When return passes control out of a try statement with a finally clause, that finally clause is executed before
 really leaving the function.
 return
-try
 finally
 finally
 In a generator function, the return statement indicates that the
@@ -546,7 +517,6 @@ exception as the __cause__ attribute (which is writable). If the
 expression is an exception class, the class will be instantiated and the
 resulting exception instance will be attached to the raised exception as the __cause__ attribute. If the raised exception is not handled, both
 exceptions will be printed:
-from
 __cause__
 __cause__
 
@@ -560,7 +530,6 @@ when an except or finally clause, or a with statement, is used.  The previous ex
 attached as the new exception’s __context__ attribute:
 except
 finally
-with
 __context__
 
 [CODE]
@@ -569,8 +538,6 @@ __context__
 
 Exception chaining can be explicitly suppressed by specifying None in
 the from clause:
-None
-from
 
 [CODE]
 >>> try : ... print ( 1 / 0 ) ... except : ... raise RuntimeError ( "Something bad happened" ) from None ... Traceback (most recent call last): File "<stdin>" , line 4 , in <module> RuntimeError : Something bad happened
@@ -579,7 +546,6 @@ from
 Additional information on exceptions can be found in section Exceptions ,
 and information about handling exceptions is in section The try statement .
 Changed in version 3.3: None is now permitted as Y in raise X from Y .
-None
 raise X from Y
 Added the __suppress_context__ attribute to suppress
 automatic display of the exception context.
@@ -601,18 +567,14 @@ break_stmt : "break"
 break may only occur syntactically nested in a for or while loop, but not nested in a function or class definition within
 that loop.
 break
-for
 while
 It terminates the nearest enclosing loop, skipping the optional else clause if the loop has one.
-else
 If a for loop is terminated by break , the loop control
 target keeps its current value.
-for
 break
 When break passes control out of a try statement with a finally clause, that finally clause is executed before
 really leaving the loop.
 break
-try
 finally
 finally
 
@@ -627,12 +589,10 @@ continue_stmt : "continue"
 continue may only occur syntactically nested in a for or while loop, but not nested in a function or class definition within
 that loop.  It continues with the next cycle of the nearest enclosing loop.
 continue
-for
 while
 When continue passes control out of a try statement with a finally clause, that finally clause is executed before
 really starting the next loop cycle.
 continue
-try
 finally
 finally
 
@@ -668,7 +628,6 @@ identifier
 module
 The basic import statement (no from clause) is executed in two
 steps:
-from
 find a module, loading and initializing it if necessary
 find a module, loading and initializing it if necessary
 define a name or names in the current namespace for the scope where
@@ -712,12 +671,10 @@ of the top level package that contains the module is bound in the local
 namespace as a reference to the top level package. The imported module
 must be accessed using its full qualified name rather than directly
 The from form uses a slightly more complex process:
-from
 find the module specified in the from clause, loading and
 initializing it if necessary;
 find the module specified in the from clause, loading and
 initializing it if necessary;
-from
 for each of the identifiers specified in the import clauses: check if the imported module has an attribute by that name if not, attempt to import a submodule with that name and then
 check the imported module again for that attribute if the attribute is not found, ImportError is raised. otherwise, a reference to that value is stored in the current namespace,
 using the name in the as clause if it is present,
@@ -748,7 +705,6 @@ import foo # foo imported and bound locally import foo.bar.baz # foo, foo.bar, a
 If the list of identifiers is replaced by a star ( '*' ), all public
 names defined in the module are bound in the local namespace for the scope
 where the import statement occurs.
-'*'
 import
 The public names defined by a module are determined by checking the module’s
 namespace for a variable named __all__ ; if defined, it must be a sequence
@@ -762,7 +718,6 @@ library modules which were imported and used within the module).
 __all__
 __all__
 __all__
-'_'
 __all__
 The wild card form of import — from module import * — is only allowed at
 the module level.  Attempting to use it in class or function definitions will
@@ -781,9 +736,7 @@ So if you execute from . import mod from a module in the pkg package
 then you will end up importing pkg.mod . If you execute from ..subpkg2 import mod from within pkg.subpkg1 you will import pkg.subpkg2.mod .
 The specification for relative imports is contained in
 the Package Relative Imports section.
-from
 from . import mod
-pkg
 pkg.mod
 from ..subpkg2 import mod
 pkg.subpkg1
@@ -884,8 +837,6 @@ for the rest of the interpreter session.  If an interpreter is started with the 
 a future statement, it will be in effect in the interactive session started
 after the script is executed.
 See also
-PEP 236 - Back to the __future__
-The original proposal for the __future__ mechanism.
 The original proposal for the __future__ mechanism.
 
 ## 7.12. The global statement
@@ -956,8 +907,6 @@ assigned to prior to its nonlocal declaration in the scope.
 nonlocal
 SyntaxError
 See also
-PEP 3104 - Access to Names in Outer Scopes
-The specification for the nonlocal statement.
 The specification for the nonlocal statement.
 nonlocal
 Programmer’s note: nonlocal is a directive to the parser
@@ -966,8 +915,6 @@ nonlocal
 global
 
 ## 7.14. The type statement
-
-type
 
 [CODE]
 type_stmt : 'type' identifier [ type_params ] "=" expression
@@ -978,7 +925,6 @@ type_params
 expression
 The type statement declares a type alias, which is an instance
 of typing.TypeAliasType .
-type
 typing.TypeAliasType
 For example, the following statement creates a type alias:
 
@@ -1002,12 +948,7 @@ This allows the type alias to refer to names that are not yet defined.
 __value__
 Type aliases may be made generic by adding a type parameter list after the name. See Generic type aliases for more.
 type is a soft keyword .
-type
 Added in version 3.12.
 See also
-PEP 695 - Type Parameter Syntax
 Introduced the type statement and syntax for
 generic classes and functions.
-Introduced the type statement and syntax for
-generic classes and functions.
-type

@@ -7,7 +7,6 @@ SOURCE: library\tkinter.dnd.html
 
 tkinter.dnd
 Source code: Lib/tkinter/dnd.py
-Note
 This is experimental and due to be deprecated when it is replaced
 with the Tk DND.
 The tkinter.dnd module provides drag-and-drop support for objects within
@@ -26,10 +25,8 @@ Target widget should have a callable dnd_accept attribute
 Target widget should have a callable dnd_accept attribute
 If dnd_accept is not present or returns None , search moves to parent widget
 If dnd_accept is not present or returns None , search moves to parent widget
-None
 If no target widget is found, then the target object is None
 If no target widget is found, then the target object is None
-None
 Call to <old_target>.dnd_leave(source, event)
 Call to <old_target>.dnd_leave(source, event)
 Call to <new_target>.dnd_enter(source, event)
@@ -38,25 +35,12 @@ Call to <target>.dnd_commit(source, event) to notify of drop
 Call to <target>.dnd_commit(source, event) to notify of drop
 Call to <source>.dnd_end(target, event) to signal end of drag-and-drop
 Call to <source>.dnd_end(target, event) to signal end of drag-and-drop
-class tkinter.dnd. DndHandler ( source , event )
-The DndHandler class handles drag-and-drop events tracking Motion and
-ButtonRelease events on the root of the event widget. cancel ( event = None ) Cancel the drag-and-drop process. finish ( event , commit = 0 ) Execute end of drag-and-drop functions. on_motion ( event ) Inspect area below mouse for target objects while drag is performed. on_release ( event ) Signal end of drag when the release pattern is triggered.
 The DndHandler class handles drag-and-drop events tracking Motion and
 ButtonRelease events on the root of the event widget.
-cancel ( event = None )
 Cancel the drag-and-drop process.
-Cancel the drag-and-drop process.
-finish ( event , commit = 0 )
 Execute end of drag-and-drop functions.
-Execute end of drag-and-drop functions.
-on_motion ( event )
 Inspect area below mouse for target objects while drag is performed.
-Inspect area below mouse for target objects while drag is performed.
-on_release ( event )
 Signal end of drag when the release pattern is triggered.
-Signal end of drag when the release pattern is triggered.
-tkinter.dnd. dnd_start ( source , event )
-Factory function for drag-and-drop process.
 Factory function for drag-and-drop process.
 See also
 Bindings and Events

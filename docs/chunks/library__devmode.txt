@@ -116,7 +116,6 @@ Set the dev_mode attribute of sys.flags to True .
 Set the dev_mode attribute of sys.flags to True .
 dev_mode
 sys.flags
-True
 The Python Development Mode does not enable the tracemalloc module by
 default, because the overhead cost (to performance and memory) would be too
 large. Enabling the tracemalloc module provides additional information

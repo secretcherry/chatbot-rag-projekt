@@ -9,7 +9,6 @@ The modules described in this chapter provide a wide range of services related
 to the Python interpreter and its interaction with its environment.  Here’s an
 overview:
 sys — System-specific parameters and functions
-sys
 sys.monitoring — Execution event monitoring Tool identifiers Registering and using tools Events Local events Deprecated event Ancillary events Other events The STOP_ITERATION event Turning events on and off Setting events globally Per code object events Disabling events Registering callback functions Callback function arguments
 sys.monitoring
 Tool identifiers Registering and using tools
@@ -89,7 +88,6 @@ Mutable default values
 Descriptor-typed fields
 contextlib — Utilities for with -statement contexts Utilities Examples and Recipes Supporting a variable number of context managers Catching exceptions from __enter__ methods Cleaning up in an __enter__ implementation Replacing any use of try-finally and flag variables Using a context manager as a function decorator Single use, reusable and reentrant context managers Reentrant context managers Reusable context managers
 contextlib
-with
 Utilities
 Examples and Recipes Supporting a variable number of context managers Catching exceptions from __enter__ methods Cleaning up in an __enter__ implementation Replacing any use of try-finally and flag variables Using a context manager as a function decorator
 Supporting a variable number of context managers
@@ -104,7 +102,6 @@ Single use, reusable and reentrant context managers Reentrant context managers R
 Reentrant context managers
 Reusable context managers
 abc — Abstract Base Classes
-abc
 atexit — Exit handlers atexit Example
 atexit
 atexit Example
@@ -151,7 +148,6 @@ Limitations of the FORWARDREF format
 FORWARDREF
 Security implications of introspecting annotations
 site — Site-specific configuration hook sitecustomize usercustomize Readline configuration Module contents Command-line interface
-site
 sitecustomize
 sitecustomize
 usercustomize

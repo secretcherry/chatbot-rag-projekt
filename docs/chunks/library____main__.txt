@@ -26,7 +26,6 @@ __name__ == '__main__'
 When a Python module or package is imported, __name__ is set to the
 module’s name.  Usually, this is the name of the Python file itself without the .py extension:
 __name__
-.py
 
 [CODE]
 >>> import configparser >>> configparser . __name__ 'configparser'
@@ -119,7 +118,6 @@ if __name__ == '__main__'
 Putting as few statements as possible in the block below if __name__ == '__main__' can improve code clarity and correctness. Most often, a function
 named main encapsulates the program’s primary behavior:
 if __name__ == '__main__'
-main
 
 [CODE]
 # echo.py import shlex import sys def echo ( phrase : str ) -> None : """A dummy wrapper around print.""" # for demonstration purposes, you can imagine that there is some # valuable and reusable logic inside this function print ( phrase ) def main () -> int : """Echo the input arguments to standard output""" phrase = shlex . join ( sys . argv ) echo ( phrase ) return 0 if __name__ == '__main__' : sys . exit ( main ()) # next section explains the use of sys.exit
@@ -131,18 +129,12 @@ the phrase variable would be global to the entire module.  This is
 error-prone as other functions within the module could be unintentionally using
 the global variable instead of a local name.  A main function solves this
 problem.
-main
 if __name__ == '__main__'
 phrase
-main
 Using a main function has the added benefit of the echo function itself
 being isolated and importable elsewhere. When echo.py is imported, the echo and main functions will be defined, but neither of them will be
 called, because __name__ != '__main__' .
-main
-echo
 echo.py
-echo
-main
 __name__ != '__main__'
 
 ### Packaging Considerations
@@ -151,8 +143,6 @@ main functions are often used to create command-line tools by specifying
 them as entry points for console scripts.  When this is done, pip inserts the function call into a template script,
 where the return value of main is passed into sys.exit() .
 For example:
-main
-main
 sys.exit()
 
 [CODE]
@@ -162,10 +152,8 @@ sys . exit ( main ())
 Since the call to main is wrapped in sys.exit() , the expectation is
 that your function will return some value acceptable as an input to sys.exit() ; typically, an integer or None (which is implicitly
 returned if your function does not have a return statement).
-main
 sys.exit()
 sys.exit()
-None
 By proactively following this convention ourselves, our module will have the
 same behavior when run directly (i.e. python echo.py ) as it will have if
 we later package it as a console script entry-point in a pip-installable
@@ -175,7 +163,6 @@ In particular, be careful about returning strings from your main function. sys.e
 your program will have an exit code of 1 , indicating failure, and the
 string will be written to sys.stderr .  The echo.py example from
 earlier exemplifies using the sys.exit(main()) convention.
-main
 sys.exit()
 sys.stderr
 echo.py
@@ -241,12 +228,10 @@ __name__
 
 This won’t work for __main__.py files in the root directory of a .zip file though.  Hence, for consistency, a minimal __main__.py without a __name__ check is preferred.
 __main__.py
-.zip
 __main__.py
 __name__
 See also
 See venv for an example of a package with a minimal __main__.py in the standard library. It doesn’t contain a if __name__ == '__main__' block. You can invoke it with python -m venv [directory] .
-venv
 __main__.py
 if __name__ == '__main__'
 python -m venv [directory]
@@ -330,5 +315,4 @@ __main__
 
 The __main__ scope is used in the implementation of pdb and rlcompleter .
 __main__
-pdb
 rlcompleter

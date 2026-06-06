@@ -118,8 +118,20 @@ for root, dirs, files in os.walk(DOCS_FOLDER):
 
             text_parts = []
 
-            for elem in content.find_all(["h1", "h2", "h3", "h4", "p", "li", "dt", "dd", "pre", "code"]):
+            for elem in content.find_all(["h1", "h2", "h3", "h4", "p", "li", "pre", "code"]):
                 text = elem.get_text(separator=" ", strip=True).replace("¶", "").strip()
+
+                if text.startswith("Question"):
+                    continue
+
+                if text.startswith("Answer"):
+                    continue
+
+                if text.startswith("Next topic"):
+                    continue
+
+                if len(text) < 5:
+                    continue
 
                 if not text or len(text) < 3:
                     continue

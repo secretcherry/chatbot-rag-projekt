@@ -44,7 +44,6 @@ queue
 asyncio offers an alternative approach to achieving task level
 concurrency without requiring the use of multiple operating system threads.
 asyncio
-Note
 In the Python 2.x series, this module contained camelCase names
 for some methods and functions. These are deprecated as of Python 3.10,
 but they are still supported for compatibility with Python 2.5 and lower.
@@ -76,19 +75,12 @@ feature is not available by default (see PEP 703 ).
 ## Reference
 
 This module defines the following functions:
-threading. active_count ( )
-Return the number of Thread objects currently alive.  The returned
-count is equal to the length of the list returned by enumerate() . The function activeCount is a deprecated alias for this function.
 Return the number of Thread objects currently alive.  The returned
 count is equal to the length of the list returned by enumerate() .
 Thread
 enumerate()
 The function activeCount is a deprecated alias for this function.
 activeCount
-threading. current_thread ( )
-Return the current Thread object, corresponding to the caller’s thread
-of control.  If the caller’s thread of control was not created through the threading module, a dummy thread object with limited functionality is
-returned. The function currentThread is a deprecated alias for this function.
 Return the current Thread object, corresponding to the caller’s thread
 of control.  If the caller’s thread of control was not created through the threading module, a dummy thread object with limited functionality is
 returned.
@@ -96,15 +88,6 @@ Thread
 threading
 The function currentThread is a deprecated alias for this function.
 currentThread
-threading. excepthook ( args , / )
-Handle uncaught exception raised by Thread.run() . The args argument has the following attributes: exc_type : Exception type. exc_value : Exception value, can be None . exc_traceback : Exception traceback, can be None . thread : Thread which raised the exception, can be None . If exc_type is SystemExit , the exception is silently ignored.
-Otherwise, the exception is printed out on sys.stderr . If  this function raises an exception, sys.excepthook() is called to
-handle it. threading.excepthook() can be overridden to control how uncaught
-exceptions raised by Thread.run() are handled. Storing exc_value using a custom hook can create a reference cycle. It
-should be cleared explicitly to break the reference cycle when the
-exception is no longer needed. Storing thread using a custom hook can resurrect it if it is set to an
-object which is being finalized. Avoid storing thread after the custom
-hook completes to avoid resurrecting objects. See also sys.excepthook() handles uncaught exceptions. Added in version 3.8.
 Handle uncaught exception raised by Thread.run() .
 Thread.run()
 The args argument has the following attributes:
@@ -112,13 +95,10 @@ exc_type : Exception type.
 exc_type : Exception type.
 exc_value : Exception value, can be None .
 exc_value : Exception value, can be None .
-None
 exc_traceback : Exception traceback, can be None .
 exc_traceback : Exception traceback, can be None .
-None
 thread : Thread which raised the exception, can be None .
 thread : Thread which raised the exception, can be None .
-None
 If exc_type is SystemExit , the exception is silently ignored.
 Otherwise, the exception is printed out on sys.stderr .
 SystemExit
@@ -140,32 +120,17 @@ See also
 sys.excepthook() handles uncaught exceptions.
 sys.excepthook()
 Added in version 3.8.
-threading. __excepthook__
-Holds the original value of threading.excepthook() . It is saved so that the
-original value can be restored in case they happen to get replaced with
-broken or alternative objects. Added in version 3.10.
 Holds the original value of threading.excepthook() . It is saved so that the
 original value can be restored in case they happen to get replaced with
 broken or alternative objects.
 threading.excepthook()
 Added in version 3.10.
-threading. get_ident ( )
-Return the ‘thread identifier’ of the current thread.  This is a nonzero
-integer.  Its value has no direct meaning; it is intended as a magic cookie
-to be used e.g. to index a dictionary of thread-specific data.  Thread
-identifiers may be recycled when a thread exits and another thread is
-created. Added in version 3.3.
 Return the ‘thread identifier’ of the current thread.  This is a nonzero
 integer.  Its value has no direct meaning; it is intended as a magic cookie
 to be used e.g. to index a dictionary of thread-specific data.  Thread
 identifiers may be recycled when a thread exits and another thread is
 created.
 Added in version 3.3.
-threading. get_native_id ( )
-Return the native integral Thread ID of the current thread assigned by the kernel.
-This is a non-negative integer.
-Its value may be used to uniquely identify this particular thread system-wide
-(until the thread terminates, after which the value may be recycled by the OS). Availability : Windows, FreeBSD, Linux, macOS, OpenBSD, NetBSD, AIX, DragonFlyBSD, GNU/kFreeBSD. Added in version 3.8. Changed in version 3.13: Added support for GNU/kFreeBSD.
 Return the native integral Thread ID of the current thread assigned by the kernel.
 This is a non-negative integer.
 Its value may be used to uniquely identify this particular thread system-wide
@@ -173,37 +138,22 @@ Its value may be used to uniquely identify this particular thread system-wide
 Availability : Windows, FreeBSD, Linux, macOS, OpenBSD, NetBSD, AIX, DragonFlyBSD, GNU/kFreeBSD.
 Added in version 3.8.
 Changed in version 3.13: Added support for GNU/kFreeBSD.
-threading. enumerate ( )
-Return a list of all Thread objects currently active.  The list
-includes daemonic threads and dummy thread objects created by current_thread() .  It excludes terminated threads and threads
-that have not yet been started.  However, the main thread is always part
-of the result, even when terminated.
 Return a list of all Thread objects currently active.  The list
 includes daemonic threads and dummy thread objects created by current_thread() .  It excludes terminated threads and threads
 that have not yet been started.  However, the main thread is always part
 of the result, even when terminated.
 Thread
 current_thread()
-threading. main_thread ( )
-Return the main Thread object.  In normal conditions, the
-main thread is the thread from which the Python interpreter was
-started. Added in version 3.4.
 Return the main Thread object.  In normal conditions, the
 main thread is the thread from which the Python interpreter was
 started.
 Thread
 Added in version 3.4.
-threading. settrace ( func )
-Set a trace function for all threads started from the threading module.
-The func will be passed to sys.settrace() for each thread, before its run() method is called.
 Set a trace function for all threads started from the threading module.
 The func will be passed to sys.settrace() for each thread, before its run() method is called.
 threading
 sys.settrace()
 run()
-threading. settrace_all_threads ( func )
-Set a trace function for all threads started from the threading module
-and all Python threads that are currently executing. The func will be passed to sys.settrace() for each thread, before its run() method is called. Added in version 3.12.
 Set a trace function for all threads started from the threading module
 and all Python threads that are currently executing.
 threading
@@ -211,22 +161,14 @@ The func will be passed to sys.settrace() for each thread, before its run() meth
 sys.settrace()
 run()
 Added in version 3.12.
-threading. gettrace ( )
-Get the trace function as set by settrace() . Added in version 3.10.
 Get the trace function as set by settrace() .
 settrace()
 Added in version 3.10.
-threading. setprofile ( func )
-Set a profile function for all threads started from the threading module.
-The func will be passed to sys.setprofile() for each thread, before its run() method is called.
 Set a profile function for all threads started from the threading module.
 The func will be passed to sys.setprofile() for each thread, before its run() method is called.
 threading
 sys.setprofile()
 run()
-threading. setprofile_all_threads ( func )
-Set a profile function for all threads started from the threading module
-and all Python threads that are currently executing. The func will be passed to sys.setprofile() for each thread, before its run() method is called. Added in version 3.12.
 Set a profile function for all threads started from the threading module
 and all Python threads that are currently executing.
 threading
@@ -234,25 +176,9 @@ The func will be passed to sys.setprofile() for each thread, before its run() me
 sys.setprofile()
 run()
 Added in version 3.12.
-threading. getprofile ( )
-Get the profiler function as set by setprofile() . Added in version 3.10.
 Get the profiler function as set by setprofile() .
 setprofile()
 Added in version 3.10.
-threading. stack_size ( [ size ] )
-Return the thread stack size used when creating new threads.  The optional size argument specifies the stack size to be used for subsequently created
-threads, and must be 0 (use platform or configured default) or a positive
-integer value of at least 32,768 (32 KiB). If size is not specified,
-0 is used.  If changing the thread stack size is
-unsupported, a RuntimeError is raised.  If the specified stack size is
-invalid, a ValueError is raised and the stack size is unmodified.  32 KiB
-is currently the minimum supported stack size value to guarantee sufficient
-stack space for the interpreter itself.  Note that some platforms may have
-particular restrictions on values for the stack size, such as requiring a
-minimum stack size > 32 KiB or requiring allocation in multiples of the system
-memory page size - platform documentation should be referred to for more
-information (4 KiB pages are common; using multiples of 4096 for the stack size is
-the suggested approach in the absence of more specific information). Availability : Windows, pthreads. Unix platforms with POSIX threads support.
 Return the thread stack size used when creating new threads.  The optional size argument specifies the stack size to be used for subsequently created
 threads, and must be 0 (use platform or configured default) or a positive
 integer value of at least 32,768 (32 KiB). If size is not specified,
@@ -271,10 +197,6 @@ ValueError
 Availability : Windows, pthreads.
 Unix platforms with POSIX threads support.
 This module also defines the following constant:
-threading. TIMEOUT_MAX
-The maximum value allowed for the timeout parameter of blocking functions
-( Lock.acquire() , RLock.acquire() , Condition.wait() , etc.).
-Specifying a timeout greater than this value will raise an OverflowError . Added in version 3.2.
 The maximum value allowed for the timeout parameter of blocking functions
 ( Lock.acquire() , RLock.acquire() , Condition.wait() , etc.).
 Specifying a timeout greater than this value will raise an OverflowError .
@@ -401,8 +323,6 @@ affects what we see:
 >>> mydata . number 11
 [/CODE]
 
-class threading. local
-A class that represents thread-local data.
 A class that represents thread-local data.
 
 ### Thread objects
@@ -431,7 +351,6 @@ join()
 join()
 A thread has a name.  The name can be passed to the constructor, and read or
 changed through the name attribute.
-name
 If the run() method raises an exception, threading.excepthook() is called to handle it. By default, threading.excepthook() ignores silently SystemExit .
 run()
 threading.excepthook()
@@ -443,7 +362,6 @@ initial value is inherited from the creating thread.  The flag can be set
 through the daemon property or the daemon constructor
 argument.
 daemon
-Note
 Daemon threads are abruptly stopped at shutdown.  Their resources (such
 as open files, database transactions, etc.) may not be released properly.
 If you want your threads to stop gracefully, make them non-daemonic and
@@ -457,75 +375,13 @@ started outside the threading module, such as directly from C code.  Dummy
 thread objects have limited functionality; they are always considered alive and
 daemonic, and cannot be joined .  They are never deleted,
 since it is impossible to detect the termination of alien threads.
-class threading. Thread ( group = None , target = None , name = None , args = () , kwargs = {} , * , daemon = None , context = None )
-This constructor should always be called with keyword arguments.  Arguments
-are: group should be None ; reserved for future extension when a ThreadGroup class is implemented. target is the callable object to be invoked by the run() method.
-Defaults to None , meaning nothing is called. name is the thread name. By default, a unique name is constructed
-of the form “Thread- N ” where N is a small decimal number,
-or “Thread- N (target)” where “target” is target.__name__ if the target argument is specified. args is a list or tuple of arguments for the target invocation.  Defaults to () . kwargs is a dictionary of keyword arguments for the target invocation.
-Defaults to {} . If not None , daemon explicitly sets whether the thread is daemonic.
-If None (the default), the daemonic property is inherited from the
-current thread. context is the Context value to use when starting
-the thread.  The default value is None which indicates that the sys.flags.thread_inherit_context flag controls the behaviour.  If
-the flag is true, threads will start with a copy of the context of the
-caller of start() .  If false, they will start with an empty
-context.  To explicitly start with an empty context, pass a new instance of Context() .  To explicitly start with a copy of the
-current context, pass the value from copy_context() . The
-flag defaults true on free-threaded builds and false otherwise. If the subclass overrides the constructor, it must make sure to invoke the
-base class constructor ( Thread.__init__() ) before doing anything else to
-the thread. Changed in version 3.3: Added the daemon parameter. Changed in version 3.10: Use the target name if name argument is omitted. Changed in version 3.14: Added the context parameter. start ( ) Start the thread’s activity. It must be called at most once per thread object.  It arranges for the
-object’s run() method to be invoked in a separate thread
-of control. This method will raise a RuntimeError if called more than once
-on the same thread object. If supported, set the operating system thread name to threading.Thread.name . The name can be truncated depending on the
-operating system thread name limits. Changed in version 3.14: Set the operating system thread name. run ( ) Method representing the thread’s activity. You may override this method in a subclass.  The standard run() method invokes the callable object passed to the object’s constructor as
-the target argument, if any, with positional and keyword arguments taken
-from the args and kwargs arguments, respectively. Using list or tuple as the args argument which passed to the Thread could achieve the same effect. Example: >>> from threading import Thread >>> t = Thread ( target = print , args = [ 1 ]) >>> t . run () 1 >>> t = Thread ( target = print , args = ( 1 ,)) >>> t . run () 1 join ( timeout = None ) Wait until the thread terminates. This blocks the calling thread until
-the thread whose join() method is called terminates – either
-normally or through an unhandled exception – or until the optional
-timeout occurs. When the timeout argument is present and not None , it should be a
-floating-point number specifying a timeout for the operation in seconds
-(or fractions thereof). As join() always returns None ,
-you must call is_alive() after join() to
-decide whether a timeout happened – if the thread is still alive, the join() call timed out. When the timeout argument is not present or None , the operation will
-block until the thread terminates. A thread can be joined many times. join() raises a RuntimeError if an attempt is made
-to join the current thread as that would cause a deadlock. It is also
-an error to join() a thread before it has been started
-and attempts to do so raise the same exception. If an attempt is made to join a running daemonic thread in late stages
-of Python finalization join() raises a PythonFinalizationError . Changed in version 3.14: May raise PythonFinalizationError . name A string used for identification purposes only. It has no semantics.
-Multiple threads may be given the same name.  The initial name is set by
-the constructor. On some platforms, the thread name is set at the operating system level
-when the thread starts, so that it is visible in task managers.
-This name may be truncated to fit in a system-specific limit (for example,
-15 bytes on Linux or 63 bytes on macOS). Changes to name are only reflected at the OS level when the currently
-running thread is renamed. (Setting the name attribute of a
-different thread only updates the Python Thread object.) getName ( ) setName ( ) Deprecated getter/setter API for name ; use it directly as a
-property instead. Deprecated since version 3.10. ident The ‘thread identifier’ of this thread or None if the thread has not
-been started.  This is a nonzero integer.  See the get_ident() function.  Thread identifiers may be recycled when a thread exits and
-another thread is created.  The identifier is available even after the
-thread has exited. native_id The Thread ID ( TID ) of this thread, as assigned by the OS (kernel).
-This is a non-negative integer, or None if the thread has not
-been started. See the get_native_id() function.
-This value may be used to uniquely identify this particular thread
-system-wide (until the thread terminates, after which the value
-may be recycled by the OS). Note Similar to Process IDs, Thread IDs are only valid (guaranteed unique
-system-wide) from the time the thread is created until the thread
-has been terminated. Availability : Windows, FreeBSD, Linux, macOS, OpenBSD, NetBSD, AIX, DragonFlyBSD. Added in version 3.8. is_alive ( ) Return whether the thread is alive. This method returns True just before the run() method
-starts until just after the run() method terminates.  The
-module function enumerate() returns a list of all alive threads. daemon A boolean value indicating whether this thread is a daemon thread ( True )
-or not ( False ).  This must be set before start() is called,
-otherwise RuntimeError is raised.  Its initial value is inherited
-from the creating thread; the main thread is not a daemon thread and
-therefore all threads created in the main thread default to daemon = False . The entire Python program exits when no alive non-daemon threads are left. isDaemon ( ) setDaemon ( ) Deprecated getter/setter API for daemon ; use it directly as a
-property instead. Deprecated since version 3.10.
 This constructor should always be called with keyword arguments.  Arguments
 are:
 group should be None ; reserved for future extension when a ThreadGroup class is implemented.
-None
 ThreadGroup
 target is the callable object to be invoked by the run() method.
 Defaults to None , meaning nothing is called.
 run()
-None
 name is the thread name. By default, a unique name is constructed
 of the form “Thread- N ” where N is a small decimal number,
 or “Thread- N (target)” where “target” is target.__name__ if the target argument is specified.
@@ -536,8 +392,6 @@ Defaults to {} .
 If not None , daemon explicitly sets whether the thread is daemonic.
 If None (the default), the daemonic property is inherited from the
 current thread.
-None
-None
 context is the Context value to use when starting
 the thread.  The default value is None which indicates that the sys.flags.thread_inherit_context flag controls the behaviour.  If
 the flag is true, threads will start with a copy of the context of the
@@ -546,7 +400,6 @@ context.  To explicitly start with an empty context, pass a new instance of Cont
 current context, pass the value from copy_context() . The
 flag defaults true on free-threaded builds and false otherwise.
 Context
-None
 sys.flags.thread_inherit_context
 start()
 Context()
@@ -558,12 +411,6 @@ Thread.__init__()
 Changed in version 3.3: Added the daemon parameter.
 Changed in version 3.10: Use the target name if name argument is omitted.
 Changed in version 3.14: Added the context parameter.
-start ( )
-Start the thread’s activity. It must be called at most once per thread object.  It arranges for the
-object’s run() method to be invoked in a separate thread
-of control. This method will raise a RuntimeError if called more than once
-on the same thread object. If supported, set the operating system thread name to threading.Thread.name . The name can be truncated depending on the
-operating system thread name limits. Changed in version 3.14: Set the operating system thread name.
 Start the thread’s activity.
 It must be called at most once per thread object.  It arranges for the
 object’s run() method to be invoked in a separate thread
@@ -576,10 +423,6 @@ If supported, set the operating system thread name to threading.Thread.name . Th
 operating system thread name limits.
 threading.Thread.name
 Changed in version 3.14: Set the operating system thread name.
-run ( )
-Method representing the thread’s activity. You may override this method in a subclass.  The standard run() method invokes the callable object passed to the object’s constructor as
-the target argument, if any, with positional and keyword arguments taken
-from the args and kwargs arguments, respectively. Using list or tuple as the args argument which passed to the Thread could achieve the same effect. Example: >>> from threading import Thread >>> t = Thread ( target = print , args = [ 1 ]) >>> t . run () 1 >>> t = Thread ( target = print , args = ( 1 ,)) >>> t . run () 1
 Method representing the thread’s activity.
 You may override this method in a subclass.  The standard run() method invokes the callable object passed to the object’s constructor as
 the target argument, if any, with positional and keyword arguments taken
@@ -593,20 +436,6 @@ Example:
 >>> from threading import Thread >>> t = Thread ( target = print , args = [ 1 ]) >>> t . run () 1 >>> t = Thread ( target = print , args = ( 1 ,)) >>> t . run () 1
 [/CODE]
 
-join ( timeout = None )
-Wait until the thread terminates. This blocks the calling thread until
-the thread whose join() method is called terminates – either
-normally or through an unhandled exception – or until the optional
-timeout occurs. When the timeout argument is present and not None , it should be a
-floating-point number specifying a timeout for the operation in seconds
-(or fractions thereof). As join() always returns None ,
-you must call is_alive() after join() to
-decide whether a timeout happened – if the thread is still alive, the join() call timed out. When the timeout argument is not present or None , the operation will
-block until the thread terminates. A thread can be joined many times. join() raises a RuntimeError if an attempt is made
-to join the current thread as that would cause a deadlock. It is also
-an error to join() a thread before it has been started
-and attempts to do so raise the same exception. If an attempt is made to join a running daemonic thread in late stages
-of Python finalization join() raises a PythonFinalizationError . Changed in version 3.14: May raise PythonFinalizationError .
 Wait until the thread terminates. This blocks the calling thread until
 the thread whose join() method is called terminates – either
 normally or through an unhandled exception – or until the optional
@@ -617,15 +446,12 @@ floating-point number specifying a timeout for the operation in seconds
 (or fractions thereof). As join() always returns None ,
 you must call is_alive() after join() to
 decide whether a timeout happened – if the thread is still alive, the join() call timed out.
-None
 join()
-None
 is_alive()
 join()
 join()
 When the timeout argument is not present or None , the operation will
 block until the thread terminates.
-None
 A thread can be joined many times.
 join() raises a RuntimeError if an attempt is made
 to join the current thread as that would cause a deadlock. It is also
@@ -640,15 +466,6 @@ join()
 PythonFinalizationError
 Changed in version 3.14: May raise PythonFinalizationError .
 PythonFinalizationError
-name
-A string used for identification purposes only. It has no semantics.
-Multiple threads may be given the same name.  The initial name is set by
-the constructor. On some platforms, the thread name is set at the operating system level
-when the thread starts, so that it is visible in task managers.
-This name may be truncated to fit in a system-specific limit (for example,
-15 bytes on Linux or 63 bytes on macOS). Changes to name are only reflected at the OS level when the currently
-running thread is renamed. (Setting the name attribute of a
-different thread only updates the Python Thread object.)
 A string used for identification purposes only. It has no semantics.
 Multiple threads may be given the same name.  The initial name is set by
 the constructor.
@@ -659,83 +476,44 @@ This name may be truncated to fit in a system-specific limit (for example,
 Changes to name are only reflected at the OS level when the currently
 running thread is renamed. (Setting the name attribute of a
 different thread only updates the Python Thread object.)
-getName ( )
-setName ( )
-Deprecated getter/setter API for name ; use it directly as a
-property instead. Deprecated since version 3.10.
 Deprecated getter/setter API for name ; use it directly as a
 property instead.
-name
 Deprecated since version 3.10.
-ident
 The ‘thread identifier’ of this thread or None if the thread has not
 been started.  This is a nonzero integer.  See the get_ident() function.  Thread identifiers may be recycled when a thread exits and
 another thread is created.  The identifier is available even after the
 thread has exited.
-The ‘thread identifier’ of this thread or None if the thread has not
-been started.  This is a nonzero integer.  See the get_ident() function.  Thread identifiers may be recycled when a thread exits and
-another thread is created.  The identifier is available even after the
-thread has exited.
-None
 get_ident()
-native_id
-The Thread ID ( TID ) of this thread, as assigned by the OS (kernel).
-This is a non-negative integer, or None if the thread has not
-been started. See the get_native_id() function.
-This value may be used to uniquely identify this particular thread
-system-wide (until the thread terminates, after which the value
-may be recycled by the OS). Note Similar to Process IDs, Thread IDs are only valid (guaranteed unique
-system-wide) from the time the thread is created until the thread
-has been terminated. Availability : Windows, FreeBSD, Linux, macOS, OpenBSD, NetBSD, AIX, DragonFlyBSD. Added in version 3.8.
 The Thread ID ( TID ) of this thread, as assigned by the OS (kernel).
 This is a non-negative integer, or None if the thread has not
 been started. See the get_native_id() function.
 This value may be used to uniquely identify this particular thread
 system-wide (until the thread terminates, after which the value
 may be recycled by the OS).
-TID
-None
 get_native_id()
-Note
 Similar to Process IDs, Thread IDs are only valid (guaranteed unique
 system-wide) from the time the thread is created until the thread
 has been terminated.
 Availability : Windows, FreeBSD, Linux, macOS, OpenBSD, NetBSD, AIX, DragonFlyBSD.
 Added in version 3.8.
-is_alive ( )
-Return whether the thread is alive. This method returns True just before the run() method
-starts until just after the run() method terminates.  The
-module function enumerate() returns a list of all alive threads.
 Return whether the thread is alive.
 This method returns True just before the run() method
 starts until just after the run() method terminates.  The
 module function enumerate() returns a list of all alive threads.
-True
 run()
 run()
 enumerate()
-daemon
-A boolean value indicating whether this thread is a daemon thread ( True )
-or not ( False ).  This must be set before start() is called,
-otherwise RuntimeError is raised.  Its initial value is inherited
-from the creating thread; the main thread is not a daemon thread and
-therefore all threads created in the main thread default to daemon = False . The entire Python program exits when no alive non-daemon threads are left.
 A boolean value indicating whether this thread is a daemon thread ( True )
 or not ( False ).  This must be set before start() is called,
 otherwise RuntimeError is raised.  Its initial value is inherited
 from the creating thread; the main thread is not a daemon thread and
 therefore all threads created in the main thread default to daemon = False .
-True
 False
 start()
 RuntimeError
 daemon
 False
 The entire Python program exits when no alive non-daemon threads are left.
-isDaemon ( )
-setDaemon ( )
-Deprecated getter/setter API for daemon ; use it directly as a
-property instead. Deprecated since version 3.10.
 Deprecated getter/setter API for daemon ; use it directly as a
 property instead.
 daemon
@@ -768,59 +546,28 @@ is not defined, and may vary across implementations.
 acquire()
 release()
 All methods are executed atomically.
-class threading. Lock
-The class implementing primitive lock objects.  Once a thread has acquired a
-lock, subsequent attempts to acquire it block, until it is released; any
-thread may release it. Changed in version 3.13: Lock is now a class. In earlier Pythons, Lock was a factory
-function which returned an instance of the underlying private lock
-type. acquire ( blocking = True , timeout = -1 ) Acquire a lock, blocking or non-blocking. When invoked with the blocking argument set to True (the default),
-block until the lock is unlocked, then set it to locked and return True . When invoked with the blocking argument set to False , do not block.
-If a call with blocking set to True would block, return False immediately; otherwise, set the lock to locked and return True . When invoked with the floating-point timeout argument set to a positive
-value, block for at most the number of seconds specified by timeout and as long as the lock cannot be acquired.  A timeout argument of -1 specifies an unbounded wait.  It is forbidden to specify a timeout when blocking is False . The return value is True if the lock is acquired successfully, False if not (for example if the timeout expired). Changed in version 3.2: The timeout parameter is new. Changed in version 3.2: Lock acquisition can now be interrupted by signals on POSIX if the
-underlying threading implementation supports it. Changed in version 3.14: Lock acquisition can now be interrupted by signals on Windows. release ( ) Release a lock.  This can be called from any thread, not only the thread
-which has acquired the lock. When the lock is locked, reset it to unlocked, and return.  If any other threads
-are blocked waiting for the lock to become unlocked, allow exactly one of them
-to proceed. When invoked on an unlocked lock, a RuntimeError is raised. There is no return value. locked ( ) Return True if the lock is acquired.
 The class implementing primitive lock objects.  Once a thread has acquired a
 lock, subsequent attempts to acquire it block, until it is released; any
 thread may release it.
 Changed in version 3.13: Lock is now a class. In earlier Pythons, Lock was a factory
 function which returned an instance of the underlying private lock
 type.
-Lock
-Lock
-acquire ( blocking = True , timeout = -1 )
-Acquire a lock, blocking or non-blocking. When invoked with the blocking argument set to True (the default),
-block until the lock is unlocked, then set it to locked and return True . When invoked with the blocking argument set to False , do not block.
-If a call with blocking set to True would block, return False immediately; otherwise, set the lock to locked and return True . When invoked with the floating-point timeout argument set to a positive
-value, block for at most the number of seconds specified by timeout and as long as the lock cannot be acquired.  A timeout argument of -1 specifies an unbounded wait.  It is forbidden to specify a timeout when blocking is False . The return value is True if the lock is acquired successfully, False if not (for example if the timeout expired). Changed in version 3.2: The timeout parameter is new. Changed in version 3.2: Lock acquisition can now be interrupted by signals on POSIX if the
-underlying threading implementation supports it. Changed in version 3.14: Lock acquisition can now be interrupted by signals on Windows.
 Acquire a lock, blocking or non-blocking.
 When invoked with the blocking argument set to True (the default),
 block until the lock is unlocked, then set it to locked and return True .
-True
-True
 When invoked with the blocking argument set to False , do not block.
 If a call with blocking set to True would block, return False immediately; otherwise, set the lock to locked and return True .
 False
-True
 False
-True
 When invoked with the floating-point timeout argument set to a positive
 value, block for at most the number of seconds specified by timeout and as long as the lock cannot be acquired.  A timeout argument of -1 specifies an unbounded wait.  It is forbidden to specify a timeout when blocking is False .
 False
 The return value is True if the lock is acquired successfully, False if not (for example if the timeout expired).
-True
 False
 Changed in version 3.2: The timeout parameter is new.
 Changed in version 3.2: Lock acquisition can now be interrupted by signals on POSIX if the
 underlying threading implementation supports it.
 Changed in version 3.14: Lock acquisition can now be interrupted by signals on Windows.
-release ( )
-Release a lock.  This can be called from any thread, not only the thread
-which has acquired the lock. When the lock is locked, reset it to unlocked, and return.  If any other threads
-are blocked waiting for the lock to become unlocked, allow exactly one of them
-to proceed. When invoked on an unlocked lock, a RuntimeError is raised. There is no return value.
 Release a lock.  This can be called from any thread, not only the thread
 which has acquired the lock.
 When the lock is locked, reset it to unlocked, and return.  If any other threads
@@ -829,10 +576,7 @@ to proceed.
 When invoked on an unlocked lock, a RuntimeError is raised.
 RuntimeError
 There is no return value.
-locked ( )
 Return True if the lock is acquired.
-Return True if the lock is acquired.
-True
 
 ### RLock objects
 
@@ -845,10 +589,8 @@ Threads call a lock’s acquire() method to lock it,
 and its release() method to unlock it.
 acquire()
 release()
-Note
 Reentrant locks support the context management protocol ,
 so it is recommended to use with instead of manually calling acquire() and release() to handle acquiring and releasing the lock for a block of code.
-with
 acquire()
 release()
 RLock’s acquire() / release() call pairs may be nested,
@@ -866,27 +608,6 @@ must have a release in the thread that has acquired the lock. Failing to
 call release as many times the lock has been acquired can lead to deadlock.
 acquire()
 release()
-class threading. RLock
-This class implements reentrant lock objects.  A reentrant lock must be
-released by the thread that acquired it.  Once a thread has acquired a
-reentrant lock, the same thread may acquire it again without blocking; the
-thread must release it once for each time it has acquired it. Note that RLock is actually a factory function which returns an instance
-of the most efficient version of the concrete RLock class that is supported
-by the platform. acquire ( blocking = True , timeout = -1 ) Acquire a lock, blocking or non-blocking. See also Using RLock as a context manager Recommended over manual acquire() and release() calls
-whenever practical. When invoked with the blocking argument set to True (the default): If no thread owns the lock, acquire the lock and return immediately. If another thread owns the lock, block until we are able to acquire
-lock, or timeout , if set to a positive float value. If the same thread owns the lock, acquire the lock again, and
-return immediately. This is the difference between Lock and RLock ; Lock handles this case the same as the previous,
-blocking until the lock can be acquired. When invoked with the blocking argument set to False : If no thread owns the lock, acquire the lock and return immediately. If another thread owns the lock, return immediately. If the same thread owns the lock, acquire the lock again and return
-immediately. In all cases, if the thread was able to acquire the lock, return True .
-If the thread was unable to acquire the lock (i.e. if not blocking or
-the timeout was reached) return False . If called multiple times, failing to call release() as many times
-may lead to deadlock. Consider using RLock as a context manager rather than
-calling acquire/release directly. Changed in version 3.2: The timeout parameter is new. release ( ) Release a lock, decrementing the recursion level.  If after the decrement it is
-zero, reset the lock to unlocked (not owned by any thread), and if any other
-threads are blocked waiting for the lock to become unlocked, allow exactly one
-of them to proceed.  If after the decrement the recursion level is still
-nonzero, the lock remains locked and owned by the calling thread. Only call this method when the calling thread owns the lock. A RuntimeError is raised if this method is called when the lock is
-not acquired. There is no return value. locked ( ) Return a boolean indicating whether this object is locked right now. Added in version 3.14.
 This class implements reentrant lock objects.  A reentrant lock must be
 released by the thread that acquired it.  Once a thread has acquired a
 reentrant lock, the same thread may acquire it again without blocking; the
@@ -895,28 +616,13 @@ Note that RLock is actually a factory function which returns an instance
 of the most efficient version of the concrete RLock class that is supported
 by the platform.
 RLock
-acquire ( blocking = True , timeout = -1 )
-Acquire a lock, blocking or non-blocking. See also Using RLock as a context manager Recommended over manual acquire() and release() calls
-whenever practical. When invoked with the blocking argument set to True (the default): If no thread owns the lock, acquire the lock and return immediately. If another thread owns the lock, block until we are able to acquire
-lock, or timeout , if set to a positive float value. If the same thread owns the lock, acquire the lock again, and
-return immediately. This is the difference between Lock and RLock ; Lock handles this case the same as the previous,
-blocking until the lock can be acquired. When invoked with the blocking argument set to False : If no thread owns the lock, acquire the lock and return immediately. If another thread owns the lock, return immediately. If the same thread owns the lock, acquire the lock again and return
-immediately. In all cases, if the thread was able to acquire the lock, return True .
-If the thread was unable to acquire the lock (i.e. if not blocking or
-the timeout was reached) return False . If called multiple times, failing to call release() as many times
-may lead to deadlock. Consider using RLock as a context manager rather than
-calling acquire/release directly. Changed in version 3.2: The timeout parameter is new.
 Acquire a lock, blocking or non-blocking.
 See also
-Using RLock as a context manager
-Recommended over manual acquire() and release() calls
-whenever practical.
 Recommended over manual acquire() and release() calls
 whenever practical.
 acquire()
 release()
 When invoked with the blocking argument set to True (the default):
-True
 If no thread owns the lock, acquire the lock and return immediately.
 If no thread owns the lock, acquire the lock and return immediately.
 If another thread owns the lock, block until we are able to acquire
@@ -929,9 +635,7 @@ blocking until the lock can be acquired.
 If the same thread owns the lock, acquire the lock again, and
 return immediately. This is the difference between Lock and RLock ; Lock handles this case the same as the previous,
 blocking until the lock can be acquired.
-Lock
 RLock
-Lock
 When invoked with the blocking argument set to False :
 False
 If no thread owns the lock, acquire the lock and return immediately.
@@ -945,7 +649,6 @@ immediately.
 In all cases, if the thread was able to acquire the lock, return True .
 If the thread was unable to acquire the lock (i.e. if not blocking or
 the timeout was reached) return False .
-True
 False
 If called multiple times, failing to call release() as many times
 may lead to deadlock. Consider using RLock as a context manager rather than
@@ -953,13 +656,6 @@ calling acquire/release directly.
 release()
 RLock
 Changed in version 3.2: The timeout parameter is new.
-release ( )
-Release a lock, decrementing the recursion level.  If after the decrement it is
-zero, reset the lock to unlocked (not owned by any thread), and if any other
-threads are blocked waiting for the lock to become unlocked, allow exactly one
-of them to proceed.  If after the decrement the recursion level is still
-nonzero, the lock remains locked and owned by the calling thread. Only call this method when the calling thread owns the lock. A RuntimeError is raised if this method is called when the lock is
-not acquired. There is no return value.
 Release a lock, decrementing the recursion level.  If after the decrement it is
 zero, reset the lock to unlocked (not owned by any thread), and if any other
 threads are blocked waiting for the lock to become unlocked, allow exactly one
@@ -969,8 +665,6 @@ Only call this method when the calling thread owns the lock. A RuntimeError is r
 not acquired.
 RuntimeError
 There is no return value.
-locked ( )
-Return a boolean indicating whether this object is locked right now. Added in version 3.14.
 Return a boolean indicating whether this object is locked right now.
 Added in version 3.14.
 
@@ -984,7 +678,6 @@ A condition variable obeys the context management protocol :
 using the with statement acquires the associated lock for the duration of
 the enclosed block.  The acquire() and release() methods also call the corresponding methods of
 the associated lock.
-with
 acquire()
 release()
 Other methods must be called with the associated lock held.  The wait() method releases the lock, and then blocks until
@@ -1041,77 +734,19 @@ waiting threads.  E.g. in a typical producer-consumer situation, adding one
 item to the buffer only needs to wake up one consumer thread.
 notify()
 notify_all()
-class threading. Condition ( lock = None )
-This class implements condition variable objects.  A condition variable
-allows one or more threads to wait until they are notified by another thread. If the lock argument is given and not None , it must be a Lock or RLock object, and it is used as the underlying lock.  Otherwise,
-a new RLock object is created and used as the underlying lock. Changed in version 3.3: changed from a factory function to a class. acquire ( * args ) Acquire the underlying lock. This method calls the corresponding method on
-the underlying lock; the return value is whatever that method returns. release ( ) Release the underlying lock. This method calls the corresponding method on
-the underlying lock; there is no return value. locked ( ) Return a boolean indicating whether this object is locked right now. Added in version 3.14. wait ( timeout = None ) Wait until notified or until a timeout occurs. If the calling thread has
-not acquired the lock when this method is called, a RuntimeError is
-raised. This method releases the underlying lock, and then blocks until it is
-awakened by a notify() or notify_all() call for the same
-condition variable in another thread, or until the optional timeout
-occurs.  Once awakened or timed out, it re-acquires the lock and returns. When the timeout argument is present and not None , it should be a
-floating-point number specifying a timeout for the operation in seconds
-(or fractions thereof). When the underlying lock is an RLock , it is not released using
-its release() method, since this may not actually unlock the lock
-when it was acquired multiple times recursively.  Instead, an internal
-interface of the RLock class is used, which really unlocks it
-even when it has been recursively acquired several times. Another internal
-interface is then used to restore the recursion level when the lock is
-reacquired. The return value is True unless a given timeout expired, in which
-case it is False . Changed in version 3.2: Previously, the method always returned None . wait_for ( predicate , timeout = None ) Wait until a condition evaluates to true. predicate should be a
-callable which result will be interpreted as a boolean value.
-A timeout may be provided giving the maximum time to wait. This utility method may call wait() repeatedly until the predicate
-is satisfied, or until a timeout occurs. The return value is
-the last return value of the predicate and will evaluate to False if the method timed out. Ignoring the timeout feature, calling this method is roughly equivalent to
-writing: while not predicate (): cv . wait () Therefore, the same rules apply as with wait() : The lock must be
-held when called and is re-acquired on return.  The predicate is evaluated
-with the lock held. Added in version 3.2. notify ( n = 1 ) By default, wake up one thread waiting on this condition, if any.  If the
-calling thread has not acquired the lock when this method is called, a RuntimeError is raised. This method wakes up at most n of the threads waiting for the condition
-variable; it is a no-op if no threads are waiting. The current implementation wakes up exactly n threads, if at least n threads are waiting.  However, it’s not safe to rely on this behavior.
-A future, optimized implementation may occasionally wake up more than n threads. Note: an awakened thread does not actually return from its wait() call until it can reacquire the lock.  Since notify() does not
-release the lock, its caller should. notify_all ( ) Wake up all threads waiting on this condition.  This method acts like notify() , but wakes up all waiting threads instead of one. If the
-calling thread has not acquired the lock when this method is called, a RuntimeError is raised. The method notifyAll is a deprecated alias for this method.
 This class implements condition variable objects.  A condition variable
 allows one or more threads to wait until they are notified by another thread.
 If the lock argument is given and not None , it must be a Lock or RLock object, and it is used as the underlying lock.  Otherwise,
 a new RLock object is created and used as the underlying lock.
-None
-Lock
 RLock
 RLock
 Changed in version 3.3: changed from a factory function to a class.
-acquire ( * args )
 Acquire the underlying lock. This method calls the corresponding method on
 the underlying lock; the return value is whatever that method returns.
-Acquire the underlying lock. This method calls the corresponding method on
-the underlying lock; the return value is whatever that method returns.
-release ( )
 Release the underlying lock. This method calls the corresponding method on
 the underlying lock; there is no return value.
-Release the underlying lock. This method calls the corresponding method on
-the underlying lock; there is no return value.
-locked ( )
-Return a boolean indicating whether this object is locked right now. Added in version 3.14.
 Return a boolean indicating whether this object is locked right now.
 Added in version 3.14.
-wait ( timeout = None )
-Wait until notified or until a timeout occurs. If the calling thread has
-not acquired the lock when this method is called, a RuntimeError is
-raised. This method releases the underlying lock, and then blocks until it is
-awakened by a notify() or notify_all() call for the same
-condition variable in another thread, or until the optional timeout
-occurs.  Once awakened or timed out, it re-acquires the lock and returns. When the timeout argument is present and not None , it should be a
-floating-point number specifying a timeout for the operation in seconds
-(or fractions thereof). When the underlying lock is an RLock , it is not released using
-its release() method, since this may not actually unlock the lock
-when it was acquired multiple times recursively.  Instead, an internal
-interface of the RLock class is used, which really unlocks it
-even when it has been recursively acquired several times. Another internal
-interface is then used to restore the recursion level when the lock is
-reacquired. The return value is True unless a given timeout expired, in which
-case it is False . Changed in version 3.2: Previously, the method always returned None .
 Wait until notified or until a timeout occurs. If the calling thread has
 not acquired the lock when this method is called, a RuntimeError is
 raised.
@@ -1125,7 +760,6 @@ notify_all()
 When the timeout argument is present and not None , it should be a
 floating-point number specifying a timeout for the operation in seconds
 (or fractions thereof).
-None
 When the underlying lock is an RLock , it is not released using
 its release() method, since this may not actually unlock the lock
 when it was acquired multiple times recursively.  Instead, an internal
@@ -1138,19 +772,8 @@ release()
 RLock
 The return value is True unless a given timeout expired, in which
 case it is False .
-True
 False
 Changed in version 3.2: Previously, the method always returned None .
-None
-wait_for ( predicate , timeout = None )
-Wait until a condition evaluates to true. predicate should be a
-callable which result will be interpreted as a boolean value.
-A timeout may be provided giving the maximum time to wait. This utility method may call wait() repeatedly until the predicate
-is satisfied, or until a timeout occurs. The return value is
-the last return value of the predicate and will evaluate to False if the method timed out. Ignoring the timeout feature, calling this method is roughly equivalent to
-writing: while not predicate (): cv . wait () Therefore, the same rules apply as with wait() : The lock must be
-held when called and is re-acquired on return.  The predicate is evaluated
-with the lock held. Added in version 3.2.
 Wait until a condition evaluates to true. predicate should be a
 callable which result will be interpreted as a boolean value.
 A timeout may be provided giving the maximum time to wait.
@@ -1171,12 +794,6 @@ held when called and is re-acquired on return.  The predicate is evaluated
 with the lock held.
 wait()
 Added in version 3.2.
-notify ( n = 1 )
-By default, wake up one thread waiting on this condition, if any.  If the
-calling thread has not acquired the lock when this method is called, a RuntimeError is raised. This method wakes up at most n of the threads waiting for the condition
-variable; it is a no-op if no threads are waiting. The current implementation wakes up exactly n threads, if at least n threads are waiting.  However, it’s not safe to rely on this behavior.
-A future, optimized implementation may occasionally wake up more than n threads. Note: an awakened thread does not actually return from its wait() call until it can reacquire the lock.  Since notify() does not
-release the lock, its caller should.
 By default, wake up one thread waiting on this condition, if any.  If the
 calling thread has not acquired the lock when this method is called, a RuntimeError is raised.
 RuntimeError
@@ -1188,9 +805,6 @@ Note: an awakened thread does not actually return from its wait() call until it 
 release the lock, its caller should.
 wait()
 notify()
-notify_all ( )
-Wake up all threads waiting on this condition.  This method acts like notify() , but wakes up all waiting threads instead of one. If the
-calling thread has not acquired the lock when this method is called, a RuntimeError is raised. The method notifyAll is a deprecated alias for this method.
 Wake up all threads waiting on this condition.  This method acts like notify() , but wakes up all waiting threads instead of one. If the
 calling thread has not acquired the lock when this method is called, a RuntimeError is raised.
 notify()
@@ -1203,8 +817,6 @@ notifyAll
 This is one of the oldest synchronization primitives in the history of computer
 science, invented by the early Dutch computer scientist Edsger W. Dijkstra (he
 used the names P() and V() instead of acquire() and release() ).
-P()
-V()
 acquire()
 release()
 A semaphore manages an internal counter which is decremented by each acquire() call and incremented by each release() call.  The counter can never go below zero; when acquire() finds that it is zero, it blocks, waiting until some other thread calls release() .
@@ -1213,23 +825,6 @@ release()
 acquire()
 release()
 Semaphores also support the context management protocol .
-class threading. Semaphore ( value = 1 )
-This class implements semaphore objects.  A semaphore manages an atomic
-counter representing the number of release() calls minus the number of acquire() calls, plus an initial value.  The acquire() method
-blocks if necessary until it can return without making the counter negative.
-If not given, value defaults to 1. The optional argument gives the initial value for the internal counter; it
-defaults to 1 . If the value given is less than 0, ValueError is
-raised. Changed in version 3.3: changed from a factory function to a class. acquire ( blocking = True , timeout = None ) Acquire a semaphore. When invoked without arguments: If the internal counter is larger than zero on entry, decrement it by
-one and return True immediately. If the internal counter is zero on entry, block until awoken by a call to release() .  Once awoken (and the counter is greater
-than 0), decrement the counter by 1 and return True .  Exactly one
-thread will be awoken by each call to release() .  The
-order in which threads are awoken should not be relied on. When invoked with blocking set to False , do not block.  If a call
-without an argument would block, return False immediately; otherwise, do
-the same thing as when called without arguments, and return True . When invoked with a timeout other than None , it will block for at
-most timeout seconds.  If acquire does not complete successfully in
-that interval, return False .  Return True otherwise. Changed in version 3.2: The timeout parameter is new. release ( n = 1 ) Release a semaphore, incrementing the internal counter by n .  When it
-was zero on entry and other threads are waiting for it to become larger
-than zero again, wake up n of those threads. Changed in version 3.9: Added the n parameter to release multiple waiting threads at once.
 This class implements semaphore objects.  A semaphore manages an atomic
 counter representing the number of release() calls minus the number of acquire() calls, plus an initial value.  The acquire() method
 blocks if necessary until it can return without making the counter negative.
@@ -1242,23 +837,12 @@ defaults to 1 . If the value given is less than 0, ValueError is
 raised.
 ValueError
 Changed in version 3.3: changed from a factory function to a class.
-acquire ( blocking = True , timeout = None )
-Acquire a semaphore. When invoked without arguments: If the internal counter is larger than zero on entry, decrement it by
-one and return True immediately. If the internal counter is zero on entry, block until awoken by a call to release() .  Once awoken (and the counter is greater
-than 0), decrement the counter by 1 and return True .  Exactly one
-thread will be awoken by each call to release() .  The
-order in which threads are awoken should not be relied on. When invoked with blocking set to False , do not block.  If a call
-without an argument would block, return False immediately; otherwise, do
-the same thing as when called without arguments, and return True . When invoked with a timeout other than None , it will block for at
-most timeout seconds.  If acquire does not complete successfully in
-that interval, return False .  Return True otherwise. Changed in version 3.2: The timeout parameter is new.
 Acquire a semaphore.
 When invoked without arguments:
 If the internal counter is larger than zero on entry, decrement it by
 one and return True immediately.
 If the internal counter is larger than zero on entry, decrement it by
 one and return True immediately.
-True
 If the internal counter is zero on entry, block until awoken by a call to release() .  Once awoken (and the counter is greater
 than 0), decrement the counter by 1 and return True .  Exactly one
 thread will be awoken by each call to release() .  The
@@ -1268,34 +852,21 @@ than 0), decrement the counter by 1 and return True .  Exactly one
 thread will be awoken by each call to release() .  The
 order in which threads are awoken should not be relied on.
 release()
-True
 release()
 When invoked with blocking set to False , do not block.  If a call
 without an argument would block, return False immediately; otherwise, do
 the same thing as when called without arguments, and return True .
 False
 False
-True
 When invoked with a timeout other than None , it will block for at
 most timeout seconds.  If acquire does not complete successfully in
 that interval, return False .  Return True otherwise.
-None
 False
-True
 Changed in version 3.2: The timeout parameter is new.
-release ( n = 1 )
-Release a semaphore, incrementing the internal counter by n .  When it
-was zero on entry and other threads are waiting for it to become larger
-than zero again, wake up n of those threads. Changed in version 3.9: Added the n parameter to release multiple waiting threads at once.
 Release a semaphore, incrementing the internal counter by n .  When it
 was zero on entry and other threads are waiting for it to become larger
 than zero again, wake up n of those threads.
 Changed in version 3.9: Added the n parameter to release multiple waiting threads at once.
-class threading. BoundedSemaphore ( value = 1 )
-Class implementing bounded semaphore objects.  A bounded semaphore checks to
-make sure its current value doesn’t exceed its initial value.  If it does, ValueError is raised. In most situations semaphores are used to guard
-resources with limited capacity.  If the semaphore is released too many times
-it’s a sign of a bug.  If not given, value defaults to 1. Changed in version 3.3: changed from a factory function to a class.
 Class implementing bounded semaphore objects.  A bounded semaphore checks to
 make sure its current value doesn’t exceed its initial value.  If it does, ValueError is raised. In most situations semaphores are used to guard
 resources with limited capacity.  If the semaphore is released too many times
@@ -1333,19 +904,6 @@ An event object manages an internal flag that can be set to true with the set() 
 set()
 clear()
 wait()
-class threading. Event
-Class implementing event objects.  An event manages a flag that can be set to
-true with the set() method and reset to false with the clear() method.  The wait() method blocks until the flag is true.
-The flag is initially false. Changed in version 3.3: changed from a factory function to a class. is_set ( ) Return True if and only if the internal flag is true. The method isSet is a deprecated alias for this method. set ( ) Set the internal flag to true. All threads waiting for it to become true
-are awakened. Threads that call wait() once the flag is true will
-not block at all. clear ( ) Reset the internal flag to false. Subsequently, threads calling wait() will block until set() is called to set the internal
-flag to true again. wait ( timeout = None ) Block as long as the internal flag is false and the timeout, if given,
-has not expired. The return value represents the
-reason that this blocking method returned; True if returning because
-the internal flag is set to true, or False if a timeout is given and
-the internal flag did not become true within the given wait time. When the timeout argument is present and not None , it should be a
-floating-point number specifying a timeout for the operation in seconds,
-or fractions thereof. Changed in version 3.1: Previously, the method always returned None .
 Class implementing event objects.  An event manages a flag that can be set to
 true with the set() method and reset to false with the clear() method.  The wait() method blocks until the flag is true.
 The flag is initially false.
@@ -1353,48 +911,27 @@ set()
 clear()
 wait()
 Changed in version 3.3: changed from a factory function to a class.
-is_set ( )
-Return True if and only if the internal flag is true. The method isSet is a deprecated alias for this method.
 Return True if and only if the internal flag is true.
-True
 The method isSet is a deprecated alias for this method.
 isSet
-set ( )
-Set the internal flag to true. All threads waiting for it to become true
-are awakened. Threads that call wait() once the flag is true will
-not block at all.
 Set the internal flag to true. All threads waiting for it to become true
 are awakened. Threads that call wait() once the flag is true will
 not block at all.
 wait()
-clear ( )
-Reset the internal flag to false. Subsequently, threads calling wait() will block until set() is called to set the internal
-flag to true again.
 Reset the internal flag to false. Subsequently, threads calling wait() will block until set() is called to set the internal
 flag to true again.
 wait()
 set()
-wait ( timeout = None )
-Block as long as the internal flag is false and the timeout, if given,
-has not expired. The return value represents the
-reason that this blocking method returned; True if returning because
-the internal flag is set to true, or False if a timeout is given and
-the internal flag did not become true within the given wait time. When the timeout argument is present and not None , it should be a
-floating-point number specifying a timeout for the operation in seconds,
-or fractions thereof. Changed in version 3.1: Previously, the method always returned None .
 Block as long as the internal flag is false and the timeout, if given,
 has not expired. The return value represents the
 reason that this blocking method returned; True if returning because
 the internal flag is set to true, or False if a timeout is given and
 the internal flag did not become true within the given wait time.
-True
 False
 When the timeout argument is present and not None , it should be a
 floating-point number specifying a timeout for the operation in seconds,
 or fractions thereof.
-None
 Changed in version 3.1: Previously, the method always returned None .
-None
 
 ### Timer objects
 
@@ -1413,22 +950,11 @@ For example:
 def hello (): print ( "hello, world" ) t = Timer ( 30.0 , hello ) t . start () # after 30 seconds, "hello, world" will be printed
 [/CODE]
 
-class threading. Timer ( interval , function , args = None , kwargs = None )
-Create a timer that will run function with arguments args and  keyword
-arguments kwargs , after interval seconds have passed.
-If args is None (the default) then an empty list will be used.
-If kwargs is None (the default) then an empty dict will be used. Changed in version 3.3: changed from a factory function to a class. cancel ( ) Stop the timer, and cancel the execution of the timer’s action.  This will
-only work if the timer is still in its waiting stage.
 Create a timer that will run function with arguments args and  keyword
 arguments kwargs , after interval seconds have passed.
 If args is None (the default) then an empty list will be used.
 If kwargs is None (the default) then an empty dict will be used.
-None
-None
 Changed in version 3.3: changed from a factory function to a class.
-cancel ( )
-Stop the timer, and cancel the execution of the timer’s action.  This will
-only work if the timer is still in its waiting stage.
 Stop the timer, and cancel the execution of the timer’s action.  This will
 only work if the timer is still in its waiting stage.
 
@@ -1449,41 +975,11 @@ As an example, here is a simple way to synchronize a client and server thread:
 b = Barrier ( 2 , timeout = 5 ) def server (): start_server () b . wait () while True : connection = accept_connection () process_server_connection ( connection ) def client (): b . wait () while True : connection = make_connection () process_client_connection ( connection )
 [/CODE]
 
-class threading. Barrier ( parties , action = None , timeout = None )
-Create a barrier object for parties number of threads.  An action , when
-provided, is a callable to be called by one of the threads when they are
-released. timeout is the default timeout value if none is specified for
-the wait() method. wait ( timeout = None ) Pass the barrier.  When all the threads party to the barrier have called
-this function, they are all released simultaneously.  If a timeout is
-provided, it is used in preference to any that was supplied to the class
-constructor. The return value is an integer in the range 0 to parties – 1, different
-for each thread.  This can be used to select a thread to do some special
-housekeeping, e.g.: i = barrier . wait () if i == 0 : # Only one thread needs to print this print ( "passed the barrier" ) If an action was provided to the constructor, one of the threads will
-have called it prior to being released.  Should this call raise an error,
-the barrier is put into the broken state. If the call times out, the barrier is put into the broken state. This method may raise a BrokenBarrierError exception if the
-barrier is broken or reset while a thread is waiting. reset ( ) Return the barrier to the default, empty state.  Any threads waiting on it
-will receive the BrokenBarrierError exception. Note that using this function may require some external
-synchronization if there are other threads whose state is unknown.  If a
-barrier is broken it may be better to just leave it and create a new one. abort ( ) Put the barrier into a broken state.  This causes any active or future
-calls to wait() to fail with the BrokenBarrierError .  Use
-this for example if one of the threads needs to abort, to avoid deadlocking the
-application. It may be preferable to simply create the barrier with a sensible timeout value to automatically guard against one of the threads going
-awry. parties The number of threads required to pass the barrier. n_waiting The number of threads currently waiting in the barrier. broken A boolean that is True if the barrier is in the broken state.
 Create a barrier object for parties number of threads.  An action , when
 provided, is a callable to be called by one of the threads when they are
 released. timeout is the default timeout value if none is specified for
 the wait() method.
 wait()
-wait ( timeout = None )
-Pass the barrier.  When all the threads party to the barrier have called
-this function, they are all released simultaneously.  If a timeout is
-provided, it is used in preference to any that was supplied to the class
-constructor. The return value is an integer in the range 0 to parties – 1, different
-for each thread.  This can be used to select a thread to do some special
-housekeeping, e.g.: i = barrier . wait () if i == 0 : # Only one thread needs to print this print ( "passed the barrier" ) If an action was provided to the constructor, one of the threads will
-have called it prior to being released.  Should this call raise an error,
-the barrier is put into the broken state. If the call times out, the barrier is put into the broken state. This method may raise a BrokenBarrierError exception if the
-barrier is broken or reset while a thread is waiting.
 Pass the barrier.  When all the threads party to the barrier have called
 this function, they are all released simultaneously.  If a timeout is
 provided, it is used in preference to any that was supplied to the class
@@ -1503,23 +999,12 @@ If the call times out, the barrier is put into the broken state.
 This method may raise a BrokenBarrierError exception if the
 barrier is broken or reset while a thread is waiting.
 BrokenBarrierError
-reset ( )
-Return the barrier to the default, empty state.  Any threads waiting on it
-will receive the BrokenBarrierError exception. Note that using this function may require some external
-synchronization if there are other threads whose state is unknown.  If a
-barrier is broken it may be better to just leave it and create a new one.
 Return the barrier to the default, empty state.  Any threads waiting on it
 will receive the BrokenBarrierError exception.
 BrokenBarrierError
 Note that using this function may require some external
 synchronization if there are other threads whose state is unknown.  If a
 barrier is broken it may be better to just leave it and create a new one.
-abort ( )
-Put the barrier into a broken state.  This causes any active or future
-calls to wait() to fail with the BrokenBarrierError .  Use
-this for example if one of the threads needs to abort, to avoid deadlocking the
-application. It may be preferable to simply create the barrier with a sensible timeout value to automatically guard against one of the threads going
-awry.
 Put the barrier into a broken state.  This causes any active or future
 calls to wait() to fail with the BrokenBarrierError .  Use
 this for example if one of the threads needs to abort, to avoid deadlocking the
@@ -1528,31 +1013,20 @@ wait()
 BrokenBarrierError
 It may be preferable to simply create the barrier with a sensible timeout value to automatically guard against one of the threads going
 awry.
-parties
 The number of threads required to pass the barrier.
-The number of threads required to pass the barrier.
-n_waiting
 The number of threads currently waiting in the barrier.
-The number of threads currently waiting in the barrier.
-broken
 A boolean that is True if the barrier is in the broken state.
-A boolean that is True if the barrier is in the broken state.
-True
-exception threading. BrokenBarrierError
-This exception, a subclass of RuntimeError , is raised when the Barrier object is reset or broken.
 This exception, a subclass of RuntimeError , is raised when the Barrier object is reset or broken.
 RuntimeError
 Barrier
 
 ## Using locks, conditions, and semaphores in the with statement
 
-with
 All of the objects provided by this module that have acquire and release methods can be used as context managers for a with statement.  The acquire method will be called when the block is
 entered, and release will be called when the block is exited.  Hence,
 the following snippet:
 acquire
 release
-with
 acquire
 release
 
@@ -1567,9 +1041,7 @@ some_lock . acquire () try : # do something... finally : some_lock . release ()
 [/CODE]
 
 Currently, Lock , RLock , Condition , Semaphore , and BoundedSemaphore objects may be used as with statement context managers.
-Lock
 RLock
 Condition
 Semaphore
 BoundedSemaphore
-with

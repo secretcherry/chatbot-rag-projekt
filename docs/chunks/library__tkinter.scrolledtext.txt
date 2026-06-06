@@ -18,17 +18,9 @@ methods of the Grid and Pack geometry managers are acquired
 from the Frame object.  This allows the ScrolledText widget to
 be used directly to achieve most normal geometry management behavior.
 Frame
-Grid
-Pack
 Frame
 ScrolledText
 Should more specific control be necessary, the following attributes are
 available:
-class tkinter.scrolledtext. ScrolledText ( master = None , ** kw )
-frame The frame which surrounds the text and scroll bar widgets. vbar The scroll bar widget.
-frame
 The frame which surrounds the text and scroll bar widgets.
-The frame which surrounds the text and scroll bar widgets.
-vbar
-The scroll bar widget.
 The scroll bar widget.

@@ -5,8 +5,6 @@ SOURCE: using\ios.html
 
 # 7. Using Python on iOS
 
-Authors :
-Russell Keith-Magee (2024-03)
 Russell Keith-Magee (2024-03)
 Python on iOS is unlike Python on desktop platforms. On a desktop platform,
 Python is generally installed as a system resource that can be used by any user
@@ -46,12 +44,10 @@ When executing on iOS, sys.platform will report as ios . This value will
 be returned on an iPhone or iPad, regardless of whether the app is running on
 the simulator or a physical device.
 sys.platform
-ios
 Information about the specific runtime environment, including the iOS version,
 device model, and whether the device is a simulator, can be obtained using platform.ios_ver() . platform.system() will report iOS or iPadOS , depending on the device.
 platform.ios_ver()
 platform.system()
-iOS
 iPadOS
 os.uname() reports kernel-level details; it will report a name of Darwin .
 os.uname()
@@ -82,12 +78,10 @@ individual standalone frameworks with appropriate metadata and signing. For
 details on how to perform this post-processing, see the guide for adding
 Python to your project .
 sys.path
-.so
 To help Python discover binaries in their new location, the original .so file on sys.path is replaced with a .fwork file. This file is a text
 file containing the location of the framework binary, relative to the app
 bundle. To allow the framework to resolve back to the original location, the
 framework must contain a .origin file that contains the location of the .fwork file, relative to the app bundle.
-.so
 sys.path
 .fwork
 .origin
@@ -143,7 +137,6 @@ It results in CC / CPP / LD / AR definitions that include spaces.
 There is a lot of C ecosystem tooling that assumes that you can split a
 command line at the first space to get the path to the compiler executable;
 this isn’t the case when using xcrun .
-CPP
 xcrun
 To avoid these problems, Python provided stubs for these tools. These stubs are
 shell script wrappers around the underingly xcrun tools, distributed in a bin folder distributed alongside the compiled iOS framework. These scripts
@@ -153,7 +146,6 @@ contents of the sysconfig module becomes useful for end-users to compile
 their own modules. When compiling third-party Python modules for iOS, you
 should ensure these stub binaries are on your path.
 xcrun
-bin
 sysconfig
 
 ## 7.2. Installing Python on iOS
@@ -209,7 +201,6 @@ following instructions, we’ll assume that your user code is in a folder
 named app in the root of your project; you can use any other location by
 adjusting paths as needed. Ensure that this folder is associated with your
 app target.
-app
 Select the app target by selecting the root node of your Xcode project, then
 the target name in the sidebar that appears.
 Select the app target by selecting the root node of your Xcode project, then
@@ -295,13 +286,11 @@ the python/lib/python3.X/lib-dynload subfolder of your app’s bundle, and
 python/lib/python3.X/lib-dynload
 the app subfolder of your app’s bundle
 the app subfolder of your app’s bundle
-app
 Your app’s bundle location can be determined using [[NSBundle mainBundle] resourcePath] .
 [[NSBundle mainBundle] resourcePath]
 Steps 7 and 8 of these instructions assume that you have a single folder of
 pure Python application code, named app . If you have third-party binary
 modules in your app, some additional steps will be required:
-app
 You need to ensure that any folders containing third-party binaries are
 either associated with the app target, or are explicitly copied as part of
 step 7. Step 7 should also purge any binaries that are not appropriate for
@@ -322,7 +311,6 @@ install_python
 PYTHONPATH
 If any of the folders that contain third-party packages will contain .pth files, you should add that folder as a site directory (using site.addsitedir() ), rather than adding to PYTHONPATH or sys.path directly.
 If any of the folders that contain third-party packages will contain .pth files, you should add that folder as a site directory (using site.addsitedir() ), rather than adding to PYTHONPATH or sys.path directly.
-.pth
 site.addsitedir()
 PYTHONPATH
 sys.path

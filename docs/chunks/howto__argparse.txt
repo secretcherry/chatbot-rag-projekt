@@ -5,13 +5,10 @@ SOURCE: howto\argparse.html
 
 # Argparse Tutorial
 
-author :
-Tshepang Mbambo
 Tshepang Mbambo
 This tutorial is intended to be a gentle introduction to argparse , the
 recommended command-line parsing module in the Python standard library.
 argparse
-Note
 The standard library includes two other libraries directly related
 to command-line parameter processing: the lower level optparse module (which may require more code to configure for a given application,
 but also allows an application to request behaviors that argparse doesn’t support), and the very low level getopt (which specifically
@@ -58,7 +55,6 @@ where it appears on the command line. This concept is more relevant
 to a command like cp , whose most basic usage is cp SRC DEST .
 The first position is what you want copied, and the second
 position is where you want it copied to .
-pypy
 cp SRC DEST
 Now, say we want to change behaviour of the program. In our example,
 we display more info for each file instead of just showing the file names.
@@ -127,7 +123,6 @@ We’ve added the add_argument() method, which is what we use to specify
 which command-line options the program is willing to accept. In this case,
 I’ve named it echo so that it’s in line with its function.
 add_argument()
-echo
 Calling our program now requires us to specify an option.
 Calling our program now requires us to specify an option.
 The parse_args() method actually returns some data from the
@@ -135,7 +130,6 @@ options specified, in this case, echo .
 The parse_args() method actually returns some data from the
 options specified, in this case, echo .
 parse_args()
-echo
 The variable is some form of ‘magic’ that argparse performs for free
 (i.e. no need to specify which variable that value is stored in).
 You will also notice that its name matches the string argument given
@@ -145,12 +139,10 @@ The variable is some form of ‘magic’ that argparse performs for free
 You will also notice that its name matches the string argument given
 to the method, echo .
 argparse
-echo
 Note however that, although the help display looks nice and all, it currently
 is not as helpful as it can be. For example we see that we got echo as a
 positional argument, but we don’t know what it does, other than by guessing or
 by reading the source code. So, let’s make it a bit more useful:
-echo
 
 [CODE]
 import argparse parser = argparse . ArgumentParser () parser . add_argument ( "echo" , help = "echo the string you use here" ) args = parser . parse_args () print ( args . echo )
@@ -224,7 +216,6 @@ used, the relevant variable, in this case args.verbosity , is
 given None as a value, which is the reason it fails the truth
 test of the if statement.
 args.verbosity
-None
 The help message is a bit different.
 The help message is a bit different.
 When using the --verbosity option, one must also specify some value,
@@ -236,7 +227,6 @@ The above example accepts arbitrary integer values for --verbosity , but for
 our simple program, only two values are actually useful, True or False .
 Let’s modify the code accordingly:
 --verbosity
-True
 False
 
 [CODE]
@@ -262,7 +252,6 @@ assign the value True to args.verbose .
 Not specifying it implies False .
 action
 "store_true"
-True
 args.verbose
 False
 It complains when you specify a value, in true spirit of what flags
@@ -366,7 +355,6 @@ Now here’s a demonstration of what the “count” action gives. You’ve prob
 seen this sort of usage before.
 And if you don’t specify the -v flag, that flag is considered to have None value.
 And if you don’t specify the -v flag, that flag is considered to have None value.
-None
 As should be expected, specifying the long form of the flag, we should get
 the same output.
 As should be expected, specifying the long form of the flag, we should get
@@ -377,7 +365,6 @@ our script (e.g. via the help keyword argument).
 Sadly, our help output isn’t very informative on the new ability our script
 has acquired, but that can always be fixed by improving the documentation for
 our script (e.g. via the help keyword argument).
-help
 That last output exposes a bug in our program.
 That last output exposes a bug in our program.
 Let’s fix:
@@ -411,9 +398,7 @@ if an optional argument isn’t specified,
 it gets the None value, and that cannot be compared to an int value
 (hence the TypeError exception).
 default
-None
 TypeError
-And:
 
 [CODE]
 $ python prog.py 4 16
@@ -530,7 +515,6 @@ show this help message and exit
 In order to translate these strings, they must first be extracted
 into a .po file. For example, using Babel ,
 run this command:
-.po
 
 [CODE]
 $ pybabel extract -o messages.po /usr/lib/python3.12/argparse.py
@@ -552,7 +536,6 @@ import argparse print ( argparse . __file__ )
 Once the messages in the .po file are translated and the translations are
 installed using gettext , argparse will be able to display the
 translated messages.
-.po
 gettext
 argparse
 To translate your own strings in the argparse output, use gettext .
@@ -592,7 +575,6 @@ Defined two arguments, -a and +a , which used the type parameter to
 create custom type converters to store the value in a tuple with the prefix.
 Defined two arguments, -a and +a , which used the type parameter to
 create custom type converters to store the value in a tuple with the prefix.
-type
 Without the custom type converters, the arguments would have treated the -a and +a as the same argument, which would have been undesirable. By using custom
 type converters, we were able to differentiate between the two arguments.
 

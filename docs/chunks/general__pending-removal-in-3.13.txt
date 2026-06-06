@@ -6,15 +6,9 @@ SOURCE: deprecations\pending-removal-in-3.13.html
 # Pending removal in Python 3.13
 
 Modules (see PEP 594 ):
-aifc
-aifc
-aifc
 audioop
 audioop
 audioop
-cgi
-cgi
-cgi
 cgitb
 cgitb
 cgitb
@@ -33,9 +27,6 @@ mailcap
 msilib
 msilib
 msilib
-nis
-nis
-nis
 nntplib
 nntplib
 nntplib
@@ -48,9 +39,6 @@ pipes
 sndhdr
 sndhdr
 sndhdr
-spwd
-spwd
-spwd
 sunau
 sunau
 sunau

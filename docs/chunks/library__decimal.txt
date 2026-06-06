@@ -27,8 +27,6 @@ as 3.3000000000000003 as it does with binary floating point.
 Decimal numbers can be represented exactly.  In contrast, numbers like 1.1 and 2.2 do not have exact representations in binary
 floating point. End users typically would not expect 1.1 + 2.2 to display
 as 3.3000000000000003 as it does with binary floating point.
-1.1
-2.2
 1.1 + 2.2
 3.3000000000000003
 The exactness carries over into arithmetic.  In decimal floating point, 0.1 + 0.1 + 0.1 - 0.3 is exactly equal to zero.  In binary floating point, the result
@@ -52,9 +50,7 @@ This is the customary presentation for monetary applications. For
 multiplication, the “schoolbook” approach uses all the figures in the
 multiplicands.  For instance, 1.3 * 1.2 gives 1.56 while 1.30 * 1.20 gives 1.5600 .
 1.30 + 1.20
-2.50
 1.3 * 1.2
-1.56
 1.30 * 1.20
 1.5600
 Unlike hardware based binary floating point, the decimal module has a user
@@ -96,7 +92,6 @@ trailing zeros.  Decimals also include special values such as Infinity , -Infini
 differentiates -0 from +0 .
 Infinity
 -Infinity
-NaN
 The context for arithmetic is an environment specifying precision, rounding
 rules, limits on exponents, flags indicating the results of operations, and trap
 enablers which determine whether signals are treated as exceptions.  Rounding
@@ -146,7 +141,6 @@ getcontext()
 Decimal instances can be constructed from integers, strings, floats, or tuples.
 Construction from an integer or a float performs an exact conversion of the
 value of that integer or float.  Decimal numbers include special values such as NaN which stands for “Not a number”, positive and negative Infinity , and -0 :
-NaN
 Infinity
 
 [CODE]
@@ -259,155 +253,6 @@ Decimal
 
 ## Decimal objects
 
-class decimal. Decimal ( value = '0' , context = None )
-Construct a new Decimal object based from value . value can be an integer, string, tuple, float , or another Decimal object. If no value is given, returns Decimal('0') .  If value is a
-string, it should conform to the decimal numeric string syntax after leading
-and trailing whitespace characters, as well as underscores throughout, are removed: sign : := '+' | '-' digit : := '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' indicator : := 'e' | 'E' digits : := digit [ digit ] ... decimal - part : := digits '.' [ digits ] | [ '.' ] digits exponent - part : := indicator [ sign ] digits infinity : := 'Infinity' | 'Inf' nan : := 'NaN' [ digits ] | 'sNaN' [ digits ] numeric - value : := decimal - part [ exponent - part ] | infinity numeric - string : := [ sign ] numeric - value | [ sign ] nan Other Unicode decimal digits are also permitted where digit appears above.  These include decimal digits from various other
-alphabets (for example, Arabic-Indic and Devanāgarī digits) along
-with the fullwidth digits '\uff10' through '\uff19' .
-Case is not significant, so, for example, inf , Inf , INFINITY ,
-and iNfINity are all acceptable spellings for positive infinity. If value is a tuple , it should have three components, a sign
-( 0 for positive or 1 for negative), a tuple of
-digits, and an integer exponent. For example, Decimal((0, (1, 4, 1, 4), -3)) returns Decimal('1.414') . If value is a float , the binary floating-point value is losslessly
-converted to its exact decimal equivalent.  This conversion can often require
-53 or more digits of precision.  For example, Decimal(float('1.1')) converts to Decimal('1.100000000000000088817841970012523233890533447265625') . The context precision does not affect how many digits are stored. That is
-determined exclusively by the number of digits in value . For example, Decimal('3.00000') records all five zeros even if the context precision is
-only three. The purpose of the context argument is determining what to do if value is a
-malformed string.  If the context traps InvalidOperation , an exception
-is raised; otherwise, the constructor returns a new Decimal with the value of NaN . Once constructed, Decimal objects are immutable. Changed in version 3.2: The argument to the constructor is now permitted to be a float instance. Changed in version 3.3: float arguments raise an exception if the FloatOperation trap is set. By default the trap is off. Changed in version 3.6: Underscores are allowed for grouping, as with integral and floating-point
-literals in code. Decimal floating-point objects share many properties with the other built-in
-numeric types such as float and int .  All of the usual math
-operations and special methods apply.  Likewise, decimal objects can be
-copied, pickled, printed, used as dictionary keys, used as set elements,
-compared, sorted, and coerced to another type (such as float or int ). There are some small differences between arithmetic on Decimal objects and
-arithmetic on integers and floats.  When the remainder operator % is
-applied to Decimal objects, the sign of the result is the sign of the dividend rather than the sign of the divisor: >>> ( - 7 ) % 4 1 >>> Decimal ( - 7 ) % Decimal ( 4 ) Decimal('-3') The integer division operator // behaves analogously, returning the
-integer part of the true quotient (truncating towards zero) rather than its
-floor, so as to preserve the usual identity x == (x // y) * y + x % y : >>> - 7 // 4 -2 >>> Decimal ( - 7 ) // Decimal ( 4 ) Decimal('-1') The % and // operators implement the remainder and divide-integer operations (respectively) as described in the
-specification. Decimal objects cannot generally be combined with floats or
-instances of fractions.Fraction in arithmetic operations:
-an attempt to add a Decimal to a float , for
-example, will raise a TypeError .  However, it is possible to
-use Python’s comparison operators to compare a Decimal instance x with another number y .  This avoids confusing results
-when doing equality comparisons between numbers of different types. Changed in version 3.2: Mixed-type comparisons between Decimal instances and other
-numeric types are now fully supported. In addition to the standard numeric properties, decimal floating-point
-objects also have a number of specialized methods: adjusted ( ) Return the adjusted exponent after shifting out the coefficient’s
-rightmost digits until only the lead digit remains: Decimal('321e+5').adjusted() returns seven.  Used for determining the
-position of the most significant digit with respect to the decimal point. as_integer_ratio ( ) Return a pair (n, d) of integers that represent the given Decimal instance as a fraction, in lowest terms and
-with a positive denominator: >>> Decimal ( '-3.14' ) . as_integer_ratio () (-157, 50) The conversion is exact.  Raise OverflowError on infinities and ValueError
-on NaNs. Added in version 3.6. as_tuple ( ) Return a named tuple representation of the number: DecimalTuple(sign, digits, exponent) . canonical ( ) Return the canonical encoding of the argument.  Currently, the encoding of
-a Decimal instance is always canonical, so this operation returns
-its argument unchanged. compare ( other , context = None ) Compare the values of two Decimal instances. compare() returns a
-Decimal instance, and if either operand is a NaN then the result is a
-NaN: a or b is a NaN ==> Decimal ( 'NaN' ) a < b ==> Decimal ( '-1' ) a == b ==> Decimal ( '0' ) a > b ==> Decimal ( '1' ) compare_signal ( other , context = None ) This operation is identical to the compare() method, except that all
-NaNs signal.  That is, if neither operand is a signaling NaN then any
-quiet NaN operand is treated as though it were a signaling NaN. compare_total ( other , context = None ) Compare two operands using their abstract representation rather than their
-numerical value.  Similar to the compare() method, but the result
-gives a total ordering on Decimal instances.  Two Decimal instances with the same numeric value but different
-representations compare unequal in this ordering: >>> Decimal ( '12.0' ) . compare_total ( Decimal ( '12' )) Decimal('-1') Quiet and signaling NaNs are also included in the total ordering.  The
-result of this function is Decimal('0') if both operands have the same
-representation, Decimal('-1') if the first operand is lower in the
-total order than the second, and Decimal('1') if the first operand is
-higher in the total order than the second operand.  See the specification
-for details of the total order. This operation is unaffected by context and is quiet: no flags are changed
-and no rounding is performed.  As an exception, the C version may raise
-InvalidOperation if the second operand cannot be converted exactly. compare_total_mag ( other , context = None ) Compare two operands using their abstract representation rather than their
-value as in compare_total() , but ignoring the sign of each operand. x.compare_total_mag(y) is equivalent to x.copy_abs().compare_total(y.copy_abs()) . This operation is unaffected by context and is quiet: no flags are changed
-and no rounding is performed.  As an exception, the C version may raise
-InvalidOperation if the second operand cannot be converted exactly. conjugate ( ) Just returns self, this method is only to comply with the Decimal
-Specification. copy_abs ( ) Return the absolute value of the argument.  This operation is unaffected
-by the context and is quiet: no flags are changed and no rounding is
-performed. copy_negate ( ) Return the negation of the argument.  This operation is unaffected by the
-context and is quiet: no flags are changed and no rounding is performed. copy_sign ( other , context = None ) Return a copy of the first operand with the sign set to be the same as the
-sign of the second operand.  For example: >>> Decimal ( '2.3' ) . copy_sign ( Decimal ( '-1.5' )) Decimal('-2.3') This operation is unaffected by context and is quiet: no flags are changed
-and no rounding is performed.  As an exception, the C version may raise
-InvalidOperation if the second operand cannot be converted exactly. exp ( context = None ) Return the value of the (natural) exponential function e**x at the
-given number.  The result is correctly rounded using the ROUND_HALF_EVEN rounding mode. >>> Decimal ( 1 ) . exp () Decimal('2.718281828459045235360287471') >>> Decimal ( 321 ) . exp () Decimal('2.561702493119680037517373933E+139') classmethod from_float ( f , / ) Alternative constructor that only accepts instances of float or int . Note Decimal.from_float(0.1) is not the same as Decimal('0.1') .
-Since 0.1 is not exactly representable in binary floating point, the
-value is stored as the nearest representable value which is 0x1.999999999999ap-4 .  That equivalent value in decimal is 0.1000000000000000055511151231257827021181583404541015625 . Note From Python 3.2 onwards, a Decimal instance
-can also be constructed directly from a float . >>> Decimal . from_float ( 0.1 ) Decimal('0.1000000000000000055511151231257827021181583404541015625') >>> Decimal . from_float ( float ( 'nan' )) Decimal('NaN') >>> Decimal . from_float ( float ( 'inf' )) Decimal('Infinity') >>> Decimal . from_float ( float ( '-inf' )) Decimal('-Infinity') Added in version 3.1. classmethod from_number ( number , / ) Alternative constructor that only accepts instances of float , int or Decimal , but not strings
-or tuples. >>> Decimal . from_number ( 314 ) Decimal('314') >>> Decimal . from_number ( 0.1 ) Decimal('0.1000000000000000055511151231257827021181583404541015625') >>> Decimal . from_number ( Decimal ( '3.14' )) Decimal('3.14') Added in version 3.14. fma ( other , third , context = None ) Fused multiply-add.  Return self*other+third with no rounding of the
-intermediate product self*other. >>> Decimal ( 2 ) . fma ( 3 , 5 ) Decimal('11') is_canonical ( ) Return True if the argument is canonical and False otherwise.  Currently, a Decimal instance is always canonical, so
-this operation always returns True . is_finite ( ) Return True if the argument is a finite number, and False if the argument is an infinity or a NaN. is_infinite ( ) Return True if the argument is either positive or negative
-infinity and False otherwise. is_nan ( ) Return True if the argument is a (quiet or signaling) NaN and False otherwise. is_normal ( context = None ) Return True if the argument is a normal finite number.  Return False if the argument is zero, subnormal, infinite or a NaN. is_qnan ( ) Return True if the argument is a quiet NaN, and False otherwise. is_signed ( ) Return True if the argument has a negative sign and False otherwise.  Note that zeros and NaNs can both carry signs. is_snan ( ) Return True if the argument is a signaling NaN and False otherwise. is_subnormal ( context = None ) Return True if the argument is subnormal, and False otherwise. is_zero ( ) Return True if the argument is a (positive or negative) zero and False otherwise. ln ( context = None ) Return the natural (base e) logarithm of the operand.  The result is
-correctly rounded using the ROUND_HALF_EVEN rounding mode. log10 ( context = None ) Return the base ten logarithm of the operand.  The result is correctly
-rounded using the ROUND_HALF_EVEN rounding mode. logb ( context = None ) For a nonzero number, return the adjusted exponent of its operand as a Decimal instance.  If the operand is a zero then Decimal('-Infinity') is returned and the DivisionByZero flag
-is raised.  If the operand is an infinity then Decimal('Infinity') is
-returned. logical_and ( other , context = None ) logical_and() is a logical operation which takes two logical
-operands (see Logical operands ).  The result is the
-digit-wise and of the two operands. logical_invert ( context = None ) logical_invert() is a logical operation.  The
-result is the digit-wise inversion of the operand. logical_or ( other , context = None ) logical_or() is a logical operation which takes two logical
-operands (see Logical operands ).  The result is the
-digit-wise or of the two operands. logical_xor ( other , context = None ) logical_xor() is a logical operation which takes two logical
-operands (see Logical operands ).  The result is the
-digit-wise exclusive or of the two operands. max ( other , context = None ) Like max(self, other) except that the context rounding rule is applied
-before returning and that NaN values are either signaled or
-ignored (depending on the context and whether they are signaling or
-quiet). max_mag ( other , context = None ) Similar to the max() method, but the comparison is done using the
-absolute values of the operands. min ( other , context = None ) Like min(self, other) except that the context rounding rule is applied
-before returning and that NaN values are either signaled or
-ignored (depending on the context and whether they are signaling or
-quiet). min_mag ( other , context = None ) Similar to the min() method, but the comparison is done using the
-absolute values of the operands. next_minus ( context = None ) Return the largest number representable in the given context (or in the
-current thread’s context if no context is given) that is smaller than the
-given operand. next_plus ( context = None ) Return the smallest number representable in the given context (or in the
-current thread’s context if no context is given) that is larger than the
-given operand. next_toward ( other , context = None ) If the two operands are unequal, return the number closest to the first
-operand in the direction of the second operand.  If both operands are
-numerically equal, return a copy of the first operand with the sign set to
-be the same as the sign of the second operand. normalize ( context = None ) Used for producing canonical values of an equivalence
-class within either the current context or the specified context. This has the same semantics as the unary plus operation, except that if
-the final result is finite it is reduced to its simplest form, with all
-trailing zeros removed and its sign preserved. That is, while the
-coefficient is non-zero and a multiple of ten the coefficient is divided
-by ten and the exponent is incremented by 1. Otherwise (the coefficient is
-zero) the exponent is set to 0. In all cases the sign is unchanged. For example, Decimal('32.100') and Decimal('0.321000e+2') both
-normalize to the equivalent value Decimal('32.1') . Note that rounding is applied before reducing to simplest form. In the latest versions of the specification, this operation is also known
-as reduce . number_class ( context = None ) Return a string describing the class of the operand.  The returned value
-is one of the following ten strings. "-Infinity" , indicating that the operand is negative infinity. "-Normal" , indicating that the operand is a negative normal number. "-Subnormal" , indicating that the operand is negative and subnormal. "-Zero" , indicating that the operand is a negative zero. "+Zero" , indicating that the operand is a positive zero. "+Subnormal" , indicating that the operand is positive and subnormal. "+Normal" , indicating that the operand is a positive normal number. "+Infinity" , indicating that the operand is positive infinity. "NaN" , indicating that the operand is a quiet NaN (Not a Number). "sNaN" , indicating that the operand is a signaling NaN. quantize ( exp , rounding = None , context = None ) Return a value equal to the first operand after rounding and having the
-exponent of the second operand. >>> Decimal ( '1.41421356' ) . quantize ( Decimal ( '1.000' )) Decimal('1.414') Unlike other operations, if the length of the coefficient after the
-quantize operation would be greater than precision, then an InvalidOperation is signaled. This guarantees that, unless there
-is an error condition, the quantized exponent is always equal to that of
-the right-hand operand. Also unlike other operations, quantize never signals Underflow, even if
-the result is subnormal and inexact. If the exponent of the second operand is larger than that of the first
-then rounding may be necessary.  In this case, the rounding mode is
-determined by the rounding argument if given, else by the given context argument; if neither argument is given the rounding mode of
-the current thread’s context is used. An error is returned whenever the resulting exponent is greater than Emax or less than Etiny() . radix ( ) Return Decimal(10) , the radix (base) in which the Decimal class does all its arithmetic.  Included for compatibility with the
-specification. remainder_near ( other , context = None ) Return the remainder from dividing self by other .  This differs from self % other in that the sign of the remainder is chosen so as to
-minimize its absolute value.  More precisely, the return value is self - n * other where n is the integer nearest to the exact
-value of self / other , and if two integers are equally near then the
-even one is chosen. If the result is zero then its sign will be the sign of self . >>> Decimal ( 18 ) . remainder_near ( Decimal ( 10 )) Decimal('-2') >>> Decimal ( 25 ) . remainder_near ( Decimal ( 10 )) Decimal('5') >>> Decimal ( 35 ) . remainder_near ( Decimal ( 10 )) Decimal('-5') rotate ( other , context = None ) Return the result of rotating the digits of the first operand by an amount
-specified by the second operand.  The second operand must be an integer in
-the range -precision through precision.  The absolute value of the second
-operand gives the number of places to rotate.  If the second operand is
-positive then rotation is to the left; otherwise rotation is to the right.
-The coefficient of the first operand is padded on the left with zeros to
-length precision if necessary.  The sign and exponent of the first operand
-are unchanged. same_quantum ( other , context = None ) Test whether self and other have the same exponent or whether both are NaN . This operation is unaffected by context and is quiet: no flags are changed
-and no rounding is performed.  As an exception, the C version may raise
-InvalidOperation if the second operand cannot be converted exactly. scaleb ( other , context = None ) Return the first operand with exponent adjusted by the second.
-Equivalently, return the first operand multiplied by 10**other .  The
-second operand must be an integer. shift ( other , context = None ) Return the result of shifting the digits of the first operand by an amount
-specified by the second operand.  The second operand must be an integer in
-the range -precision through precision.  The absolute value of the second
-operand gives the number of places to shift.  If the second operand is
-positive then the shift is to the left; otherwise the shift is to the
-right.  Digits shifted into the coefficient are zeros.  The sign and
-exponent of the first operand are unchanged. sqrt ( context = None ) Return the square root of the argument to full precision. to_eng_string ( context = None ) Convert to a string, using engineering notation if an exponent is needed. Engineering notation has an exponent which is a multiple of 3.  This
-can leave up to 3 digits to the left of the decimal place and may
-require the addition of either one or two trailing zeros. For example, this converts Decimal('123E+1') to Decimal('1.23E+3') . to_integral ( rounding = None , context = None ) Identical to the to_integral_value() method.  The to_integral name has been kept for compatibility with older versions. to_integral_exact ( rounding = None , context = None ) Round to the nearest integer, signaling Inexact or Rounded as appropriate if rounding occurs.  The rounding mode is
-determined by the rounding parameter if given, else by the given context .  If neither parameter is given then the rounding mode of the
-current context is used. to_integral_value ( rounding = None , context = None ) Round to the nearest integer without signaling Inexact or Rounded .  If given, applies rounding ; otherwise, uses the
-rounding method in either the supplied context or the current context. Decimal numbers can be rounded using the round() function: round(number) round(number, ndigits) If ndigits is not given or None ,
-returns the nearest int to number ,
-rounding ties to even, and ignoring the rounding mode of the Decimal context.  Raises OverflowError if number is an
-infinity or ValueError if it is a (quiet or signaling) NaN. If ndigits is an int , the context’s rounding mode is respected
-and a Decimal representing number rounded to the nearest
-multiple of Decimal('1E-ndigits') is returned; in this case, round(number, ndigits) is equivalent to self.quantize(Decimal('1E-ndigits')) .  Returns Decimal('NaN') if number is a quiet NaN.  Raises InvalidOperation if number is an infinity, a signaling NaN, or if the length of the coefficient after
-the quantize operation would be greater than the current context’s
-precision.  In other words, for the non-corner cases: if ndigits is positive, return number rounded to ndigits decimal
-places; if ndigits is zero, return number rounded to the nearest integer; if ndigits is negative, return number rounded to the nearest
-multiple of 10**abs(ndigits) . For example: >>> from decimal import Decimal , getcontext , ROUND_DOWN >>> getcontext () . rounding = ROUND_DOWN >>> round ( Decimal ( '3.75' )) # context rounding ignored 4 >>> round ( Decimal ( '3.5' )) # round-ties-to-even 4 >>> round ( Decimal ( '3.75' ), 0 ) # uses the context rounding Decimal('3') >>> round ( Decimal ( '3.75' ), 1 ) Decimal('3.7') >>> round ( Decimal ( '3.75' ), - 1 ) Decimal('0E+1')
 Construct a new Decimal object based from value .
 Decimal
 value can be an integer, string, tuple, float , or another Decimal object. If no value is given, returns Decimal('0') .  If value is a
@@ -429,8 +274,6 @@ and iNfINity are all acceptable spellings for positive infinity.
 digit
 '\uff10'
 '\uff19'
-inf
-Inf
 INFINITY
 iNfINity
 If value is a tuple , it should have three components, a sign
@@ -454,7 +297,6 @@ The purpose of the context argument is determining what to do if value is a
 malformed string.  If the context traps InvalidOperation , an exception
 is raised; otherwise, the constructor returns a new Decimal with the value of NaN .
 InvalidOperation
-NaN
 Once constructed, Decimal objects are immutable.
 Decimal
 Changed in version 3.2: The argument to the constructor is now permitted to be a float instance.
@@ -470,9 +312,7 @@ operations and special methods apply.  Likewise, decimal objects can be
 copied, pickled, printed, used as dictionary keys, used as set elements,
 compared, sorted, and coerced to another type (such as float or int ).
 float
-int
 float
-int
 There are some small differences between arithmetic on Decimal objects and
 arithmetic on integers and floats.  When the remainder operator % is
 applied to Decimal objects, the sign of the result is the sign of the dividend rather than the sign of the divisor:
@@ -510,18 +350,10 @@ numeric types are now fully supported.
 Decimal
 In addition to the standard numeric properties, decimal floating-point
 objects also have a number of specialized methods:
-adjusted ( )
-Return the adjusted exponent after shifting out the coefficient’s
-rightmost digits until only the lead digit remains: Decimal('321e+5').adjusted() returns seven.  Used for determining the
-position of the most significant digit with respect to the decimal point.
 Return the adjusted exponent after shifting out the coefficient’s
 rightmost digits until only the lead digit remains: Decimal('321e+5').adjusted() returns seven.  Used for determining the
 position of the most significant digit with respect to the decimal point.
 Decimal('321e+5').adjusted()
-as_integer_ratio ( )
-Return a pair (n, d) of integers that represent the given Decimal instance as a fraction, in lowest terms and
-with a positive denominator: >>> Decimal ( '-3.14' ) . as_integer_ratio () (-157, 50) The conversion is exact.  Raise OverflowError on infinities and ValueError
-on NaNs.
 Return a pair (n, d) of integers that represent the given Decimal instance as a fraction, in lowest terms and
 with a positive denominator:
 (n, d)
@@ -534,22 +366,12 @@ Decimal
 The conversion is exact.  Raise OverflowError on infinities and ValueError
 on NaNs.
 Added in version 3.6.
-as_tuple ( )
-Return a named tuple representation of the number: DecimalTuple(sign, digits, exponent) .
 Return a named tuple representation of the number: DecimalTuple(sign, digits, exponent) .
 DecimalTuple(sign, digits, exponent)
-canonical ( )
-Return the canonical encoding of the argument.  Currently, the encoding of
-a Decimal instance is always canonical, so this operation returns
-its argument unchanged.
 Return the canonical encoding of the argument.  Currently, the encoding of
 a Decimal instance is always canonical, so this operation returns
 its argument unchanged.
 Decimal
-compare ( other , context = None )
-Compare the values of two Decimal instances. compare() returns a
-Decimal instance, and if either operand is a NaN then the result is a
-NaN: a or b is a NaN ==> Decimal ( 'NaN' ) a < b ==> Decimal ( '-1' ) a == b ==> Decimal ( '0' ) a > b ==> Decimal ( '1' )
 Compare the values of two Decimal instances. compare() returns a
 Decimal instance, and if either operand is a NaN then the result is a
 NaN:
@@ -559,26 +381,10 @@ compare()
 a or b is a NaN ==> Decimal ( 'NaN' ) a < b ==> Decimal ( '-1' ) a == b ==> Decimal ( '0' ) a > b ==> Decimal ( '1' )
 [/CODE]
 
-compare_signal ( other , context = None )
-This operation is identical to the compare() method, except that all
-NaNs signal.  That is, if neither operand is a signaling NaN then any
-quiet NaN operand is treated as though it were a signaling NaN.
 This operation is identical to the compare() method, except that all
 NaNs signal.  That is, if neither operand is a signaling NaN then any
 quiet NaN operand is treated as though it were a signaling NaN.
 compare()
-compare_total ( other , context = None )
-Compare two operands using their abstract representation rather than their
-numerical value.  Similar to the compare() method, but the result
-gives a total ordering on Decimal instances.  Two Decimal instances with the same numeric value but different
-representations compare unequal in this ordering: >>> Decimal ( '12.0' ) . compare_total ( Decimal ( '12' )) Decimal('-1') Quiet and signaling NaNs are also included in the total ordering.  The
-result of this function is Decimal('0') if both operands have the same
-representation, Decimal('-1') if the first operand is lower in the
-total order than the second, and Decimal('1') if the first operand is
-higher in the total order than the second operand.  See the specification
-for details of the total order. This operation is unaffected by context and is quiet: no flags are changed
-and no rounding is performed.  As an exception, the C version may raise
-InvalidOperation if the second operand cannot be converted exactly.
 Compare two operands using their abstract representation rather than their
 numerical value.  Similar to the compare() method, but the result
 gives a total ordering on Decimal instances.  Two Decimal instances with the same numeric value but different
@@ -603,11 +409,6 @@ Decimal('1')
 This operation is unaffected by context and is quiet: no flags are changed
 and no rounding is performed.  As an exception, the C version may raise
 InvalidOperation if the second operand cannot be converted exactly.
-compare_total_mag ( other , context = None )
-Compare two operands using their abstract representation rather than their
-value as in compare_total() , but ignoring the sign of each operand. x.compare_total_mag(y) is equivalent to x.copy_abs().compare_total(y.copy_abs()) . This operation is unaffected by context and is quiet: no flags are changed
-and no rounding is performed.  As an exception, the C version may raise
-InvalidOperation if the second operand cannot be converted exactly.
 Compare two operands using their abstract representation rather than their
 value as in compare_total() , but ignoring the sign of each operand. x.compare_total_mag(y) is equivalent to x.copy_abs().compare_total(y.copy_abs()) .
 compare_total()
@@ -616,28 +417,13 @@ x.copy_abs().compare_total(y.copy_abs())
 This operation is unaffected by context and is quiet: no flags are changed
 and no rounding is performed.  As an exception, the C version may raise
 InvalidOperation if the second operand cannot be converted exactly.
-conjugate ( )
 Just returns self, this method is only to comply with the Decimal
 Specification.
-Just returns self, this method is only to comply with the Decimal
-Specification.
-copy_abs ( )
 Return the absolute value of the argument.  This operation is unaffected
 by the context and is quiet: no flags are changed and no rounding is
 performed.
-Return the absolute value of the argument.  This operation is unaffected
-by the context and is quiet: no flags are changed and no rounding is
-performed.
-copy_negate ( )
 Return the negation of the argument.  This operation is unaffected by the
 context and is quiet: no flags are changed and no rounding is performed.
-Return the negation of the argument.  This operation is unaffected by the
-context and is quiet: no flags are changed and no rounding is performed.
-copy_sign ( other , context = None )
-Return a copy of the first operand with the sign set to be the same as the
-sign of the second operand.  For example: >>> Decimal ( '2.3' ) . copy_sign ( Decimal ( '-1.5' )) Decimal('-2.3') This operation is unaffected by context and is quiet: no flags are changed
-and no rounding is performed.  As an exception, the C version may raise
-InvalidOperation if the second operand cannot be converted exactly.
 Return a copy of the first operand with the sign set to be the same as the
 sign of the second operand.  For example:
 
@@ -648,26 +434,16 @@ sign of the second operand.  For example:
 This operation is unaffected by context and is quiet: no flags are changed
 and no rounding is performed.  As an exception, the C version may raise
 InvalidOperation if the second operand cannot be converted exactly.
-exp ( context = None )
-Return the value of the (natural) exponential function e**x at the
-given number.  The result is correctly rounded using the ROUND_HALF_EVEN rounding mode. >>> Decimal ( 1 ) . exp () Decimal('2.718281828459045235360287471') >>> Decimal ( 321 ) . exp () Decimal('2.561702493119680037517373933E+139')
 Return the value of the (natural) exponential function e**x at the
 given number.  The result is correctly rounded using the ROUND_HALF_EVEN rounding mode.
-e**x
 ROUND_HALF_EVEN
 
 [CODE]
 >>> Decimal ( 1 ) . exp () Decimal('2.718281828459045235360287471') >>> Decimal ( 321 ) . exp () Decimal('2.561702493119680037517373933E+139')
 [/CODE]
 
-classmethod from_float ( f , / )
-Alternative constructor that only accepts instances of float or int . Note Decimal.from_float(0.1) is not the same as Decimal('0.1') .
-Since 0.1 is not exactly representable in binary floating point, the
-value is stored as the nearest representable value which is 0x1.999999999999ap-4 .  That equivalent value in decimal is 0.1000000000000000055511151231257827021181583404541015625 . Note From Python 3.2 onwards, a Decimal instance
-can also be constructed directly from a float . >>> Decimal . from_float ( 0.1 ) Decimal('0.1000000000000000055511151231257827021181583404541015625') >>> Decimal . from_float ( float ( 'nan' )) Decimal('NaN') >>> Decimal . from_float ( float ( 'inf' )) Decimal('Infinity') >>> Decimal . from_float ( float ( '-inf' )) Decimal('-Infinity') Added in version 3.1.
 Alternative constructor that only accepts instances of float or int .
 float
-int
 Note Decimal.from_float(0.1) is not the same as Decimal('0.1') .
 Since 0.1 is not exactly representable in binary floating point, the
 value is stored as the nearest representable value which is 0x1.999999999999ap-4 .  That equivalent value in decimal is 0.1000000000000000055511151231257827021181583404541015625 .
@@ -675,7 +451,6 @@ Decimal.from_float(0.1)
 Decimal('0.1')
 0x1.999999999999ap-4
 0.1000000000000000055511151231257827021181583404541015625
-Note
 From Python 3.2 onwards, a Decimal instance
 can also be constructed directly from a float .
 Decimal
@@ -686,13 +461,9 @@ float
 [/CODE]
 
 Added in version 3.1.
-classmethod from_number ( number , / )
-Alternative constructor that only accepts instances of float , int or Decimal , but not strings
-or tuples. >>> Decimal . from_number ( 314 ) Decimal('314') >>> Decimal . from_number ( 0.1 ) Decimal('0.1000000000000000055511151231257827021181583404541015625') >>> Decimal . from_number ( Decimal ( '3.14' )) Decimal('3.14') Added in version 3.14.
 Alternative constructor that only accepts instances of float , int or Decimal , but not strings
 or tuples.
 float
-int
 Decimal
 
 [CODE]
@@ -700,9 +471,6 @@ Decimal
 [/CODE]
 
 Added in version 3.14.
-fma ( other , third , context = None )
-Fused multiply-add.  Return self*other+third with no rounding of the
-intermediate product self*other. >>> Decimal ( 2 ) . fma ( 3 , 5 ) Decimal('11')
 Fused multiply-add.  Return self*other+third with no rounding of the
 intermediate product self*other.
 
@@ -710,78 +478,35 @@ intermediate product self*other.
 >>> Decimal ( 2 ) . fma ( 3 , 5 ) Decimal('11')
 [/CODE]
 
-is_canonical ( )
 Return True if the argument is canonical and False otherwise.  Currently, a Decimal instance is always canonical, so
 this operation always returns True .
-Return True if the argument is canonical and False otherwise.  Currently, a Decimal instance is always canonical, so
-this operation always returns True .
-True
 False
 Decimal
-True
-is_finite ( )
 Return True if the argument is a finite number, and False if the argument is an infinity or a NaN.
-Return True if the argument is a finite number, and False if the argument is an infinity or a NaN.
-True
 False
-is_infinite ( )
 Return True if the argument is either positive or negative
 infinity and False otherwise.
-Return True if the argument is either positive or negative
-infinity and False otherwise.
-True
 False
-is_nan ( )
 Return True if the argument is a (quiet or signaling) NaN and False otherwise.
-Return True if the argument is a (quiet or signaling) NaN and False otherwise.
-True
 False
-is_normal ( context = None )
 Return True if the argument is a normal finite number.  Return False if the argument is zero, subnormal, infinite or a NaN.
-Return True if the argument is a normal finite number.  Return False if the argument is zero, subnormal, infinite or a NaN.
-True
 False
-is_qnan ( )
 Return True if the argument is a quiet NaN, and False otherwise.
-Return True if the argument is a quiet NaN, and False otherwise.
-True
 False
-is_signed ( )
 Return True if the argument has a negative sign and False otherwise.  Note that zeros and NaNs can both carry signs.
-Return True if the argument has a negative sign and False otherwise.  Note that zeros and NaNs can both carry signs.
-True
 False
-is_snan ( )
 Return True if the argument is a signaling NaN and False otherwise.
-Return True if the argument is a signaling NaN and False otherwise.
-True
 False
-is_subnormal ( context = None )
 Return True if the argument is subnormal, and False otherwise.
-Return True if the argument is subnormal, and False otherwise.
-True
 False
-is_zero ( )
 Return True if the argument is a (positive or negative) zero and False otherwise.
-Return True if the argument is a (positive or negative) zero and False otherwise.
-True
 False
-ln ( context = None )
-Return the natural (base e) logarithm of the operand.  The result is
-correctly rounded using the ROUND_HALF_EVEN rounding mode.
 Return the natural (base e) logarithm of the operand.  The result is
 correctly rounded using the ROUND_HALF_EVEN rounding mode.
 ROUND_HALF_EVEN
-log10 ( context = None )
-Return the base ten logarithm of the operand.  The result is correctly
-rounded using the ROUND_HALF_EVEN rounding mode.
 Return the base ten logarithm of the operand.  The result is correctly
 rounded using the ROUND_HALF_EVEN rounding mode.
 ROUND_HALF_EVEN
-logb ( context = None )
-For a nonzero number, return the adjusted exponent of its operand as a Decimal instance.  If the operand is a zero then Decimal('-Infinity') is returned and the DivisionByZero flag
-is raised.  If the operand is an infinity then Decimal('Infinity') is
-returned.
 For a nonzero number, return the adjusted exponent of its operand as a Decimal instance.  If the operand is a zero then Decimal('-Infinity') is returned and the DivisionByZero flag
 is raised.  If the operand is an infinity then Decimal('Infinity') is
 returned.
@@ -789,104 +514,47 @@ Decimal
 Decimal('-Infinity')
 DivisionByZero
 Decimal('Infinity')
-logical_and ( other , context = None )
-logical_and() is a logical operation which takes two logical
-operands (see Logical operands ).  The result is the
-digit-wise and of the two operands.
 logical_and() is a logical operation which takes two logical
 operands (see Logical operands ).  The result is the
 digit-wise and of the two operands.
 logical_and()
-and
-logical_invert ( context = None )
-logical_invert() is a logical operation.  The
-result is the digit-wise inversion of the operand.
 logical_invert() is a logical operation.  The
 result is the digit-wise inversion of the operand.
 logical_invert()
-logical_or ( other , context = None )
-logical_or() is a logical operation which takes two logical
-operands (see Logical operands ).  The result is the
-digit-wise or of the two operands.
 logical_or() is a logical operation which takes two logical
 operands (see Logical operands ).  The result is the
 digit-wise or of the two operands.
 logical_or()
-logical_xor ( other , context = None )
-logical_xor() is a logical operation which takes two logical
-operands (see Logical operands ).  The result is the
-digit-wise exclusive or of the two operands.
 logical_xor() is a logical operation which takes two logical
 operands (see Logical operands ).  The result is the
 digit-wise exclusive or of the two operands.
 logical_xor()
-max ( other , context = None )
-Like max(self, other) except that the context rounding rule is applied
-before returning and that NaN values are either signaled or
-ignored (depending on the context and whether they are signaling or
-quiet).
 Like max(self, other) except that the context rounding rule is applied
 before returning and that NaN values are either signaled or
 ignored (depending on the context and whether they are signaling or
 quiet).
 max(self, other)
-NaN
-max_mag ( other , context = None )
-Similar to the max() method, but the comparison is done using the
-absolute values of the operands.
 Similar to the max() method, but the comparison is done using the
 absolute values of the operands.
 max()
-min ( other , context = None )
-Like min(self, other) except that the context rounding rule is applied
-before returning and that NaN values are either signaled or
-ignored (depending on the context and whether they are signaling or
-quiet).
 Like min(self, other) except that the context rounding rule is applied
 before returning and that NaN values are either signaled or
 ignored (depending on the context and whether they are signaling or
 quiet).
 min(self, other)
-NaN
-min_mag ( other , context = None )
-Similar to the min() method, but the comparison is done using the
-absolute values of the operands.
 Similar to the min() method, but the comparison is done using the
 absolute values of the operands.
 min()
-next_minus ( context = None )
 Return the largest number representable in the given context (or in the
 current thread’s context if no context is given) that is smaller than the
-given operand.
-Return the largest number representable in the given context (or in the
-current thread’s context if no context is given) that is smaller than the
-given operand.
-next_plus ( context = None )
-Return the smallest number representable in the given context (or in the
-current thread’s context if no context is given) that is larger than the
 given operand.
 Return the smallest number representable in the given context (or in the
 current thread’s context if no context is given) that is larger than the
 given operand.
-next_toward ( other , context = None )
 If the two operands are unequal, return the number closest to the first
 operand in the direction of the second operand.  If both operands are
 numerically equal, return a copy of the first operand with the sign set to
 be the same as the sign of the second operand.
-If the two operands are unequal, return the number closest to the first
-operand in the direction of the second operand.  If both operands are
-numerically equal, return a copy of the first operand with the sign set to
-be the same as the sign of the second operand.
-normalize ( context = None )
-Used for producing canonical values of an equivalence
-class within either the current context or the specified context. This has the same semantics as the unary plus operation, except that if
-the final result is finite it is reduced to its simplest form, with all
-trailing zeros removed and its sign preserved. That is, while the
-coefficient is non-zero and a multiple of ten the coefficient is divided
-by ten and the exponent is incremented by 1. Otherwise (the coefficient is
-zero) the exponent is set to 0. In all cases the sign is unchanged. For example, Decimal('32.100') and Decimal('0.321000e+2') both
-normalize to the equivalent value Decimal('32.1') . Note that rounding is applied before reducing to simplest form. In the latest versions of the specification, this operation is also known
-as reduce .
 Used for producing canonical values of an equivalence
 class within either the current context or the specified context.
 This has the same semantics as the unary plus operation, except that if
@@ -904,9 +572,6 @@ Note that rounding is applied before reducing to simplest form.
 In the latest versions of the specification, this operation is also known
 as reduce .
 reduce
-number_class ( context = None )
-Return a string describing the class of the operand.  The returned value
-is one of the following ten strings. "-Infinity" , indicating that the operand is negative infinity. "-Normal" , indicating that the operand is a negative normal number. "-Subnormal" , indicating that the operand is negative and subnormal. "-Zero" , indicating that the operand is a negative zero. "+Zero" , indicating that the operand is a positive zero. "+Subnormal" , indicating that the operand is positive and subnormal. "+Normal" , indicating that the operand is a positive normal number. "+Infinity" , indicating that the operand is positive infinity. "NaN" , indicating that the operand is a quiet NaN (Not a Number). "sNaN" , indicating that the operand is a signaling NaN.
 Return a string describing the class of the operand.  The returned value
 is one of the following ten strings.
 "-Infinity" , indicating that the operand is negative infinity.
@@ -939,16 +604,6 @@ is one of the following ten strings.
 "sNaN" , indicating that the operand is a signaling NaN.
 "sNaN" , indicating that the operand is a signaling NaN.
 "sNaN"
-quantize ( exp , rounding = None , context = None )
-Return a value equal to the first operand after rounding and having the
-exponent of the second operand. >>> Decimal ( '1.41421356' ) . quantize ( Decimal ( '1.000' )) Decimal('1.414') Unlike other operations, if the length of the coefficient after the
-quantize operation would be greater than precision, then an InvalidOperation is signaled. This guarantees that, unless there
-is an error condition, the quantized exponent is always equal to that of
-the right-hand operand. Also unlike other operations, quantize never signals Underflow, even if
-the result is subnormal and inexact. If the exponent of the second operand is larger than that of the first
-then rounding may be necessary.  In this case, the rounding mode is
-determined by the rounding argument if given, else by the given context argument; if neither argument is given the rounding mode of
-the current thread’s context is used. An error is returned whenever the resulting exponent is greater than Emax or less than Etiny() .
 Return a value equal to the first operand after rounding and having the
 exponent of the second operand.
 
@@ -970,20 +625,11 @@ the current thread’s context is used.
 rounding
 context
 An error is returned whenever the resulting exponent is greater than Emax or less than Etiny() .
-Emax
 Etiny()
-radix ( )
-Return Decimal(10) , the radix (base) in which the Decimal class does all its arithmetic.  Included for compatibility with the
-specification.
 Return Decimal(10) , the radix (base) in which the Decimal class does all its arithmetic.  Included for compatibility with the
 specification.
 Decimal(10)
 Decimal
-remainder_near ( other , context = None )
-Return the remainder from dividing self by other .  This differs from self % other in that the sign of the remainder is chosen so as to
-minimize its absolute value.  More precisely, the return value is self - n * other where n is the integer nearest to the exact
-value of self / other , and if two integers are equally near then the
-even one is chosen. If the result is zero then its sign will be the sign of self . >>> Decimal ( 18 ) . remainder_near ( Decimal ( 10 )) Decimal('-2') >>> Decimal ( 25 ) . remainder_near ( Decimal ( 10 )) Decimal('5') >>> Decimal ( 35 ) . remainder_near ( Decimal ( 10 )) Decimal('-5')
 Return the remainder from dividing self by other .  This differs from self % other in that the sign of the remainder is chosen so as to
 minimize its absolute value.  More precisely, the return value is self - n * other where n is the integer nearest to the exact
 value of self / other , and if two integers are equally near then the
@@ -997,7 +643,6 @@ If the result is zero then its sign will be the sign of self .
 >>> Decimal ( 18 ) . remainder_near ( Decimal ( 10 )) Decimal('-2') >>> Decimal ( 25 ) . remainder_near ( Decimal ( 10 )) Decimal('5') >>> Decimal ( 35 ) . remainder_near ( Decimal ( 10 )) Decimal('-5')
 [/CODE]
 
-rotate ( other , context = None )
 Return the result of rotating the digits of the first operand by an amount
 specified by the second operand.  The second operand must be an integer in
 the range -precision through precision.  The absolute value of the second
@@ -1006,32 +651,14 @@ positive then rotation is to the left; otherwise rotation is to the right.
 The coefficient of the first operand is padded on the left with zeros to
 length precision if necessary.  The sign and exponent of the first operand
 are unchanged.
-Return the result of rotating the digits of the first operand by an amount
-specified by the second operand.  The second operand must be an integer in
-the range -precision through precision.  The absolute value of the second
-operand gives the number of places to rotate.  If the second operand is
-positive then rotation is to the left; otherwise rotation is to the right.
-The coefficient of the first operand is padded on the left with zeros to
-length precision if necessary.  The sign and exponent of the first operand
-are unchanged.
-same_quantum ( other , context = None )
-Test whether self and other have the same exponent or whether both are NaN . This operation is unaffected by context and is quiet: no flags are changed
-and no rounding is performed.  As an exception, the C version may raise
-InvalidOperation if the second operand cannot be converted exactly.
 Test whether self and other have the same exponent or whether both are NaN .
-NaN
 This operation is unaffected by context and is quiet: no flags are changed
 and no rounding is performed.  As an exception, the C version may raise
 InvalidOperation if the second operand cannot be converted exactly.
-scaleb ( other , context = None )
-Return the first operand with exponent adjusted by the second.
-Equivalently, return the first operand multiplied by 10**other .  The
-second operand must be an integer.
 Return the first operand with exponent adjusted by the second.
 Equivalently, return the first operand multiplied by 10**other .  The
 second operand must be an integer.
 10**other
-shift ( other , context = None )
 Return the result of shifting the digits of the first operand by an amount
 specified by the second operand.  The second operand must be an integer in
 the range -precision through precision.  The absolute value of the second
@@ -1039,20 +666,7 @@ operand gives the number of places to shift.  If the second operand is
 positive then the shift is to the left; otherwise the shift is to the
 right.  Digits shifted into the coefficient are zeros.  The sign and
 exponent of the first operand are unchanged.
-Return the result of shifting the digits of the first operand by an amount
-specified by the second operand.  The second operand must be an integer in
-the range -precision through precision.  The absolute value of the second
-operand gives the number of places to shift.  If the second operand is
-positive then the shift is to the left; otherwise the shift is to the
-right.  Digits shifted into the coefficient are zeros.  The sign and
-exponent of the first operand are unchanged.
-sqrt ( context = None )
 Return the square root of the argument to full precision.
-Return the square root of the argument to full precision.
-to_eng_string ( context = None )
-Convert to a string, using engineering notation if an exponent is needed. Engineering notation has an exponent which is a multiple of 3.  This
-can leave up to 3 digits to the left of the decimal place and may
-require the addition of either one or two trailing zeros. For example, this converts Decimal('123E+1') to Decimal('1.23E+3') .
 Convert to a string, using engineering notation if an exponent is needed.
 Engineering notation has an exponent which is a multiple of 3.  This
 can leave up to 3 digits to the left of the decimal place and may
@@ -1060,15 +674,9 @@ require the addition of either one or two trailing zeros.
 For example, this converts Decimal('123E+1') to Decimal('1.23E+3') .
 Decimal('123E+1')
 Decimal('1.23E+3')
-to_integral ( rounding = None , context = None )
-Identical to the to_integral_value() method.  The to_integral name has been kept for compatibility with older versions.
 Identical to the to_integral_value() method.  The to_integral name has been kept for compatibility with older versions.
 to_integral_value()
 to_integral
-to_integral_exact ( rounding = None , context = None )
-Round to the nearest integer, signaling Inexact or Rounded as appropriate if rounding occurs.  The rounding mode is
-determined by the rounding parameter if given, else by the given context .  If neither parameter is given then the rounding mode of the
-current context is used.
 Round to the nearest integer, signaling Inexact or Rounded as appropriate if rounding occurs.  The rounding mode is
 determined by the rounding parameter if given, else by the given context .  If neither parameter is given then the rounding mode of the
 current context is used.
@@ -1076,33 +684,16 @@ Inexact
 Rounded
 rounding
 context
-to_integral_value ( rounding = None , context = None )
-Round to the nearest integer without signaling Inexact or Rounded .  If given, applies rounding ; otherwise, uses the
-rounding method in either the supplied context or the current context.
 Round to the nearest integer without signaling Inexact or Rounded .  If given, applies rounding ; otherwise, uses the
 rounding method in either the supplied context or the current context.
 Inexact
 Rounded
 Decimal numbers can be rounded using the round() function:
 round()
-round(number)
-round(number, ndigits)
-If ndigits is not given or None ,
-returns the nearest int to number ,
-rounding ties to even, and ignoring the rounding mode of the Decimal context.  Raises OverflowError if number is an
-infinity or ValueError if it is a (quiet or signaling) NaN. If ndigits is an int , the context’s rounding mode is respected
-and a Decimal representing number rounded to the nearest
-multiple of Decimal('1E-ndigits') is returned; in this case, round(number, ndigits) is equivalent to self.quantize(Decimal('1E-ndigits')) .  Returns Decimal('NaN') if number is a quiet NaN.  Raises InvalidOperation if number is an infinity, a signaling NaN, or if the length of the coefficient after
-the quantize operation would be greater than the current context’s
-precision.  In other words, for the non-corner cases: if ndigits is positive, return number rounded to ndigits decimal
-places; if ndigits is zero, return number rounded to the nearest integer; if ndigits is negative, return number rounded to the nearest
-multiple of 10**abs(ndigits) . For example: >>> from decimal import Decimal , getcontext , ROUND_DOWN >>> getcontext () . rounding = ROUND_DOWN >>> round ( Decimal ( '3.75' )) # context rounding ignored 4 >>> round ( Decimal ( '3.5' )) # round-ties-to-even 4 >>> round ( Decimal ( '3.75' ), 0 ) # uses the context rounding Decimal('3') >>> round ( Decimal ( '3.75' ), 1 ) Decimal('3.7') >>> round ( Decimal ( '3.75' ), - 1 ) Decimal('0E+1')
 If ndigits is not given or None ,
 returns the nearest int to number ,
 rounding ties to even, and ignoring the rounding mode of the Decimal context.  Raises OverflowError if number is an
 infinity or ValueError if it is a (quiet or signaling) NaN.
-None
-int
 Decimal
 OverflowError
 ValueError
@@ -1111,7 +702,6 @@ and a Decimal representing number rounded to the nearest
 multiple of Decimal('1E-ndigits') is returned; in this case, round(number, ndigits) is equivalent to self.quantize(Decimal('1E-ndigits')) .  Returns Decimal('NaN') if number is a quiet NaN.  Raises InvalidOperation if number is an infinity, a signaling NaN, or if the length of the coefficient after
 the quantize operation would be greater than the current context’s
 precision.  In other words, for the non-corner cases:
-int
 Decimal
 Decimal('1E-ndigits')
 round(number, ndigits)
@@ -1155,24 +745,10 @@ the range for exponents.
 Each thread has its own current context which is accessed or changed using the getcontext() and setcontext() functions:
 getcontext()
 setcontext()
-decimal. getcontext ( )
 Return the current context for the active thread.
-Return the current context for the active thread.
-decimal. setcontext ( c , / )
-Set the current context for the active thread to c .
 Set the current context for the active thread to c .
 You can also use the with statement and the localcontext() function to temporarily change the active context.
-with
 localcontext()
-decimal. localcontext ( ctx = None , ** kwargs )
-Return a context manager that will set the current context for the active thread
-to a copy of ctx on entry to the with-statement and restore the previous context
-when exiting the with-statement. If no context is specified, a copy of the
-current context is used.  The kwargs argument is used to set the attributes
-of the new context. For example, the following code sets the current decimal precision to 42 places,
-performs a calculation, and then automatically restores the previous context: from decimal import localcontext with localcontext () as ctx : ctx . prec = 42 # Perform a high precision calculation s = calculate_something () s = + s # Round the final result back to the default precision Using keyword arguments, the code would be the following: from decimal import localcontext with localcontext ( prec = 42 ) as ctx : s = calculate_something () s = + s Raises TypeError if kwargs supplies an attribute that Context doesn’t
-support.  Raises either TypeError or ValueError if kwargs supplies an
-invalid value for an attribute. Changed in version 3.11: localcontext() now supports setting context attributes through the use of keyword arguments.
 Return a context manager that will set the current context for the active thread
 to a copy of ctx on entry to the with-statement and restore the previous context
 when exiting the with-statement. If no context is specified, a copy of the
@@ -1200,10 +776,6 @@ TypeError
 ValueError
 Changed in version 3.11: localcontext() now supports setting context attributes through the use of keyword arguments.
 localcontext()
-decimal. IEEEContext ( bits )
-Return a context object initialized to the proper values for one of the
-IEEE interchange formats.  The argument must be a multiple of 32 and less
-than IEEE_CONTEXT_MAX_BITS . Added in version 3.14.
 Return a context object initialized to the proper values for one of the
 IEEE interchange formats.  The argument must be a multiple of 32 and less
 than IEEE_CONTEXT_MAX_BITS .
@@ -1212,10 +784,6 @@ Added in version 3.14.
 New contexts can also be created using the Context constructor
 described below. In addition, the module provides three pre-made contexts:
 Context
-decimal. BasicContext
-This is a standard context defined by the General Decimal Arithmetic
-Specification.  Precision is set to nine.  Rounding is set to ROUND_HALF_UP .  All flags are cleared.  All traps are enabled (treated
-as exceptions) except Inexact , Rounded , and Subnormal . Because many of the traps are enabled, this context is useful for debugging.
 This is a standard context defined by the General Decimal Arithmetic
 Specification.  Precision is set to nine.  Rounding is set to ROUND_HALF_UP .  All flags are cleared.  All traps are enabled (treated
 as exceptions) except Inexact , Rounded , and Subnormal .
@@ -1224,13 +792,6 @@ Inexact
 Rounded
 Subnormal
 Because many of the traps are enabled, this context is useful for debugging.
-decimal. ExtendedContext
-This is a standard context defined by the General Decimal Arithmetic
-Specification.  Precision is set to nine.  Rounding is set to ROUND_HALF_EVEN .  All flags are cleared.  No traps are enabled (so that
-exceptions are not raised during computations). Because the traps are disabled, this context is useful for applications that
-prefer to have result value of NaN or Infinity instead of
-raising exceptions.  This allows an application to complete a run in the
-presence of conditions that would otherwise halt the program.
 This is a standard context defined by the General Decimal Arithmetic
 Specification.  Precision is set to nine.  Rounding is set to ROUND_HALF_EVEN .  All flags are cleared.  No traps are enabled (so that
 exceptions are not raised during computations).
@@ -1239,17 +800,7 @@ Because the traps are disabled, this context is useful for applications that
 prefer to have result value of NaN or Infinity instead of
 raising exceptions.  This allows an application to complete a run in the
 presence of conditions that would otherwise halt the program.
-NaN
 Infinity
-decimal. DefaultContext
-This context is used by the Context constructor as a prototype for new
-contexts.  Changing a field (such a precision) has the effect of changing the
-default for new contexts created by the Context constructor. This context is most useful in multi-threaded environments.  Changing one of the
-fields before threads are started has the effect of setting system-wide
-defaults.  Changing the fields after threads have started is not recommended as
-it would require thread synchronization to prevent race conditions. In single threaded environments, it is preferable to not use this context at
-all.  Instead, simply create contexts explicitly as described below. The default values are Context.prec = 28 , Context.rounding = ROUND_HALF_EVEN ,
-and enabled traps for Overflow , InvalidOperation , and DivisionByZero .
 This context is used by the Context constructor as a prototype for new
 contexts.  Changing a field (such a precision) has the effect of changing the
 default for new contexts created by the Context constructor.
@@ -1271,106 +822,23 @@ InvalidOperation
 DivisionByZero
 In addition to the three supplied contexts, new contexts can be created with the Context constructor.
 Context
-class decimal. Context ( prec = None , rounding = None , Emin = None , Emax = None , capitals = None , clamp = None , flags = None , traps = None )
-Creates a new context.  If a field is not specified or is None , the
-default values are copied from the DefaultContext .  If the flags field is not specified or is None , all flags are cleared. prec An integer in the range [ 1 , MAX_PREC ] that sets
-the precision for arithmetic operations in the context. rounding One of the constants listed in the section Rounding Modes . traps flags Lists of any signals to be set. Generally, new contexts should only set
-traps and leave the flags clear. Emin Emax Integers specifying the outer limits allowable for exponents. Emin must
-be in the range [ MIN_EMIN , 0 ], Emax in the range
-[ 0 , MAX_EMAX ]. capitals Either 0 or 1 (the default). If set to 1 , exponents are printed with a capital E ; otherwise, a
-lowercase e is used: Decimal('6.02e+23') . clamp Either 0 (the default) or 1 .  If set to 1 , the exponent e of a Decimal instance representable in this context is strictly
-limited to the range Emin - prec + 1 <= e <= Emax - prec + 1 .
-If clamp is 0 then a weaker condition holds: the adjusted exponent of
-the Decimal instance is at most Emax .  When clamp is 1 , a large normal number will, where possible, have its
-exponent reduced and a corresponding number of zeros added to its
-coefficient, in order to fit the exponent constraints; this
-preserves the value of the number but loses information about
-significant trailing zeros.  For example: >>> Context ( prec = 6 , Emax = 999 , clamp = 1 ) . create_decimal ( '1.23e999' ) Decimal('1.23000E+999') A clamp value of 1 allows compatibility with the
-fixed-width decimal interchange formats specified in IEEE 754. The Context class defines several general purpose methods as well as
-a large number of methods for doing arithmetic directly in a given context.
-In addition, for each of the Decimal methods described above (with
-the exception of the adjusted() and as_tuple() methods) there is
-a corresponding Context method.  For example, for a Context instance C and Decimal instance x , C.exp(x) is
-equivalent to x.exp(context=C) .  Each Context method accepts a
-Python integer (an instance of int ) anywhere that a
-Decimal instance is accepted. clear_flags ( ) Resets all of the flags to 0 . clear_traps ( ) Resets all of the traps to 0 . Added in version 3.3. copy ( ) Return a duplicate of the context. copy_decimal ( num , / ) Return a copy of the Decimal instance num. create_decimal ( num = '0' , / ) Creates a new Decimal instance from num but using self as
-context. Unlike the Decimal constructor, the context precision,
-rounding method, flags, and traps are applied to the conversion. This is useful because constants are often given to a greater precision
-than is needed by the application.  Another benefit is that rounding
-immediately eliminates unintended effects from digits beyond the current
-precision. In the following example, using unrounded inputs means that
-adding zero to a sum can change the result: >>> getcontext () . prec = 3 >>> Decimal ( '3.4445' ) + Decimal ( '1.0023' ) Decimal('4.45') >>> Decimal ( '3.4445' ) + Decimal ( 0 ) + Decimal ( '1.0023' ) Decimal('4.44') This method implements the to-number operation of the IBM specification.
-If the argument is a string, no leading or trailing whitespace or
-underscores are permitted. create_decimal_from_float ( f , / ) Creates a new Decimal instance from a float f but rounding using self as the context.  Unlike the Decimal.from_float() class method,
-the context precision, rounding method, flags, and traps are applied to
-the conversion. >>> context = Context ( prec = 5 , rounding = ROUND_DOWN ) >>> context . create_decimal_from_float ( math . pi ) Decimal('3.1415') >>> context = Context ( prec = 5 , traps = [ Inexact ]) >>> context . create_decimal_from_float ( math . pi ) Traceback (most recent call last): ... decimal.Inexact : None Added in version 3.1. Etiny ( ) Returns a value equal to Emin - prec + 1 which is the minimum exponent
-value for subnormal results.  When underflow occurs, the exponent is set
-to Etiny . Etop ( ) Returns a value equal to Emax - prec + 1 . The usual approach to working with decimals is to create Decimal instances and then apply arithmetic operations which take place within the
-current context for the active thread.  An alternative approach is to use
-context methods for calculating within a specific context.  The methods are
-similar to those for the Decimal class and are only briefly
-recounted here. abs ( x , / ) Returns the absolute value of x . add ( x , y , / ) Return the sum of x and y . canonical ( x , / ) Returns the same Decimal object x . compare ( x , y , / ) Compares x and y numerically. compare_signal ( x , y , / ) Compares the values of the two operands numerically. compare_total ( x , y , / ) Compares two operands using their abstract representation. compare_total_mag ( x , y , / ) Compares two operands using their abstract representation, ignoring sign. copy_abs ( x , / ) Returns a copy of x with the sign set to 0. copy_negate ( x , / ) Returns a copy of x with the sign inverted. copy_sign ( x , y , / ) Copies the sign from y to x . divide ( x , y , / ) Return x divided by y . divide_int ( x , y , / ) Return x divided by y , truncated to an integer. divmod ( x , y , / ) Divides two numbers and returns the integer part of the result. exp ( x , / ) Returns e ** x . fma ( x , y , z , / ) Returns x multiplied by y , plus z . is_canonical ( x , / ) Returns True if x is canonical; otherwise returns False . is_finite ( x , / ) Returns True if x is finite; otherwise returns False . is_infinite ( x , / ) Returns True if x is infinite; otherwise returns False . is_nan ( x , / ) Returns True if x is a qNaN or sNaN; otherwise returns False . is_normal ( x , / ) Returns True if x is a normal number; otherwise returns False . is_qnan ( x , / ) Returns True if x is a quiet NaN; otherwise returns False . is_signed ( x , / ) Returns True if x is negative; otherwise returns False . is_snan ( x , / ) Returns True if x is a signaling NaN; otherwise returns False . is_subnormal ( x , / ) Returns True if x is subnormal; otherwise returns False . is_zero ( x , / ) Returns True if x is a zero; otherwise returns False . ln ( x , / ) Returns the natural (base e) logarithm of x . log10 ( x , / ) Returns the base 10 logarithm of x . logb ( x , / ) Returns the exponent of the magnitude of the operand’s MSD. logical_and ( x , y , / ) Applies the logical operation and between each operand’s digits. logical_invert ( x , / ) Invert all the digits in x . logical_or ( x , y , / ) Applies the logical operation or between each operand’s digits. logical_xor ( x , y , / ) Applies the logical operation xor between each operand’s digits. max ( x , y , / ) Compares two values numerically and returns the maximum. max_mag ( x , y , / ) Compares the values numerically with their sign ignored. min ( x , y , / ) Compares two values numerically and returns the minimum. min_mag ( x , y , / ) Compares the values numerically with their sign ignored. minus ( x , / ) Minus corresponds to the unary prefix minus operator in Python. multiply ( x , y , / ) Return the product of x and y . next_minus ( x , / ) Returns the largest representable number smaller than x . next_plus ( x , / ) Returns the smallest representable number larger than x . next_toward ( x , y , / ) Returns the number closest to x , in direction towards y . normalize ( x , / ) Reduces x to its simplest form. number_class ( x , / ) Returns an indication of the class of x . plus ( x , / ) Plus corresponds to the unary prefix plus operator in Python.  This
-operation applies the context precision and rounding, so it is not an
-identity operation. power ( x , y , modulo = None ) Return x to the power of y , reduced modulo modulo if given. With two arguments, compute x**y .  If x is negative then y must be integral.  The result will be inexact unless y is integral and
-the result is finite and can be expressed exactly in ‘precision’ digits.
-The rounding mode of the context is used. Results are always correctly rounded
-in the Python version. Decimal(0) ** Decimal(0) results in InvalidOperation , and if InvalidOperation is not trapped, then results in Decimal('NaN') . Changed in version 3.3: The C module computes power() in terms of the correctly rounded exp() and ln() functions. The result is well-defined but
-only “almost always correctly rounded”. With three arguments, compute (x**y) % modulo .  For the three argument
-form, the following restrictions on the arguments hold: all three arguments must be integral y must be nonnegative at least one of x or y must be nonzero modulo must be nonzero and have at most ‘precision’ digits The value resulting from Context.power(x, y, modulo) is
-equal to the value that would be obtained by computing (x**y) % modulo with unbounded precision, but is computed more
-efficiently.  The exponent of the result is zero, regardless of
-the exponents of x , y and modulo .  The result is
-always exact. quantize ( x , y , / ) Returns a value equal to x (rounded), having the exponent of y . radix ( ) Just returns 10, as this is Decimal, :) remainder ( x , y , / ) Returns the remainder from integer division. The sign of the result, if non-zero, is the same as that of the original
-dividend. remainder_near ( x , y , / ) Returns x - y * n , where n is the integer nearest the exact value
-of x / y (if the result is 0 then its sign will be the sign of x ). rotate ( x , y , / ) Returns a rotated copy of x , y times. same_quantum ( x , y , / ) Returns True if the two operands have the same exponent. scaleb ( x , y , / ) Returns the first operand after adding the second value its exp. shift ( x , y , / ) Returns a shifted copy of x , y times. sqrt ( x , / ) Square root of a non-negative number to context precision. subtract ( x , y , / ) Return the difference between x and y . to_eng_string ( x , / ) Convert to a string, using engineering notation if an exponent is needed. Engineering notation has an exponent which is a multiple of 3.  This
-can leave up to 3 digits to the left of the decimal place and may
-require the addition of either one or two trailing zeros. to_integral_exact ( x , / ) Rounds to an integer. to_sci_string ( x , / ) Converts a number to a string using scientific notation.
 Creates a new context.  If a field is not specified or is None , the
 default values are copied from the DefaultContext .  If the flags field is not specified or is None , all flags are cleared.
-None
 DefaultContext
-None
-prec
-An integer in the range [ 1 , MAX_PREC ] that sets
-the precision for arithmetic operations in the context.
 An integer in the range [ 1 , MAX_PREC ] that sets
 the precision for arithmetic operations in the context.
 MAX_PREC
-rounding
 One of the constants listed in the section Rounding Modes .
-One of the constants listed in the section Rounding Modes .
-traps
-flags
 Lists of any signals to be set. Generally, new contexts should only set
 traps and leave the flags clear.
-Lists of any signals to be set. Generally, new contexts should only set
-traps and leave the flags clear.
-Emin
-Emax
-Integers specifying the outer limits allowable for exponents. Emin must
-be in the range [ MIN_EMIN , 0 ], Emax in the range
-[ 0 , MAX_EMAX ].
 Integers specifying the outer limits allowable for exponents. Emin must
 be in the range [ MIN_EMIN , 0 ], Emax in the range
 [ 0 , MAX_EMAX ].
 MIN_EMIN
 MAX_EMAX
-capitals
-Either 0 or 1 (the default). If set to 1 , exponents are printed with a capital E ; otherwise, a
-lowercase e is used: Decimal('6.02e+23') .
 Either 0 or 1 (the default). If set to 1 , exponents are printed with a capital E ; otherwise, a
 lowercase e is used: Decimal('6.02e+23') .
 Decimal('6.02e+23')
-clamp
-Either 0 (the default) or 1 .  If set to 1 , the exponent e of a Decimal instance representable in this context is strictly
-limited to the range Emin - prec + 1 <= e <= Emax - prec + 1 .
-If clamp is 0 then a weaker condition holds: the adjusted exponent of
-the Decimal instance is at most Emax .  When clamp is 1 , a large normal number will, where possible, have its
-exponent reduced and a corresponding number of zeros added to its
-coefficient, in order to fit the exponent constraints; this
-preserves the value of the number but loses information about
-significant trailing zeros.  For example: >>> Context ( prec = 6 , Emax = 999 , clamp = 1 ) . create_decimal ( '1.23e999' ) Decimal('1.23000E+999') A clamp value of 1 allows compatibility with the
-fixed-width decimal interchange formats specified in IEEE 754.
 Either 0 (the default) or 1 .  If set to 1 , the exponent e of a Decimal instance representable in this context is strictly
 limited to the range Emin - prec + 1 <= e <= Emax - prec + 1 .
 If clamp is 0 then a weaker condition holds: the adjusted exponent of
@@ -1382,7 +850,6 @@ significant trailing zeros.  For example:
 Decimal
 Emin - prec + 1 <= e <= Emax - prec + 1
 Decimal
-Emax
 
 [CODE]
 >>> Context ( prec = 6 , Emax = 999 , clamp = 1 ) . create_decimal ( '1.23e999' ) Decimal('1.23000E+999')
@@ -1408,30 +875,11 @@ Decimal
 C.exp(x)
 x.exp(context=C)
 Context
-int
-clear_flags ( )
 Resets all of the flags to 0 .
-Resets all of the flags to 0 .
-clear_traps ( )
-Resets all of the traps to 0 . Added in version 3.3.
 Resets all of the traps to 0 .
 Added in version 3.3.
-copy ( )
 Return a duplicate of the context.
-Return a duplicate of the context.
-copy_decimal ( num , / )
 Return a copy of the Decimal instance num.
-Return a copy of the Decimal instance num.
-create_decimal ( num = '0' , / )
-Creates a new Decimal instance from num but using self as
-context. Unlike the Decimal constructor, the context precision,
-rounding method, flags, and traps are applied to the conversion. This is useful because constants are often given to a greater precision
-than is needed by the application.  Another benefit is that rounding
-immediately eliminates unintended effects from digits beyond the current
-precision. In the following example, using unrounded inputs means that
-adding zero to a sum can change the result: >>> getcontext () . prec = 3 >>> Decimal ( '3.4445' ) + Decimal ( '1.0023' ) Decimal('4.45') >>> Decimal ( '3.4445' ) + Decimal ( 0 ) + Decimal ( '1.0023' ) Decimal('4.44') This method implements the to-number operation of the IBM specification.
-If the argument is a string, no leading or trailing whitespace or
-underscores are permitted.
 Creates a new Decimal instance from num but using self as
 context. Unlike the Decimal constructor, the context precision,
 rounding method, flags, and traps are applied to the conversion.
@@ -1449,10 +897,6 @@ adding zero to a sum can change the result:
 This method implements the to-number operation of the IBM specification.
 If the argument is a string, no leading or trailing whitespace or
 underscores are permitted.
-create_decimal_from_float ( f , / )
-Creates a new Decimal instance from a float f but rounding using self as the context.  Unlike the Decimal.from_float() class method,
-the context precision, rounding method, flags, and traps are applied to
-the conversion. >>> context = Context ( prec = 5 , rounding = ROUND_DOWN ) >>> context . create_decimal_from_float ( math . pi ) Decimal('3.1415') >>> context = Context ( prec = 5 , traps = [ Inexact ]) >>> context . create_decimal_from_float ( math . pi ) Traceback (most recent call last): ... decimal.Inexact : None Added in version 3.1.
 Creates a new Decimal instance from a float f but rounding using self as the context.  Unlike the Decimal.from_float() class method,
 the context precision, rounding method, flags, and traps are applied to
 the conversion.
@@ -1463,17 +907,11 @@ Decimal.from_float()
 [/CODE]
 
 Added in version 3.1.
-Etiny ( )
-Returns a value equal to Emin - prec + 1 which is the minimum exponent
-value for subnormal results.  When underflow occurs, the exponent is set
-to Etiny .
 Returns a value equal to Emin - prec + 1 which is the minimum exponent
 value for subnormal results.  When underflow occurs, the exponent is set
 to Etiny .
 Emin - prec + 1
 Etiny
-Etop ( )
-Returns a value equal to Emax - prec + 1 .
 Returns a value equal to Emax - prec + 1 .
 Emax - prec + 1
 The usual approach to working with decimals is to create Decimal instances and then apply arithmetic operations which take place within the
@@ -1483,181 +921,69 @@ similar to those for the Decimal class and are only briefly
 recounted here.
 Decimal
 Decimal
-abs ( x , / )
 Returns the absolute value of x .
-Returns the absolute value of x .
-add ( x , y , / )
 Return the sum of x and y .
-Return the sum of x and y .
-canonical ( x , / )
 Returns the same Decimal object x .
-Returns the same Decimal object x .
-compare ( x , y , / )
 Compares x and y numerically.
-Compares x and y numerically.
-compare_signal ( x , y , / )
 Compares the values of the two operands numerically.
-Compares the values of the two operands numerically.
-compare_total ( x , y , / )
 Compares two operands using their abstract representation.
-Compares two operands using their abstract representation.
-compare_total_mag ( x , y , / )
 Compares two operands using their abstract representation, ignoring sign.
-Compares two operands using their abstract representation, ignoring sign.
-copy_abs ( x , / )
 Returns a copy of x with the sign set to 0.
-Returns a copy of x with the sign set to 0.
-copy_negate ( x , / )
 Returns a copy of x with the sign inverted.
-Returns a copy of x with the sign inverted.
-copy_sign ( x , y , / )
 Copies the sign from y to x .
-Copies the sign from y to x .
-divide ( x , y , / )
 Return x divided by y .
-Return x divided by y .
-divide_int ( x , y , / )
 Return x divided by y , truncated to an integer.
-Return x divided by y , truncated to an integer.
-divmod ( x , y , / )
 Divides two numbers and returns the integer part of the result.
-Divides two numbers and returns the integer part of the result.
-exp ( x , / )
-Returns e ** x .
 Returns e ** x .
 e ** x
-fma ( x , y , z , / )
 Returns x multiplied by y , plus z .
-Returns x multiplied by y , plus z .
-is_canonical ( x , / )
 Returns True if x is canonical; otherwise returns False .
-Returns True if x is canonical; otherwise returns False .
-True
 False
-is_finite ( x , / )
 Returns True if x is finite; otherwise returns False .
-Returns True if x is finite; otherwise returns False .
-True
 False
-is_infinite ( x , / )
 Returns True if x is infinite; otherwise returns False .
-Returns True if x is infinite; otherwise returns False .
-True
 False
-is_nan ( x , / )
 Returns True if x is a qNaN or sNaN; otherwise returns False .
-Returns True if x is a qNaN or sNaN; otherwise returns False .
-True
 False
-is_normal ( x , / )
 Returns True if x is a normal number; otherwise returns False .
-Returns True if x is a normal number; otherwise returns False .
-True
 False
-is_qnan ( x , / )
 Returns True if x is a quiet NaN; otherwise returns False .
-Returns True if x is a quiet NaN; otherwise returns False .
-True
 False
-is_signed ( x , / )
 Returns True if x is negative; otherwise returns False .
-Returns True if x is negative; otherwise returns False .
-True
 False
-is_snan ( x , / )
 Returns True if x is a signaling NaN; otherwise returns False .
-Returns True if x is a signaling NaN; otherwise returns False .
-True
 False
-is_subnormal ( x , / )
 Returns True if x is subnormal; otherwise returns False .
-Returns True if x is subnormal; otherwise returns False .
-True
 False
-is_zero ( x , / )
 Returns True if x is a zero; otherwise returns False .
-Returns True if x is a zero; otherwise returns False .
-True
 False
-ln ( x , / )
 Returns the natural (base e) logarithm of x .
-Returns the natural (base e) logarithm of x .
-log10 ( x , / )
 Returns the base 10 logarithm of x .
-Returns the base 10 logarithm of x .
-logb ( x , / )
 Returns the exponent of the magnitude of the operand’s MSD.
-Returns the exponent of the magnitude of the operand’s MSD.
-logical_and ( x , y , / )
 Applies the logical operation and between each operand’s digits.
-Applies the logical operation and between each operand’s digits.
-logical_invert ( x , / )
 Invert all the digits in x .
-Invert all the digits in x .
-logical_or ( x , y , / )
 Applies the logical operation or between each operand’s digits.
-Applies the logical operation or between each operand’s digits.
-logical_xor ( x , y , / )
 Applies the logical operation xor between each operand’s digits.
-Applies the logical operation xor between each operand’s digits.
-max ( x , y , / )
 Compares two values numerically and returns the maximum.
-Compares two values numerically and returns the maximum.
-max_mag ( x , y , / )
 Compares the values numerically with their sign ignored.
-Compares the values numerically with their sign ignored.
-min ( x , y , / )
 Compares two values numerically and returns the minimum.
-Compares two values numerically and returns the minimum.
-min_mag ( x , y , / )
 Compares the values numerically with their sign ignored.
-Compares the values numerically with their sign ignored.
-minus ( x , / )
 Minus corresponds to the unary prefix minus operator in Python.
-Minus corresponds to the unary prefix minus operator in Python.
-multiply ( x , y , / )
 Return the product of x and y .
-Return the product of x and y .
-next_minus ( x , / )
 Returns the largest representable number smaller than x .
-Returns the largest representable number smaller than x .
-next_plus ( x , / )
 Returns the smallest representable number larger than x .
-Returns the smallest representable number larger than x .
-next_toward ( x , y , / )
 Returns the number closest to x , in direction towards y .
-Returns the number closest to x , in direction towards y .
-normalize ( x , / )
 Reduces x to its simplest form.
-Reduces x to its simplest form.
-number_class ( x , / )
 Returns an indication of the class of x .
-Returns an indication of the class of x .
-plus ( x , / )
 Plus corresponds to the unary prefix plus operator in Python.  This
 operation applies the context precision and rounding, so it is not an
 identity operation.
-Plus corresponds to the unary prefix plus operator in Python.  This
-operation applies the context precision and rounding, so it is not an
-identity operation.
-power ( x , y , modulo = None )
-Return x to the power of y , reduced modulo modulo if given. With two arguments, compute x**y .  If x is negative then y must be integral.  The result will be inexact unless y is integral and
-the result is finite and can be expressed exactly in ‘precision’ digits.
-The rounding mode of the context is used. Results are always correctly rounded
-in the Python version. Decimal(0) ** Decimal(0) results in InvalidOperation , and if InvalidOperation is not trapped, then results in Decimal('NaN') . Changed in version 3.3: The C module computes power() in terms of the correctly rounded exp() and ln() functions. The result is well-defined but
-only “almost always correctly rounded”. With three arguments, compute (x**y) % modulo .  For the three argument
-form, the following restrictions on the arguments hold: all three arguments must be integral y must be nonnegative at least one of x or y must be nonzero modulo must be nonzero and have at most ‘precision’ digits The value resulting from Context.power(x, y, modulo) is
-equal to the value that would be obtained by computing (x**y) % modulo with unbounded precision, but is computed more
-efficiently.  The exponent of the result is zero, regardless of
-the exponents of x , y and modulo .  The result is
-always exact.
 Return x to the power of y , reduced modulo modulo if given.
 modulo
 With two arguments, compute x**y .  If x is negative then y must be integral.  The result will be inexact unless y is integral and
 the result is finite and can be expressed exactly in ‘precision’ digits.
 The rounding mode of the context is used. Results are always correctly rounded
 in the Python version.
-x**y
 Decimal(0) ** Decimal(0) results in InvalidOperation , and if InvalidOperation is not trapped, then results in Decimal('NaN') .
 Decimal(0) ** Decimal(0)
 InvalidOperation
@@ -1667,7 +993,6 @@ Changed in version 3.3: The C module computes power() in terms of the correctly 
 only “almost always correctly rounded”.
 power()
 exp()
-ln()
 With three arguments, compute (x**y) % modulo .  For the three argument
 form, the following restrictions on the arguments hold:
 (x**y) % modulo
@@ -1688,57 +1013,26 @@ always exact.
 Context.power(x, y, modulo)
 (x**y) % modulo
 modulo
-quantize ( x , y , / )
 Returns a value equal to x (rounded), having the exponent of y .
-Returns a value equal to x (rounded), having the exponent of y .
-radix ( )
 Just returns 10, as this is Decimal, :)
-Just returns 10, as this is Decimal, :)
-remainder ( x , y , / )
-Returns the remainder from integer division. The sign of the result, if non-zero, is the same as that of the original
-dividend.
 Returns the remainder from integer division.
 The sign of the result, if non-zero, is the same as that of the original
 dividend.
-remainder_near ( x , y , / )
-Returns x - y * n , where n is the integer nearest the exact value
-of x / y (if the result is 0 then its sign will be the sign of x ).
 Returns x - y * n , where n is the integer nearest the exact value
 of x / y (if the result is 0 then its sign will be the sign of x ).
 x - y * n
 x / y
-rotate ( x , y , / )
 Returns a rotated copy of x , y times.
-Returns a rotated copy of x , y times.
-same_quantum ( x , y , / )
 Returns True if the two operands have the same exponent.
-Returns True if the two operands have the same exponent.
-True
-scaleb ( x , y , / )
 Returns the first operand after adding the second value its exp.
-Returns the first operand after adding the second value its exp.
-shift ( x , y , / )
 Returns a shifted copy of x , y times.
-Returns a shifted copy of x , y times.
-sqrt ( x , / )
 Square root of a non-negative number to context precision.
-Square root of a non-negative number to context precision.
-subtract ( x , y , / )
 Return the difference between x and y .
-Return the difference between x and y .
-to_eng_string ( x , / )
-Convert to a string, using engineering notation if an exponent is needed. Engineering notation has an exponent which is a multiple of 3.  This
-can leave up to 3 digits to the left of the decimal place and may
-require the addition of either one or two trailing zeros.
 Convert to a string, using engineering notation if an exponent is needed.
 Engineering notation has an exponent which is a multiple of 3.  This
 can leave up to 3 digits to the left of the decimal place and may
 require the addition of either one or two trailing zeros.
-to_integral_exact ( x , / )
 Rounds to an integer.
-Rounds to an integer.
-to_sci_string ( x , / )
-Converts a number to a string using scientific notation.
 Converts a number to a string using scientific notation.
 
 ## Constants
@@ -1747,76 +1041,42 @@ The constants in this section are only relevant for the C module. They
 are also included in the pure Python version for compatibility.
 32-bit
 64-bit
-decimal. MAX_PREC
 425000000
 425000000
 999999999999999999
 999999999999999999
-decimal. MAX_EMAX
 425000000
 425000000
 999999999999999999
 999999999999999999
-decimal. MIN_EMIN
 -425000000
 -425000000
 -999999999999999999
 -999999999999999999
-decimal. MIN_ETINY
 -849999999
 -849999999
 -1999999999999999997
 -1999999999999999997
-decimal. IEEE_CONTEXT_MAX_BITS
-256
-256
-512
-512
-decimal. HAVE_THREADS
-The value is True .  Deprecated, because Python now always has threads. Deprecated since version 3.9.
 The value is True .  Deprecated, because Python now always has threads.
-True
 Deprecated since version 3.9.
-decimal. HAVE_CONTEXTVAR
-The default value is True . If Python is configured using the --without-decimal-contextvar option ,
-the C version uses a thread-local rather than a coroutine-local context and the value
-is False .  This is slightly faster in some nested context scenarios. Added in version 3.8.3.
 The default value is True . If Python is configured using the --without-decimal-contextvar option ,
 the C version uses a thread-local rather than a coroutine-local context and the value
 is False .  This is slightly faster in some nested context scenarios.
-True
 configured using the --without-decimal-contextvar option
 False
 Added in version 3.8.3.
 
 ## Rounding modes
 
-decimal. ROUND_CEILING
-Round towards Infinity .
 Round towards Infinity .
 Infinity
-decimal. ROUND_DOWN
 Round towards zero.
-Round towards zero.
-decimal. ROUND_FLOOR
-Round towards -Infinity .
 Round towards -Infinity .
 -Infinity
-decimal. ROUND_HALF_DOWN
 Round to nearest with ties going towards zero.
-Round to nearest with ties going towards zero.
-decimal. ROUND_HALF_EVEN
 Round to nearest with ties going to nearest even integer.
-Round to nearest with ties going to nearest even integer.
-decimal. ROUND_HALF_UP
 Round to nearest with ties going away from zero.
-Round to nearest with ties going away from zero.
-decimal. ROUND_UP
 Round away from zero.
-Round away from zero.
-decimal. ROUND_05UP
-Round away from zero if last digit after rounding towards zero would have
-been 0 or 5; otherwise round towards zero.
 Round away from zero if last digit after rounding towards zero would have
 been 0 or 5; otherwise round towards zero.
 
@@ -1834,51 +1094,28 @@ is set, then a DivisionByZero exception is raised upon encountering the
 condition.
 DivisionByZero
 DivisionByZero
-class decimal. Clamped
-Altered an exponent to fit representation constraints. Typically, clamping occurs when an exponent falls outside the context’s Emin and Emax limits.  If possible, the exponent is reduced to
-fit by adding zeros to the coefficient.
 Altered an exponent to fit representation constraints.
 Typically, clamping occurs when an exponent falls outside the context’s Emin and Emax limits.  If possible, the exponent is reduced to
 fit by adding zeros to the coefficient.
-Emin
-Emax
-class decimal. DecimalException
-Base class for other signals and a subclass of ArithmeticError .
 Base class for other signals and a subclass of ArithmeticError .
 ArithmeticError
-class decimal. DivisionByZero
-Signals the division of a non-infinite number by zero. Can occur with division, modulo division, or when raising a number to a negative
-power.  If this signal is not trapped, returns Infinity or -Infinity with the sign determined by the inputs to the calculation.
 Signals the division of a non-infinite number by zero.
 Can occur with division, modulo division, or when raising a number to a negative
 power.  If this signal is not trapped, returns Infinity or -Infinity with the sign determined by the inputs to the calculation.
 Infinity
 -Infinity
-class decimal. Inexact
-Indicates that rounding occurred and the result is not exact. Signals when non-zero digits were discarded during rounding. The rounded result
-is returned.  The signal flag or trap is used to detect when results are
-inexact.
 Indicates that rounding occurred and the result is not exact.
 Signals when non-zero digits were discarded during rounding. The rounded result
 is returned.  The signal flag or trap is used to detect when results are
 inexact.
-class decimal. InvalidOperation
-An invalid operation was performed. Indicates that an operation was requested that does not make sense. If not
-trapped, returns NaN .  Possible causes include: Infinity - Infinity 0 * Infinity Infinity / Infinity x % 0 Infinity % x sqrt ( - x ) and x > 0 0 ** 0 x ** ( non - integer ) x ** Infinity
 An invalid operation was performed.
 Indicates that an operation was requested that does not make sense. If not
 trapped, returns NaN .  Possible causes include:
-NaN
 
 [CODE]
 Infinity - Infinity 0 * Infinity Infinity / Infinity x % 0 Infinity % x sqrt ( - x ) and x > 0 0 ** 0 x ** ( non - integer ) x ** Infinity
 [/CODE]
 
-class decimal. Overflow
-Numerical overflow. Indicates the exponent is larger than Context.Emax after rounding has
-occurred.  If not trapped, the result depends on the rounding mode, either
-pulling inward to the largest representable finite number or rounding outward
-to Infinity .  In either case, Inexact and Rounded are also signaled.
 Numerical overflow.
 Indicates the exponent is larger than Context.Emax after rounding has
 occurred.  If not trapped, the result depends on the rounding mode, either
@@ -1888,38 +1125,18 @@ Context.Emax
 Infinity
 Inexact
 Rounded
-class decimal. Rounded
-Rounding occurred though possibly no information was lost. Signaled whenever rounding discards digits; even if those digits are zero
-(such as rounding 5.00 to 5.0 ).  If not trapped, returns
-the result unchanged.  This signal is used to detect loss of significant
-digits.
 Rounding occurred though possibly no information was lost.
 Signaled whenever rounding discards digits; even if those digits are zero
 (such as rounding 5.00 to 5.0 ).  If not trapped, returns
 the result unchanged.  This signal is used to detect loss of significant
 digits.
-5.00
-5.0
-class decimal. Subnormal
-Exponent was lower than Emin prior to rounding. Occurs when an operation result is subnormal (the exponent is too small). If
-not trapped, returns the result unchanged.
 Exponent was lower than Emin prior to rounding.
-Emin
 Occurs when an operation result is subnormal (the exponent is too small). If
 not trapped, returns the result unchanged.
-class decimal. Underflow
-Numerical underflow with result rounded to zero. Occurs when a subnormal result is pushed to zero by rounding. Inexact and Subnormal are also signaled.
 Numerical underflow with result rounded to zero.
 Occurs when a subnormal result is pushed to zero by rounding. Inexact and Subnormal are also signaled.
 Inexact
 Subnormal
-class decimal. FloatOperation
-Enable stricter semantics for mixing floats and Decimals. If the signal is not trapped (default), mixing floats and Decimals is
-permitted in the Decimal constructor, create_decimal() and all comparison operators.
-Both conversion and comparisons are exact. Any occurrence of a mixed
-operation is silently recorded by setting FloatOperation in the
-context flags. Explicit conversions with from_float() or create_decimal_from_float() do not set the flag. Otherwise (the signal is trapped), only equality comparisons and explicit
-conversions are silent. All other mixed operations raise FloatOperation .
 Enable stricter semantics for mixing floats and Decimals.
 If the signal is not trapped (default), mixing floats and Decimals is
 permitted in the Decimal constructor, create_decimal() and all comparison operators.
@@ -1947,7 +1164,6 @@ exceptions . ArithmeticError ( exceptions . Exception ) DecimalException Clamped
 The use of decimal floating point eliminates decimal representation error
 (making it possible to represent 0.1 exactly); however, some operations
 can still incur round-off error when non-zero digits exceed the fixed precision.
-0.1
 The effects of round-off error can be amplified by the addition or subtraction
 of nearly offsetting quantities resulting in loss of significance.  Knuth
 provides two instructive examples where rounded floating-point arithmetic with
@@ -1972,8 +1188,6 @@ The number system for the decimal module provides special values
 including NaN , sNaN , -Infinity , Infinity ,
 and two zeros, +0 and -0 .
 decimal
-NaN
-sNaN
 -Infinity
 Infinity
 Infinities can be constructed directly with: Decimal('Infinity') . Also,
@@ -1990,16 +1204,10 @@ Some operations are indeterminate and return NaN , or if the InvalidOperation si
 always resulting in another NaN .  This behavior can be useful for a
 series of computations that occasionally have missing inputs — it allows the
 calculation to proceed while flagging specific results as invalid.
-NaN
 InvalidOperation
-0/0
-NaN
-NaN
-NaN
 A variant is sNaN which signals rather than remaining quiet after every
 operation.  This is a useful return value when an invalid result needs to
 interrupt a calculation for special handling.
-sNaN
 The behavior of Python’s comparison operators can be a little surprising where a NaN is involved.  A test for equality where one of the operands is a
 quiet or signaling NaN always returns False (even when doing Decimal('NaN')==Decimal('NaN') ), while a test for inequality always returns True .  An attempt to compare two Decimals using any of the < , <= , > or >= operators will raise the InvalidOperation signal
 if either operand is a NaN , and return False if this signal is
@@ -2007,15 +1215,10 @@ not trapped.  Note that the General Decimal Arithmetic specification does not
 specify the behavior of direct comparisons; these rules for comparisons
 involving a NaN were taken from the IEEE 854 standard (see Table 3 in
 section 5.7).  To ensure strict standards-compliance, use the compare() and compare_signal() methods instead.
-NaN
-NaN
 False
 Decimal('NaN')==Decimal('NaN')
-True
 InvalidOperation
-NaN
 False
-NaN
 compare()
 compare_signal()
 The signed zeros can result from calculations that underflow. They keep the sign
@@ -2139,9 +1342,7 @@ quantize()
 Q: There are many ways to express the same value.  The numbers 200 , 200.000 , 2E2 , and .02E+4 all have the same value at
 various precisions. Is there a way to transform them to a single recognizable
 canonical value?
-200
 200.000
-2E2
 .02E+4
 A: The normalize() method maps all equivalent values to a single
 representative:
@@ -2169,7 +1370,6 @@ A: For some values, exponential notation is the only way to express the number
 of significant places in the coefficient.  For example, expressing 5.0E+3 as 5000 keeps the value constant but cannot show the
 original’s two-place significance.
 5.0E+3
-5000
 If an application does not care about tracking significance, it is easy to
 remove the exponent and trailing zeroes, losing significance, but keeping the
 value unchanged:
@@ -2230,13 +1430,9 @@ the decimal module integrate the high speed libmpdec library for
 arbitrary precision correctly rounded decimal floating-point arithmetic [ 1 ] . libmpdec uses Karatsuba multiplication for medium-sized numbers and the Number Theoretic Transform for very large numbers.
 libmpdec
 The context must be adapted for exact arbitrary precision arithmetic. Emin and Emax should always be set to the maximum values, clamp should always be 0 (the default).  Setting prec requires some care.
-Emin
-Emax
 clamp
-prec
 The easiest approach for trying out bignum arithmetic is to use the maximum
 value for prec as well [ 2 ] :
-prec
 
 [CODE]
 >>> setcontext ( Context ( prec = MAX_PREC , Emax = MAX_EMAX , Emin = MIN_EMIN )) >>> x = Decimal ( 2 ) ** 256 >>> x / 128 Decimal('904625697166532776746648320380374280103671755200316906558262375061821325312')
@@ -2253,7 +1449,6 @@ MAX_PREC
 On systems with overallocation (e.g. Linux), a more sophisticated approach is to
 adjust prec to the amount of available RAM.  Suppose that you have 8GB of
 RAM and expect 10 simultaneous operands using a maximum of 500MB each:
-prec
 
 [CODE]
 >>> import sys >>> >>> # Maximum number of digits for a single operand using 500MB in 8-byte words >>> # with 19 digits per word (4-byte and 9 digits for the 32-bit build): >>> maxdigits = 19 * (( 500 * 1024 ** 2 ) // 8 ) >>> >>> # Check that this works: >>> c = Context ( prec = maxdigits , Emax = MAX_EMAX , Emin = MIN_EMIN ) >>> c . traps [ Inexact ] = True >>> setcontext ( c ) >>> >>> # Fill the available precision with nines: >>> x = Decimal ( 0 ) . logical_invert () * 9 >>> sys . getsizeof ( x ) 524288112 >>> x + 2 Traceback (most recent call last): File "<stdin>" , line 1 , in <module> decimal.Inexact : [<class 'decimal.Inexact'>]

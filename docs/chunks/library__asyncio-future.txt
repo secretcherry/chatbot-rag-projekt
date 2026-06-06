@@ -10,10 +10,7 @@ Future objects are used to bridge low-level callback-based code with high-level 
 
 ## Future Functions
 
-asyncio. isfuture ( obj )
-Return True if obj is either of: an instance of asyncio.Future , an instance of asyncio.Task , a Future-like object with a _asyncio_future_blocking attribute. Added in version 3.5.
 Return True if obj is either of:
-True
 an instance of asyncio.Future ,
 an instance of asyncio.Future ,
 asyncio.Future
@@ -24,22 +21,12 @@ a Future-like object with a _asyncio_future_blocking attribute.
 a Future-like object with a _asyncio_future_blocking attribute.
 _asyncio_future_blocking
 Added in version 3.5.
-asyncio. ensure_future ( obj , * , loop = None )
-Return: obj argument as is, if obj is a Future ,
-a Task , or a Future-like object ( isfuture() is used for the test.) a Task object wrapping obj , if obj is a
-coroutine ( iscoroutine() is used for the test);
-in this case the coroutine will be scheduled by ensure_future() . a Task object that would await on obj , if obj is an
-awaitable ( inspect.isawaitable() is used for the test.) If obj is neither of the above a TypeError is raised. Important Save a reference to the result of this function, to avoid
-a task disappearing mid-execution. See also the create_task() function which is the
-preferred way for creating new tasks or use asyncio.TaskGroup which keeps reference to the task internally. Changed in version 3.5.1: The function accepts any awaitable object. Deprecated since version 3.10: Deprecation warning is emitted if obj is not a Future-like object
-and loop is not specified and there is no running event loop.
 Return:
 obj argument as is, if obj is a Future ,
 a Task , or a Future-like object ( isfuture() is used for the test.)
 obj argument as is, if obj is a Future ,
 a Task , or a Future-like object ( isfuture() is used for the test.)
 Future
-Task
 isfuture()
 a Task object wrapping obj , if obj is a
 coroutine ( iscoroutine() is used for the test);
@@ -47,14 +34,12 @@ in this case the coroutine will be scheduled by ensure_future() .
 a Task object wrapping obj , if obj is a
 coroutine ( iscoroutine() is used for the test);
 in this case the coroutine will be scheduled by ensure_future() .
-Task
 iscoroutine()
 ensure_future()
 a Task object that would await on obj , if obj is an
 awaitable ( inspect.isawaitable() is used for the test.)
 a Task object that would await on obj , if obj is an
 awaitable ( inspect.isawaitable() is used for the test.)
-Task
 inspect.isawaitable()
 If obj is neither of the above a TypeError is raised.
 TypeError
@@ -68,9 +53,6 @@ asyncio.TaskGroup
 Changed in version 3.5.1: The function accepts any awaitable object.
 Deprecated since version 3.10: Deprecation warning is emitted if obj is not a Future-like object
 and loop is not specified and there is no running event loop.
-asyncio. wrap_future ( future , * , loop = None )
-Wrap a concurrent.futures.Future object in a asyncio.Future object. Deprecated since version 3.10: Deprecation warning is emitted if future is not a Future-like object
-and loop is not specified and there is no running event loop.
 Wrap a concurrent.futures.Future object in a asyncio.Future object.
 concurrent.futures.Future
 asyncio.Future
@@ -79,34 +61,6 @@ and loop is not specified and there is no running event loop.
 
 ## Future Object
 
-class asyncio. Future ( * , loop = None )
-A Future represents an eventual result of an asynchronous
-operation.  Not thread-safe. Future is an awaitable object.  Coroutines can await on
-Future objects until they either have a result or an exception
-set, or until they are cancelled. A Future can be awaited multiple
-times and the result is same. Typically Futures are used to enable low-level
-callback-based code (e.g. in protocols implemented using asyncio transports )
-to interoperate with high-level async/await code. The rule of thumb is to never expose Future objects in user-facing
-APIs, and the recommended way to create a Future object is to call loop.create_future() .  This way alternative event loop
-implementations can inject their own optimized implementations
-of a Future object. Changed in version 3.7: Added support for the contextvars module. Deprecated since version 3.10: Deprecation warning is emitted if loop is not specified
-and there is no running event loop. result ( ) Return the result of the Future. If the Future is done and has a result set by the set_result() method, the result value is returned. If the Future is done and has an exception set by the set_exception() method, this method raises the exception. If the Future has been cancelled , this method raises
-a CancelledError exception. If the Future’s result isn’t yet available, this method raises
-an InvalidStateError exception. set_result ( result ) Mark the Future as done and set its result. Raises an InvalidStateError error if the Future is
-already done . set_exception ( exception ) Mark the Future as done and set an exception. Raises an InvalidStateError error if the Future is
-already done . done ( ) Return True if the Future is done . A Future is done if it was cancelled or if it has a result
-or an exception set with set_result() or set_exception() calls. cancelled ( ) Return True if the Future was cancelled . The method is usually used to check if a Future is not cancelled before setting a result or an exception for it: if not fut . cancelled (): fut . set_result ( 42 ) add_done_callback ( callback , * , context = None ) Add a callback to be run when the Future is done . The callback is called with the Future object as its only
-argument. If the Future is already done when this method is called,
-the callback is scheduled with loop.call_soon() . An optional keyword-only context argument allows specifying a
-custom contextvars.Context for the callback to run in.
-The current context is used when no context is provided. functools.partial() can be used to pass parameters
-to the callback, e.g.: # Call 'print("Future:", fut)' when "fut" is done. fut . add_done_callback ( functools . partial ( print , "Future:" )) Changed in version 3.7: The context keyword-only parameter was added.
-See PEP 567 for more details. remove_done_callback ( callback ) Remove callback from the callbacks list. Returns the number of callbacks removed, which is typically 1,
-unless a callback was added more than once. cancel ( msg = None ) Cancel the Future and schedule callbacks. If the Future is already done or cancelled , return False .
-Otherwise, change the Future’s state to cancelled ,
-schedule the callbacks, and return True . The optional string argument msg is passed as the argument to the CancelledError exception raised when a cancelled Future
-is awaited. Changed in version 3.9: Added the msg parameter. exception ( ) Return the exception that was set on this Future. The exception (or None if no exception was set) is
-returned only if the Future is done . If the Future has been cancelled , this method raises a CancelledError exception. If the Future isn’t done yet, this method raises an InvalidStateError exception. get_loop ( ) Return the event loop the Future object is bound to. Added in version 3.7.
 A Future represents an eventual result of an asynchronous
 operation.  Not thread-safe.
 Future is an awaitable object.  Coroutines can await on
@@ -125,10 +79,6 @@ Changed in version 3.7: Added support for the contextvars module.
 contextvars
 Deprecated since version 3.10: Deprecation warning is emitted if loop is not specified
 and there is no running event loop.
-result ( )
-Return the result of the Future. If the Future is done and has a result set by the set_result() method, the result value is returned. If the Future is done and has an exception set by the set_exception() method, this method raises the exception. If the Future has been cancelled , this method raises
-a CancelledError exception. If the Future’s result isn’t yet available, this method raises
-an InvalidStateError exception.
 Return the result of the Future.
 If the Future is done and has a result set by the set_result() method, the result value is returned.
 set_result()
@@ -140,47 +90,26 @@ CancelledError
 If the Future’s result isn’t yet available, this method raises
 an InvalidStateError exception.
 InvalidStateError
-set_result ( result )
-Mark the Future as done and set its result. Raises an InvalidStateError error if the Future is
-already done .
 Mark the Future as done and set its result.
 Raises an InvalidStateError error if the Future is
 already done .
 InvalidStateError
-set_exception ( exception )
-Mark the Future as done and set an exception. Raises an InvalidStateError error if the Future is
-already done .
 Mark the Future as done and set an exception.
 Raises an InvalidStateError error if the Future is
 already done .
 InvalidStateError
-done ( )
-Return True if the Future is done . A Future is done if it was cancelled or if it has a result
-or an exception set with set_result() or set_exception() calls.
 Return True if the Future is done .
-True
 A Future is done if it was cancelled or if it has a result
 or an exception set with set_result() or set_exception() calls.
 set_result()
 set_exception()
-cancelled ( )
-Return True if the Future was cancelled . The method is usually used to check if a Future is not cancelled before setting a result or an exception for it: if not fut . cancelled (): fut . set_result ( 42 )
 Return True if the Future was cancelled .
-True
 The method is usually used to check if a Future is not cancelled before setting a result or an exception for it:
 
 [CODE]
 if not fut . cancelled (): fut . set_result ( 42 )
 [/CODE]
 
-add_done_callback ( callback , * , context = None )
-Add a callback to be run when the Future is done . The callback is called with the Future object as its only
-argument. If the Future is already done when this method is called,
-the callback is scheduled with loop.call_soon() . An optional keyword-only context argument allows specifying a
-custom contextvars.Context for the callback to run in.
-The current context is used when no context is provided. functools.partial() can be used to pass parameters
-to the callback, e.g.: # Call 'print("Future:", fut)' when "fut" is done. fut . add_done_callback ( functools . partial ( print , "Future:" )) Changed in version 3.7: The context keyword-only parameter was added.
-See PEP 567 for more details.
 Add a callback to be run when the Future is done .
 The callback is called with the Future object as its only
 argument.
@@ -201,40 +130,25 @@ functools.partial()
 
 Changed in version 3.7: The context keyword-only parameter was added.
 See PEP 567 for more details.
-remove_done_callback ( callback )
-Remove callback from the callbacks list. Returns the number of callbacks removed, which is typically 1,
-unless a callback was added more than once.
 Remove callback from the callbacks list.
 Returns the number of callbacks removed, which is typically 1,
 unless a callback was added more than once.
-cancel ( msg = None )
-Cancel the Future and schedule callbacks. If the Future is already done or cancelled , return False .
-Otherwise, change the Future’s state to cancelled ,
-schedule the callbacks, and return True . The optional string argument msg is passed as the argument to the CancelledError exception raised when a cancelled Future
-is awaited. Changed in version 3.9: Added the msg parameter.
 Cancel the Future and schedule callbacks.
 If the Future is already done or cancelled , return False .
 Otherwise, change the Future’s state to cancelled ,
 schedule the callbacks, and return True .
 False
-True
 The optional string argument msg is passed as the argument to the CancelledError exception raised when a cancelled Future
 is awaited.
 CancelledError
 Changed in version 3.9: Added the msg parameter.
-exception ( )
-Return the exception that was set on this Future. The exception (or None if no exception was set) is
-returned only if the Future is done . If the Future has been cancelled , this method raises a CancelledError exception. If the Future isn’t done yet, this method raises an InvalidStateError exception.
 Return the exception that was set on this Future.
 The exception (or None if no exception was set) is
 returned only if the Future is done .
-None
 If the Future has been cancelled , this method raises a CancelledError exception.
 CancelledError
 If the Future isn’t done yet, this method raises an InvalidStateError exception.
 InvalidStateError
-get_loop ( )
-Return the event loop the Future object is bound to. Added in version 3.7.
 Return the event loop the Future object is bound to.
 Added in version 3.7.
 This example creates a Future object, creates and schedules an
@@ -273,5 +187,4 @@ but concurrent.futures.Future.cancel() does not.
 asyncio.Future.cancel() accepts an optional msg argument,
 but concurrent.futures.Future.cancel() does not.
 asyncio.Future.cancel()
-msg
 concurrent.futures.Future.cancel()

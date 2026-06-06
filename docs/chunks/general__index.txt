@@ -193,7 +193,6 @@ since Python 3.13.
 Use class TD(TypedDict): pass or TD = TypedDict("TD", {}) to create a TypedDict with zero field.
 TypedDict
 TD = TypedDict("TD")
-None
 TD = TypedDict("TD", None)
 class TD(TypedDict): pass
 TD = TypedDict("TD", {})
@@ -212,7 +211,6 @@ and getmarkers() methods of
 the Wave_read and Wave_write classes
 have been deprecated since Python 3.13.
 wave :
-wave
 The getmark() , setmark() ,
 and getmarkers() methods of
 the Wave_read and Wave_write classes
@@ -272,9 +270,7 @@ has been deprecated in documentation since Python 3.3
 and at runtime since Python 3.13.
 Use the 'w' format code ( Py_UCS4 )
 for Unicode characters instead.
-'u'
 wchar_t
-'w'
 Py_UCS4
 asyncio : asyncio.iscoroutinefunction() is deprecated
 and will be removed in Python 3.16;
@@ -347,7 +343,6 @@ the underlying integer, convert to int explicitly ( ~int(x) ).
 ~True
 ~False
 not x
-int
 ~int(x)
 functools : Calling the Python implementation of functools.reduce() with function or sequence as keyword arguments has been deprecated since Python 3.14.
 functools :
@@ -407,7 +402,6 @@ sys : The _enablelegacywindowsfsencoding() function
 has been deprecated since Python 3.13.
 Use the PYTHONLEGACYWINDOWSFSENCODING environment variable instead.
 sys :
-sys
 The _enablelegacywindowsfsencoding() function
 has been deprecated since Python 3.13.
 Use the PYTHONLEGACYWINDOWSFSENCODING environment variable instead.
@@ -428,7 +422,6 @@ The sysconfig.expand_makefile_vars() function
 has been deprecated since Python 3.14.
 Use the vars argument of sysconfig.get_paths() instead.
 sysconfig.expand_makefile_vars()
-vars
 sysconfig.get_paths()
 tarfile : The undocumented and unused TarFile.tarfile attribute
 has been deprecated since Python 3.13.
@@ -468,7 +461,6 @@ Use isinstance(obj, collections.abc.Buffer) to test if obj implements the buffer
 in type annotations, either use Buffer or a union
 that explicitly specifies the types your code supports (e.g., bytes | bytearray | memoryview ).
 isinstance(obj, collections.abc.Buffer)
-obj
 Buffer
 bytes | bytearray | memoryview
 ByteString was originally intended to be an abstract class that
@@ -525,7 +517,6 @@ Use isinstance(obj, collections.abc.Buffer) to test if obj implements the buffer
 in type annotations, either use Buffer or a union
 that explicitly specifies the types your code supports (e.g., bytes | bytearray | memoryview ).
 isinstance(obj, collections.abc.Buffer)
-obj
 Buffer
 bytes | bytearray | memoryview
 ByteString was originally intended to be an abstract class that
@@ -560,7 +551,6 @@ specifier 'N' , which is only supported in the decimal module’s
 C implementation, has been deprecated since Python 3.13.
 (Contributed by Serhiy Storchaka in gh-89902 .)
 Decimal
-'N'
 decimal
 
 ## Pending removal in Python 3.19
@@ -629,16 +619,12 @@ will be changed to a syntax error. ( gh-87999 )
 [0x1for x in y]
 [0x1 for x in y]
 [0x1f or x in y]
-and
-else
-for
 Support for __index__() and __int__() method returning non-int type:
 these methods will be required to return an instance of a strict subclass of int .
 Support for __index__() and __int__() method returning non-int type:
 these methods will be required to return an instance of a strict subclass of int .
 __index__()
 __int__()
-int
 Support for __float__() method returning a strict subclass of float : these methods will be required to return an instance of float .
 Support for __float__() method returning a strict subclass of float : these methods will be required to return an instance of float .
 __float__()
@@ -715,7 +701,6 @@ EntryPoints tuple interface.
 EntryPoints
 Implicit None on return values.
 Implicit None on return values.
-None
 logging : the warn() method has been deprecated
 since Python 3.3, use warning() instead.
 logging : the warn() method has been deprecated
@@ -762,7 +747,6 @@ rmtree()
 ssl options and protocols: ssl.SSLContext without protocol argument is deprecated. ssl.SSLContext : set_npn_protocols() and selected_npn_protocol() are deprecated: use ALPN
 instead. ssl.OP_NO_SSL* options ssl.OP_NO_TLS* options ssl.PROTOCOL_SSLv3 ssl.PROTOCOL_TLS ssl.PROTOCOL_TLSv1 ssl.PROTOCOL_TLSv1_1 ssl.PROTOCOL_TLSv1_2 ssl.TLSVersion.SSLv3 ssl.TLSVersion.TLSv1 ssl.TLSVersion.TLSv1_1
 ssl options and protocols:
-ssl
 ssl.SSLContext without protocol argument is deprecated.
 ssl.SSLContext without protocol argument is deprecated.
 ssl.SSLContext
@@ -854,7 +838,6 @@ that is not None from a test case.
 unittest.IsolatedAsyncioTestCase : it is deprecated to return a value
 that is not None from a test case.
 unittest.IsolatedAsyncioTestCase
-None
 urllib.parse deprecated functions: urlparse() instead splitattr() splithost() splitnport() splitpasswd() splitport() splitquery() splittag() splittype() splituser() splitvalue() to_bytes()
 urllib.parse deprecated functions: urlparse() instead
 urllib.parse
@@ -904,7 +887,6 @@ xml.etree.ElementTree : Testing the truth value of an Element is deprecated. In 
 will always return True . Prefer explicit len(elem) or elem is not None tests instead.
 xml.etree.ElementTree
 Element
-True
 len(elem)
 elem is not None
 sys._clear_type_cache() is deprecated:
@@ -953,7 +935,6 @@ Use PyCodec_Decode() instead; Note that some codecs (for example, “base64”)
 may return a type other than str , such as bytes .
 PyUnicode_AsDecodedUnicode()
 PyCodec_Decode()
-str
 bytes
 PyUnicode_AsEncodedObject() :
 Use PyCodec_Encode() instead.
@@ -970,7 +951,6 @@ may return a type other than bytes , such as str .
 PyUnicode_AsEncodedUnicode()
 PyCodec_Encode()
 bytes
-str
 Python initialization functions, deprecated in Python 3.13: Py_GetPath() :
 Use PyConfig_Get("module_search_paths") ( sys.path ) instead. Py_GetPrefix() :
 Use PyConfig_Get("base_prefix") ( sys.base_prefix ) instead. Use PyConfig_Get("prefix") ( sys.prefix ) if virtual environments need to be handled. Py_GetExecPrefix() :

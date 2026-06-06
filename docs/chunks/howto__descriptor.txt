@@ -5,11 +5,7 @@ SOURCE: howto\descriptor.html
 
 # Descriptor Guide
 
-Author :
 Raymond Hettinger
-Raymond Hettinger
-Contact :
-<python at rcn dot com>
 <python at rcn dot com>
 Descriptors let objects customize attribute lookup,
 storage, and deletion.
@@ -47,7 +43,6 @@ add new capabilities one by one.
 
 The Ten class is a descriptor whose __get__() method always
 returns the constant 10 :
-Ten
 __get__()
 
 [CODE]
@@ -70,9 +65,7 @@ and descriptor lookup:
 In the a.x attribute lookup, the dot operator finds 'x': 5 in the class dictionary.  In the a.y lookup, the dot operator
 finds a descriptor instance, recognized by its __get__ method.
 Calling that method returns 10 .
-a.x
 'x': 5
-a.y
 __get__
 Note that the value 10 is not stored in either the class dictionary or the
 instance dictionary.  Instead, the value 10 is computed on demand.
@@ -233,7 +226,6 @@ minimum or maximum.
 Number verifies that a value is either an int or float .  Optionally, it verifies that a value is between a given
 minimum or maximum.
 Number
-int
 float
 String verifies that a value is a str .  Optionally, it
 validates a given minimum or maximum length.  It can validate a
@@ -242,7 +234,6 @@ String verifies that a value is a str .  Optionally, it
 validates a given minimum or maximum length.  It can validate a
 user-defined predicate as well.
 String
-str
 
 [CODE]
 class OneOf ( Validator ): def __init__ ( self , * options ): self . options = set ( options ) def validate ( self , value ): if value not in self . options : raise ValueError ( f 'Expected { value !r} to be one of { self . options !r} ' ) class Number ( Validator ): def __init__ ( self , minvalue = None , maxvalue = None ): self . minvalue = minvalue self . maxvalue = maxvalue def validate ( self , value ): if not isinstance ( value , ( int , float )): raise TypeError ( f 'Expected { value !r} to be an int or float' ) if self . minvalue is not None and value < self . minvalue : raise ValueError ( f 'Expected { value !r} to be at least { self . minvalue !r} ' ) if self . maxvalue is not None and value > self . maxvalue : raise ValueError ( f 'Expected { value !r} to be no more than { self . maxvalue !r} ' ) class String ( Validator ): def __init__ ( self , minsize = None , maxsize = None , predicate = None ): self . minsize = minsize self . maxsize = maxsize self . predicate = predicate def validate ( self , value ): if not isinstance ( value , str ): raise TypeError ( f 'Expected { value !r} to be a str' ) if self . minsize is not None and len ( value ) < self . minsize : raise ValueError ( f 'Expected { value !r} to be no smaller than { self . minsize !r} ' ) if self . maxsize is not None and len ( value ) > self . maxsize : raise ValueError ( f 'Expected { value !r} to be no bigger than { self . maxsize !r} ' ) if self . predicate is not None and not self . predicate ( value ): raise ValueError ( f 'Expected { self . predicate } to be true for { value !r} ' )
@@ -291,7 +282,6 @@ looked-up value is an object defining one of the descriptor methods, then Python
 may override the default behavior and invoke the descriptor method instead.
 Where this occurs in the precedence chain depends on which descriptor methods
 were defined.
-a.x
 a.__dict__['x']
 type(a).__dict__['x']
 type(a)
@@ -345,12 +335,10 @@ namespaces for obj .  If the search finds a descriptor outside of the
 instance __dict__ , its __get__() method is
 invoked according to the precedence rules listed below.
 obj.x
-obj
 __dict__
 __get__()
 The details of invocation depend on whether obj is an object, class, or
 instance of super.
-obj
 
 ### Invocation from an instance
 
@@ -360,7 +348,6 @@ descriptors, then class variables, and lastly __getattr__() if it is
 provided.
 __getattr__()
 If a descriptor is found for a.x , then it is invoked with: desc.__get__(a, type(a)) .
-a.x
 desc.__get__(a, type(a))
 The logic for a dotted lookup is in object.__getattribute__() .  Here is
 a pure Python equivalent:
@@ -392,7 +379,6 @@ def getattr_hook ( obj , name ): "Emulate slot_tp_getattr_hook() in Objects/type
 
 The logic for a dotted lookup such as A.x is in type.__getattribute__() .  The steps are similar to those for object.__getattribute__() but the instance dictionary lookup is replaced
 by a search through the class’s method resolution order .
-A.x
 type.__getattribute__()
 object.__getattribute__()
 If a descriptor is found, it is invoked with desc.__get__(None, A) .
@@ -420,7 +406,6 @@ super_getattro()
 The mechanism for descriptors is embedded in the __getattribute__() methods for object , type , and super() .
 __getattribute__()
 object
-type
 super()
 The important points to remember are:
 Descriptors are invoked by the __getattribute__() method.
@@ -429,7 +414,6 @@ __getattribute__()
 Classes inherit this machinery from object , type , or super() .
 Classes inherit this machinery from object , type , or super() .
 object
-type
 super()
 Overriding __getattribute__() prevents automatic descriptor calls
 because all the descriptor logic is in that method.
@@ -447,7 +431,6 @@ includes the class.
 object.__getattribute__()
 type.__getattribute__()
 __get__()
-None
 Data descriptors always override instance dictionaries.
 Data descriptors always override instance dictionaries.
 Non-data descriptors may be overridden by instance dictionaries.
@@ -460,7 +443,6 @@ was assigned to.  When a new class is created, the type metaclass
 scans the dictionary of the new class.  If any of the entries are descriptors
 and if they define __set_name__() , that method is called with two
 arguments.  The owner is the class where the descriptor is used, and the name is the class variable the descriptor was assigned to.
-type
 __set_name__()
 The implementation details are in type_new() and set_names() in Objects/typeobject.c .
 type_new()
@@ -655,12 +637,9 @@ f(cls, *args)
 Static methods return the underlying function without changes.  Calling either c.f or C.f is the equivalent of a direct lookup into object.__getattribute__(c, "f") or object.__getattribute__(C, "f") . As a
 result, the function becomes identically accessible from either an object or a
 class.
-c.f
-C.f
 object.__getattribute__(c, "f")
 object.__getattribute__(C, "f")
 Good candidates for static methods are methods that do not reference the self variable.
-self
 For instance, a statistics package may include a container class for
 experimental data.  The class provides normal methods for computing the average,
 mean, median, and other descriptive statistics that depend on the data. However,
@@ -830,7 +809,6 @@ class Object : 'Simulate how object.__new__() allocates memory for __slots__' de
 To use the simulation in a real class, just inherit from Object and
 set the metaclass to Type :
 Object
-Type
 
 [CODE]
 class H ( Object , metaclass = Type ): 'Instance variables stored in slots' slot_names = [ 'x' , 'y' ] def __init__ ( self , x , y ): self . x = x self . y = y

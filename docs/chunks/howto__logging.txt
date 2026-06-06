@@ -5,8 +5,6 @@ SOURCE: howto\logging.html
 
 # Logging HOWTO
 
-Author :
-Vinay Sajip <vinay_sajip at red-dove dot com>
 Vinay Sajip <vinay_sajip at red-dove dot com>
 This page contains tutorial information. For links to reference information and a
 logging cookbook, please see Other resources .
@@ -81,8 +79,6 @@ DEBUG
 DEBUG
 Detailed information, typically of interest
 only when diagnosing problems.
-INFO
-INFO
 Confirmation that things are working as
 expected.
 WARNING
@@ -125,7 +121,6 @@ default level is WARNING . The printed message includes the indication of the
 level and the description of the event provided in the logging call, i.e.
 ‘Watch out!’. The actual output can be formatted quite flexibly if you need
 that; formatting options will also be explained later.
-INFO
 WARNING
 Notice that in this example, we use functions directly on the logging module, like logging.debug , rather than creating a logger and calling
 functions on it. These functions operate on the root logger, but can be useful
@@ -461,13 +456,10 @@ will return a reference to the same logger object.  Loggers that are further
 down in the hierarchical list are children of loggers higher up in the list.
 For example, given a logger with a name of foo , loggers with names of foo.bar , foo.bar.baz , and foo.bam are all descendants of foo .
 getLogger()
-root
 getLogger()
-foo
 foo.bar
 foo.bar.baz
 foo.bam
-foo
 Loggers have a concept of effective level . If a level is not explicitly set
 on a logger, the level of its parent is used instead as its effective level.
 If the parent has no explicit level set, its parent is examined, and so on -
@@ -542,7 +534,6 @@ if your application needs special behavior.  The constructor takes three
 optional arguments – a message format string, a date format string and a style
 indicator.
 logging.Handler
-logging.Formatter. __init__ ( fmt = None , datefmt = None , style = '%' )
 If there is no message format string, the default is to use the
 raw message.  If there is no date format string, the default date format is:
 
@@ -552,21 +543,14 @@ raw message.  If there is no date format string, the default date format is:
 
 with the milliseconds tacked on at the end. The style is one of '%' , '{' , or '$' . If one of these is not specified, then '%' will be used.
 style
-'%'
-'{'
-'$'
-'%'
 If the style is '%' , the message format string uses %(<dictionary key>)s styled string substitution; the possible keys are
 documented in LogRecord attributes . If the style is '{' , the message
 format string is assumed to be compatible with str.format() (using
 keyword arguments), while if the style is '$' then the message format string
 should conform to what is expected by string.Template.substitute() .
 style
-'%'
 %(<dictionary key>)s
-'{'
 str.format()
-'$'
 string.Template.substitute()
 Changed in version 3.2: Added the style parameter.
 style
@@ -650,7 +634,6 @@ the configuration. Please refer to the reference documentation for more
 information, and specify False for this parameter if you wish.
 fileConfig()
 disable_existing_loggers
-True
 fileConfig()
 False
 The dictionary passed to dictConfig() can also specify a Boolean
@@ -660,7 +643,6 @@ which may not be what you want - in which case, provide the key
 explicitly with a value of False .
 dictConfig()
 disable_existing_loggers
-True
 False
 Note that the class names referenced in config files need to be either relative
 to the logging module, or absolute values which can be resolved using normal
@@ -719,10 +701,8 @@ If raiseExceptions is True (development mode), a message
 If raiseExceptions is True (development mode), a message
 ‘No handlers could be found for logger X.Y.Z’ is printed once.
 raiseExceptions
-True
 To obtain the pre-3.2 behaviour, lastResort can be set to None .
 lastResort
-None
 
 ### Configuring Logging for a Library
 
@@ -757,14 +737,12 @@ import logging logging . getLogger ( 'foo' ) . addHandler ( logging . NullHandle
 should have the desired effect. If an organisation produces a number of
 libraries, then the logger name specified can be ‘orgname.foo’ rather than
 just ‘foo’.
-Note
 It is strongly advised that you do not log to the root logger in your library. Instead, use a logger with a unique and easily
 identifiable name, such as the __name__ for your library’s top-level package
 or module. Logging to the root logger will make it difficult or impossible for
 the application developer to configure the logging verbosity or handlers of
 your library as they wish.
 __name__
-Note
 It is strongly advised that you do not add any handlers other
 than NullHandler to your library’s loggers . This is
 because the configuration of handlers is the prerogative of the application
@@ -790,8 +768,6 @@ ERROR
 ERROR
 WARNING
 WARNING
-INFO
-INFO
 DEBUG
 DEBUG
 NOTSET
@@ -905,8 +881,6 @@ server using either GET or POST semantics.
 HTTPHandler instances send messages to an HTTP
 server using either GET or POST semantics.
 HTTPHandler
-GET
-POST
 WatchedFileHandler instances watch the file they are
 logging to. If the file changes, it is closed and reopened using the file
 name. This handler is only useful on Unix-like systems; Windows does not
@@ -988,12 +962,10 @@ handleError()
 Handler
 raiseExceptions
 sys.stderr
-Note
 The default value of raiseExceptions is True . This is
 because during development, you typically want to be notified of any
 exceptions that occur. It’s advised that you set raiseExceptions to False for production usage.
 raiseExceptions
-True
 raiseExceptions
 False
 
@@ -1026,7 +998,6 @@ so that if the logger’s threshold is set above DEBUG , the calls to expensive_
 DEBUG
 expensive_func1
 expensive_func2
-Note
 In some cases, isEnabledFor() can itself be more
 expensive than you’d like (e.g. for deeply nested loggers where an explicit
 level is only set high up in the logger hierarchy). In such cases (or if you
@@ -1049,7 +1020,6 @@ This avoids calling sys._getframe() , which
 may help to speed up your code in environments
 like PyPy (which can’t speed up code that uses sys._getframe() ).
 logging._srcfile
-None
 sys._getframe()
 sys._getframe()
 Threading information.
@@ -1081,16 +1051,10 @@ logging.config
 ## Other resources
 
 See also
-Module logging
 logging
 API reference for the logging module.
-API reference for the logging module.
-Module logging.config
 logging.config
 Configuration API for the logging module.
-Configuration API for the logging module.
-Module logging.handlers
 logging.handlers
-Useful handlers included with the logging module.
 Useful handlers included with the logging module.
 A logging cookbook

@@ -5,8 +5,6 @@ SOURCE: whatsnew\2.5.html
 
 # What’s New in Python 2.5
 
-Author :
-A.M. Kuchling
 A.M. Kuchling
 This article explains the new features in Python 2.5.  The final release of
 Python 2.5 is scheduled for August 2006; PEP 356 describes the planned
@@ -29,7 +27,6 @@ absolute or relative (section PEP 328: Absolute and Relative Imports ).  Some co
 handling are handled better (section PEP 341: Unified try/except/finally ).  All these improvements
 are worthwhile, but they’re improvements to one specific language feature or
 another; none of them are broad modifications to Python’s semantics.
-with
 As well as the language and library additions, other improvements and bugfixes
 were made throughout the source tree.  A search through the SVN change logs
 finds there were 353 patches applied and 458 bugs fixed between Python 2.4 and
@@ -104,9 +101,6 @@ comprehensions and lambdas could look like incorrect conditional expressions.
 See PEP 308 for some examples.  If you put parentheses around your
 conditional expressions, you won’t run into this case.
 See also
-PEP 308 - Conditional Expressions
-PEP written by Guido van Rossum and Raymond D. Hettinger; implemented by Thomas
-Wouters.
 PEP written by Guido van Rossum and Raymond D. Hettinger; implemented by Thomas
 Wouters.
 
@@ -166,9 +160,6 @@ def my_decorator ( f ): @functools . wraps ( f ) def wrapper ( * args , ** kwds 
 [/CODE]
 
 See also
-PEP 309 - Partial Function Application
-PEP proposed and written by Peter Harris; implemented by Hye-Shik Chang and Nick
-Coghlan, with adaptations by Raymond Hettinger.
 PEP proposed and written by Peter Harris; implemented by Hye-Shik Chang and Nick
 Coghlan, with adaptations by Raymond Hettinger.
 
@@ -204,9 +195,6 @@ python setup.py upload
 --identity
 Package uploading was implemented by Martin von Löwis and Richard Jones.
 See also
-PEP 314 - Metadata for Python Software Packages v1.1
-PEP proposed and written by A.M. Kuchling, Richard Jones, and Fred Drake;
-implemented by Richard Jones and Fred Drake.
 PEP proposed and written by A.M. Kuchling, Richard Jones, and Fred Drake;
 implemented by Richard Jones and Fred Drake.
 
@@ -225,7 +213,6 @@ pkg / pkg / __init__ . py pkg / main . py pkg / string . py
 [/CODE]
 
 This defines a package named pkg containing the pkg.main and pkg.string submodules.
-pkg
 pkg.main
 pkg.string
 Consider the code in the main.py module.  What happens if it executes
@@ -291,11 +278,7 @@ statement, only the from ... import form.
 import modname
 from ... import
 See also
-PEP 328 - Imports: Multi-Line and Absolute/Relative
 PEP written by Aahz; implemented by Thomas Wouters.
-PEP written by Aahz; implemented by Thomas Wouters.
-https://pylib.readthedocs.io/
-The py library by Holger Krekel, which contains the py.std package.
 The py library by Holger Krekel, which contains the py.std package.
 py.std
 
@@ -314,8 +297,6 @@ pychecker.checker
 zipimport
 sys.path
 See also
-PEP 338 - Executing modules as scripts
-PEP written and  implemented by Nick Coghlan.
 PEP written and  implemented by Nick Coghlan.
 
 ## PEP 341: Unified try/except/finally
@@ -326,7 +307,6 @@ more except blocks to catch  specific exceptions.  You couldn’t
 combine both except blocks and a finally block, because
 generating the right bytecode for the combined version was complicated and it
 wasn’t clear what the semantics of the combined statement should be.
-try
 finally
 except
 except
@@ -352,8 +332,6 @@ block is complete and any raised exceptions handled. Even if there’s an error 
 an exception handler or the else-block and a new exception is raised, the code
 in the final-block is still run.
 See also
-PEP 341 - Unifying try-except and try-finally
-PEP written by Georg Brandl;  implementation by Thomas Lee.
 PEP written by Georg Brandl;  implementation by Thomas Lee.
 
 ## PEP 342: New Generator Features
@@ -407,7 +385,6 @@ send(value)
 yield
 next()
 yield
-None
 Here’s the previous example, modified to allow changing the value of the
 internal counter.
 
@@ -426,7 +403,6 @@ for this case.  Don’t just use its value in expressions unless you’re sure t
 the send() method will be the only method used to resume your generator
 function.
 yield
-None
 send()
 In addition to send() , there are two other new methods on generators:
 send()
@@ -486,27 +462,17 @@ finally
 yield
 try...finally
 try...finally
-with
 Another even more esoteric effect of this change: previously, the gi_frame attribute of a generator was always a frame object. It’s now
 possible for gi_frame to be None once the generator has been
 exhausted.
 gi_frame
 gi_frame
-None
 See also
-PEP 342 - Coroutines via Enhanced Generators
-PEP written by  Guido van Rossum and Phillip J. Eby; implemented by Phillip J.
-Eby.  Includes examples of  some fancier uses of generators as coroutines. Earlier versions of these features were proposed in PEP 288 by Raymond
-Hettinger and PEP 325 by Samuele Pedroni.
 PEP written by  Guido van Rossum and Phillip J. Eby; implemented by Phillip J.
 Eby.  Includes examples of  some fancier uses of generators as coroutines.
 Earlier versions of these features were proposed in PEP 288 by Raymond
 Hettinger and PEP 325 by Samuele Pedroni.
-https://en.wikipedia.org/wiki/Coroutine
 The Wikipedia entry for  coroutines.
-The Wikipedia entry for  coroutines.
-https://web.archive.org/web/20160321211320/http://www.sidhe.org/~dan/blog/archives/000178.html
-An explanation of coroutines from a Perl point of view, written by Dan Sugalski.
 An explanation of coroutines from a Perl point of view, written by Dan Sugalski.
 
 ## PEP 343: The ‘with’ statement
@@ -515,11 +481,9 @@ The ‘ with ’ statement clarifies code that previously would use try...finall
 section, I’ll discuss the statement as it will commonly be used.  In the next
 section, I’ll examine the implementation details and show how to write objects
 for use with this statement.
-with
 try...finally
 The ‘ with ’ statement is a new control-flow structure whose basic
 structure is:
-with
 
 [CODE]
 with expression [ as variable ]: with - block
@@ -547,7 +511,6 @@ from __future__ import with_statement
 The statement will always be enabled in Python 2.6.
 Some standard Python objects now support the context management protocol and can
 be used with the ‘ with ’ statement. File objects are one example:
-with
 
 [CODE]
 with open ( '/etc/passwd' , 'r' ) as f : for line in f : print line ... more processing code ...
@@ -556,15 +519,12 @@ with open ( '/etc/passwd' , 'r' ) as f : for line in f : print line ... more pro
 After this statement has executed, the file object in f will have been
 automatically closed, even if the for loop raised an exception
 part-way through the block.
-for
-Note
 In this case, f is the same object created by open() , because __enter__() returns self .
 open()
 __enter__()
 The threading module’s locks and condition variables  also support the
 ‘ with ’ statement:
 threading
-with
 
 [CODE]
 lock = threading . Lock () with lock : # Critical section of code ...
@@ -589,8 +549,6 @@ people will only use ‘ with ’ in company with existing objects and
 don’t need to know these details, so you can skip the rest of this section if
 you like.  Authors of new objects will need to understand the details of the
 underlying implementation and should keep reading.
-with
-with
 A high-level explanation of the context management protocol is:
 The expression is evaluated and should result in an object called a “context
 manager”.  The context manager must have __enter__() and __exit__() methods.
@@ -620,14 +578,11 @@ if you do the author of the code containing the ‘ with ’ statement will
 never realize anything went wrong.
 __exit__(type, value, traceback)
 sys.exc_info()
-True
-with
 If BLOCK didn’t raise an exception,  the __exit__() method is still
 called, but type , value , and traceback are all None .
 If BLOCK didn’t raise an exception,  the __exit__() method is still
 called, but type , value , and traceback are all None .
 __exit__()
-None
 Let’s think through an example.  I won’t present detailed code but will only
 sketch the methods necessary for a database that supports transactions.
 (For people unfamiliar with database terminology: a set of changes to the
@@ -656,7 +611,6 @@ result, so the method will return it.  The user can then add as cursor to
 their ‘ with ’ statement to bind the cursor to a variable name.
 __enter__()
 as cursor
-with
 
 [CODE]
 class DatabaseConnection : ... def __enter__ ( self ): # Code to start a new transaction cursor = self . cursor () return cursor
@@ -671,8 +625,6 @@ In the code below, execution will just fall off the end of the function,
 returning the default value of None . None is false, so the exception
 will be re-raised automatically.  If you wished, you could be more explicit and
 add a return statement at the marked location.
-None
-None
 return
 
 [CODE]
@@ -684,7 +636,6 @@ class DatabaseConnection : ... def __exit__ ( self , type , value , tb ): if tb 
 The new contextlib module provides some functions and a decorator that
 are useful for writing objects for use with the ‘ with ’ statement.
 contextlib
-with
 The decorator is called contextmanager() , and lets you write a single
 generator function instead of defining a new class.  The generator should yield
 exactly one value.  The code up to the yield will be executed as the __enter__() method, and the value yielded will be the method’s return
@@ -694,7 +645,6 @@ be raised by the yield statement.
 contextmanager()
 yield
 __enter__()
-with
 yield
 __exit__()
 yield
@@ -711,8 +661,6 @@ that combines a number of context managers so you don’t need to write nested
 statement both starts a database transaction and acquires a thread lock:
 contextlib
 nested(mgr1, mgr2, ...)
-with
-with
 
 [CODE]
 lock = threading . Lock () with nested ( db_transaction ( db ), lock ) as ( cursor , locked ): ...
@@ -728,16 +676,10 @@ import urllib , sys from contextlib import closing with closing ( urllib . urlop
 [/CODE]
 
 See also
-PEP 343 - The “with” statement
 PEP written by Guido van Rossum and Nick Coghlan; implemented by Mike Bland,
 Guido van Rossum, and Neal Norwitz.  The PEP shows the code generated for a
 ‘ with ’ statement, which can be helpful in learning how the statement
 works.
-PEP written by Guido van Rossum and Nick Coghlan; implemented by Mike Bland,
-Guido van Rossum, and Neal Norwitz.  The PEP shows the code generated for a
-‘ with ’ statement, which can be helpful in learning how the statement
-works.
-with
 The documentation  for the contextlib module.
 contextlib
 
@@ -792,8 +734,6 @@ Raising of strings as exceptions, as in the statement raise "Error occurred" , i
 to be able to remove the string-exception feature in a few releases.
 raise "Error occurred"
 See also
-PEP 352 - Required Superclass for Exceptions
-PEP written by  Brett Cannon and Guido van Rossum; implemented by Brett Cannon.
 PEP written by  Brett Cannon and Guido van Rossum; implemented by Brett Cannon.
 
 ## PEP 353: Using ssize_t as the index type
@@ -843,8 +783,6 @@ Py_ssize_t
 PEP 353 has a section on conversion guidelines that  extension authors should
 read to learn about supporting 64-bit platforms.
 See also
-PEP 353 - Using ssize_t as the index type
-PEP written and implemented by Martin von Löwis.
 PEP written and implemented by Martin von Löwis.
 
 ## PEP 357: The ‘__index__’ method
@@ -879,8 +817,6 @@ PyNumberMethods
 PyNumber_Index(obj)
 __index__()
 See also
-PEP 357 - Allowing Any Object to be Used for Slicing
-PEP written  and implemented by Travis Oliphant.
 PEP written  and implemented by Travis Oliphant.
 
 ## Other Language Changes
@@ -896,7 +832,6 @@ value when a key isn’t contained in the dictionary. When a key isn’t found, 
 dictionary’s __missing__(key) method will be called.  This hook is used
 to implement the new defaultdict class in the collections module.  The following example defines a dictionary  that returns zero for any
 missing key:
-dict
 __missing__(key)
 defaultdict
 collections
@@ -958,8 +893,6 @@ smallest/largest return value from this function. For example, to find the
 longest string in a list, you can do:
 min()
 max()
-key
-key
 sort()
 min()
 max()
@@ -980,10 +913,8 @@ implemented by Raymond Hettinger.)
 any()
 all()
 any()
-True
 False
 all()
-True
 The result of a class’s __hash__() method can now be either a long
 integer or a regular integer.  If a long integer is returned, the hash of that
 value is taken.  In earlier versions the hash value was required to be a
@@ -995,7 +926,6 @@ value is taken.  In earlier versions the hash value was required to be a
 regular integer, but in 2.5 the id() built-in was changed to always
 return non-negative numbers, and users often seem to use id(self) in __hash__() methods (though this is discouraged).
 __hash__()
-id()
 id(self)
 __hash__()
 ASCII is now the default encoding for modules.  It’s now  a syntax error if a
@@ -1057,7 +987,6 @@ the warning message. (Implemented by Thomas Wouters.)
 __init__.py
 ImportWarning
 __init__.py
--Wd
 The list of base classes in a class definition can now be empty.   As an
 example, this is now legal: class C (): pass (Implemented by Brett Cannon.)
 The list of base classes in a class definition can now be empty.   As an
@@ -1073,8 +1002,6 @@ class C (): pass
 
 In the interactive interpreter, quit and exit have long been strings so
 that new users get a somewhat helpful message when they try to quit:
-quit
-exit
 
 [CODE]
 >>> quit 'Use Ctrl-D (i.e. EOF) to exit.'
@@ -1083,8 +1010,6 @@ exit
 In Python 2.5, quit and exit are now objects that still produce string
 representations of themselves, but are also callable. Newbies who try quit() or exit() will now exit the interpreter as they expect.  (Implemented by
 Georg Brandl.)
-quit
-exit
 quit()
 exit()
 The Python executable now accepts the standard long options --help and --version ; on Windows,  it also accepts the /? option
@@ -1107,7 +1032,6 @@ When they were introduced  in Python 2.4, the built-in set and frozenset types w
 the internal data structure has been customized for implementing sets, and as a
 result sets will use a third less memory and are somewhat faster. (Implemented
 by Raymond Hettinger.)
-set
 frozenset
 The speed of some Unicode operations, such as finding substrings, string
 splitting, and character map encoding and decoding, has been improved.
@@ -1250,7 +1174,6 @@ dictionary but constructs a default value when a key isn’t present,
 automatically adding it to the dictionary for the requested key value.
 collections
 defaultdict
-dict
 The first argument to defaultdict ’s constructor is a factory function
 that gets called whenever a key is requested but not found. This factory
 function receives no arguments, so you can use built-in type constructors such
@@ -1287,7 +1210,6 @@ with the new ‘ with ’ statement.  See section The contextlib module for more
 New module: The contextlib module contains helper functions for use
 with the new ‘ with ’ statement.  See section The contextlib module for more about this module.
 contextlib
-with
 New module: The cProfile module is a C implementation of  the existing profile module that has much lower overhead. The module’s interface is
 the same as profile : you run cProfile.run('main()') to profile a
 function, can save profile data to a file, etc.  It’s not yet known if the
@@ -1326,7 +1248,6 @@ maximum size in bytes of a field by calling the csv.field_size_limit(new_limit) 
 a line_num attribute that counts the number of physical lines read from
 the source; records can span multiple physical lines, so line_num is not
 the same as the number of records read.
-csv
 csv.field_size_limit(new_limit)
 reader
 line_num
@@ -1370,7 +1291,6 @@ The doctest module gained a SKIP option that keeps an example from
 being executed at all.  This is intended for code snippets that are usage
 examples intended for the reader and aren’t actually test cases.
 doctest
-SKIP
 An encoding parameter was added to the testfile() function and the DocFileSuite class to specify the file’s encoding.  This makes it
 easier to use non-ASCII characters in  tests contained within a docstring.
 (Contributed by Bjorn Tillenius.)
@@ -1396,7 +1316,6 @@ the set of files, the FileInput object’s new fileno() returns
 the file descriptor for the currently opened file. (Contributed by Georg
 Brandl.)
 fileinput
-"r"
 input()
 open()
 FileInput
@@ -1422,7 +1341,6 @@ example:
 nsmallest()
 nlargest()
 heapq
-key
 min()
 max()
 sort()
@@ -1439,7 +1357,6 @@ The itertools.islice() function now accepts None for the start and
 step arguments.  This makes it more compatible with the attributes of slice
 objects, so that you can now write the following:
 itertools.islice()
-None
 
 [CODE]
 s = slice ( 5 ) # Create slice object itertools . islice ( iterable , s . start , s . stop , s . step )
@@ -1464,7 +1381,6 @@ long as no more than one %char specifier appeared; now the parameter must be
 exactly one %char specifier with no surrounding text.  An optional monetary parameter was also added which, if True , will use the locale’s rules for
 formatting currency in placing a separator between groups of three digits.
 format()
-True
 To format strings with multiple %char specifiers, use the new format_string() function that works like format() but also supports
 mixing %char specifiers with arbitrary text.
 format_string()
@@ -1487,7 +1403,6 @@ remove messages, and lock() / unlock() to lock/unlock the mailbox.
 The following example converts a maildir-format mailbox into an mbox-format
 one:
 mailbox
-mbox
 Maildir
 add(message)
 remove(key)
@@ -1503,13 +1418,10 @@ Summer of Code.)
 New module: the msilib module allows creating Microsoft Installer .msi files and CAB files.  Some support for reading the .msi database is also included. (Contributed by Martin von Löwis.)
 New module: the msilib module allows creating Microsoft Installer .msi files and CAB files.  Some support for reading the .msi database is also included. (Contributed by Martin von Löwis.)
 msilib
-.msi
-.msi
 The nis module now supports accessing domains other than the system
 default domain by supplying a domain argument to the nis.match() and nis.maps() functions. (Contributed by Ben Bell.)
 The nis module now supports accessing domains other than the system
 default domain by supplying a domain argument to the nis.match() and nis.maps() functions. (Contributed by Ben Bell.)
-nis
 nis.match()
 nis.maps()
 The operator module’s itemgetter() and attrgetter() functions now support multiple fields.   A call such as operator.attrgetter('a', 'b') will return a function  that retrieves the a and b attributes.  Combining  this new feature with the sort() method’s key parameter  lets you easily sort lists using
@@ -1521,7 +1433,6 @@ itemgetter()
 attrgetter()
 operator.attrgetter('a', 'b')
 sort()
-key
 The optparse module was updated to version 1.5.1 of the Optik library.
 The OptionParser class gained an epilog attribute, a string
 that will be printed after the help message, and a destroy() method to
@@ -1592,11 +1503,8 @@ breakpoint #1 has been created, enter commands 1 and enter a series of
 commands to be executed, finishing the list with end .  The command list can
 include commands that resume execution, such as continue or next .
 (Contributed by Grégoire Dooms.)
-pdb
 commands 1
-end
 continue
-next
 The pickle and cPickle modules no longer accept a return value
 of None from the __reduce__() method; the method must return a tuple
 of arguments instead.  The ability to return None was deprecated in Python
@@ -1607,9 +1515,7 @@ of arguments instead.  The ability to return None was deprecated in Python
 2.4, so this completes the removal of the feature.
 pickle
 cPickle
-None
 __reduce__()
-None
 The pkgutil module, containing various utility functions for finding
 packages, was enhanced to support PEP 302 ’s import hooks and now also works for
 packages stored in ZIP-format archives. (Contributed by Phillip J. Eby.)
@@ -1684,10 +1590,8 @@ of URL paths; the default is to allow only '/' and '/RPC2' .  Setting rpc_paths 
 SimpleXMLRPCServer
 DocXMLRPCServer
 rpc_paths
-'/'
 '/RPC2'
 rpc_paths
-None
 The socket module now supports AF_NETLINK sockets on Linux,
 thanks to a patch from Philippe Biondi.   Netlink sockets are a Linux-specific
 mechanism for communications between a user-space process and kernel code; an
@@ -1718,7 +1622,6 @@ New module: the spwd module provides functions for accessing the shadow
 password database on systems that support  shadow passwords.
 New module: the spwd module provides functions for accessing the shadow
 password database on systems that support  shadow passwords.
-spwd
 The struct is now faster because it  compiles format strings into Struct objects with pack() and unpack() methods.  This is
 similar to how the re module lets you create compiled regular expression
 objects.  You can still use the module-level pack() and unpack() functions; they’ll create Struct objects and cache them.  Or you can
@@ -1823,8 +1726,6 @@ versions that are generated from a starting string, from system properties, or
 purely randomly.  This module contains a UUID class and  functions
 named uuid1() , uuid3() , uuid4() ,  and uuid5() to
 generate different versions of UUID.  (Version 2 UUIDs  are not specified in RFC 4122 and are not supported by this module.)
-uuid
-UUID
 uuid1()
 uuid3()
 uuid4()
@@ -1893,7 +1794,6 @@ The zlib module’s Compress and Decompress objects now
 support a copy() method that makes a copy of the  object’s internal state
 and returns a new Compress or Decompress object.
 (Contributed by Chris AtLee.)
-zlib
 Compress
 Decompress
 copy()
@@ -1913,8 +1813,6 @@ ctypes
 To load a shared library or DLL, you must create an instance of the CDLL class and provide the name or path of the shared library or DLL.
 Once that’s done, you can call arbitrary functions by accessing them as
 attributes of the CDLL object.
-CDLL
-CDLL
 
 [CODE]
 import ctypes libc = ctypes . CDLL ( 'libc.so.6' ) result = libc . printf ( "Line of output \n " )
@@ -1973,8 +1871,6 @@ ctypes
 ctypes
 ctypes
 See also
-https://web.archive.org/web/20180410025338/http://starship.python.net/crew/theller/ctypes/
-The pre-stdlib ctypes web page, with a tutorial, reference, and FAQ.
 The pre-stdlib ctypes web page, with a tutorial, reference, and FAQ.
 The documentation  for the ctypes module.
 ctypes
@@ -1996,8 +1892,6 @@ ElementTree represents an XML document as a tree of element nodes. The text
 content of the document is stored as the text and tail attributes of  (This is one of the major differences between ElementTree and
 the Document Object Model; in the DOM there are many different types of node,
 including TextNode .)
-text
-tail
 TextNode
 The most commonly used parsing function is parse() , that takes either a
 string (assumed to contain a filename) or a file-like object and returns an ElementTree instance:
@@ -2091,8 +1985,6 @@ character.)
 This section is only a partial description of the ElementTree interfaces. Please
 read the package’s official documentation for more details.
 See also
-https://web.archive.org/web/20201124024954/http://effbot.org/zone/element-index.htm
-Official documentation for ElementTree.
 Official documentation for ElementTree.
 
 ### The hashlib package
@@ -2103,16 +1995,12 @@ additional secure hashes (SHA-224, SHA-256, SHA-384, and SHA-512). When
 available, the module uses OpenSSL for fast platform optimized implementations
 of algorithms.
 hashlib
-md5
-sha
 hashlib
 The old md5 and sha modules still exist as wrappers around hashlib
 to preserve backwards compatibility.  The new module’s interface is very close
 to that of the old modules, but not identical. The most significant difference
 is that the constructor functions for creating new hashing objects are named
 differently.
-md5
-sha
 
 [CODE]
 # Old versions h = md5 . md5 () h = md5 . new () # New version h = hashlib . md5 () # Old versions h = sha . sha () h = sha . new () # New version h = hashlib . sha1 () # Hash that weren't previously available h = hashlib . sha224 () h = hashlib . sha256 () h = hashlib . sha384 () h = hashlib . sha512 () # Alternative form h = hashlib . new ( 'md5' ) # Provide algorithm as a string
@@ -2195,18 +2083,11 @@ This example uses the iterator form:
 
 For more information about the SQL dialect supported by SQLite, see https://www.sqlite.org .
 See also
-https://www.pysqlite.org
 The pysqlite web page.
-The pysqlite web page.
-https://www.sqlite.org
-The SQLite web page; the documentation describes the syntax and the available
-data types for the supported SQL dialect.
 The SQLite web page; the documentation describes the syntax and the available
 data types for the supported SQL dialect.
 The documentation  for the sqlite3 module.
 sqlite3
-PEP 249 - Database API Specification 2.0
-PEP written by Marc-André Lemburg.
 PEP written by Marc-André Lemburg.
 
 ### The wsgiref package
@@ -2225,11 +2106,7 @@ from wsgiref import simple_server wsgi_app = ... host = '' port = 8000 httpd = s
 [/CODE]
 
 See also
-https://web.archive.org/web/20160331090247/http://wsgi.readthedocs.org/en/latest/
 A central web site for WSGI-related resources.
-A central web site for WSGI-related resources.
-PEP 333 - Python Web Server Gateway Interface v1.0
-PEP written by Phillip J. Eby.
 PEP written by Phillip J. Eby.
 
 ## Build and C API Changes
@@ -2432,8 +2309,6 @@ searched for.
 Windows: .dll is no longer supported as a filename extension for
 extension modules. .pyd is now the only filename extension that will be
 searched for.
-.dll
-.pyd
 
 ## Porting to Python 2.5
 
@@ -2455,7 +2330,6 @@ object.  Because of the PEP 342 changes described in section PEP 342: New Genera
 it’s now possible for gi_frame to be None .
 gi_frame
 gi_frame
-None
 A new warning, UnicodeWarning , is triggered when  you attempt to
 compare a Unicode string and an 8-bit string that can’t be converted to Unicode
 using the default ASCII encoding.  Previously such comparisons would raise a UnicodeDecodeError exception.
@@ -2470,7 +2344,6 @@ into lines in a manner which preserves the newline characters.
 Library: the csv module is now stricter about multi-line quoted fields.
 If your files contain newlines embedded within fields, the input should be split
 into lines in a manner which preserves the newline characters.
-csv
 Library: the locale module’s format() function’s would
 previously  accept any string as long as no more than one %char specifier
 appeared.  In Python 2.5, the argument must be exactly one %char specifier with
@@ -2491,7 +2364,6 @@ return a tuple of arguments instead.  The modules also no longer accept the
 deprecated bin keyword parameter.
 pickle
 cPickle
-None
 __reduce__()
 Library: The SimpleXMLRPCServer and DocXMLRPCServer classes now
 have a rpc_paths attribute that constrains XML-RPC operations to a
@@ -2506,10 +2378,8 @@ checking.
 SimpleXMLRPCServer
 DocXMLRPCServer
 rpc_paths
-'/'
 '/RPC2'
 rpc_paths
-None
 C API: Many functions now use Py_ssize_t instead of int to
 allow processing more data on 64-bit machines.  Extension code may need to make
 the same change to avoid warnings and to support 64-bit machines.  See the

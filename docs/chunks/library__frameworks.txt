@@ -8,7 +8,6 @@ SOURCE: library\frameworks.html
 This chapter is no longer maintained, and the modules it contained have been moved to their respective topical documentation.
 cmd — Command Line Interface Libraries
 cmd — Command Line Interface Libraries
-cmd
 shlex — Unix Specific Services
 shlex — Unix Specific Services
 shlex

@@ -14,7 +14,6 @@ distinct applications, data exchange with external sources (files or
 network connections), or data transfer between the Python application
 and the C layer.
 bytes
-Note
 When no prefix character is given, native mode is the default. It
 packs or unpacks data based on the platform and compiler on which
 the Python interpreter was built.
@@ -38,52 +37,25 @@ bytes
 ## Functions and Exceptions
 
 The module defines the following exception and functions:
-exception struct. error
 Exception raised on various occasions; argument is a string describing what
 is wrong.
-Exception raised on various occasions; argument is a string describing what
-is wrong.
-struct. pack ( format , v1 , v2 , ... )
 Return a bytes object containing the values v1 , v2 , … packed according
 to the format string format .  The arguments must match the values required by
 the format exactly.
-Return a bytes object containing the values v1 , v2 , … packed according
-to the format string format .  The arguments must match the values required by
-the format exactly.
-struct. pack_into ( format , buffer , offset , v1 , v2 , ... )
 Pack the values v1 , v2 , … according to the format string format and
 write the packed bytes into the writable buffer buffer starting at
 position offset .  Note that offset is a required argument.
-Pack the values v1 , v2 , … according to the format string format and
-write the packed bytes into the writable buffer buffer starting at
-position offset .  Note that offset is a required argument.
-struct. unpack ( format , buffer )
-Unpack from the buffer buffer (presumably packed by pack(format, ...) )
-according to the format string format .  The result is a tuple even if it
-contains exactly one item.  The buffer’s size in bytes must match the
-size required by the format, as reflected by calcsize() .
 Unpack from the buffer buffer (presumably packed by pack(format, ...) )
 according to the format string format .  The result is a tuple even if it
 contains exactly one item.  The buffer’s size in bytes must match the
 size required by the format, as reflected by calcsize() .
 pack(format, ...)
 calcsize()
-struct. unpack_from ( format , / , buffer , offset = 0 )
-Unpack from buffer starting at position offset , according to the format
-string format .  The result is a tuple even if it contains exactly one
-item.  The buffer’s size in bytes, starting at position offset , must be at
-least the size required by the format, as reflected by calcsize() .
 Unpack from buffer starting at position offset , according to the format
 string format .  The result is a tuple even if it contains exactly one
 item.  The buffer’s size in bytes, starting at position offset , must be at
 least the size required by the format, as reflected by calcsize() .
 calcsize()
-struct. iter_unpack ( format , buffer )
-Iteratively unpack from the buffer buffer according to the format
-string format .  This function returns an iterator which will read
-equally sized chunks from the buffer until all its contents have been
-consumed.  The buffer’s size in bytes must be a multiple of the size
-required by the format, as reflected by calcsize() . Each iteration yields a tuple as specified by the format string. Added in version 3.4.
 Iteratively unpack from the buffer buffer according to the format
 string format .  This function returns an iterator which will read
 equally sized chunks from the buffer until all its contents have been
@@ -92,8 +64,6 @@ required by the format, as reflected by calcsize() .
 calcsize()
 Each iteration yields a tuple as specified by the format string.
 Added in version 3.4.
-struct. calcsize ( format )
-Return the size of the struct (and hence of the bytes object produced by pack(format, ...) ) corresponding to the format string format .
 Return the size of the struct (and hence of the bytes object produced by pack(format, ...) ) corresponding to the format string format .
 pack(format, ...)
 
@@ -122,26 +92,19 @@ the byte order, size and alignment of the packed data, according to the
 following table:
 Character
 Byte order
-Size
 Alignment
 native
 native
 native
 native
 standard
-none
 little-endian
 standard
-none
 big-endian
 standard
-none
 network (= big-endian)
 standard
-none
 If the first character is not one of these, '@' is assumed.
-'@'
-Note
 The number 1023 ( 0x3ff in hexadecimal) has the following byte representations:
 0x3ff
 03 ff in big-endian ( > )
@@ -167,15 +130,10 @@ Standard size depends only on the format character;  see the table in
 the Format Characters section.
 Note the difference between '@' and '=' : both use native byte order, but
 the size and alignment of the latter is standardized.
-'@'
-'='
 The form '!' represents the network byte order which is always big-endian
 as defined in IETF RFC 1700 .
-'!'
 There is no way to indicate non-native byte order (force byte-swapping); use the
 appropriate choice of '<' or '>' .
-'<'
-'>'
 Notes:
 Padding is only automatically added between successive structure members.
 No padding is added at the beginning or the end of the encoded struct.
@@ -199,10 +157,6 @@ Python values should be obvious given their types.  The ‘Standard size’ colu
 refers to the size of the packed value in bytes when using standard size; that
 is, when the format string starts with one of '<' , '>' , '!' or '=' .  When using native size, the size of the packed value is
 platform-dependent.
-'<'
-'>'
-'!'
-'='
 Format
 C Type
 Python type
@@ -210,82 +164,42 @@ Standard size
 Notes
 pad byte
 no value
-(7)
-char
 bytes of length 1
 signed char
-int
-(2)
 unsigned char
-int
-(2)
 _Bool
-bool
-(1)
 short
-int
-(2)
 unsigned short
-int
-(2)
-int
-int
-(2)
 unsigned int
-int
-(2)
-long
-int
-(2)
 unsigned long
-int
-(2)
 long long
-int
-(2)
 unsigned long long
-int
-(2)
 ssize_t
 ssize_t
-int
 (2), (3)
 size_t
 size_t
-int
 (2), (3)
 _Float16
 float
 (4), (6)
 float
 float
-(4)
 double
 float
-(4)
 float complex
 complex
-(10)
 double complex
 complex
-(10)
 char [ ]
 bytes
-(9)
 char [ ]
 bytes
-(8)
 void *
-int
 (2), (5)
 Changed in version 3.3: Added support for the 'n' and 'N' formats.
-'n'
-'N'
 Changed in version 3.6: Added support for the 'e' format.
-'e'
 Changed in version 3.14: Added support for the 'F' and 'D' formats.
-'F'
-'D'
 See also
 The array and ctypes modules,
 as well as third-party modules like numpy ,
@@ -298,7 +212,6 @@ represented by one byte.
 The '?' conversion code corresponds to the _Bool type
 defined by C standards since C99.  In standard mode, it is
 represented by one byte.
-'?'
 When attempting to pack a non-integer using any of the integer conversion
 codes, if the non-integer has a __index__() method then that method is
 called to convert the argument to an integer before packing. Changed in version 3.2: Added use of the __index__() method for non-integers.
@@ -316,21 +229,12 @@ The 'n' and 'N' conversion codes are only available for the native
 size (selected as the default or with the '@' byte order character).
 For the standard size, you can use whichever of the other integer formats
 fits your application.
-'n'
-'N'
-'@'
 For the 'f' , 'd' and 'e' conversion codes, the packed
 representation uses the IEEE 754 binary32, binary64 or binary16 format (for 'f' , 'd' or 'e' respectively), regardless of the floating-point
 format used by the platform.
 For the 'f' , 'd' and 'e' conversion codes, the packed
 representation uses the IEEE 754 binary32, binary64 or binary16 format (for 'f' , 'd' or 'e' respectively), regardless of the floating-point
 format used by the platform.
-'f'
-'d'
-'e'
-'f'
-'d'
-'e'
 The 'P' format character is only available for the native byte ordering
 (selected as the default or with the '@' byte order character). The byte
 order character '=' chooses to use little- or big-endian ordering based
@@ -341,10 +245,6 @@ The 'P' format character is only available for the native byte ordering
 order character '=' chooses to use little- or big-endian ordering based
 on the host system. The struct module does not interpret this as native
 ordering, so the 'P' format is not available.
-'P'
-'@'
-'='
-'P'
 The IEEE 754 binary16 “half precision” type was introduced in the 2008
 revision of the IEEE 754 standard . It has a sign
 bit, a 5-bit exponent and 11-bit precision (with 10 bits explicitly stored),
@@ -367,7 +267,6 @@ format for more information.
 6.5e+04
 When packing, 'x' inserts one NUL byte.
 When packing, 'x' inserts one NUL byte.
-'x'
 The 'p' format character encodes a “Pascal string”, meaning a short
 variable-length string stored in a fixed number of bytes , given by the count.
 The first byte stored is the length of the string, or 255, whichever is
@@ -382,12 +281,10 @@ smaller.  The bytes of the string follow.  If the byte string passed in to pack(
 are used.  Note that for unpack() , the 'p' format character consumes count bytes, but that the bytes object returned can never contain more than 255
 bytes.
 When packing, arguments of types bytes and bytearray are accepted.
-'p'
 pack()
 count-1
 count-1
 unpack()
-'p'
 count
 bytes
 bytes
@@ -412,13 +309,10 @@ truncated or padded with null bytes as appropriate to make it fit. For
 unpacking, the resulting bytes object always has exactly the specified number
 of bytes.  As a special case, '0s' means a single, empty byte string (while '0c' means 0 characters).
 When packing, arguments of types bytes and bytearray are accepted.
-'s'
 '10s'
 '10c'
 cccccccccc
 bytes
-'0s'
-'0c'
 bytes
 bytearray
 For the 'F' and 'D' format characters, the packed representation uses
@@ -435,26 +329,13 @@ Note that complex types ( F and D ) are available unconditionally,
 despite complex types being an optional feature in C.
 As specified in the C11 standard, each complex type is represented by a
 two-element C array containing, respectively, the real and imaginary parts.
-'F'
-'D'
 A format character may be preceded by an integral repeat count.  For example,
 the format string '4h' means exactly the same as 'hhhh' .
-'4h'
 'hhhh'
 Whitespace characters between formats are ignored; a count and its format must
 not contain whitespace though.
 When packing a value x using one of the integer formats ( 'b' , 'B' , 'h' , 'H' , 'i' , 'I' , 'l' , 'L' , 'q' , 'Q' ), if x is outside the valid range for that format
 then struct.error is raised.
-'b'
-'B'
-'h'
-'H'
-'i'
-'I'
-'l'
-'L'
-'q'
-'Q'
 struct.error
 Changed in version 3.1: Previously, some of the integer formats wrapped out-of-range values and
 raised DeprecationWarning instead of struct.error .
@@ -463,19 +344,14 @@ struct.error
 For the '?' format character, the return value is either True or False . When packing, the truth value of the argument object is used.
 Either 0 or 1 in the native or standard bool representation will be packed, and
 any non-zero value will be True when unpacking.
-'?'
-True
 False
-True
 
 ### Examples
 
-Note
 Native byte order examples (designated by the '@' format prefix or
 lack of any prefix character) may not match what the reader’s
 machine produces as
 that depends on the platform and compiler.
-'@'
 Pack and unpack integers of three different sizes, using big endian
 ordering:
 
@@ -491,8 +367,6 @@ Attempt to pack an integer which is too large for the defined field:
 
 Demonstrate the difference between 's' and 'c' format
 characters:
-'s'
-'c'
 
 [CODE]
 >>> pack ( "@ccc" , b '1' , b '2' , b '3' ) b'123' >>> pack ( "@3s" , b '123' ) b'123'
@@ -512,8 +386,6 @@ Note in
 the first pack call below that three NUL bytes were added after the
 packed '#' to align the following integer on a four-byte boundary.
 In this example, the output was produced on a little endian machine:
-pack
-'#'
 
 [CODE]
 >>> pack ( '@ci' , b '#' , 0x12131415 ) b'#\x00\x00\x00\x15\x14\x13\x12' >>> pack ( '@ic' , 0x12131415 , b '#' ) b'\x15\x14\x13\x12#' >>> calcsize ( '@ci' ) 8 >>> calcsize ( '@ic' ) 5
@@ -528,17 +400,10 @@ at the end, assuming the platform’s longs are aligned on 4-byte boundaries:
 [/CODE]
 
 See also
-Module array
 array
 Packed binary storage of homogeneous data.
-Packed binary storage of homogeneous data.
-Module json
-json
 JSON encoder and decoder.
-JSON encoder and decoder.
-Module pickle
 pickle
-Python object serialization.
 Python object serialization.
 
 ## Applications
@@ -577,11 +442,8 @@ code solves that problem:
 
 The 'x' format code can be used to specify the repeat, but for
 native formats it is better to use a zero-repeat format like '0l' .
-'x'
-'0l'
 By default, native byte ordering and alignment is used, but it is
 better to be explicit and use the '@' prefix character.
-'@'
 
 ### Standard Formats
 
@@ -595,7 +457,6 @@ The first character should typically be < or > (or ! ).  Padding is the responsi
 zero-repeat format character won’t work.  Instead, the user must
 explicitly add 'x' pad bytes where needed.  Revisiting the
 examples from the previous section, we have:
-'x'
 
 [CODE]
 >>> calcsize ( '<qh6xq' ) 24 >>> pack ( '<qh6xq' , 1 , 2 , 3 ) == pack ( '@lhl' , 1 , 2 , 3 ) True >>> calcsize ( '@llh' ) 18 >>> pack ( '@llh' , 1 , 2 , 3 ) == pack ( '<qqh' , 1 , 2 , 3 ) True >>> calcsize ( '<qqh6x' ) 24 >>> calcsize ( '@llh0l' ) 24 >>> pack ( '@llh0l' , 1 , 2 , 3 ) == pack ( '<qqh6x' , 1 , 2 , 3 ) True
@@ -613,73 +474,35 @@ below were executed on a 32-bit machine:
 
 The struct module also defines the following type:
 struct
-class struct. Struct ( format )
-Return a new Struct object which writes and reads binary data according to
-the format string format .  Creating a Struct object once and calling its
-methods is more efficient than calling module-level functions with the
-same format since the format string is only compiled once. Note The compiled versions of the most recent format strings passed to
-the module-level functions are cached, so programs that use only a few
-format strings needn’t worry about reusing a single Struct instance. Compiled Struct objects support the following methods and attributes: pack ( v1 , v2 , ... ) Identical to the pack() function, using the compiled format.
-( len(result) will equal size .) pack_into ( buffer , offset , v1 , v2 , ... ) Identical to the pack_into() function, using the compiled format. unpack ( buffer ) Identical to the unpack() function, using the compiled format.
-The buffer’s size in bytes must equal size . unpack_from ( buffer , offset = 0 ) Identical to the unpack_from() function, using the compiled format.
-The buffer’s size in bytes, starting at position offset , must be at least size . iter_unpack ( buffer ) Identical to the iter_unpack() function, using the compiled format.
-The buffer’s size in bytes must be a multiple of size . Added in version 3.4. format The format string used to construct this Struct object. Changed in version 3.7: The format string type is now str instead of bytes . size The calculated size of the struct (and hence of the bytes object produced
-by the pack() method) corresponding to format . Changed in version 3.13: The repr() of structs has changed.  It
-is now: >>> Struct ( 'i' ) Struct('i')
 Return a new Struct object which writes and reads binary data according to
 the format string format .  Creating a Struct object once and calling its
 methods is more efficient than calling module-level functions with the
 same format since the format string is only compiled once.
 Struct
-Note
 The compiled versions of the most recent format strings passed to
 the module-level functions are cached, so programs that use only a few
 format strings needn’t worry about reusing a single Struct instance.
 Struct
 Compiled Struct objects support the following methods and attributes:
-pack ( v1 , v2 , ... )
-Identical to the pack() function, using the compiled format.
-( len(result) will equal size .)
 Identical to the pack() function, using the compiled format.
 ( len(result) will equal size .)
 pack()
 len(result)
-size
-pack_into ( buffer , offset , v1 , v2 , ... )
-Identical to the pack_into() function, using the compiled format.
 Identical to the pack_into() function, using the compiled format.
 pack_into()
-unpack ( buffer )
-Identical to the unpack() function, using the compiled format.
-The buffer’s size in bytes must equal size .
 Identical to the unpack() function, using the compiled format.
 The buffer’s size in bytes must equal size .
 unpack()
-size
-unpack_from ( buffer , offset = 0 )
-Identical to the unpack_from() function, using the compiled format.
-The buffer’s size in bytes, starting at position offset , must be at least size .
 Identical to the unpack_from() function, using the compiled format.
 The buffer’s size in bytes, starting at position offset , must be at least size .
 unpack_from()
-size
-iter_unpack ( buffer )
-Identical to the iter_unpack() function, using the compiled format.
-The buffer’s size in bytes must be a multiple of size . Added in version 3.4.
 Identical to the iter_unpack() function, using the compiled format.
 The buffer’s size in bytes must be a multiple of size .
 iter_unpack()
-size
 Added in version 3.4.
-format
-The format string used to construct this Struct object. Changed in version 3.7: The format string type is now str instead of bytes .
 The format string used to construct this Struct object.
 Changed in version 3.7: The format string type is now str instead of bytes .
-str
 bytes
-size
-The calculated size of the struct (and hence of the bytes object produced
-by the pack() method) corresponding to format .
 The calculated size of the struct (and hence of the bytes object produced
 by the pack() method) corresponding to format .
 pack()

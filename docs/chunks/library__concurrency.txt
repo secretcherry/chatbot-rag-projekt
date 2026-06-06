@@ -27,7 +27,6 @@ Event objects
 Timer objects
 Barrier objects
 Using locks, conditions, and semaphores in the with statement
-with
 multiprocessing — Process-based parallelism Introduction The Process class Contexts and start methods Exchanging objects between processes Synchronization between processes Sharing state between processes Using a pool of workers Reference Global start method Process and exceptions Pipes and Queues Miscellaneous Connection Objects Synchronization primitives Shared ctypes Objects The multiprocessing.sharedctypes module Managers Customized managers Using a remote manager Proxy Objects Cleanup Process Pools Listeners and Clients Address Formats Authentication keys Logging The multiprocessing.dummy module Programming guidelines All start methods The spawn and forkserver start methods Examples
 multiprocessing
 Introduction The Process class Contexts and start methods Exchanging objects between processes Synchronization between processes Sharing state between processes Using a pool of workers

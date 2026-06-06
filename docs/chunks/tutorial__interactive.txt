@@ -25,7 +25,6 @@ history into a file named .python_history in your user directory.
 The history will be available again during the next interactive interpreter
 session.
 string.a
-'.'
 __getattr__()
 .python_history
 

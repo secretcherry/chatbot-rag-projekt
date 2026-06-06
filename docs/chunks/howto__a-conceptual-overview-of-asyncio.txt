@@ -92,7 +92,6 @@ Calling a regular function invokes its logic or body:
 The async def , as opposed to just a plain def , makes
 this an asynchronous function (or “coroutine function”).
 Calling it creates and returns a coroutine object.
-def
 
 [CODE]
 async def loudmouth_penguin ( magic_number : int ): print ( "I am a super special talking penguin. Far cooler than that printer. " f "By the way, my lucky number is: { magic_number } ." )
@@ -338,10 +337,7 @@ If the coroutine was paused and is now being resumed, the argument arg will be s
 paused it.
 If the coroutine is being used for the first time (as opposed to being resumed), arg must be None .
 coroutine.send(arg)
-arg
 yield
-arg
-None
 
 [CODE]
 1 class Rock : 2 def __await__ ( self ): 3 value_sent_in = yield 7 4 print ( f "Rock.__await__ resuming with value: { value_sent_in } ." ) 5 return value_sent_in 6 7 async def main (): 8 print ( "Beginning coroutine main()." ) 9 rock = Rock () 10 print ( "Awaiting rock..." ) 11 value_from_rock = await rock 12 print ( f "Coroutine received value: { value_from_rock } from rock." ) 13 return 23 14 15 coroutine = main () 16 intermediate_result = coroutine . send ( None ) 17 print ( f "Coroutine paused and returned intermediate value: { intermediate_result } ." ) 18 19 print ( f "Resuming coroutine and sending in value: 42." ) 20 try : 21 coroutine . send ( 42 ) 22 except StopIteration as e : 23 returned_value = e . value 24 print ( f "Coroutine main() finished and provided value: { returned_value } ." )
@@ -426,7 +422,6 @@ It’s actually the Future class that implements this logic, which Task inherits
 asyncio.Task
 asyncio.Future
 Future
-Task
 Futures may also be used directly (not via tasks).
 Tasks mark themselves as done when their coroutine is complete.
 Futures are much more versatile and will be marked as done when you say so.

@@ -5,8 +5,6 @@ SOURCE: whatsnew\3.1.html
 
 # What’s New In Python 3.1
 
-Author :
-Raymond Hettinger
 Raymond Hettinger
 This article explains the new features in Python 3.1, compared to 3.0.
 Python 3.1 was released on June 27, 2009.
@@ -33,11 +31,7 @@ an object_pairs_hook to allow OrderedDicts to be built by the decoder.
 Support was also added for third-party tools like PyYAML .
 configparser
 collections.namedtuple()
-json
 See also
-PEP 372 - Ordered Dictionaries
-PEP written by Armin Ronacher and Raymond Hettinger.  Implementation
-written by Raymond Hettinger.
 PEP written by Armin Ronacher and Raymond Hettinger.  Implementation
 written by Raymond Hettinger.
 Since an ordered dictionary remembers its insertion order, it can be used
@@ -65,7 +59,6 @@ str.format()
 [/CODE]
 
 The supported types are int , float , complex and decimal.Decimal .
-int
 float
 complex
 decimal.Decimal
@@ -74,9 +67,6 @@ like dots, spaces, apostrophes, or underscores.  Locale-aware applications
 should use the existing n format specifier which already has some support
 for thousands separators.
 See also
-PEP 378 - Format Specifier for Thousands Separator
-PEP written by Raymond Hettinger and implemented by Eric Smith and
-Mark Dickinson.
 PEP written by Raymond Hettinger and implemented by Eric Smith and
 Mark Dickinson.
 
@@ -129,7 +119,6 @@ string.maketrans()
 bytes.maketrans()
 bytearray.maketrans()
 string
-str
 bytes
 bytearray
 (Contributed by Georg Brandl; bpo-5675 .)
@@ -138,7 +127,6 @@ managers in a single statement: >>> with open ( 'mylog.txt' ) as infile , open (
 needed and is now deprecated. (Contributed by Georg Brandl and Mattias Brändström; appspot issue 53094 .)
 The syntax of the with statement now allows multiple context
 managers in a single statement:
-with
 
 [CODE]
 >>> with open ( 'mylog.txt' ) as infile , open ( 'a.out' , 'w' ) as outfile : ... for line in infile : ... if '<critical>' in line : ... outfile . write ( line )
@@ -190,7 +178,6 @@ equivalent, an expression like float('1.1') evaluates to the nearest
 representable value which is 0x1.199999999999ap+0 in hex or 1.100000000000000088817841970012523233890533447265625 in decimal. That
 nearest value was and still is used in subsequent floating-point
 calculations.
-1.1
 float('1.1')
 0x1.199999999999ap+0
 1.100000000000000088817841970012523233890533447265625
@@ -343,7 +330,6 @@ __main__
 (Contributed by Andi Vajda; bpo-4195 .)
 The pdb module can now access and display source code loaded via zipimport (or any other conformant PEP 302 loader). (Contributed by Alexander Belopolsky; bpo-4201 .)
 The pdb module can now access and display source code loaded via zipimport (or any other conformant PEP 302 loader).
-pdb
 zipimport
 (Contributed by Alexander Belopolsky; bpo-4201 .)
 functools.partial objects can now be pickled.
@@ -374,7 +360,6 @@ class TestGizmo ( unittest . TestCase ): @unittest . skipUnless ( sys . platform
 
 Also, tests for exceptions have been builtout to work with context managers
 using the with statement:
-with
 
 [CODE]
 def test_division_by_zero ( self ): with self . assertRaises ( ZeroDivisionError ): x / 0
@@ -511,8 +496,6 @@ The json module now has a C extension to substantially improve
 its performance.  In addition, the API was modified so that json works
 only with str , not with bytes .  That change makes the
 module closely match the JSON specification which is defined in terms of Unicode.
-json
-str
 bytes
 (Contributed by Bob Ippolito and converted to Py3.1 by Antoine Pitrou
 and Benjamin Peterson; bpo-4136 .)
@@ -521,9 +504,6 @@ memory and allows pickles to be smaller. (Contributed by Jake McGuire and Antoin
 Unpickling now interns the attribute names of pickled objects.  This saves
 memory and allows pickles to be smaller.
 (Contributed by Jake McGuire and Antoine Pitrou; bpo-5084 .)
-
-## IDLE
-
 IDLE’s format menu now provides an option to strip trailing whitespace
 from a source file. (Contributed by Roger D. Serwy; bpo-5150 .)
 IDLE’s format menu now provides an option to strip trailing whitespace

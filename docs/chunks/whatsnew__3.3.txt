@@ -20,7 +20,6 @@ yield from
 The u'unicode' syntax is accepted again for str objects.
 The u'unicode' syntax is accepted again for str objects.
 u'unicode'
-str
 New library modules:
 faulthandler (helps debugging low-level crashes)
 faulthandler (helps debugging low-level crashes)
@@ -30,7 +29,6 @@ ipaddress (high-level objects representing IP addresses and masks)
 ipaddress
 lzma (compress data using the XZ / LZMA algorithm)
 lzma (compress data using the XZ / LZMA algorithm)
-lzma
 unittest.mock (replace parts of your system under test with mock objects)
 unittest.mock (replace parts of your system under test with mock objects)
 unittest.mock
@@ -38,7 +36,6 @@ venv (Python virtual environments , as in the
 popular virtualenv package)
 venv (Python virtual environments , as in the
 popular virtualenv package)
-venv
 virtualenv
 New built-in features:
 Reworked I/O exception hierarchy .
@@ -76,12 +73,9 @@ This PEP adds the venv module for programmatic access, and the pyvenv script for
 administration.  The Python interpreter checks for a pyvenv.cfg ,
 file whose existence signals the base of a virtual environment’s directory
 tree.
-venv
 pyvenv
 pyvenv.cfg
 See also
-PEP 405 - Python Virtual Environments
-PEP written by Carl Meyer; implementation by Carl Meyer and Vinay Sajip
 PEP written by Carl Meyer; implementation by Carl Meyer and Vinay Sajip
 
 ## PEP 420: Implicit Namespace Packages
@@ -90,9 +84,6 @@ Native support for package directories that don’t require __init__.py marker f
 various third party approaches to namespace packages, as described in PEP 420 )
 __init__.py
 See also
-PEP 420 - Implicit Namespace Packages
-PEP written by Eric V. Smith; implementation by Eric V. Smith
-and Barry Warsaw
 PEP written by Eric V. Smith; implementation by Eric V. Smith
 and Barry Warsaw
 
@@ -144,7 +135,6 @@ The representation of empty shape, strides and suboffsets is now
 an empty tuple instead of None .
 The representation of empty shape, strides and suboffsets is now
 an empty tuple instead of None .
-None
 Accessing a memoryview element with format ‘B’ (unsigned bytes)
 now returns an integer (in accordance with the struct module syntax).
 For returning a bytes object the view must be cast to ‘c’ first.
@@ -265,9 +255,6 @@ Python 3.3 is two to three times smaller than Python 3.2, and a little
 bit better than Python 2.7, on a Django benchmark (see the PEP for
 details).
 See also
-PEP 393 - Flexible String Representation
-PEP written by Martin von Löwis; implementation by Torsten Becker
-and Martin von Löwis.
 PEP written by Martin von Löwis; implementation by Torsten Becker
 and Martin von Löwis.
 
@@ -281,20 +268,15 @@ If only a single Python version is installed on the system, that version
 will be used to run the file. If multiple versions are installed, the most
 recent version is used by default, but this can be overridden by including
 a Unix-style “shebang line” in the Python script.
-*.py
 The launcher can also be used explicitly from the command line as the py application. Running py follows the same version selection rules as
 implicitly launching scripts, but a more specific version can be selected
 by passing appropriate arguments (such as -3 to request Python 3 when
 Python 2 is also installed, or -2.6 to specifically request an earlier
 Python version when a more recent version is installed).
--2.6
 In addition to the launcher, the Windows installer now includes an
 option to add the newly installed Python to the system PATH.  (Contributed
 by Brian Curtin in bpo-3561 .)
 See also
-PEP 397 - Python Launcher for Windows
-PEP written by Mark Hammond and Martin v. Löwis; implementation by
-Vinay Sajip.
 PEP written by Mark Hammond and Martin v. Löwis; implementation by
 Vinay Sajip.
 Launcher documentation: Python install manager
@@ -386,8 +368,6 @@ try : with open ( "document.txt" ) as f : content = f . read () except FileNotFo
 [/CODE]
 
 See also
-PEP 3151 - Reworking the OS and IO Exception Hierarchy
-PEP written and implemented by Antoine Pitrou
 PEP written and implemented by Antoine Pitrou
 
 ## PEP 380: Syntax for Delegating to a Subgenerator
@@ -424,13 +404,8 @@ The main principle driving this change is to allow even generators that are
 designed to be used with the send and throw methods to be split into
 multiple subgenerators as easily as a single large function can be split into
 multiple subfunctions.
-send
 throw
 See also
-PEP 380 - Syntax for Delegating to a Subgenerator
-PEP written by Greg Ewing; implementation by Greg Ewing, integrated into
-3.3 by Renaud Blanch, Ryan Kelly and Nick Coghlan; documentation by
-Zbigniew Jędrzejewski-Szmek and Nick Coghlan
 PEP written by Greg Ewing; implementation by Greg Ewing, integrated into
 3.3 by Renaud Blanch, Ryan Kelly and Nick Coghlan; documentation by
 Zbigniew Jędrzejewski-Szmek and Nick Coghlan
@@ -462,9 +437,6 @@ suppressed valuable underlying details):
 [/CODE]
 
 See also
-PEP 409 - Suppressing exception context
-PEP written by Ethan Furman; implemented by Ethan Furman and Nick
-Coghlan.
 PEP written by Ethan Furman; implemented by Ethan Furman and Nick
 Coghlan.
 
@@ -478,8 +450,6 @@ changes in migrating to Python 3, making it easier for developers to focus on
 the more significant semantic changes (such as the stricter default
 separation of binary and text data).
 See also
-PEP 414 - Explicit Unicode literals
-PEP written by Armin Ronacher.
 PEP written by Armin Ronacher.
 
 ## PEP 3155: Qualified name for classes and functions
@@ -518,8 +488,6 @@ new, more precise information:
 [/CODE]
 
 See also
-PEP 3155 - Qualified name for classes and functions
-PEP written and implemented by Antoine Pitrou.
 PEP written and implemented by Antoine Pitrou.
 
 ## PEP 412: Key-Sharing Dictionary
@@ -529,8 +497,6 @@ share part of their internal storage between each other (namely, the part
 which stores the keys and their respective hashes).  This reduces the memory
 consumption of programs creating many instances of non-builtin types.
 See also
-PEP 412 - Key-Sharing Dictionary
-PEP written and implemented by Mark Shannon.
 PEP written and implemented by Mark Shannon.
 
 ## PEP 362: Function Signature Object
@@ -547,9 +513,6 @@ inspect.Signature
 inspect.Parameter
 inspect.BoundArguments
 See also
-PEP 362 : -  Function Signature Object
-PEP written by Brett Cannon, Yury Selivanov, Larry Hastings, Jiwon Seo;
-implemented by Yury Selivanov.
 PEP written by Brett Cannon, Yury Selivanov, Larry Hastings, Jiwon Seo;
 implemented by Yury Selivanov.
 
@@ -558,9 +521,7 @@ implemented by Yury Selivanov.
 A new attribute on the sys module exposes details specific to the
 implementation of the currently running interpreter.  The initial set of
 attributes on sys.implementation are name , version , hexversion , and cache_tag .
-sys
 sys.implementation
-name
 version
 hexversion
 cache_tag
@@ -591,20 +552,16 @@ are writable.  This means that you can add, remove, and modify the namespace
 through normal attribute access.
 sys.implementation
 types.SimpleNamespace
-dict
 SimpleNamespace
 object
 object
 SimpleNamespace
 See also
-PEP 421 - Adding sys.implementation
-PEP written and implemented by Eric Snow.
 PEP written and implemented by Eric Snow.
 
 ## Using importlib as the Implementation of Import
 
 bpo-2377 - Replace __import__ w/ importlib.__import__ bpo-13959 - Re-implement parts of imp in pure Python bpo-14605 - Make import machinery explicit bpo-14646 - Require loaders set __loader__ and __package__
-imp
 The __import__() function is now powered by importlib.__import__() .
 This work leads to the completion of “phase 2” of PEP 302 . There are
 multiple benefits to this change. First, it has allowed for more of the
@@ -654,8 +611,6 @@ there is relevant data to provide. The message for failed imports will also
 provide the full name of the module now instead of just the tail end of the
 module’s name.
 ImportError
-name
-path
 The importlib.invalidate_caches() function will now call the method with
 the same name on all finders cached in sys.path_importer_cache to help
 clean up any stored state as necessary.
@@ -687,7 +642,6 @@ None is now inserted into sys.path_importer_cache when no finder
 can be found on sys.path_hooks . Since imp.NullImporter is not
 directly exposed on sys.path_hooks it could no longer be relied upon to
 always be available to use as a value representing no finder found.
-None
 sys.path_importer_cache
 sys.path_hooks
 imp.NullImporter
@@ -739,10 +693,8 @@ center()
 bytes
 bytearray
 bytearray
-fill
 New methods have been added to list and bytearray : copy() and clear() ( bpo-10516 ).  Consequently, MutableSequence now also defines a clear() method ( bpo-11388 ).
 New methods have been added to list and bytearray : copy() and clear() ( bpo-10516 ).  Consequently, MutableSequence now also defines a clear() method ( bpo-11388 ).
-list
 bytearray
 copy()
 clear()
@@ -790,7 +742,6 @@ example. The 'x' mode was added: open for exclusive creation, failing if
 the file already exists.
 open()
 os.O_CLOEXEC
-'x'
 print() : added the flush keyword argument. If the flush keyword
 argument is true, the stream is forcibly flushed.
 print() : added the flush keyword argument. If the flush keyword
@@ -807,10 +758,8 @@ matching. For example, 'ß'.casefold() returns 'ss' .
 The str type gets a new casefold() method: return a
 casefolded copy of the string, casefolded strings may be used for caseless
 matching. For example, 'ß'.casefold() returns 'ss' .
-str
 casefold()
 'ß'.casefold()
-'ss'
 The sequence documentation has been substantially rewritten to better
 explain the binary/text sequence distinction and to provide specific
 documentation sections for the individual builtin sequence types
@@ -850,19 +799,12 @@ objects representing IPv4 and IPv6 addresses, networks and interfaces (i.e.
 an IP address associated with a specific IP subnet).
 ipaddress
 (Contributed by Google and Peter Moody in PEP 3144 .)
-
-### lzma
-
 The newly added lzma module provides data compression and decompression
 using the LZMA algorithm, including support for the .xz and .lzma file formats.
-lzma
-.xz
 .lzma
 (Contributed by Nadeem Vawda and Per Øyvind Karlsen in bpo-6715 .)
 
 ## Improved Modules
-
-### abc
 
 Improved support for abstract base classes containing descriptors composed with
 abstract methods. The recommended approach to declaring abstract descriptors is
@@ -907,13 +849,8 @@ b'abc'
 In addition to the binary objects they normally accept, the a2b_ functions
 now all also accept ASCII-only strings as input.  (Contributed by Antoine
 Pitrou in bpo-13637 .)
-a2b_
-
-### bz2
-
 The bz2 module has been rewritten from scratch. In the process, several
 new features have been added:
-bz2
 New bz2.open() function: open a bzip2-compressed file in binary or
 text mode.
 New bz2.open() function: open a bzip2-compressed file in binary or
@@ -934,7 +871,6 @@ the 'a' (append) mode.
 bz2.BZ2File
 bz2.decompress()
 bz2.BZ2File
-'a'
 (Contributed by Nir Aides in bpo-1625 .)
 bz2.BZ2File now implements all of the io.BufferedIOBase API,
 except for the detach() and truncate() methods.
@@ -948,10 +884,8 @@ truncate()
 ### codecs
 
 The mbcs codec has been rewritten to handle correctly replace and ignore error handlers on all Windows versions.  The mbcs codec now supports all error handlers, instead of only replace to encode and ignore to decode.
-mbcs
 replace
 ignore
-mbcs
 replace
 ignore
 A new Windows-only codec has been added: cp65001 ( bpo-13216 ). It is the
@@ -1072,8 +1006,6 @@ datetime.datetime.astimezone()
 
 ### decimal
 
-bpo-7652 - integrate fast native decimal arithmetic.
-C-module and libmpdec written by Stefan Krah.
 C-module and libmpdec written by Stefan Krah.
 The new C version of the decimal module integrates the high speed libmpdec
 library for arbitrary precision correctly rounded decimal floating-point
@@ -1090,15 +1022,12 @@ _decimal
 speedup
 42.02s
 0.345s
-120x
 telco
 172.19s
 5.68s
-30x
 psycopg
 3.57s
 0.29s
-12x
 
 #### Features
 
@@ -1149,8 +1078,6 @@ the magnitude of Emax and Emin has changed to 999999 .
 DefaultContext
 BasicContext
 ExtendedContext
-Emax
-Emin
 999999
 The Decimal constructor in decimal.py does not observe
 the context limits and converts values with arbitrary exponents or precision
@@ -1172,7 +1099,6 @@ The power function in decimal.py is always correctly rounded. In the
 C version, it is defined in terms of the correctly rounded exp() and ln() functions,
 but the final result is only “almost always correctly rounded”.
 exp()
-ln()
 In the C version, the context dictionary containing the signals is a MutableMapping .  For speed reasons, flags and traps always
 refer to the same MutableMapping that the context
 was initialized with. If a new signal dictionary is assigned, flags and traps are updated with the new values, but they do not reference the RHS
@@ -1245,9 +1171,6 @@ cte_type
 7bit or 8bit . 8bit applies only to a Bytes generator , and means that non-ASCII may
 be used where allowed by the protocol (or where it
 exists in the original input).
-7bit
-8bit
-8bit
 Bytes
 generator
 raise_on_defect
@@ -1261,7 +1184,6 @@ any of the above controls as keyword arguments.  Any control not specified in
 the call retains its default value.  Thus you can create a policy that uses \r\n linesep characters like this:
 clone()
 clone
-\r\n
 
 [CODE]
 mypolicy = compat32 . clone ( linesep = ' \r\n ' )
@@ -1302,17 +1224,10 @@ line get refolded, and all means that all lines
 get refolded.
 parser
 generator
-none
-long
-all
-long
 max_line_length
-none
-all
 header_factory
 A callable that take a name and value and
 produces a custom header object.
-name
 value
 The header_factory is the key to the new features provided by the new
 policies.  When one of the new policies is used, any header retrieved from
@@ -1326,7 +1241,6 @@ Message
 header_factory
 Message
 header_factory
-name
 
 [CODE]
 >>> m = Message ( policy = SMTP ) >>> m [ 'To' ] = 'Éric <foo@example.com>' >>> m [ 'to' ] 'Éric <foo@example.com>' >>> m [ 'to' ] . addresses (Address(display_name='Éric', username='foo', domain='example.com'),) >>> m [ 'to' ] . addresses [ 0 ] . username 'foo' >>> m [ 'to' ] . addresses [ 0 ] . display_name 'Éric' >>> m [ 'Date' ] = email . utils . localtime () >>> m [ 'Date' ] . datetime datetime.datetime(2012, 5, 25, 21, 39, 24, 465484, tzinfo=datetime.timezone(datetime.timedelta(-1, 72000), 'EDT')) >>> m [ 'Date' ] 'Fri, 25 May 2012 21:44:27 -0400' >>> print ( m ) To: =?utf-8?q?=C3=89ric?= <foo@example.com> Date: Fri, 25 May 2012 21:44:27 -0400
@@ -1447,16 +1361,10 @@ False
 It is now possible to register callbacks invoked by the garbage collector
 before and after collection using the new callbacks list.
 callbacks
-
-### hmac
-
 A new compare_digest() function has been added to prevent side
 channel attacks on digests through timing analysis.  (Contributed by Nick
 Coghlan and Christian Heimes in bpo-15061 .)
 compare_digest()
-
-### http
-
 http.server.BaseHTTPRequestHandler now buffers the headers and writes
 them all at once when end_headers() is
 called.  A new method flush_headers() can be used to directly manage when the accumulated headers are sent.
@@ -1473,9 +1381,6 @@ as an io.RawIOBase class.  (Contributed by John Kuhn in bpo-13464 .)
 http.client.HTTPResponse
 readinto()
 io.RawIOBase
-
-### html
-
 html.parser.HTMLParser is now able to parse broken markup without
 raising errors, therefore the strict argument of the constructor and the HTMLParseError exception are now deprecated.
 The ability to parse broken markup is the result of a number of bug fixes that
@@ -1517,14 +1422,12 @@ The open() function has a new 'x' mode that can be used to
 exclusively create a new file, and raise a FileExistsError if the file
 already exists. It is based on the C11 ‘x’ mode to fopen().
 open()
-'x'
 FileExistsError
 (Contributed by David Townshend in bpo-12760 .)
 The constructor of the TextIOWrapper class has a new write_through optional argument. If write_through is True , calls to write() are guaranteed not to be buffered: any data
 written on the TextIOWrapper object is immediately handled to its
 underlying binary buffer.
 TextIOWrapper
-True
 write()
 TextIOWrapper
 
@@ -1533,7 +1436,6 @@ TextIOWrapper
 accumulate() now takes an optional func argument for
 providing a user-supplied binary function.
 accumulate()
-func
 
 ### logging
 
@@ -1546,25 +1448,15 @@ appending of the NUL ( \000 ) byte to syslog records, since for some
 daemons it is required while for others it is passed through to the log.
 append_nul
 SysLogHandler
-NUL
-\000
-
-### math
-
 The math module has a new function, log2() ,  which returns
 the base-2 logarithm of x .
-math
 log2()
 (Written by Mark Dickinson in bpo-11888 .)
-
-### mmap
-
 The read() method is now more compatible with other file-like
 objects: if the argument is omitted or specified as None , it returns the
 bytes from the current file position to the end of the mapping.  (Contributed
 by Petri Lehtinen in bpo-12021 .)
 read()
-None
 
 ### multiprocessing
 
@@ -1861,9 +1753,6 @@ os.symlink() now accepts (and ignores) the target_is_directory keyword argument 
 os.symlink() now accepts (and ignores) the target_is_directory keyword argument on non-Windows platforms, to ease cross-platform support.
 os.symlink()
 target_is_directory
-
-### pdb
-
 Tab-completion is now available not only for command names, but also their
 arguments.  For example, for the break command, function and file names
 are completed.
@@ -1887,7 +1776,6 @@ pydoc
 pydoc -g
 serve()
 str regular expressions now support \u and \U escapes.
-str
 (Contributed by Serhiy Storchaka in bpo-3665 .)
 
 ### sched
@@ -2001,7 +1889,6 @@ Jonathan Niehof in bpo-9993 .) move() now also returns
 the dst argument as its result.
 move()
 move()
-dst
 rmtree() is now resistant to symlink attacks on platforms
 which support the new dir_fd parameter in os.open() and os.unlink() .  (Contributed by Martin von Löwis and Hynek Schlawack
 in bpo-4489 .)
@@ -2064,27 +1951,20 @@ signal.siginterrupt()
 The smtpd module now supports RFC 5321 (extended SMTP) and RFC 1870 (size extension).  Per the standard, these extensions are enabled if and only
 if the client initiates the session with an EHLO command.
 smtpd
-EHLO
 (Initial ELHO support by Alberto Trevino.  Size extension by Juhana
 Jauhiainen.  Substantial additional work on the patch contributed by Michele
 Orrù and Dan Boswell. bpo-8739 )
-ELHO
 
 ### smtplib
 
 The SMTP , SMTP_SSL , and LMTP classes now accept a source_address keyword argument
 to specify the (host, port) to use as the source address in the bind call
 when creating the outgoing socket.  (Contributed by Paulo Scardine in bpo-11281 .)
-SMTP
 SMTP_SSL
-LMTP
 source_address
 (host, port)
 SMTP now supports the context management protocol, allowing an SMTP instance to be used in a with statement.  (Contributed
 by Giampaolo Rodolà in bpo-11289 .)
-SMTP
-SMTP
-with
 The SMTP_SSL constructor and the starttls() method now accept an SSLContext parameter to control parameters of the secure
 channel.  (Contributed by Kasun Herath in bpo-8809 .)
 SMTP_SSL
@@ -2152,13 +2032,9 @@ all sql commands processed by sqlite.  (Contributed by Torsten Landschoff
 in bpo-11688 .)
 sqlite3.Connection
 set_trace_callback()
-
-### ssl
-
 The ssl module has two new random generation functions: RAND_bytes() : generate cryptographically strong
 pseudo-random bytes. RAND_pseudo_bytes() : generate pseudo-random bytes. (Contributed by Victor Stinner in bpo-12049 .)
 The ssl module has two new random generation functions:
-ssl
 RAND_bytes() : generate cryptographically strong
 pseudo-random bytes.
 RAND_bytes() : generate cryptographically strong
@@ -2174,7 +2050,6 @@ in order to make it easier to inspect the various kinds of errors.
 The ssl module now exposes a finer-grained exception hierarchy
 in order to make it easier to inspect the various kinds of errors.
 (Contributed by Antoine Pitrou in bpo-11183 .)
-ssl
 load_cert_chain() now accepts a password argument
 to be used if the private key is encrypted.
 (Contributed by Adam Simpkins in bpo-12803 .)
@@ -2230,9 +2105,6 @@ New attribute OP_CIPHER_SERVER_PREFERENCE allows setting
 SSLv3 server sockets to use the server’s cipher ordering preference rather
 than the client’s ( bpo-13635 ).
 OP_CIPHER_SERVER_PREFERENCE
-
-### stat
-
 The undocumented tarfile.filemode function has been moved to stat.filemode() . It can be used to convert a file’s mode to a string of
 the form ‘-rwxrwxrwx’.
 stat.filemode()
@@ -2254,13 +2126,9 @@ Victor Stinner in bpo-8513 .)
 A new constant DEVNULL allows suppressing output in a
 platform-independent fashion.  (Contributed by Ross Lagerwall in bpo-5870 .)
 DEVNULL
-
-### sys
-
 The sys module has a new thread_info named
 tuple holding information about the thread implementation
 ( bpo-11223 ).
-sys
 thread_info
 
 ### tarfile
@@ -2268,8 +2136,6 @@ thread_info
 tarfile now supports lzma encoding via the lzma module.
 (Contributed by Lars Gustäbel in bpo-5689 .)
 tarfile
-lzma
-lzma
 
 ### tempfile
 
@@ -2277,7 +2143,6 @@ tempfile.SpooledTemporaryFile 's truncate() method now accepts
 a size parameter.  (Contributed by Ryan Kelly in bpo-9957 .)
 tempfile.SpooledTemporaryFile
 truncate()
-size
 
 ### textwrap
 
@@ -2312,11 +2177,7 @@ _thread.get_ident
 threading.get_ident()
 _thread
 _thread.get_ident
-
-### time
-
 The PEP 418 added new functions to the time module:
-time
 get_clock_info() : Get information on a clock.
 get_clock_info() : Get information on a clock.
 get_clock_info()
@@ -2404,11 +2265,7 @@ The module’s documentation has also been greatly improved with added examples
 and a more detailed reference.
 xml.etree.ElementTree
 xml.etree.cElementTree
-iter
 Element
-
-### zlib
-
 New attribute zlib.Decompress.eof makes it possible to distinguish
 between a properly formed compressed stream and an incomplete or truncated one.
 (Contributed by Nadeem Vawda in bpo-12646 .)
@@ -2417,7 +2274,6 @@ New attribute zlib.ZLIB_RUNTIME_VERSION reports the version string of
 the underlying zlib library that is loaded at runtime.  (Contributed by
 Torsten Landschoff in bpo-12306 .)
 zlib.ZLIB_RUNTIME_VERSION
-zlib
 
 ## Optimizations
 
@@ -2581,7 +2437,6 @@ The os.stat_float_times() function is deprecated.
 os.stat_float_times()
 abc module: abc.abstractproperty has been deprecated, use property with abc.abstractmethod() instead. abc.abstractclassmethod has been deprecated, use classmethod with abc.abstractmethod() instead. abc.abstractstaticmethod has been deprecated, use staticmethod with abc.abstractmethod() instead.
 abc module:
-abc
 abc.abstractproperty has been deprecated, use property with abc.abstractmethod() instead.
 abc.abstractproperty has been deprecated, use property with abc.abstractmethod() instead.
 abc.abstractproperty
@@ -2750,7 +2605,6 @@ PyUnicode_TransformDecimalToASCII()
 The array module’s 'u' format code is now deprecated and will be
 removed in Python 4 together with the rest of the ( Py_UNICODE ) API.
 array
-'u'
 Py_UNICODE
 
 ## Porting to Python 3.3
@@ -2778,7 +2632,6 @@ bpo-13847 , bpo-14180 : time and datetime : OverflowError is now raised instead 
 timestamp is out of range. OSError is now raised if C functions gmtime() or localtime() failed.
 bpo-13847 , bpo-14180 : time and datetime : OverflowError is now raised instead of ValueError if a
 timestamp is out of range. OSError is now raised if C functions gmtime() or localtime() failed.
-time
 datetime
 OverflowError
 ValueError
@@ -2844,11 +2697,8 @@ are clearing out entries in the dictionary of paths that do not have a
 finder, you will need to remove keys paired with values of None and imp.NullImporter to be backwards-compatible. This will lead to extra
 overhead on older versions of Python that re-insert None into sys.path_importer_cache where it represents the use of implicit
 finders, but semantically it should not change anything.
-None
 sys.path_importer_cache
-None
 imp.NullImporter
-None
 sys.path_importer_cache
 importlib.abc.Finder no longer specifies a find_module() abstract
 method that must be implemented. If you were relying on subclasses to
@@ -2919,9 +2769,7 @@ poplib.POP3.quit() may now raise protocol errors like all other poplib methods. 
 poplib.POP3.quit() may now raise protocol errors like all other poplib methods.  Code that assumes quit does not raise poplib.error_proto errors may need to be changed if errors on quit are encountered by a particular application ( bpo-11291 ).
 poplib.POP3.quit()
 poplib
-quit
 poplib.error_proto
-quit
 The strict argument to email.parser.Parser , deprecated since
 Python 2.4, has finally been removed.
 The strict argument to email.parser.Parser , deprecated since
@@ -3038,7 +2886,6 @@ from the file names).
 xxxmodule.so
 xxxmodule.abi3.so
 xxxmodule.cpython-*.so
-xxx
 module
 (implemented in bpo-14040 .)
 

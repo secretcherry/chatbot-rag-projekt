@@ -5,12 +5,7 @@ SOURCE: howto\curses.html
 
 # Curses Programming with Python
 
-Author :
 A.M. Kuchling, Eric S. Raymond
-A.M. Kuchling, Eric S. Raymond
-Release :
-2.04
-2.04
 Abstract
 This document describes how to use the curses extension
 module to control text-mode displays.
@@ -151,7 +146,6 @@ able to read the exception’s message and traceback.
 wrapper()
 wrapper()
 wrapper()
-try
 except
 
 ## Windows and Pads
@@ -264,7 +258,6 @@ Fortunately the Python interface hides all these details. stdscr is a window obj
 are four different forms.
 stdscr
 addstr()
-Form
 Description
 str or ch
 Display the string str or character ch at
@@ -419,7 +412,6 @@ can check if your terminal can do this by calling can_change_color() , which ret
 there.  If you’re lucky enough to have such a talented terminal, consult your
 system’s man pages for more information.
 can_change_color()
-True
 
 ## User Input
 

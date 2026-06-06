@@ -8,7 +8,6 @@ SOURCE: library\fileformats.html
 The modules described in this chapter parse various miscellaneous file formats
 that aren’t markup languages and are not related to e-mail.
 csv — CSV File Reading and Writing Module Contents Dialects and Formatting Parameters Reader Objects Writer Objects Examples
-csv
 Module Contents
 Dialects and Formatting Parameters
 Reader Objects

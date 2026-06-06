@@ -10,14 +10,12 @@ networking and inter-processes communication.
 Some modules only work for two processes that are on the same machine, e.g. signal and mmap .  Other modules support networking protocols
 that two or more processes can use to communicate across machines.
 signal
-mmap
 The list of modules described in this chapter is:
 asyncio — Asynchronous I/O
 asyncio
 socket — Low-level networking interface
 socket
 ssl — TLS/SSL wrapper for socket objects
-ssl
 select — Waiting for I/O completion
 select
 selectors — High-level I/O multiplexing
@@ -25,4 +23,3 @@ selectors
 signal — Set handlers for asynchronous events
 signal
 mmap — Memory-mapped file support
-mmap

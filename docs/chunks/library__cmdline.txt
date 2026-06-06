@@ -6,8 +6,6 @@ SOURCE: library\cmdline.html
 # Modules command-line interface (CLI)
 
 The following modules have a command-line interface.
-ast
-ast
 asyncio
 asyncio
 base64
@@ -15,16 +13,11 @@ base64
 base64
 calendar
 calendar
-code
-code
-code
 compileall
 compileall
 cProfile : see profile
 cProfile : see profile
 cProfile
-dis
-dis
 doctest
 doctest
 encodings.rot_13
@@ -41,20 +34,14 @@ fileinput
 ftplib
 ftplib
 ftplib
-gzip
-gzip
 http.server
 http.server
 idlelib
 idlelib
 inspect
 inspect
-json
-json
 mimetypes
 mimetypes
-pdb
-pdb
 pickle
 pickle
 pickletools
@@ -85,8 +72,6 @@ random
 runpy
 runpy
 runpy
-site
-site
 sqlite3
 sqlite3
 symtable
@@ -98,9 +83,6 @@ tabnanny
 tabnanny
 tarfile
 tarfile
-this
-this
-this
 timeit
 timeit
 tokenize
@@ -112,10 +94,6 @@ turtledemo
 turtledemo
 unittest
 unittest
-uuid
-uuid
-venv
-venv
 webbrowser
 webbrowser
 zipapp
