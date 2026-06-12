@@ -1,26 +1,31 @@
 # Python RAG Chatbot
 
-This is my final project for college. It's a chatbot that answers questions about Python 3 using the official Python documentation. The idea is that it only answers from the docs. It won't make stuff up or answer unrelated questions.
+This is my final college project: a Retrieval-Augmented Generation (RAG) chatbot that answers questions about Python 3 using the official Python documentation.
+
+The chatbot is designed to answer **only documentation-related questions** and avoids hallucinations by generating responses solely from retrieved documentation content. If it cannot find relevant information, it explicitly states that instead of guessing.
 
 ---
 
-## What it does
+## Features
 
-- You ask a question about Python
-- It searches through the Python 3 documentation to find relevant parts
-- It uses a local LLM (via Ollama) to generate an answer based only on what it found
-- If it can't find anything relevant, it just says so instead of guessing
-- There's a simple web UI built with Streamlit where you can have multiple chat sessions
+* Answers questions about Python 3
+* Searches the official Python documentation for relevant information
+* Uses a local LLM via Ollama to generate responses based only on retrieved context
+* Refuses to answer when no relevant documentation is found
+* Provides clickable source links that automatically highlight the relevant text in the official documentation
+* Supports multiple chat sessions through a Streamlit web interface
 
 ---
 
-## How to run it
+## Requirements
 
-### Requirements
+* Python 3.10 or newer
+* Ollama installed and running
+* Python 3 HTML documentation downloaded locally
 
-- Python 3.10 or newer
-- [Ollama](https://ollama.com) installed and running
-- The Python 3 HTML documentation downloaded locally
+---
+
+## Installation
 
 ### 1. Install dependencies
 
@@ -28,78 +33,148 @@ This is my final project for college. It's a chatbot that answers questions abou
 pip install -r requirements.txt
 ```
 
-### 2. Pull the model
+### 2. Download the language model
 
 ```bash
 ollama pull qwen2.5:7b
 ```
 
-### 3. Download Python docs
+### 3. Download the Python documentation
 
-Download the Python 3 HTML docs from https://docs.python.org/3/download.html and extract them into a folder called `python_docs/` in the project root.
+Download the Python 3 HTML documentation from:
 
-### 4. Parse the docs
+https://docs.python.org/3/download.html
+
+Extract the files into a folder named:
+
+```
+python_docs/
+```
+
+located in the project root directory.
+
+---
+
+## Preparing the Knowledge Base
+
+### 1. Parse the documentation
 
 ```bash
 python load_docs.py
 ```
 
-This goes through all the HTML files, removes navigation and other junk, and saves the useful text into `docs/chunks/`.
+This script:
 
-### 5. Build the vector database
+* Processes all HTML documentation files
+* Removes navigation menus and unnecessary content
+* Extracts useful text
+* Saves the processed documents into:
+
+```
+docs/chunks/
+```
+
+### 2. Build the vector database
 
 ```bash
 python create_vector_db.py
 ```
 
-This takes all the chunks, turns them into embeddings, and saves a FAISS index to `vector_db/`. It saves progress as it goes so if it crashes you can just run it again and it continues where it left off.
+This script:
 
-### 6. Start the app
+* Loads the parsed documentation chunks
+* Splits documents while respecting Markdown structure
+* Generates embeddings
+* Builds and saves a FAISS vector index
+* Periodically saves progress during processing
 
-Web UI:
+The generated database is stored in:
+
+```
+vector_db/
+```
+
+---
+
+## Running the Chatbot
+
+### Streamlit Web UI
+
 ```bash
 streamlit run app.py
 ```
 
-Or if you prefer the terminal version:
+### Terminal Version
+
 ```bash
 python rag_chatbot.py
 ```
 
 ---
 
-## Project structure
+## Running Tests
 
+To verify the RAG engine's logic, including topic filtering and prompt generation:
+
+```bash
+pytest test_chatbot.py
 ```
+
+---
+
+## How It Works
+
+1. The user's question is first checked by a keyword filter to reject obviously unrelated topics.
+2. If previous conversation history exists, the query is rewritten into a standalone search query.
+3. The rewritten query is used to search the FAISS vector database.
+4. Retrieved documents are reranked using a CrossEncoder model.
+5. The highest-ranked documents, together with chat history, are provided to the LLM.
+6. The LLM generates an answer based only on the retrieved context.
+7. If the required information is not available, the chatbot states that it does not know.
+
+---
+
+## Models Used
+
+| Component  | Model                                  |
+| ---------- | -------------------------------------- |
+| LLM        | `qwen2.5:7b` (via Ollama)              |
+| Embeddings | `BAAI/bge-base-en-v1.5`                |
+| Reranker   | `cross-encoder/ms-marco-MiniLM-L-6-v2` |
+
+---
+
+## Project Structure
+
+```text
 ├── app.py                  # Streamlit web UI
-├── rag_chatbot.py          # Terminal version of the chatbot
-├── load_docs.py            # Parses HTML docs into text chunks
-├── create_vector_db.py     # Builds the FAISS vector database
+├── rag_chatbot.py          # Terminal chatbot
+├── rag_engine.py           # Core RAG pipeline
+├── config.py               # Global settings and thresholds
+├── test_chatbot.py         # Test suite
+├── load_docs.py            # HTML parser
+├── create_vector_db.py     # FAISS index builder
 ├── requirements.txt
-├── python_docs/            # Python 3 HTML docs go here 
+├── python_docs/            # Python HTML documentation
 ├── docs/
-│   └── chunks/             # Generated by load_docs.py
-└── vector_db/              # Generated by create_vector_db.py
+│   └── chunks/             # Parsed documentation chunks
+└── vector_db/              # Generated FAISS index
 ```
 
 ---
 
-## How it works (roughly)
+## Tech Stack
 
-1. The question goes through a keyword filter first to catch obvious off-topic stuff (like "what is a cat" or "what time is it")
-2. If there's chat history, the question gets rewritten into a standalone search query so it makes sense without context
-3. The rewritten query is used to search the FAISS vector database
-4. The distance score of the best result is checked, if it's too far from anything in the docs, it gives up early
-5. The retrieved documents get reranked using a CrossEncoder model to make sure the most relevant ones end up on top
-6. The top 3 documents are passed to the LLM as context
-7. The LLM answers based only on that context, if the answer isn't there, it says it doesn't know
+* Python
+* Streamlit
+* Ollama
+* FAISS
+* Sentence Transformers
+* CrossEncoder reranking
+* Retrieval-Augmented Generation (RAG)
 
 ---
 
-## Models
+## Purpose
 
-| What | Model |
-|---|---|
-| LLM | qwen2.5:7b (via Ollama) |
-| Embeddings | BAAI/bge-base-en-v1.5 |
-| Reranker | cross-encoder/ms-marco-MiniLM-L-6-v2 |
+This project was developed as a final college project to demonstrate the implementation of a local Retrieval-Augmented Generation system that combines document retrieval, semantic search, reranking, and local large language models to provide accurate, source-grounded answers from the official Python documentation.

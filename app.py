@@ -1,136 +1,7 @@
 import streamlit as st
 import ollama
-
-from langchain_community.vectorstores import FAISS
-from langchain_huggingface import HuggingFaceEmbeddings
-from sentence_transformers import CrossEncoder
-
-# ── Config ───────────────────────────────────────────────────────────────────
-VECTOR_DB_PATH = "vector_db"
-MODEL_NAME     = "qwen2.5:7b"
-TOP_K          = 8
-DOCS_URL       = "https://docs.python.org/3/"
-NO_INFO_PHRASE = "I don't have enough information in the documentation to answer this question."
-
-HARD_THRESHOLD = 1.05
-EASY_THRESHOLD = 0.65
-RERANK_CUTOFF  = 2.0
-
-# ── Load models ───────────────────────────────────────────────────────────────
-@st.cache_resource
-def load_db():
-    emb = HuggingFaceEmbeddings(model_name="BAAI/bge-base-en-v1.5")
-    return FAISS.load_local(VECTOR_DB_PATH, emb, allow_dangerous_deserialization=True)
-
-@st.cache_resource
-def load_reranker():
-    return CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
-
-db       = load_db()
-reranker = load_reranker()
-
-# ── RAG helpers ───────────────────────────────────────────────────────────────
-def is_clearly_offtopic(q: str) -> bool:
-    off_topic = [
-        "what time", "what is the time", "current time",
-        "what is a cat", "what is a dog", "what is a bird", "what is an animal",
-        "weather", "recipe", "cook", "sport", "movie", "music", "football",
-        "who is", "where is", "when was",
-    ]
-    return any(kw in q.lower() for kw in off_topic)
-
-def check_relevance_with_llm(question: str) -> bool:
-    prompt = (
-        "Is the following question related to Python programming, Python syntax, "
-        "Python libraries, or Python documentation?\n"
-        "Answer with exactly one word: YES or NO.\n\n"
-        f"Question: {question}\n\nAnswer:"
-    )
-    r = ollama.chat(model=MODEL_NAME, messages=[{"role": "user", "content": prompt}])
-    return r["message"]["content"].strip().upper().startswith("YES")
-
-def get_standalone_question(history, current_q: str) -> str:
-    if not history:
-        return current_q
-    hist_text = ""
-    for msg in history[-4:]:
-        role = "User" if msg["role"] == "user" else "Assistant"
-        hist_text += f"{role}: {msg['content']}\n"
-    prompt = (
-        "Rewrite the user's question as a short standalone search query (max 10 words).\n"
-        "Return ONLY the rewritten question, nothing else.\n\n"
-        f"Chat History:\n{hist_text}\n"
-        f"User's Question: {current_q}\n\nStandalone question:"
-    )
-    r = ollama.chat(model=MODEL_NAME, messages=[{"role": "user", "content": prompt}])
-    rewritten = r["message"]["content"].strip().splitlines()[0].strip().strip("'\"")
-    return rewritten if len(rewritten.split()) <= 15 else current_q
-
-def search_and_answer(question: str, history: list) -> dict:
-    if is_clearly_offtopic(question):
-        return {"answer": NO_INFO_PHRASE, "sources": [], "search_query": question, "blocked": True}
-
-    search_query = question
-    if history:
-        search_query = get_standalone_question(history, question)
-
-    faiss_results = db.similarity_search_with_score(search_query, k=TOP_K)
-    if not faiss_results:
-        return {"answer": NO_INFO_PHRASE, "sources": [], "search_query": search_query, "blocked": True}
-
-    best_faiss_score = faiss_results[0][1]
-
-    if best_faiss_score > HARD_THRESHOLD:
-        return {"answer": NO_INFO_PHRASE, "sources": [], "search_query": search_query, "blocked": True}
-    elif best_faiss_score > EASY_THRESHOLD:
-        if not check_relevance_with_llm(question):
-            return {"answer": NO_INFO_PHRASE, "sources": [], "search_query": search_query, "blocked": True}
-
-    docs_only = [doc for doc, _ in faiss_results]
-    pairs     = [(search_query, doc.page_content) for doc in docs_only]
-    rscores   = reranker.predict(pairs)
-    ranked    = sorted(zip(docs_only, rscores), key=lambda x: x[1], reverse=True)
-    valid_docs = [doc for doc, score in ranked if score > RERANK_CUTOFF][:3]
-
-    if not valid_docs:
-        return {"answer": NO_INFO_PHRASE, "sources": [], "search_query": search_query, "blocked": True}
-
-    context = "\n\n---\n\n".join(
-        f"[Source {i}: {doc.metadata.get('title','?')}]\n{doc.page_content}"
-        for i, doc in enumerate(valid_docs, 1)
-    )
-    system_prompt = (
-        "You are a Python documentation assistant.\n\n"
-        "STRICT RULES:\n"
-        "- Use ONLY information from the Documentation Context.\n"
-        f"- If the answer is not in the context, reply exactly: {NO_INFO_PHRASE}\n"
-        "- Keep answers short and factual."
-    )
-    response = ollama.chat(
-        model=MODEL_NAME,
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user",   "content": f"Documentation Context:\n{context}\n\nQuestion: {search_query}\n\nAnswer:"},
-        ],
-    )
-    answer = response["message"]["content"].strip()
-
-    sources = []
-    if NO_INFO_PHRASE.lower() not in answer.lower():
-        seen = []
-        for doc in valid_docs:
-            src = doc.metadata.get("source", "")
-            if src in seen:
-                continue
-            seen.append(src)
-            sources.append({
-                "title":   doc.metadata.get("title", "No title"),
-                "url":     DOCS_URL + src.replace("\\", "/"),
-                "preview": " ".join(doc.page_content.split())[:200],
-            })
-
-    return {"answer": answer, "sources": sources, "search_query": search_query, "blocked": False}
-
+import config
+import rag_engine
 
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(page_title="PyDocs Chat", layout="wide")
@@ -171,7 +42,6 @@ with st.sidebar:
         st.session_state.current = new_name
         st.rerun()
 
-    # Delete current session
     if len(st.session_state.sessions) > 1:
         if st.button("Delete Chat", use_container_width=True):
             del st.session_state.sessions[st.session_state.current]
@@ -208,7 +78,7 @@ else:
                     st.divider()
                     st.caption("Sources")
                     for s in sources:
-                        st.caption(f"**{s['title']}**  \n[{s['url']}]({s['url']})")
+                        st.caption(f"**{s['title']}**  \n[Read source & highlight]({s['url']})")
                         st.markdown(
                             f"<small style='color:gray'>{s['preview']}...</small>",
                             unsafe_allow_html=True
@@ -222,22 +92,63 @@ if user_input and user_input.strip():
     history.append({"role": "user", "content": question})
 
     with st.spinner("Searching..."):
-        result = search_and_answer(question, history[:-1])
+        try:
+            search_query = question
+            if len(history) > 1:
+                search_query = rag_engine.get_standalone_question(history[:-1], question)
 
-    history.append({
-        "role":              "assistant",
-        "content":           result["answer"],
-        "sources":           result["sources"],
-        "search_query":      result["search_query"],
-        "original_question": question,
-    })
+            valid_docs = rag_engine.retrieve_documents(search_query, question)
+            
+            if not valid_docs:
+                answer = config.NO_INFO_PHRASE
+                sources = []
+            else:
+                context = "\n\n---\n\n".join(
+                    f"[Source {i}: {doc.metadata.get('title','?')}]\n{doc.page_content}"
+                    for i, doc in enumerate(valid_docs, 1)
+                )
+                
+                messages = [{"role": "system", "content": rag_engine.get_system_prompt()}]
+                
+                for msg in history[-4:-1]:
+                    role = "user" if msg["role"] == "user" else "assistant"
+                    content = msg.get("original_question", msg["content"]) if role == "user" else msg["content"]
+                    messages.append({"role": role, "content": content})
+                
+                messages.append({
+                    "role": "user", 
+                    "content": f"Documentation Context:\n{context}\n\nQuestion: {search_query}\n\nAnswer:"
+                })
+                
+                response = ollama.chat(
+                    model=config.MODEL_NAME,
+                    messages=messages,
+                )
+                answer = response["message"]["content"].strip()
+                
+                if config.NO_INFO_PHRASE.lower() in answer.lower():
+                    sources = []
+                else:
+                    sources = rag_engine.format_sources(valid_docs)
 
-    # Auto-rename session on first message
-    if len(history) == 2 and st.session_state.current.startswith("New Chat"):
-        short = question[:28] + ("..." if len(question) > 28 else "")
-        sessions = dict(st.session_state.sessions)
-        sessions[short] = sessions.pop(st.session_state.current)
-        st.session_state.sessions = sessions
-        st.session_state.current  = short
+            history.append({
+                "role":              "assistant",
+                "content":           answer,
+                "sources":           sources,
+                "search_query":      search_query,
+                "original_question": question,
+            })
 
-    st.rerun()
+            if len(history) == 2 and st.session_state.current.startswith("New Chat"):
+                short = question[:28] + ("..." if len(question) > 28 else "")
+                sessions = dict(st.session_state.sessions)
+                sessions[short] = sessions.pop(st.session_state.current)
+                st.session_state.sessions = sessions
+                st.session_state.current  = short
+
+            st.rerun()
+
+        except Exception as e:
+            st.error(f"Error connecting to models: {e}")
+            if len(history) > 0:
+                history.pop() 

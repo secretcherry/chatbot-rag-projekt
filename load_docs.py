@@ -133,9 +133,6 @@ for root, dirs, files in os.walk(DOCS_FOLDER):
                 if len(text) < 5:
                     continue
 
-                if not text or len(text) < 3:
-                    continue
-
                 if elem.name == "h1":
                     text_parts.append(f"\n# {text}\n")
                 elif elem.name == "h2":

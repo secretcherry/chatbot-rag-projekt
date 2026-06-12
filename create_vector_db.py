@@ -7,32 +7,26 @@ from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-CHUNKS_FOLDER   = "docs/chunks"
-VECTOR_DB_PATH  = "vector_db"
-CHECKPOINT_FILE = "docs/checkpoint.json"
-CHUNK_SIZE = 1200
-CHUNK_OVERLAP = 200
+import config
 
-BATCH_SIZE = 50
-
-all_files = sorted(Path(CHUNKS_FOLDER).glob("*.txt"))
+all_files = sorted(Path(config.CHUNKS_FOLDER).glob("*.txt"))
 
 if not all_files:
-    print(f"No files found in {CHUNKS_FOLDER}/")
+    print(f"No files found in {config.CHUNKS_FOLDER}/")
     print("Run first: python load_docs.py")
     exit()
 
 print("=" * 50)
 print("Creating vector database")
 print(f"Number of files: {len(all_files)}")
-print(f"Chunk size: {CHUNK_SIZE}, overlap: {CHUNK_OVERLAP}")
-print(f"Batch size: {BATCH_SIZE}")
+print(f"Chunk size: {config.CHUNK_SIZE}, overlap: {config.CHUNK_OVERLAP}")
+print(f"Batch size: {config.BATCH_SIZE}")
 print("=" * 50)
 
 done_files = set()
 
-if Path(CHECKPOINT_FILE).exists():
-    with open(CHECKPOINT_FILE, "r") as f:
+if Path(config.CHECKPOINT_FILE).exists():
+    with open(config.CHECKPOINT_FILE, "r") as f:
         data = json.load(f)
         done_files = set(data.get("done", []))
 
@@ -49,9 +43,9 @@ if not remaining:
     exit()
 
 splitter = RecursiveCharacterTextSplitter(
-    chunk_size=CHUNK_SIZE,
-    chunk_overlap=CHUNK_OVERLAP,
-    separators=["\n\n", "\n", ". ", " ", ""],
+    chunk_size=config.CHUNK_SIZE,
+    chunk_overlap=config.CHUNK_OVERLAP,
+    separators=["\n# ", "\n## ", "\n### ", "\n\n", "\n", ". ", " ", ""],
 )
 
 print("Loading embedding model (may take a while the first time)...")
@@ -62,10 +56,10 @@ print("Model ready!\n")
 
 db = None
 
-if Path(VECTOR_DB_PATH).exists() and done_files:
+if Path(config.VECTOR_DB_PATH).exists() and done_files:
     print("Loading existing FAISS database...")
     db = FAISS.load_local(
-        VECTOR_DB_PATH,
+        config.VECTOR_DB_PATH,
         embeddings,
         allow_dangerous_deserialization=True
     )
@@ -74,11 +68,11 @@ if Path(VECTOR_DB_PATH).exists() and done_files:
 total_chunks = 0
 batch_num = 0
 
-for start in range(0, len(remaining), BATCH_SIZE):
-    batch = remaining[start : start + BATCH_SIZE]
+for start in range(0, len(remaining), config.BATCH_SIZE):
+    batch = remaining[start : start + config.BATCH_SIZE]
     batch_num += 1
 
-    end = min(start + BATCH_SIZE, len(remaining))
+    end = min(start + config.BATCH_SIZE, len(remaining))
     print(f"Batch {batch_num} (files {start + 1}-{end} of {len(remaining)})")
 
     batch_docs = []
@@ -127,7 +121,7 @@ for start in range(0, len(remaining), BATCH_SIZE):
     if not batch_docs:
         for f in batch:
             done_files.add(f.name)
-        with open(CHECKPOINT_FILE, "w") as f:
+        with open(config.CHECKPOINT_FILE, "w") as f:
             json.dump({"done": list(done_files)}, f, indent=2)
         continue
 
@@ -144,13 +138,13 @@ for start in range(0, len(remaining), BATCH_SIZE):
         elapsed = time.time() - t0
         print(f" done! ({elapsed:.1f}s)")
 
-        db.save_local(VECTOR_DB_PATH)
+        db.save_local(config.VECTOR_DB_PATH)
 
         for f in batch:
             done_files.add(f.name)
 
-        Path(CHECKPOINT_FILE).parent.mkdir(parents=True, exist_ok=True)
-        with open(CHECKPOINT_FILE, "w") as f:
+        Path(config.CHECKPOINT_FILE).parent.mkdir(parents=True, exist_ok=True)
+        with open(config.CHECKPOINT_FILE, "w") as f:
             json.dump({"done": list(done_files)}, f, indent=2)
 
         print(f"  Database saved. Total chunks so far: {total_chunks}\n")
@@ -158,7 +152,7 @@ for start in range(0, len(remaining), BATCH_SIZE):
     except Exception as e:
         print(f"\n  Error embedding batch {batch_num}: {e}")
         print("  Checkpoint saved - run the script again to continue.")
-        with open(CHECKPOINT_FILE, "w") as f:
+        with open(config.CHECKPOINT_FILE, "w") as f:
             json.dump({"done": list(done_files)}, f, indent=2)
         exit()
 
@@ -166,5 +160,5 @@ print("=" * 50)
 print("DONE!")
 print(f"Files processed: {len(done_files)}")
 print(f"Total chunks:    {total_chunks}")
-print(f"Database saved to: {VECTOR_DB_PATH}/")
+print(f"Database saved to: {config.VECTOR_DB_PATH}/")
 print("=" * 50)
